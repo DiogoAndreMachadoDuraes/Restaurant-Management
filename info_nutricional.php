@@ -1,6 +1,6 @@
 <?php
 
-//criaçao da classe alergenio
+//criaçao da classe informacao nutricional
 
 class info_nutricional
 {                                
