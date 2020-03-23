@@ -60,7 +60,7 @@ class fatura
      {
       $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
-     $sql = "UPDATE fatura SET , iva=@iva, taxa=@taxa WHERE id_fatura=@id_fatura ";
+     $sql = "UPDATE fatura SET iva=@iva, taxa=@taxa WHERE id_fatura=@id_fatura ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
