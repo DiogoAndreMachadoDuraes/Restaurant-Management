@@ -66,7 +66,7 @@ class takeaway
      {
       $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
-     $sql = "UPDATE takeaway SET , preco=@preco, data=@data, hora=@hora, tipodeentrega=@tipodeentrega WHERE id_take=@id_take ";
+     $sql = "UPDATE takeaway SET preco=@preco, data=@data, hora=@hora, tipodeentrega=@tipodeentrega WHERE id_take=@id_take ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
