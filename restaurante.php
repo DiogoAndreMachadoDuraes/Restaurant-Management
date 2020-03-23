@@ -1,6 +1,6 @@
 <?php
 
-//criaçao da classe alergenio
+//criaçao da classe restaurante
 
 class restaurante
 {                                
