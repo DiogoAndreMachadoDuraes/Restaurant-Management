@@ -63,7 +63,7 @@ class gestor
      {
       $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
-     $sql = "UPDATE gestor SET , nome=@nome, telefone=@telefone, email=@email WHERE id_gestor=@id_gestor ";
+     $sql = "UPDATE gestor SET nome=@nome, telefone=@telefone, email=@email WHERE id_gestor=@id_gestor ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
