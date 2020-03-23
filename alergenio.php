@@ -60,7 +60,7 @@ class alergenio
      {
       $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
-     $sql = "UPDATE alergenio SET , tipo=@tipo, descricao=@descricao WHERE id_alerge=@id_alerge ";
+     $sql = "UPDATE alergenio SET tipo=@tipo, descricao=@descricao WHERE id_alerge=@id_alerge ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
