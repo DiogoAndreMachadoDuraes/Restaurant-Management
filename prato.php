@@ -66,7 +66,7 @@ class prato
      {
       $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
-     $sql = "UPDATE prato SET , nomeprato=@nomeprato, quantidade=@quantidade, descricao=@descricao, preco=@preco WHERE id_prato=@id_prato ";
+     $sql = "UPDATE prato SET nomeprato=@nomeprato, quantidade=@quantidade, descricao=@descricao, preco=@preco WHERE id_prato=@id_prato ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
