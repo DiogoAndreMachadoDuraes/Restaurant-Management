@@ -63,7 +63,7 @@ class info_nutricional
      {
       $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
-     $sql = "UPDATE info_nutricional SET , tipo=@tipo, quantidade_nutrientes=@quantidade_nutrientes, descricao=@descricao WHERE id_nutri=@nutri ";
+     $sql = "UPDATE info_nutricional SET tipo=@tipo, quantidade_nutrientes=@quantidade_nutrientes, descricao=@descricao WHERE id_nutri=@nutri ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
