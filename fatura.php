@@ -1,5 +1,6 @@
 <?php
 
+include_once 'DAL/ConectionDB.php';
 //criaçao da classe fatura
 
 class fatura
@@ -15,9 +16,10 @@ class fatura
      $this->taxa = $taxa;
    }
 
-   public function CreatTable()
+   public function CreateTable()
    {
-   
+   $con=ConnectionDB::Connect();
+     
     $sql = "CREATE TABLE Fatura ( id_fatura INT(50), iva VARCHAR(50), taxa VARCHAR(50), PRIMARY KEY (id_fatura))";
     if ($con->query($sql) === TRUE){
         echo "tabela fatura criada";
@@ -31,6 +33,7 @@ class fatura
     
      public function Select ()
      {
+       $con=ConnectionDB::Connect();
       
      $sql = "SELECT * FROM fatura";
      $result = mysqli_query($con, $sql);
@@ -56,7 +59,7 @@ class fatura
  
    public function Update ($id_fatura, $iva, $taxa)
      {
-
+$con=ConnectionDB::Connect();
 
      $sql = "UPDATE fatura SET iva=@iva, taxa=@taxa WHERE id_fatura=@id_fatura ";
      $result = mysqli_query($con, $sql);
@@ -70,6 +73,7 @@ class fatura
  
      public function Insert ($id_fatura, $iva, $taxa)
      {
+       $con=ConnectionDB::Connect();
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -85,7 +89,8 @@ class fatura
  
        public function Delete ($id_fatura, $iva, $taxa)
      { 
-
+$con=ConnectionDB::Connect();
+         
        if(!$con) { trigger_error(mysqli_connect_error());}
  
        $sql = "DELETE FROM fatura WHERE id_fatura=@id_fatura AND iva=@iva AND taxa=@taxa";
