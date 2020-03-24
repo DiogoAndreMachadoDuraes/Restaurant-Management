@@ -21,8 +21,7 @@ class takeaway
 
    public function CreatTable()
    {
-    $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+    
     $sql = "CREATE TABLE Takeaway ( id_take  INT(50), preco VARCHAR(50), data VARCHAR(50), hora VARCHAR(50), tipodeentrega VARCHAR(50) PRIMARY KEY (id_take))";
     if ($con->query($sql) === TRUE){
         echo "tabela takeaway criada";
@@ -36,7 +35,7 @@ class takeaway
     
      public function Select ()
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+     
 
      $sql = "SELECT * FROM takeaway";
      $result = mysqli_query($con, $sql);
@@ -64,8 +63,7 @@ class takeaway
  
    public function Update ($id_take, $preco, $data, $hora, $tipodeentrega)
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+   
      $sql = "UPDATE takeaway SET preco=@preco, data=@data, hora=@hora, tipodeentrega=@tipodeentrega WHERE id_take=@id_take ";
      $result = mysqli_query($con, $sql);
      if(!$result){
@@ -79,8 +77,7 @@ class takeaway
      public function Insert ($id_take, $preco, $data, $hora, $tipodeentrega)
      {
 
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+      
      if(!$con) { trigger_error(mysqli_connect_error());}
  
      $sql = "INSERT INTO takeaway (id_take, preco, data, hora, tipodeentrega) VALUES (@id_take, @preco, @data, @hora, @tipodeentrega) ";
@@ -95,7 +92,7 @@ class takeaway
  
        public function Delete ($id_take, $preco, $data, $hora, $tipodeentrega)
      {  
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+      
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
