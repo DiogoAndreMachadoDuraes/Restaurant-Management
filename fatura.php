@@ -3,13 +3,13 @@
 include_once 'DAL/ConectionDB.php';
 //criaçao da classe fatura
 
-class fatura
+class Fatura
 {                                
   public int $id_fatura;
   public string $iva;
   public string $taxa;
 
-   public function fatura()
+   public function Fatura()
    {
      $this->id_fatura = $id_fatura;
      $this->iva = $iva;
@@ -35,7 +35,7 @@ class fatura
      {
        $con=ConnectionDB::Connect();
       
-     $sql = "SELECT * FROM fatura";
+     $sql = "SELECT * FROM Fatura";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -61,7 +61,7 @@ class fatura
      {
 $con=ConnectionDB::Connect();
 
-     $sql = "UPDATE fatura SET iva=@iva, taxa=@taxa WHERE id_fatura=@id_fatura ";
+     $sql = "UPDATE Fatura SET iva=@iva, taxa=@taxa WHERE id_fatura=@id_fatura ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -77,7 +77,7 @@ $con=ConnectionDB::Connect();
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
-     $sql = "INSERT INTO fatura (id_fatura, iva, taxa) VALUES (@id_fatura, @iva, @taxa) ";
+     $sql = "INSERT INTO Fatura (id_fatura, iva, taxa) VALUES (@id_fatura, @iva, @taxa) ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -93,7 +93,7 @@ $con=ConnectionDB::Connect();
          
        if(!$con) { trigger_error(mysqli_connect_error());}
  
-       $sql = "DELETE FROM fatura WHERE id_fatura=@id_fatura AND iva=@iva AND taxa=@taxa";
+       $sql = "DELETE FROM Fatura WHERE id_fatura=@id_fatura AND iva=@iva AND taxa=@taxa";
        $result = mysqli_query($con, $sql);
        if(!$result){
            die('Could not query:'.mysqli_error($con));
