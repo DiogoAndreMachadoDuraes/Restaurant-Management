@@ -17,8 +17,7 @@ class fatura
 
    public function CreatTable()
    {
-    $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+   
     $sql = "CREATE TABLE Fatura ( id_fatura INT(50), iva VARCHAR(50), taxa VARCHAR(50), PRIMARY KEY (id_fatura))";
     if ($con->query($sql) === TRUE){
         echo "tabela fatura criada";
@@ -32,8 +31,7 @@ class fatura
     
      public function Select ()
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+      
      $sql = "SELECT * FROM fatura";
      $result = mysqli_query($con, $sql);
      if(!$result){
@@ -58,7 +56,7 @@ class fatura
  
    public function Update ($id_fatura, $iva, $taxa)
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+
 
      $sql = "UPDATE fatura SET iva=@iva, taxa=@taxa WHERE id_fatura=@id_fatura ";
      $result = mysqli_query($con, $sql);
@@ -73,8 +71,6 @@ class fatura
      public function Insert ($id_fatura, $iva, $taxa)
      {
 
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
      if(!$con) { trigger_error(mysqli_connect_error());}
  
      $sql = "INSERT INTO fatura (id_fatura, iva, taxa) VALUES (@id_fatura, @iva, @taxa) ";
@@ -88,8 +84,7 @@ class fatura
        //Delete
  
        public function Delete ($id_fatura, $iva, $taxa)
-     {  
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+     { 
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
