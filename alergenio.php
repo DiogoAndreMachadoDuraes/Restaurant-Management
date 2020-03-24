@@ -4,13 +4,13 @@ include_once 'DAL/ConectionDB.php';
 
 //criaçao da classe alergenio
 
-class alergenio
+class Alergenio
 {                                
   public int $id_alerge;
   public string $tipo;
   public string $descricao;
 
-   public function alergenio()
+   public function Alergenio()
    {
      $this->id_alerge = $id_alerge;
      $this->tipo = $tipo;
@@ -37,7 +37,7 @@ class alergenio
      {
     $con=ConnectionDB::Connect();
        
-     $sql = "SELECT * FROM alergenio";
+     $sql = "SELECT * FROM Alergenio";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -63,7 +63,7 @@ class alergenio
      {
    $con=ConnectionDB::Connect();
 
-     $sql = "UPDATE alergenio SET tipo=@tipo, descricao=@descricao WHERE id_alerge=@id_alerge ";
+     $sql = "UPDATE Alergenio SET tipo=@tipo, descricao=@descricao WHERE id_alerge=@id_alerge ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -79,7 +79,7 @@ class alergenio
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
-     $sql = "INSERT INTO alergenio (id_alerge, tipo, descricao) VALUES (@id_alerge, @tipo, @descricao) ";
+     $sql = "INSERT INTO Alergenio (id_alerge, tipo, descricao) VALUES (@id_alerge, @tipo, @descricao) ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -96,7 +96,7 @@ class alergenio
       
        if(!$con) { trigger_error(mysqli_connect_error());}
  
-       $sql = "DELETE FROM alergenio WHERE id_alerge=@id_alerge AND tipo=@tipo AND descricao=@descricao";
+       $sql = "DELETE FROM Alergenio WHERE id_alerge=@id_alerge AND tipo=@tipo AND descricao=@descricao";
        $result = mysqli_query($con, $sql);
        if(!$result){
            die('Could not query:'.mysqli_error($con));
