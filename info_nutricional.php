@@ -19,7 +19,7 @@ class info_nutricional
 
    public function CreatTable()
    {
-    $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+   
 
     $sql = "CREATE TABLE Info_nutricional ( id_nutri  INT(50), tipo VARCHAR(50),quantidade_nutrientes VARCHAR(50), descricao VARCHAR(50), PRIMARY KEY (id_nutri))";
     if ($con->query($sql) === TRUE){
@@ -34,8 +34,7 @@ class info_nutricional
     
      public function Select ()
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+     
      $sql = "SELECT * FROM info_nutricional";
      $result = mysqli_query($con, $sql);
      if(!$result){
@@ -61,7 +60,7 @@ class info_nutricional
  
    public function Update ($id_nutri, $tipo, $quantidade_nutrientes, $descricao)
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+    
 
      $sql = "UPDATE info_nutricional SET tipo=@tipo, quantidade_nutrientes=@quantidade_nutrientes, descricao=@descricao WHERE id_nutri=@nutri ";
      $result = mysqli_query($con, $sql);
@@ -75,8 +74,6 @@ class info_nutricional
  
      public function Insert ($id_nutri, $tipo, $quantidade_nutrientes, $descricao)
      {
-
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -92,8 +89,7 @@ class info_nutricional
  
        public function Delete ($id_nutri, $tipo, $quantidade_nutrientes, $descricao)
      {  
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+      
        if(!$con) { trigger_error(mysqli_connect_error());}
  
        $sql = "DELETE FROM info_nutricional WHERE id_nutri=@id_nutri AND tipo=@tipo AND quantidade_nutrientes=@quantidade_nutrientes AND descricao=@descricao";
