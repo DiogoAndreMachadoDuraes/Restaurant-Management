@@ -1,5 +1,6 @@
 <?php
 
+include_once 'DAL/ConectionDB.php';
 //criaçao da classe gestor
 
 class gestor
@@ -17,9 +18,10 @@ class gestor
      $this->email = $email;
    }
 
-   public function CreatTable()
+   public function CreateTable()
    {
    
+ $con=ConnectionDB::Connect();
 
     $sql = "CREATE TABLE Gestor ( id_gestor  INT(50), nome VARCHAR(50), telefone VARCHAR(50), email VARCHAR(50) PRIMARY KEY (id_gestor))";
     if ($con->query($sql) === TRUE){
@@ -35,6 +37,7 @@ class gestor
      public function Select ()
      {
      
+ $con=ConnectionDB::Connect();
 
      $sql = "SELECT * FROM gestor";
      $result = mysqli_query($con, $sql);
@@ -62,6 +65,8 @@ class gestor
    public function Update ($id_gestor, $nome, $telefone, $email)
      {
      
+ $con=ConnectionDB::Connect();
+     
      $sql = "UPDATE gestor SET nome=@nome, telefone=@telefone, email=@email WHERE id_gestor=@id_gestor ";
      $result = mysqli_query($con, $sql);
      if(!$result){
@@ -74,6 +79,8 @@ class gestor
  
      public function Insert ($id_gestor, $nome, $telefone, $email)
      {
+       
+ $con=ConnectionDB::Connect();
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -90,6 +97,7 @@ class gestor
        public function Delete ($id_gestor, $nome, $telefone, $email)
      {  
       
+ $con=ConnectionDB::Connect();
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
