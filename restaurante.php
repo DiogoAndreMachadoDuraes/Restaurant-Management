@@ -21,7 +21,7 @@ class restaurante
 
    public function CreatTable()
    {
-    $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+   
 
     $sql = "CREATE TABLE Restaurante ( id_restaurante INT(50), nome VARCHAR(50), localizacao VARCHAR(50), telefone VARCHAR(50), email VARCHAR(50) PRIMARY KEY (id_restaurante))";
     if ($con->query($sql) === TRUE){
@@ -36,7 +36,6 @@ class restaurante
     
      public function Select ()
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
      $sql = "SELECT * FROM restaurante";
      $result = mysqli_query($con, $sql);
@@ -64,7 +63,7 @@ class restaurante
  
    public function Update ($id_restaurante, $nome, $localizacao, $telefone, $email)
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+      
 
      $sql = "UPDATE restaurante SET nome=@nome, localizacao=@localizacao, telefone=@telefone, email=@email WHERE id_restaurante=@id_restaurante ";
      $result = mysqli_query($con, $sql);
@@ -79,7 +78,7 @@ class restaurante
      public function Insert ($id_restaurante, $nome, $localizacao, $telefone, $email)
      {
 
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+      
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -95,7 +94,7 @@ class restaurante
  
        public function Delete ($id_restaurante, $nome, $localizacao, $telefone, $email)
      {  
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+     
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
