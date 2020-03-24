@@ -19,7 +19,7 @@ class gestor
 
    public function CreatTable()
    {
-    $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+   
 
     $sql = "CREATE TABLE Gestor ( id_gestor  INT(50), nome VARCHAR(50), telefone VARCHAR(50), email VARCHAR(50) PRIMARY KEY (id_gestor))";
     if ($con->query($sql) === TRUE){
@@ -34,7 +34,7 @@ class gestor
     
      public function Select ()
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+     
 
      $sql = "SELECT * FROM gestor";
      $result = mysqli_query($con, $sql);
@@ -61,8 +61,7 @@ class gestor
  
    public function Update ($id_gestor, $nome, $telefone, $email)
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+     
      $sql = "UPDATE gestor SET nome=@nome, telefone=@telefone, email=@email WHERE id_gestor=@id_gestor ";
      $result = mysqli_query($con, $sql);
      if(!$result){
@@ -75,8 +74,6 @@ class gestor
  
      public function Insert ($id_gestor, $nome, $telefone, $email)
      {
-
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -92,7 +89,7 @@ class gestor
  
        public function Delete ($id_gestor, $nome, $telefone, $email)
      {  
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+      
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
