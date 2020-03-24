@@ -3,14 +3,14 @@
 include_once 'DAL/ConectionDB.php';
 //criaçao da classe informacao nutricional
 
-class info_nutricional
+class Info_nutricional
 {                                
   public int $id_nutri;
   public string $tipo;
   public string $quantidade_nutrientes;
   public string $descricao;
 
-   public function info_nutricional()
+   public function Info_nutricional()
    {
      $this->id_nutri = $id_nutri;
      $this->tipo = $tipo;
@@ -39,7 +39,7 @@ class info_nutricional
         $con=ConnectionDB::Connect();
 
      
-     $sql = "SELECT * FROM info_nutricional";
+     $sql = "SELECT * FROM Info_nutricional";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -67,7 +67,7 @@ class info_nutricional
      $con=ConnectionDB::Connect();
 
 
-     $sql = "UPDATE info_nutricional SET tipo=@tipo, quantidade_nutrientes=@quantidade_nutrientes, descricao=@descricao WHERE id_nutri=@nutri ";
+     $sql = "UPDATE Info_nutricional SET tipo=@tipo, quantidade_nutrientes=@quantidade_nutrientes, descricao=@descricao WHERE id_nutri=@nutri ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -84,7 +84,7 @@ class info_nutricional
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
-     $sql = "INSERT INTO info_nutricional (id_nutri, tipo, quantidade_nutrientes, descricao) VALUES (@id_nutri, @tipo, @quantidade_nutrientes, @descricao) ";
+     $sql = "INSERT INTO Info_nutricional (id_nutri, tipo, quantidade_nutrientes, descricao) VALUES (@id_nutri, @tipo, @quantidade_nutrientes, @descricao) ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -101,7 +101,7 @@ class info_nutricional
       
        if(!$con) { trigger_error(mysqli_connect_error());}
  
-       $sql = "DELETE FROM info_nutricional WHERE id_nutri=@id_nutri AND tipo=@tipo AND quantidade_nutrientes=@quantidade_nutrientes AND descricao=@descricao";
+       $sql = "DELETE FROM Info_nutricional WHERE id_nutri=@id_nutri AND tipo=@tipo AND quantidade_nutrientes=@quantidade_nutrientes AND descricao=@descricao";
        $result = mysqli_query($con, $sql);
        if(!$result){
            die('Could not query:'.mysqli_error($con));
