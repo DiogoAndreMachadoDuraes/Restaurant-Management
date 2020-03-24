@@ -1,5 +1,6 @@
 <?php
 
+include_once 'DAL/ConectionDB.php';
 //criaçao da classe informacao nutricional
 
 class info_nutricional
@@ -17,9 +18,10 @@ class info_nutricional
      $this->descricao = $descricao;
    }
 
-   public function CreatTable()
+   public function CreateTable()
    {
-   
+    $con=ConnectionDB::Connect();
+
 
     $sql = "CREATE TABLE Info_nutricional ( id_nutri  INT(50), tipo VARCHAR(50),quantidade_nutrientes VARCHAR(50), descricao VARCHAR(50), PRIMARY KEY (id_nutri))";
     if ($con->query($sql) === TRUE){
@@ -34,6 +36,8 @@ class info_nutricional
     
      public function Select ()
      {
+        $con=ConnectionDB::Connect();
+
      
      $sql = "SELECT * FROM info_nutricional";
      $result = mysqli_query($con, $sql);
@@ -60,7 +64,8 @@ class info_nutricional
  
    public function Update ($id_nutri, $tipo, $quantidade_nutrientes, $descricao)
      {
-    
+     $con=ConnectionDB::Connect();
+
 
      $sql = "UPDATE info_nutricional SET tipo=@tipo, quantidade_nutrientes=@quantidade_nutrientes, descricao=@descricao WHERE id_nutri=@nutri ";
      $result = mysqli_query($con, $sql);
@@ -74,6 +79,8 @@ class info_nutricional
  
      public function Insert ($id_nutri, $tipo, $quantidade_nutrientes, $descricao)
      {
+        $con=ConnectionDB::Connect();
+
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -89,6 +96,8 @@ class info_nutricional
  
        public function Delete ($id_nutri, $tipo, $quantidade_nutrientes, $descricao)
      {  
+          $con=ConnectionDB::Connect();
+
       
        if(!$con) { trigger_error(mysqli_connect_error());}
  
