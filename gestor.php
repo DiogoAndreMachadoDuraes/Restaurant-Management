@@ -3,14 +3,14 @@
 include_once 'DAL/ConectionDB.php';
 //criaçao da classe gestor
 
-class gestor
+class Gestor
 {                                
   public int $id_gestor;
   public string $nome;
   public string $telefone;
   public string $email;
 
-   public function gestor()
+   public function Gestor()
    {
      $this->id_gestor = $id_gestor;
      $this->nome = $nome;
@@ -39,7 +39,7 @@ class gestor
      
  $con=ConnectionDB::Connect();
 
-     $sql = "SELECT * FROM gestor";
+     $sql = "SELECT * FROM Gestor";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -67,7 +67,7 @@ class gestor
      
  $con=ConnectionDB::Connect();
      
-     $sql = "UPDATE gestor SET nome=@nome, telefone=@telefone, email=@email WHERE id_gestor=@id_gestor ";
+     $sql = "UPDATE Gestor SET nome=@nome, telefone=@telefone, email=@email WHERE id_gestor=@id_gestor ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -84,7 +84,7 @@ class gestor
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
-     $sql = "INSERT INTO gestor (id_gestor, nome, telefone, email) VALUES (@id_gestor, @nome, @telefone, @email) ";
+     $sql = "INSERT INTO Gestor (id_gestor, nome, telefone, email) VALUES (@id_gestor, @nome, @telefone, @email) ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -101,7 +101,7 @@ class gestor
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
-       $sql = "DELETE FROM gestor WHERE id_gestor=@id_gestor AND nome=@nome AND telefone=@telefone AND email=@email";
+       $sql = "DELETE FROM Gestor WHERE id_gestor=@id_gestor AND nome=@nome AND telefone=@telefone AND email=@email";
        $result = mysqli_query($con, $sql);
        if(!$result){
            die('Could not query:'.mysqli_error($con));
