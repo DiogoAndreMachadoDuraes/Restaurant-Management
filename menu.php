@@ -17,7 +17,7 @@ class menu
 
    public function CreatTable()
    {
-    $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+    
 
     $sql = "CREATE TABLE Menu ( numero_menu  INT(50), valormenu VARCHAR(50), descricao VARCHAR(50), PRIMARY KEY (numero_menu))";
     if ($con->query($sql) === TRUE){
@@ -32,8 +32,7 @@ class menu
     
      public function Select ()
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+    
      $sql = "SELECT * FROM menu";
      $result = mysqli_query($con, $sql);
      if(!$result){
@@ -58,7 +57,7 @@ class menu
  
    public function Update ($numero_menu, $valormenu, $descricao)
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+      
 
      $sql = "UPDATE menu SET valormenu=@valormenu, descricao=@descricao  WHERE numero_menu=@numero_menu ";
      $result = mysqli_query($con, $sql);
@@ -72,8 +71,6 @@ class menu
  
      public function Insert ($numero_menu, $valormenu, $descricao)
      {
-
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -89,7 +86,7 @@ class menu
  
        public function Delete ($numero_menu, $valormenu, $descricao)
      {  
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+     
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
