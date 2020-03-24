@@ -1,8 +1,9 @@
 <?php
 
+include_once 'DAL/ConectionDB.php';
 //criaçao da classe takeaway
 
-class takeaway
+class Takeaway
 {                                
   public int $id_take;
   public string $preco;
@@ -10,7 +11,7 @@ class takeaway
   public string $hora;
   public string $tipodeentrega;
 
-   public function alergenio()
+   public function Takeaway()
    {
      $this->id_take = $id_take;
      $this->preco = $preco;
@@ -19,8 +20,9 @@ class takeaway
      $this->tipodeentrega = $tipodeentrega;
    }
 
-   public function CreatTable()
+   public function CreateTable()
    {
+      $con=ConnectionDB::Connect();
     
     $sql = "CREATE TABLE Takeaway ( id_take  INT(50), preco VARCHAR(50), data VARCHAR(50), hora VARCHAR(50), tipodeentrega VARCHAR(50) PRIMARY KEY (id_take))";
     if ($con->query($sql) === TRUE){
@@ -35,9 +37,9 @@ class takeaway
     
      public function Select ()
      {
-     
+      $con=ConnectionDB::Connect();
 
-     $sql = "SELECT * FROM takeaway";
+     $sql = "SELECT * FROM Takeaway";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -63,8 +65,9 @@ class takeaway
  
    public function Update ($id_take, $preco, $data, $hora, $tipodeentrega)
      {
+      $con=ConnectionDB::Connect();
    
-     $sql = "UPDATE takeaway SET preco=@preco, data=@data, hora=@hora, tipodeentrega=@tipodeentrega WHERE id_take=@id_take ";
+     $sql = "UPDATE Takeaway SET preco=@preco, data=@data, hora=@hora, tipodeentrega=@tipodeentrega WHERE id_take=@id_take ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -76,11 +79,11 @@ class takeaway
  
      public function Insert ($id_take, $preco, $data, $hora, $tipodeentrega)
      {
-
+ $con=ConnectionDB::Connect();
       
      if(!$con) { trigger_error(mysqli_connect_error());}
  
-     $sql = "INSERT INTO takeaway (id_take, preco, data, hora, tipodeentrega) VALUES (@id_take, @preco, @data, @hora, @tipodeentrega) ";
+     $sql = "INSERT INTO Takeaway (id_take, preco, data, hora, tipodeentrega) VALUES (@id_take, @preco, @data, @hora, @tipodeentrega) ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -92,11 +95,12 @@ class takeaway
  
        public function Delete ($id_take, $preco, $data, $hora, $tipodeentrega)
      {  
+          $con=ConnectionDB::Connect();
       
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
-       $sql = "DELETE FROM takeaway WHERE id_take=@id_take AND preco=@preco AND data=@data AND hora=@hora AND tipodeentrega=@tipodeentrega";
+       $sql = "DELETE FROM Takeaway WHERE id_take=@id_take AND preco=@preco AND data=@data AND hora=@hora AND tipodeentrega=@tipodeentrega";
        $result = mysqli_query($con, $sql);
        if(!$result){
            die('Could not query:'.mysqli_error($con));
