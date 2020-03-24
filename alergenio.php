@@ -17,7 +17,7 @@ class alergenio
 
    public function CreatTable()
    {
-    $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+    
 
     $sql = "CREATE TABLE Alergenio ( id_alerge  INT(50), tipo VARCHAR(50), descricao VARCHAR(50), PRIMARY KEY (id_alerge))";
     if ($con->query($sql) === TRUE){
@@ -32,8 +32,7 @@ class alergenio
     
      public function Select ()
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+    
      $sql = "SELECT * FROM alergenio";
      $result = mysqli_query($con, $sql);
      if(!$result){
@@ -58,7 +57,7 @@ class alergenio
  
    public function Update ($id_alerge, $tipo, $descricao)
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+   
 
      $sql = "UPDATE alergenio SET tipo=@tipo, descricao=@descricao WHERE id_alerge=@id_alerge ";
      $result = mysqli_query($con, $sql);
@@ -72,8 +71,6 @@ class alergenio
  
      public function Insert ($id_alerge, $tipo, $descricao)
      {
-
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -89,8 +86,7 @@ class alergenio
  
        public function Delete ($id_alerge, $tipo, $descricao)
      {  
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+      
        if(!$con) { trigger_error(mysqli_connect_error());}
  
        $sql = "DELETE FROM alergenio WHERE id_alerge=@id_alerge AND tipo=@tipo AND descricao=@descricao";
