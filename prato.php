@@ -21,8 +21,7 @@ class prato
 
    public function CreatTable()
    {
-    $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+  
     $sql = "CREATE TABLE Prato ( id_prato  INT(50), nomeprato VARCHAR(50), quantidade VARCHAR(50), descricao VARCHAR(50), preco VARCHAR(50) PRIMARY KEY (id_prato))";
     if ($con->query($sql) === TRUE){
         echo "tabela prato criada";
@@ -36,7 +35,7 @@ class prato
     
      public function Select ()
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+     
 
      $sql = "SELECT * FROM prato";
      $result = mysqli_query($con, $sql);
@@ -64,7 +63,7 @@ class prato
  
    public function Update ($id_prato, $nomeprato, $quantidade ,$descricao, $preco)
      {
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+     
 
      $sql = "UPDATE prato SET nomeprato=@nomeprato, quantidade=@quantidade, descricao=@descricao, preco=@preco WHERE id_prato=@id_prato ";
      $result = mysqli_query($con, $sql);
@@ -79,7 +78,7 @@ class prato
      public function Insert ($id_prato, $nomeprato, $quantidade, $descricao, $preco)
      {
 
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
+     
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -95,8 +94,7 @@ class prato
  
        public function Delete ($id_prato, $nomeprato, $quantidade, $descricao, $preco)
      {  
-      $con=new mysqli("localhost","root", "","ementasderestaurante") or die("Falha na conexao:");
-
+     
        if(!$con) { trigger_error(mysqli_connect_error());}
  
        $sql = "DELETE FROM prato WHERE id_prato=@id_prato AND nomeprato=@nomeprato AND quantidade=@quantidade AND descricao=@descricao AND preco=@preco";
