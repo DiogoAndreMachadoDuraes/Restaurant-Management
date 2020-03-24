@@ -1,8 +1,8 @@
 <?php
-
+include_once 'DAL/ConectionDB.php';
 //criaçao da classe prato
 
-class prato
+class Prato
 {                                
   public int $id_prato;
   public string $nomeprato;
@@ -10,7 +10,7 @@ class prato
   public string $descricao;
   public double $preco;
 
-   public function alergenio()
+   public function Prato()
    {
      $this->id_prato = $id_prato;
      $this->nomeprato = $nomeprato;
@@ -19,8 +19,9 @@ class prato
      $this->preco = $preco;
    }
 
-   public function CreatTable()
+   public function CreateTable()
    {
+      $con=ConnectionDB::Connect();
   
     $sql = "CREATE TABLE Prato ( id_prato  INT(50), nomeprato VARCHAR(50), quantidade VARCHAR(50), descricao VARCHAR(50), preco VARCHAR(50) PRIMARY KEY (id_prato))";
     if ($con->query($sql) === TRUE){
@@ -35,9 +36,9 @@ class prato
     
      public function Select ()
      {
-     
+      $con=ConnectionDB::Connect();
 
-     $sql = "SELECT * FROM prato";
+     $sql = "SELECT * FROM Prato";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -63,9 +64,9 @@ class prato
  
    public function Update ($id_prato, $nomeprato, $quantidade ,$descricao, $preco)
      {
-     
+      $con=ConnectionDB::Connect();
 
-     $sql = "UPDATE prato SET nomeprato=@nomeprato, quantidade=@quantidade, descricao=@descricao, preco=@preco WHERE id_prato=@id_prato ";
+     $sql = "UPDATE Prato SET nomeprato=@nomeprato, quantidade=@quantidade, descricao=@descricao, preco=@preco WHERE id_prato=@id_prato ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -78,11 +79,11 @@ class prato
      public function Insert ($id_prato, $nomeprato, $quantidade, $descricao, $preco)
      {
 
-     
+      $con=ConnectionDB::Connect();
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
-     $sql = "INSERT INTO prato (id_prato, nomeprato, quantidade, descricao, preco) VALUES (@id_prato, @nomeprato, @quantidade, @descricao, @preco) ";
+     $sql = "INSERT INTO Prato (id_prato, nomeprato, quantidade, descricao, preco) VALUES (@id_prato, @nomeprato, @quantidade, @descricao, @preco) ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -94,10 +95,11 @@ class prato
  
        public function Delete ($id_prato, $nomeprato, $quantidade, $descricao, $preco)
      {  
+          $con=ConnectionDB::Connect();
      
        if(!$con) { trigger_error(mysqli_connect_error());}
  
-       $sql = "DELETE FROM prato WHERE id_prato=@id_prato AND nomeprato=@nomeprato AND quantidade=@quantidade AND descricao=@descricao AND preco=@preco";
+       $sql = "DELETE FROM Prato WHERE id_prato=@id_prato AND nomeprato=@nomeprato AND quantidade=@quantidade AND descricao=@descricao AND preco=@preco";
        $result = mysqli_query($con, $sql);
        if(!$result){
            die('Could not query:'.mysqli_error($con));
