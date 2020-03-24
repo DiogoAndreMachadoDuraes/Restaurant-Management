@@ -1,5 +1,7 @@
 <?php
 
+include_once 'DAL/ConectionDB.php';
+
 //criaçao da classe alergenio
 
 class alergenio
@@ -15,10 +17,11 @@ class alergenio
      $this->descricao = $descricao;
    }
 
-   public function CreatTable()
+   public function CreateTable()
    {
     
-
+     $con=ConnectionDB::Connect();
+ 
     $sql = "CREATE TABLE Alergenio ( id_alerge  INT(50), tipo VARCHAR(50), descricao VARCHAR(50), PRIMARY KEY (id_alerge))";
     if ($con->query($sql) === TRUE){
         echo "tabela alergenio criada";
@@ -32,7 +35,8 @@ class alergenio
     
      public function Select ()
      {
-    
+    $con=ConnectionDB::Connect();
+       
      $sql = "SELECT * FROM alergenio";
      $result = mysqli_query($con, $sql);
      if(!$result){
@@ -57,7 +61,7 @@ class alergenio
  
    public function Update ($id_alerge, $tipo, $descricao)
      {
-   
+   $con=ConnectionDB::Connect();
 
      $sql = "UPDATE alergenio SET tipo=@tipo, descricao=@descricao WHERE id_alerge=@id_alerge ";
      $result = mysqli_query($con, $sql);
@@ -71,6 +75,7 @@ class alergenio
  
      public function Insert ($id_alerge, $tipo, $descricao)
      {
+       $con=ConnectionDB::Connect();
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
@@ -86,6 +91,8 @@ class alergenio
  
        public function Delete ($id_alerge, $tipo, $descricao)
      {  
+         
+         $con=ConnectionDB::Connect();
       
        if(!$con) { trigger_error(mysqli_connect_error());}
  
