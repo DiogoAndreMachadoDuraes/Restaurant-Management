@@ -3,14 +3,14 @@
 include_once 'DAL/ConectionDB.php';
 //criaçao da classe alergenio
 
-class funcionario
+class Funcionario
 {                                
   public int $id_funcionario;
   public string $nome;
   public string $telefone;
   public string $email;
 
-   public function funcionario()
+   public function Funcionario()
    {
      $this->id_funcionario = $id_funcionario;
      $this->nome = $nome;
@@ -40,7 +40,7 @@ class funcionario
      
  $con=ConnectionDB::Connect();
 
-     $sql = "SELECT * FROM funcionario";
+     $sql = "SELECT * FROM Funcionario";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -68,7 +68,7 @@ class funcionario
      
  $con=ConnectionDB::Connect();
       
-     $sql = "UPDATE funcionario SET nome=@nome, telefone=@telefone, email=@email WHERE id_funcionario=@id_funcionario ";
+     $sql = "UPDATE Funcionario SET nome=@nome, telefone=@telefone, email=@email WHERE id_funcionario=@id_funcionario ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -86,7 +86,7 @@ class funcionario
 
      if(!$con) { trigger_error(mysqli_connect_error());}
  
-     $sql = "INSERT INTO funcionario (id_funcionario, nome, telefone, email) VALUES (@id_funcionario, @nome, @telefone, @email) ";
+     $sql = "INSERT INTO Funcionario (id_funcionario, nome, telefone, email) VALUES (@id_funcionario, @nome, @telefone, @email) ";
      $result = mysqli_query($con, $sql);
      if(!$result){
          die('Could not query:'.mysqli_error($con));
@@ -103,7 +103,7 @@ class funcionario
 
        if(!$con) { trigger_error(mysqli_connect_error());}
  
-       $sql = "DELETE FROM funcionario WHERE id_funcionario=@id_funcionario AND nome=@nome AND telefone=@telefone AND email=@email";
+       $sql = "DELETE FROM Funcionario WHERE id_funcionario=@id_funcionario AND nome=@nome AND telefone=@telefone AND email=@email";
        $result = mysqli_query($con, $sql);
        if(!$result){
            die('Could not query:'.mysqli_error($con));
