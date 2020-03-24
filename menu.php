@@ -1,5 +1,6 @@
 <?php
 
+include_once 'DAL/ConectionDB.php';
 //criaçao da classe menu
 
 class Menu
