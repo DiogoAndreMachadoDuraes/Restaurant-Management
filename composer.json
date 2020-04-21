@@ -1,0 +1,28 @@
+{
+    "name": "Ementas de Restauração",
+    "description": "Projecto escolar",
+    "authors": [
+        {
+            "name": "Diogo Durães",
+            "email": "diogo.machado.duraes@gmail.com"
+        }
+    ],
+
+    "require": {
+        "phpmailer/phpmailer": "^6.1",
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.0",
+        "nyholm/psr7": "^1.2",
+        "nyholm/psr7-server": "^0.4.1",
+        "guzzlehttp/psr7": "^1.6",
+        "http-interop/http-factory-guzzle": "^1.0",
+        "laminas/laminas-diactoros": "^2.2",
+        "tuupola/slim-jwt-auth": "^3.4"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "App"
+        }
+    }
+}
