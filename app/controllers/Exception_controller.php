@@ -9,16 +9,16 @@ use App\Exceptions\TestException;
 final class ExceptionController
 {
 
-    public function test(Request $request, Response $response, array $args): Response
+    public function test(Request $request, Response $response, array $args)
     {
         try{
             throw new TestException ("Testing. . .");
             return  $response -> getBody() -> write(['sms' => 'ok']);
             
         }   
-            catch(\TestException $ex) {
+            catch(TestException $ex) {
             return  $response -> getBody() -> write([
-                'error' => \TestException::class,
+                'error' => TestException::class,
                 'status' => 400,
                 'code' => '003',
                 'userMessage' => 'Just Test.',
