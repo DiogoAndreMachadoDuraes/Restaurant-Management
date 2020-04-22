@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Alergenio_dao;
 use App\Models\Alergenio;
 
-
 final class Alergenio_controller
 {                                
    public function Select (Request $request, Response $response, array $args) : Response
