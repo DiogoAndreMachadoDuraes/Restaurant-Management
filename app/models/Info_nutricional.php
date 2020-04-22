@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-require("app/controllers/Info_nutricional_controller.php");
-
 final class Info_nutricional
 {
-     
+    
     private int $id_nutri;
     private string $tipo;
     private string $quantidade_nutrientes;
