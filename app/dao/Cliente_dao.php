@@ -15,19 +15,13 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('INSERT INTO Cliente VALUES (
-                    :nif, 
-                    :nome, 
-                    :telefone, 
-                    :email, 
-                    :morada
+                    :id_cliente, 
+                    :nif_cliente,
                     );');
             $statement=$this->pdo
                 ->execute([
-                    'nif' => $clientes->getNif(),
-                    'nome' => $clientes->getNome(),
-                    'telefone' => $clientes->getTelefone(),
-                    'email' => $clientes->getEmail(),
-                    'morada' => $clientes->getMorada()
+                    'id_cliente' => $clientes->getId_cliente(),
+                    'nif_cliente' => $clientes->getNif_cliente(),
                 ]);
         }
 
@@ -42,26 +36,22 @@ namespace App\DAO;
         public function Update(Cliente $clientes) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Cliente SET nome=:nome, telefone=:telefone, email=email, morada=morada WHERE nif=:nif');
+                ->prepare('UPDATE Cliente SET nif_cliente=:nif_cliente WHERE id_cliente=:id_cliente');
                 $statement=$this->pdo
                 ->execute([
-                    'nif' => $clientes->getNif(),
-                    'nome' => $clientes->getNome(),
-                    'telefone' => $clientes->getTelefone(),
-                    'email' => $clientes->getEmail(),
-                    'morada' => $clientes->getMorada()
+                    'id_cliente' => $clientes->getId_cliente(),
+                    'nif_cliente' => $clientes->getNif_cliente(),
                 ]);
         }
 
-        public function Delete(int $nif) : void
+        public function Delete(int $id_cliente) : void
         {
             $statement=$this->pdo
-                ->prepare('DELETE FROM Cliente WHERE nif=:nif');
+                ->prepare('DELETE FROM Cliente WHERE id_cliente=:id_cliente');
             $statement=$this->pdo
                 ->execute([
-                    'nif' => $nif
+                    'id_cliente' => $id_cliente
                 ]);
         }
-
     }
 ?>

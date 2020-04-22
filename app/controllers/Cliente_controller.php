@@ -15,11 +15,7 @@ namespace App\Controllers;
 
             $clientesdao=new Cliente_dao();
             $cliente=new Cliente();
-            $cliente->setNif($data['nif'])
-                ->setNome($data['nome'])
-                ->setTelefone($data['telefone'])
-                ->setEmail($data['email'])
-                ->setMorada($data['morada']);
+            $cliente->setNif_cliente($data['nif_cliente']);
             $clientesdao->Insert($cliente);
 
             $response->getBody()->write("Cliente criado com sucesso!");
@@ -30,7 +26,7 @@ namespace App\Controllers;
         {
             $clientesdao=new Cliente_dao();
             $clientes=$clientesdao->Select();
-        
+
             $response->getBody()->write($clientes);
             return $response;
         }
@@ -41,11 +37,7 @@ namespace App\Controllers;
 
             $clientesdao=new Cliente_dao();
             $cliente=new Cliente();
-            $cliente->setNif($data['nif'])
-                ->setNome($data['nome'])
-                ->setTelefone($data['telefone'])
-                ->setEmail($data['email'])
-                ->setMorada($data['morada']);
+            $cliente->setNif_cliente($data['nif_cliente']);
             $clientesdao->Update($cliente);
 
             $response->getBody()->write ("Cliente modificado com sucesso!");
@@ -58,7 +50,7 @@ namespace App\Controllers;
 
             $clientesdao=new Cliente_dao();
             $cliente=new Cliente();
-            $cliente->setNif($data['nif']);
+            $cliente->setId_cliente($data['id_cliente']);
             $clientesdao->Delete(intval($cliente));
 
             $response->getBody()->write("Cliente eliminado com sucesso!");

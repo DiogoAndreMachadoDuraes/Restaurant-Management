@@ -18,11 +18,11 @@ namespace App\Models;
             return $this;
         }
 
-        public function getNif(){
+        public function getNif_cliente(){
             return $this->nif_cliente;
         }
 
-        public function setNif($nif_cliente): Cliente{
+        public function setNif_cliente($nif_cliente): Cliente{
             $this->nif = $nif_cliente;
             return $this;
         }
