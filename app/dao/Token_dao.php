@@ -14,12 +14,12 @@ use ConnectionDB;
         public function Insert(Token $token): void
         {
             $statement=$this->pdo
-                ->prepare('Insert INTO token (token, refreshToken, expiredDate, id_usuario) VALUES (:token, :refresehToken, :expiredDate, :id_usuario);');
+                ->prepare('Insert INTO token (token, refreshToken, expiredDate, id_utilizador) VALUES (:token, :refresehToken, :expiredDate, :id_utilizador);');
             $statement->execute([
                 'token' => $token->getToken(),
                 'refreshToken' => $token->getRefreshToken(),
                 'expiredDate' => $token->getExpiredDate(),
-                'id_usuario' => $token->getId_Usuario(),
+                'id_utilizador' => $token->getId_Utilizador(),
                 'active' => $token->getActive()
             ]);
         }

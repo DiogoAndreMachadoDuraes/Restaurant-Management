@@ -11,7 +11,7 @@
         Extra_controller,
         RefeicaoSemanal_controller,
         Reserva_controller,
-        Usuario_controller,
+        Utilizador_controller,
         Funcionario_controller,
         Alergenio_controller,
         Gestor_controller,
@@ -36,7 +36,7 @@
 
     $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
-    $app->post('/register', Usuario_controller::class . ':Insert');
+    $app->post('/register', Utilizador_controller::class . ':Insert');
 
     $app->post('/login', Auth_controller::class. ':login');
     $app->post('/refreshToken', Auth_controller::class . ':refreshToken');
@@ -47,10 +47,10 @@
 
     $app->group('/usuariologin', function() use($app) {
         //user changes
-        $app->put('/usuariochanges', Usuario_controller::class . ':Update');
+        $app->put('/usuariochanges', Utilizador_controller::class . ':Update');
 
         //eliminar conta
-        $app->delete('/delete', Usuario_controller::class . ':Delete');
+        $app->delete('/delete', Utilizador_controller::class . ':Delete');
 
     }) ->add(new Auth_middleware())
         ->add(Jwt_Auth());
