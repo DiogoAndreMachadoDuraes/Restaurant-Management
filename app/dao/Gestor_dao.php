@@ -16,9 +16,7 @@ class Gestor_dao extends ConnectionDB
         $gestor = $this->pdo
         ->query ('SELECT
         id_gestor,
-        nome,
-        telefone,
-        email
+        nif_gestor
     From gestor;')
       ->  fetchAll(\PDO::FETCH_ASSOC);
 
@@ -30,16 +28,12 @@ class Gestor_dao extends ConnectionDB
         $statement = $this->pdo
         ->prepare ('INSERT INTO gestor values(
             :id_gestor,
-            :nome,
-            :telefone,
-            :email
+            :nif_gestor
         );');
         $statement->execute([
             'id_gestor' => $gestor->getId_gestor(),
-            'nome' => $gestor->getNome(),
-            'telefone' => $gestor->getTelefone(),
-            'email' => $gestor->getEmail()
-        ]);
+            'nif_gestor' => $gestor->getNif_gestor()
+     ]);
     }
 
     public function Update (Gestor $gestor): void
@@ -47,15 +41,11 @@ class Gestor_dao extends ConnectionDB
         $statement = $this->pdo
         ->prepare ('UPDATE INTO gestor values(
            :id_gestor,
-            :nome,
-            :telefone,
-            :email
+           :nif_gestor
         );');
         $statement->execute([
             'id_gestor' => $gestor->getId_gestor(),
-            'nome' => $gestor->getNome(),
-            'telefone' => $gestor->getTelefone(),
-            'email' => $gestor->getEmail()
+            'nif_gestor' => $gestor->getNif_gestor()
         ]);
     }
 

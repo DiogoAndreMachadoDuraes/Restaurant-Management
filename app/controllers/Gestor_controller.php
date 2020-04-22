@@ -27,9 +27,7 @@ final class Gestor_controller
       $gestor_dao=new Gestor_dao();
       $gestor=new Gestor();
       $gestor->setId_Gestor($data['id_gestor'])
-      ->setNome($data['nome'])
-      ->setTelefone($data['telefone'])
-      ->setEmail($data['morada']);
+      ->setNif_Gestor($data['nif_gestor']);
       $gestor_dao->Update($gestor);
 
       $response -> getBody() -> write("Gestor modificado!");
@@ -43,9 +41,7 @@ final class Gestor_controller
       $gestor_dao=new Gestor_dao();
       $gestor=new Gestor();
       $gestor->setId_Gestor($data['id_gestor'])
-      ->setNome($data['nome'])
-      ->setTelefone($data['telefone'])
-      ->setEmail($data['morada']);
+      ->setNif_Gestor($data['nif_gestor']);
       $gestor_dao->Insert($gestor);
 
       $response -> getBody() -> write("Gestor inserido!");

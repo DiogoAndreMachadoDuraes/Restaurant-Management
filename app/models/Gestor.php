@@ -4,12 +4,9 @@ namespace App\Models;
 
 final class Gestor
 {
-     
+    private int $id_gestor;
     private int $nif_gestor;
-    private string $nome;
-    private string $telefone;
-    private string $email;
-
+    
     public function Gestor() {}
 
     //get e set nif
@@ -25,39 +22,15 @@ final class Gestor
 
    
     //get e set nome
-    public function getNome()
+    public function getId_gestor()
     {
-        return $this->nome;
+        return $this->id_gestor;
     }
-    public function setNome(string $nome): Gestor
+    public function setId_gestor(string $id_gestor): Gestor
     {
-        $this->nome = $nome;
+        $this->id_gestor = $id_gestor;
         return $this;
     }
 
-
-    //get e set telefone
-    public function getTelefone()
-    {
-        return $this->telefone;
-    }
-    public function setTelefone(string $telefone): Gestor
-    {
-        $this->telefone = $telefone;
-        return $this;
-    }
-
-
-
-    //get e set email
-    public function getEmail()
-    {
-        return $this->email;
-    }
-    public function setEmail(string $email): Gestor
-    {
-        $this->email = $email;
-        return $this;
-    }
 }
 ?>
