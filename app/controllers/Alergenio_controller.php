@@ -10,7 +10,6 @@ use App\Models\Alergenio;
 
 final class Alergenio_controller
 {                                
- 
    public function Select (Request $request, Response $response, array $args) : Response
    {
       $alergenio_dao=new Alergenio_dao();
