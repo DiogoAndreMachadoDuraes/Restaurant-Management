@@ -8,7 +8,7 @@ namespace App\Models;
         private string $token;
         private string $refreshToken;
         private string $expiredDate;
-        private int $id_usuario;
+        private int $id_utilizador;
         private bool $active;
 
         public function getId_Token(): int{
@@ -47,12 +47,12 @@ namespace App\Models;
             return $this;
         }
 
-        public function getId_Usuario(): int{
-            return $this->id_usuario;
+        public function getId_Utilizador(): int{
+            return $this->id_utilizador;
         }
 
-        public function setId_Usuario($id_usuario): self{
-            $this->id_usuario = $id_usuario;
+        public function setId_Utilizador($id_utilizador): self{
+            $this->id_utilizador = $id_utilizador;
             return $this;
         }
 
