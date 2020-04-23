@@ -4,12 +4,24 @@ namespace App\Models;
 
 final class Funcionario
 {
+    private int $id_func;
     private int $nif_func;
     private string $nome;
     private string $telefone;
     private string $email;
 
     public function Funcionario() {}
+
+    //get e set id funcionario
+    public function getId_func()
+    {
+        return $this->id_func;
+    }
+    public function setId_func(int $id_func): Funcionario
+    {
+        $this->id_func = $id_func;
+        return $this;
+    }
 
     //get e set nif
     public function getNif_func()

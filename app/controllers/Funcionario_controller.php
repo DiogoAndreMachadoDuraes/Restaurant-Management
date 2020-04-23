@@ -26,10 +26,12 @@ final class Funcionario_controller
          
       $funcionario_dao=new Funcionario_dao();
       $funcionario=new Funcionario();
-      $funcionario->setId_Funcionario($data['id_funcionario'])
-         ->setNome($data['nome'])
-         ->setTelefone($data['telefone'])
-         ->setEmail($data['email']);
+      $funcionario->setId_Func($data['id_func'])
+      ->setNif_func($data['nif_func'])
+      ->setNome($data['nome'])
+      ->setNome($data['nome'])
+      ->setTelefone($data['telefone'])
+      ->setEmail($data['email']);
       $funcionario_dao->Update($funcionario);
 
       $response -> getBody() -> write("Funcionario modificado!");
@@ -42,7 +44,8 @@ final class Funcionario_controller
 
       $funcionario_dao=new Funcionario_dao();
       $funcionario=new Funcionario();
-      $funcionario->setId_Funcionario($data['id_funcionario'])
+      $funcionario->setId_Func($data['id_func'])
+      ->setNif_func($data['nif_func'])
       ->setNome($data['nome'])
       ->setTelefone($data['telefone'])
       ->setEmail($data['email']);
@@ -58,7 +61,7 @@ final class Funcionario_controller
 
       $funcionario_dao=new Funcionario_dao();
       $funcionario=new Funcionario();
-      $funcionario->setId_Funcionario(intval($data['id_funcionario']));
+      $funcionario->setId_Func(intval($data['id_func']));
       $funcionario_dao->Delete(intval($funcionario));
 
       $response -> getBody() -> write("Funcionario eliminado!");
