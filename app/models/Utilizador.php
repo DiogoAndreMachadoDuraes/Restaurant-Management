@@ -6,8 +6,11 @@ final class Utilizador
 {
     private int $id_utilizador;
     private string $nome;
+    private string $telefone;
     private string $email;
+    private string $morada;
     private string $password;
+    private string $tipo;
 
     public function Utilizador() {}
 
@@ -33,6 +36,17 @@ final class Utilizador
         return $this;
     }
 
+     //get e set telefone
+     public function getTelefone()
+     {
+         return $this->telefone;
+     }
+     public function setTelefone(string $telefone): Utilizador
+     {
+         $this->telefone = $telefone;
+         return $this;
+     }
+
     //get e set email
     public function getEmail()
     {
@@ -44,6 +58,17 @@ final class Utilizador
         return $this;
     }
 
+    //get e set morada
+    public function getMorada()
+    {
+        return $this->morada;
+    }
+    public function setMorada(string $morada): Utilizador
+    {
+        $this->morada = $morada;
+        return $this;
+    }
+
     //get e set password
     public function getPassword()
     {
@@ -52,6 +77,17 @@ final class Utilizador
     public function setPassword(string $password): Utilizador
     {
         $this->password = $password;
+        return $this;
+    }
+
+    //get e set tipo
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+    public function setTipo(string $tipo): Utilizador
+    {
+        $this->tipo = $tipo;
         return $this;
     }
 }

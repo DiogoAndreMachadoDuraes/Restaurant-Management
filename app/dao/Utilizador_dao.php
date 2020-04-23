@@ -15,10 +15,13 @@ class Utilizador_dao extends ConnectionDB
     {
         $utilizador = $this->pdo
         ->query ('SELECT
-        nif_utilizador,
+        id_utilizador,
         nome,
+        telefone,
         email,
-        password
+        morada,
+        password,
+        tipo
     From utilizador;')
         -> fetchAll(\PDO::FETCH_ASSOC);
 
@@ -29,16 +32,22 @@ class Utilizador_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO utilizador values(
-            :nif_utilizador,
+            :id_utilizador,
             :nome,
+            :telefone,
             :email,
-            :password
+            :morada,
+            :password,
+            :tipo
         );');
         $statement->execute([
-            'nif_utilizador' => $utilizador->getNif_utilizador(),
+            'id_utilizador' => $utilizador->getId_utilizador(),
             'nome' => $utilizador->getNome(),
+            'telefone' => $utilizador->getTelefone(),
             'email' => $utilizador->getEmail(),
-            'password' => $utilizador->getPassword()
+            'morada' => $utilizador->getMorada(),
+            'password' => $utilizador->getPassword(),
+            'tipo' => $utilizador->getTipo()
         ]);
     }
 
@@ -46,26 +55,32 @@ class Utilizador_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('UPDATE INTO utilizador values(
-            :nif_utilizador,
+            :id_utilizador,
             :nome,
+            :telefone,
             :email,
-            :password
+            :morada,
+            :password,
+            :tipo
         );');
         $statement->execute([
-            'nif_utilizador' => $utilizador->getNif_utilizador(),
+            'id_utilizador' => $utilizador->getId_utilizador(),
             'nome' => $utilizador->getNome(),
+            'telefone' => $utilizador->getTelefone(),
             'email' => $utilizador->getEmail(),
-            'password' => $utilizador->getPassword()
+            'morada' => $utilizador->getMorada(),
+            'password' => $utilizador->getPassword(),
+            'tipo' => $utilizador->getTipo()
         ]);
     }
 
-    public function Delete (int $nif_utilizador): void
+    public function Delete (int $id_utilizador): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM utilizador WHERE nif_utilizador = :nif_utilizador');
+        ->prepare ('DELETE FROM utilizador WHERE id_utilizador = :id_utilizador');
        
         $statement->execute([
-            'nif_utilizador' => $nif_utilizador
+            'id_utilizador' => $id_utilizador
             ]);
     }   
 }

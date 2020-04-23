@@ -24,10 +24,13 @@ final class Utilizador_controller
       
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
-      $utilizador->setNif_utilizador($data['nif_utilizador'])
+      $utilizador->setId_utilizador($data['id_utilizador'])
          ->setNome($data['nome'])
+         ->setTelefone($data['telefone'])
          ->setEmail($data['email'])
-         ->setPassword($data['password']);
+         ->setMorada($data['morada'])
+         ->setPassword($data['password'])
+         ->setTipo($data['tipo']);
       $utilizador_dao->Update($utilizador);
 
       $response -> getBody() -> write("Utilizador modificado!");
@@ -40,10 +43,13 @@ final class Utilizador_controller
 
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
-      $utilizador->setNif_utilizador($data['nif_utilizador'])
+      $utilizador->setId_utilizador($data['id_utilizador'])
          ->setNome($data['nome'])
+         ->setTelefone($data['telefone'])
          ->setEmail($data['email'])
-         ->setPassword($data['password']);
+         ->setMorada($data['morada'])
+         ->setPassword($data['password'])
+         ->setTipo($data['tipo']);
       $utilizador_dao->Insert($utilizador);
 
       $response -> getBody() -> write("Utilizador inserido!");
@@ -56,7 +62,7 @@ final class Utilizador_controller
 
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
-      $utilizador->setNif_utilizador($data['nif_utilizador']);
+      $utilizador->setId_utilizador($data['id_utilizador']);
       $utilizador_dao->Delete(intval($utilizador));
 
       $response -> getBody() -> write("Utilizador eliminado!");
