@@ -41,18 +41,18 @@
     $app->post('/login', Auth_controller::class. ':login');
     $app->post('/refreshToken', Auth_controller::class . ':refreshToken');
 
-    //$app->get('/test', function() {})
-    //    ->add(new Auth_middleware())
-    //    ->add(Jwt_Auth());
-
-    $app->group('/usuariologin', function() use($app) {
-        //user changes
-        $app->put('/usuariochanges', Utilizador_controller::class . ':Update');
-
+    $app->group('/clientelogin', function() use($app) {
+        //cliente changes
+        $app->put('/clientechanges', Utilizador_controller::class . ':Update');
         //eliminar conta
         $app->delete('/delete', Utilizador_controller::class . ':Delete');
 
-    }) ->add(new Auth_middleware())
+        $app->get('/Reserva', Reserva_controller::class . ':Select');
+        $app->post('/Reserva', Reserva_controller::class . ':Insert');
+        $app->put('/Reserva', Reserva_controller::class . ':Update');
+        $app->delete('/Reserva', Reserva_controller::class . ':Delete');
+
+    })  ->add(new Auth_middleware())
         ->add(Jwt_Auth());
     
     $app->group('/gestorlogin', function() use($app) {
@@ -142,7 +142,13 @@
         $app->put('/Takeaway',Takeaway_controller::class . 'Update');
         $app->delete('/Takeaway',Takeaway_controller::class . 'Delete');
 
-    });
+        //user changes
+        $app->put('/gestorchanges', Utilizador_controller::class . ':Update');
+        //eliminar conta
+        $app->delete('/delete', Utilizador_controller::class . ':Delete');
+
+    })  ->add(new Auth_middleware())
+        ->add(Jwt_Auth());
 
     $app->run();
 
