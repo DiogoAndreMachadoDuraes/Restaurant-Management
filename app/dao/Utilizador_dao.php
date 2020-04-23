@@ -82,6 +82,36 @@ class Utilizador_dao extends ConnectionDB
         $statement->execute([
             'id_utilizador' => $id_utilizador
             ]);
-    }   
+    } 
+    
+    public function SelectByEmail (string $email): ?Utilizador
+    {
+        $statement = $this->pdo
+            ->prepare ('SELECT
+                    id_utilizador,
+                    nome,
+                    telefone,
+                    email,
+                    morada,
+                    password,
+                    tipo
+                From utilizador
+                where email=:email');
+        $statement->bindParam('email', $email);
+        $statement->execute();
+        $utilizador=$statement->fetchAll(\PDO::FETCH_ASSOC);
+        $utilizador= new Utilizador();
+        if(count($utilizador)==0){
+            $utilizador->setId_utilizador($utilizador[0]['id_utilizador'])
+                ->setNome($utilizador[0]['nome'])
+                ->setTelefone($utilizador[0]['telefone'])
+                ->setEmail($utilizador[0]['email'])
+                ->setMorada($utilizador[0]['morada'])
+                ->setPassword($utilizador[0]['password'])
+                ->setTipo($utilizador[0]['tipo']);
+            return $utilizador;
+        }
+        return null;
+    }
 }
 ?>

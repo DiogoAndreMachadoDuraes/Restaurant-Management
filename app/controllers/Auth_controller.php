@@ -6,7 +6,7 @@ namespace App\Controllers;
     use App\DAO\Token_dao;
     use Psr\Http\Message\ServerRequestInterface as Request;
     use Psr\Http\Message\ResponseInterface as Response;
-    use App\DAO\Usuario_dao;
+    use App\DAO\Utilizador_dao;
     use DateTime;
     use Firebase\JWT\JWT;
 
@@ -19,13 +19,13 @@ namespace App\Controllers;
             $email=$data['email'];
             $password=$data['password'];
             
-            $usuariodao= new Usuario_dao();
-            $usuario=$usuariodao->getEmail($email);
+            $utilizadordao= new Utilizador_dao();
+            $utilizador=$utilizadordao->SelectByEmail($email);
 
-            if(is_null($usuario)){
+            if(is_null($utilizador)){
                 return $response->withStatus(401);
             } else {
-                if(!password_verify($password, $usuario->getPassword($password))){
+                if(!password_verify($password, $utilizador->getPassword($password))){
                     return $response->withStatus(401);
                 }
             }
@@ -33,16 +33,16 @@ namespace App\Controllers;
             $expireDate=(new \DateTime())->modify('+7 days')->format('Y-M-D H:i:s');
 
             $tokenInside=[
-                'id' => $usuario->getId(),
-                'name' => $usuario->getNome(),
-                'email' => $usuario->getEmail(),
+                'id' => $utilizador->getId_utilizador(),
+                'name' => $utilizador->getNome(),
+                'email' => $utilizador->getEmail(),
                 'expired_at' => $expireDate
             ]; 
             
             $token=JWT::encode($tokenInside, getenv('JWT_SECRET_KEY'));
 
             $refreshToken=[
-                'email' => $usuario->getEmail(),
+                'email' => $utilizador->getEmail(),
                 'random' => uniqid()
             ];
 
@@ -52,7 +52,7 @@ namespace App\Controllers;
             $token->setExpiredDate($expireDate)
                 ->setRefreshToken($refreshToken)
                 ->setToken($token)
-                ->setId_Usuario($usuario->getId());
+                ->setId_Utilizador($utilizador->getId_utilizador());
 
             $tokendao= new Token_dao();
             $tokendao->Insert($token);
@@ -79,25 +79,25 @@ namespace App\Controllers;
                 return $response->withStatus(401);
             } 
 
-            $usuariodao = new Usuario_dao();
-            $usuario=$usuariodao->getEmail($refreshToken->email);
+            $utilizadordao = new Utilizador_dao();
+            $utilizador=$utilizadordao->SelectByEmail($refreshToken->email);
 
-            if(is_null($usuario))
+            if(is_null($utilizador))
                 return $response->withStatus(401);
 
             $expireDate=(new \DateTime())->modify('+7 days')->format('Y-M-D H:i:s');
             
             $tokenInside=[
-                'id' => $usuario->getId(),
-                'name' => $usuario->getNome(),
-                'email' => $usuario->getEmail(),
+                'id' => $utilizador->getId_utilizador(),
+                'name' => $utilizador->getNome(),
+                'email' => $utilizador->getEmail(),
                 'expired_at' => $expireDate
             ]; 
             
             $token=JWT::encode($tokenInside, getenv('JWT_SECRET_KEY'));
 
             $refreshToken=[
-                'email' => $usuario->getEmail(),
+                'email' => $utilizador->getEmail(),
                 'random' => uniqid()
             ];
 
@@ -107,7 +107,7 @@ namespace App\Controllers;
             $token->setExpiredDate($expireDate)
                 ->setRefreshToken($refreshToken)
                 ->setToken($token)
-                ->setId_Usuario($usuario->getId());
+                ->setId_Utilizador($utilizador->getId_utilizador());
 
             $tokendao= new Token_dao();
             $tokendao->Insert($token);
