@@ -42,15 +42,28 @@
     $app->post('/refreshToken', Auth_controller::class . ':refreshToken');
 
     $app->group('/clientelogin', function() use($app) {
-        //cliente changes
         $app->put('/clientechanges', Utilizador_controller::class . ':Update');
-        //eliminar conta
         $app->delete('/delete', Utilizador_controller::class . ':Delete');
 
         $app->get('/Reserva', Reserva_controller::class . ':Select');
         $app->post('/Reserva', Reserva_controller::class . ':Insert');
         $app->put('/Reserva', Reserva_controller::class . ':Update');
         $app->delete('/Reserva', Reserva_controller::class . ':Delete');
+
+        $app->get('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Select');
+        $app->get('/Cliente', Cliente_controller::class . ':Select');
+        $app->get('/Compraextra', Compraextra_controller::class . ':Select');
+        $app->get('/Compramenu', Compramenu_controller::class . ':Select');
+        $app->get('/Ementa', Ementa_controller::class . ':Select');
+        $app->get('/Extra', Extra_controller::class . ':Select');
+        $app->get('/RefeicaoSemanal', RefeicaoSemanal_controller::class . ':Select');
+        $app->get('/Funcionario',Funcionario_controller::class . 'Select');
+        $app->get('/Fatura',Fatura_controller::class . 'Select');
+        $app->get('/Info_nutricional',Info_nutricional_controller::class . 'Select');
+        $app->get('/Menu',Menu_controller::class . 'Select');
+        $app->get('/Prato',Prato_controller::class . 'Select');
+        $app->get('/Restaurante',Restaurante_controller::class . 'Select');
+        $app->get('/Takeaway',Takeaway_controller::class . 'Select');
 
     })  ->add(new Auth_middleware())
         ->add(Jwt_Auth());
@@ -142,9 +155,7 @@
         $app->put('/Takeaway',Takeaway_controller::class . 'Update');
         $app->delete('/Takeaway',Takeaway_controller::class . 'Delete');
 
-        //user changes
         $app->put('/gestorchanges', Utilizador_controller::class . ':Update');
-        //eliminar conta
         $app->delete('/delete', Utilizador_controller::class . ':Delete');
 
     })  ->add(new Auth_middleware())
