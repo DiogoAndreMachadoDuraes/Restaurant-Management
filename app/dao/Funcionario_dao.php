@@ -15,7 +15,8 @@ class Funcionario_dao extends ConnectionDB
     {
         $funcionario = $this->pdo
         ->query ('SELECT
-        id_funcionario,
+        id_func,
+        nif_func,
         nome,
         telefone,
         email
@@ -29,13 +30,15 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO funcionario values(
-            :id_funcionario,
+            :id_fun,
+            :nif_func,
             :nome,
             :telefone,
             :email
         );');
         $statement->execute([
-            'id_funcionario' => $funcionario->getId_funcionario(),
+            'id_func' => $funcionario->getId_func(),
+            'nif_func' => $funcionario->getNif_func(),
             'nome' => $funcionario->getNome(),
             'telefone' => $funcionario->getTelefone(),
             'email' => $funcionario->getEmail()
@@ -46,26 +49,28 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('UPDATE INTO funcionario values(
-            :id_funcionario,
+            :id_func,
+            :nif_func
             :nome,
             :telefone,
             :email
         );');
         $statement->execute([
-            'id_funcionario' => $funcionario->getId_funcionario(),
+            'id_func' => $funcionario->getId_func(),
+            'nif_func' => $funcionario->getNif_func(),
             'nome' => $funcionario->getNome(),
             'telefone' => $funcionario->getTelefone(),
             'email' => $funcionario->getEmail()
         ]);
     }
 
-    public function Delete (int $id_funcionario): void
+    public function Delete (int $id_func): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM funcionario WHERE id_funcionario = :id_funcionario');
+        ->prepare ('DELETE FROM funcionario WHERE id_func = :id_func');
        
         $statement->execute([
-            'id_funcionario' => $id_funcionario ()
+            'id_func' => $id_func()
             ]);
     }       
 }
