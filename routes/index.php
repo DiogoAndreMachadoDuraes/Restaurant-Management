@@ -22,6 +22,9 @@
         Restaurante_controller,
         Takeaway_controller
     };
+    use App\DAO\{
+        Token_dao
+    };
     use App\Middleware\{
         Auth_middleware
         //Middleware
@@ -59,6 +62,7 @@
         $app->get('/RefeicaoSemanal', RefeicaoSemanal_controller::class . ':Select');
         $app->get('/Funcionario',Funcionario_controller::class . 'Select');
         $app->get('/Fatura',Fatura_controller::class . 'Select');
+        $app->get('/Alergenio',Alergenio_controller::class . 'Select');
         $app->get('/Info_nutricional',Info_nutricional_controller::class . 'Select');
         $app->get('/Menu',Menu_controller::class . 'Select');
         $app->get('/Prato',Prato_controller::class . 'Select');
@@ -154,6 +158,8 @@
         $app->post('/Takeaway',Takeaway_controller::class . 'Insert');
         $app->put('/Takeaway',Takeaway_controller::class . 'Update');
         $app->delete('/Takeaway',Takeaway_controller::class . 'Delete');
+
+        $app->post('/Token',Token_dao::class . 'Insert');
 
         $app->put('/gestorchanges', Utilizador_controller::class . ':Update');
         $app->delete('/delete', Utilizador_controller::class . ':Delete');
