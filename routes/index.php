@@ -73,7 +73,6 @@
         ->add(Jwt_Auth());
     
     $app->group('/gestorlogin', function() use($app) {
-
         $app->get('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Select');
         $app->post('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Insert');
         $app->put('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Update');
