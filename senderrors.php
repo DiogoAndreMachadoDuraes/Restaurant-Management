@@ -1,6 +1,6 @@
 <?php
 
-    putenv('Ementas_Restauracao_HOST=http://178.62.212.71/phpmyadmin/');
+    putenv('Ementas_Restauracao_HOST=178.62.212.71');
     putenv('Ementas_Restauracao_DBNAME=ementasrestauracao');
     putenv('Ementas_Restauracao_USER=rh_user');
     putenv('Ementas_Restauracao_PASSWORD=rFrH2016');
