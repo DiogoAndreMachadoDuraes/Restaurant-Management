@@ -28,7 +28,7 @@ namespace App\Controllers;
         {
             $cartaofidelizacaosdao=new Cartaofidelizacao_dao();
             $cartaofidelizacaos=$cartaofidelizacaosdao->Select();
-            
+            $json=json_encode($cartaofidelizacaos);
             $response->getBody()->write($cartaofidelizacaos);
             return $response;
         }
