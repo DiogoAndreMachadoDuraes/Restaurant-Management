@@ -17,7 +17,7 @@ class Takeaway_dao extends ConnectionDB
         ->query ('SELECT
         id_take,
         preco,
-        data,
+        dia,
         hora,
         tipodeentrega
     From takeaway;')
@@ -32,14 +32,14 @@ class Takeaway_dao extends ConnectionDB
         ->prepare ('INSERT INTO takeaway values(
             :id_take,
             :preco,
-            :data,
+            :dia,
             :hora,
             :tipodeentrega
         );');
         $statement->execute([
             'id_take' => $takeaway->getId_take(),
             'preco' => $takeaway->getPreco(),
-            'data' => $takeaway->getData(),
+            'dia' => $takeaway->getDia(),
             'hora' => $takeaway->getHora(),
             'tipodeentrega' => $takeaway->getTipodeentrega()
         ]);
@@ -51,14 +51,14 @@ class Takeaway_dao extends ConnectionDB
         ->prepare ('UPDATE INTO takeaway values(
             :id_take,
             :preco,
-            :data,
+            :dia,
             :hora,
             :tipodeentrega
         );');
         $statement->execute([
             'id_take' => $takeaway->getId_take(),
             'preco' => $takeaway->getPreco(),
-            'data' => $takeaway->getData(),
+            'dia' => $takeaway->getDia(),
             'hora' => $takeaway->getHora(),
             'tipodeentrega' => $takeaway->getTipodeentrega()
         ]);

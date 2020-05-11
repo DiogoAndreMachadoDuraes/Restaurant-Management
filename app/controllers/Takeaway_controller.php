@@ -28,12 +28,12 @@ final class Takeaway_controller
       $takeaway=new Takeaway();
       $takeaway->setId_take($data['id_take'])
          ->setPreco($data['preco'])
-         ->setData($data['data'])
+         ->setDia($data['dia'])
          ->setHora($data['hora'])
-         ->setTipoentrega($data['tipoentrega']);
+         ->setTipodeentrega($data['tipodeentrega']);
       $takeaway_dao->Update($takeaway);
 
-      $response -> getBody() -> write("Take away modificado!");
+      $response->getBody()->write("Take away modificado!");
       return $response;
    }
  
@@ -46,12 +46,12 @@ final class Takeaway_controller
       $takeaway=new Takeaway();
       $takeaway->setId_take($data['id_take'])
          ->setPreco($data['preco'])
-         ->setData($data['data'])
+         ->setDia($data['dia'])
          ->setHora($data['hora'])
-         ->setTipoentrega($data['tipoentrega']);
+         ->setTipodeentrega($data['tipodeentrega']);
       $takeaway_dao->Insert($takeaway);
 
-      $response -> getBody() -> write("Take away inserido!");
+      $response->getBody()->write("Take away inserido!");
       return $response;
    }
  
@@ -65,7 +65,7 @@ final class Takeaway_controller
       $takeaway->setId_take($data['id_take']);
       $takeaway_dao->Delete(intval($takeaway));
 
-      $response -> getBody() -> write("Take away eliminado!");
+      $response->getBody()->write("Take away eliminado!");
       return $response;
    }
 } 
