@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Prato_dao;
 use App\Models\Prato;
 
-
 final class Prato_controller
 {                                
  
@@ -36,7 +35,6 @@ final class Prato_controller
       $response -> getBody() -> write("Prato modificado!");
       return $response;
    }
- 
 
    public function Insert (Request $request, Response $response, array $args) : Response
    {
@@ -54,7 +52,6 @@ final class Prato_controller
       $response -> getBody() -> write("Prato inserido!");
       return $response;
    }
- 
  
    public function Delete (Request $request, Response $response, array $args) : Response
    {  

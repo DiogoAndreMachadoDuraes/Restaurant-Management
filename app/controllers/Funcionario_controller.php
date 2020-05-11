@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Funcionario_dao;
 use App\Models\Funcionario;
 
-
 final class Funcionario_controller
 {                                
  

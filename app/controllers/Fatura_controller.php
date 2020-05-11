@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Fatura_dao;
 use App\Models\Fatura;
 
-
 final class Fatura_controller
 {                                
  
@@ -49,7 +48,6 @@ final class Fatura_controller
       $response -> getBody() -> write("Fatura inserida!");
       return $response;
   }
- 
  
    public function Delete (Request $request, Response $response, array $args) : Response
    {

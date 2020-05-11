@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Takeaway_dao;
 use App\Models\Takeaway;
 
-
 final class Takeaway_controller
 {                                
  
@@ -36,7 +35,6 @@ final class Takeaway_controller
       $response->getBody()->write("Take away modificado!");
       return $response;
    }
- 
 
    public function Insert (Request $request, Response $response, array $args) : Response
    {
@@ -54,8 +52,7 @@ final class Takeaway_controller
       $response->getBody()->write("Take away inserido!");
       return $response;
    }
- 
- 
+
    public function Delete (Request $request, Response $response, array $args) : Response
    {  
       $data=$request->getParsedBody();

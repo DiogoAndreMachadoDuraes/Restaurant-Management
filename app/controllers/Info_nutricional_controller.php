@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Info_nutricional_dao;
 use App\Models\Info_nutricional;
 
-
 final class Info_nutricional_controller
 {                                
  

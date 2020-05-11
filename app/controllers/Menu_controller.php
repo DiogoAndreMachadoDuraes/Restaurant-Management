@@ -7,10 +7,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Menu_dao;
 use App\Models\Menu;
 
-
 final class Menu_controller
 {                                
- 
    public function Select (Request $request, Response $response, array $args) : Response
    {
       $menu_dao=new Menu_dao();
@@ -34,7 +32,6 @@ final class Menu_controller
       $response -> getBody() -> write("Menu modificado!");
       return $response;
    }
- 
 
    public function Insert (Request $request, Response $response, array $args) : Response
    {
@@ -50,7 +47,6 @@ final class Menu_controller
       $response -> getBody() -> write("Menu inserido!");
       return $response;
    }
- 
  
    public function Delete (Request $request, Response $response, array $args) : Response
    {  

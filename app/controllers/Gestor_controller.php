@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Gestor_dao;
 use App\Models\Gestor;
 
-
 final class Gestor_controller
 {                                
  

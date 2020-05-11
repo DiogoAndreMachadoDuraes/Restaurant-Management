@@ -55,7 +55,7 @@ final class Utilizador_controller
       $response -> getBody() -> write("Utilizador inserido!");
       return $response;
    }
- 
+
    public function Delete (Request $request, Response $response, array $args) : Response
    {  
       $data=$request->getParsedBody();
