@@ -3,7 +3,6 @@
 namespace App\DAO;
 
     use App\Models\Compraextra;
-    use ConnectionDB;
 
     class Compraextra_dao extends ConnectionDB
     {

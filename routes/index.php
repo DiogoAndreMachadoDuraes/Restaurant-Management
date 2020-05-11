@@ -29,21 +29,32 @@
         Auth_middleware
         //Middleware
     };
+    
     use function src\Jwt_Auth;
 
     require __DIR__ . '/../vendor/autoload.php';
 
     $app = AppFactory::create();
 
+    $app->setBasePath("/Ementas-de-Restauracao/routes/index.php");
+
     $app->addRoutingMiddleware();
 
-    $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+    $app->addErrorMiddleware(true, true, true);
 
+    /*$settings['error_handler_middleware'] = [
+        'display_error_details' => getenv('display_error_details'),
+    ];*/
+
+/*
     $app->post('/register', Utilizador_controller::class . ':Insert');
 
     $app->post('/login', Auth_controller::class. ':login');
     $app->post('/refreshToken', Auth_controller::class . ':refreshToken');
+*/
+    $app->get('/Reserva', Reserva_controller::class . ':Select');
 
+/*
     $app->group('/clientelogin', function() use($app) {
         $app->put('/clientechanges', Utilizador_controller::class . ':Update');
         $app->delete('/delete', Utilizador_controller::class . ':Delete');
@@ -165,7 +176,6 @@
 
     })  ->add(new Auth_middleware())
         ->add(Jwt_Auth());
-
+*/
     $app->run();
-
 ?>

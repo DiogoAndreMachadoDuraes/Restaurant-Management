@@ -1,7 +1,6 @@
 <?php
 
 namespace App\DAO;
-use ConnectionDB;
 use App\Models\Info_nutricional;
 
 class Info_nutricional_dao extends ConnectionDB

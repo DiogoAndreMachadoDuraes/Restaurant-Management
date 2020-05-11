@@ -3,7 +3,6 @@
 namespace App\DAO;
 
 use App\Models\Token;
-use ConnectionDB;
 
     class Token_dao extends ConnectionDB
     {

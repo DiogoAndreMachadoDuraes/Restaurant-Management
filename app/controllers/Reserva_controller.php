@@ -27,7 +27,8 @@ namespace App\Controllers;
         {
             $reservasdao=new Reserva_dao();
             $reservas=$reservasdao->Select();
-            $response->getBody()->write($reservas);
+            $json=json_encode($reservas);
+            $response->getBody()->write($json);
 
             return $response;
         }

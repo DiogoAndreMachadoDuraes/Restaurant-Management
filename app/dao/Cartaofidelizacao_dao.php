@@ -3,7 +3,6 @@
 namespace App\DAO;
 
     use App\Models\Cartaofidelizacao;
-    use ConnectionDB;
 
     class Cartaofidelizacao_dao extends ConnectionDB
     {

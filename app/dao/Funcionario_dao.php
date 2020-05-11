@@ -2,7 +2,6 @@
 
 namespace App\DAO;
 use App\Models\Funcionario;
-use ConnectionDB;
 
 class Funcionario_dao extends ConnectionDB
 {

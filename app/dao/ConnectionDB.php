@@ -1,20 +1,23 @@
 <?php
 
+   namespace App\DAO;
+   
    abstract class ConnectionDB
    {
-      protected string $pdo;
+      protected $pdo;
 
       public function __construct()
       {
-         $host=getenv('Ementas_Restauracao_HOST');
-         $port=getenv('Ementas_Restauracao_PORT');
-         $user=getenv('Ementas_Restauracao_USER');
-         $pass=getenv('Ementas_Restauracao_PASSWORD');
-         $dbname=getenv('Ementas_Restauracao_DBNAME');
+         /*$host=getenv('ementasrestauracao_HOST=');
+         $user=getenv('ementasrestauracao_USER=');
+         $pass=getenv('ementasrestauracao_PASSWORD=');
+         $dbname=getenv('ementasrestauracao_DBNAME=');
+         $port=getenv('ementasrestauracao_PORT=');
+         
+         $dsn="mysql:host={$host};dbname={$dbname};port={$port}";*/
+         $dsn="mysql:host=178.62.212.71;dbname=ementasrestauracao;port=3306";
 
-         $dsn="mysql:host={$host}; dbname={$dbname}; port={$port}";
-
-         $this->pdo=new \PDO($dsn, $user, $pass);
+         $this->pdo= new \PDO($dsn, 'rh_user', 'rFrH2016');
          $this->pdo->setAttribute(
             \PDO::ATTR_ERRMODE,
             \PDO::ERRMODE_EXCEPTION

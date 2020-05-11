@@ -15,6 +15,4 @@ class TestException extends \Exception
         }
 
 }
-
-
 ?>

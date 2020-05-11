@@ -2,7 +2,6 @@
 
 namespace App\DAO;
 use App\Models\Utilizador;
-use ConnectionDB;
 
 class Utilizador_dao extends ConnectionDB
 {
@@ -15,14 +14,14 @@ class Utilizador_dao extends ConnectionDB
     {
         $utilizador = $this->pdo
         ->query ('SELECT
-        id_utilizador,
-        nome,
-        telefone,
-        email,
-        morada,
-        password,
-        tipo
-    From utilizador;')
+            id_utilizador,
+            nome,
+            telefone,
+            email,
+            morada,
+            password,
+            tipo
+        From utilizador;')
         -> fetchAll(\PDO::FETCH_ASSOC);
 
         return $utilizador;

@@ -3,9 +3,8 @@
 namespace App\DAO;
 
     use App\Models\RefeicaoSemanal;
-    use ConnectionDB;
 
-class RefeicaoSemanal_dao extends ConnectionDB
+    class RefeicaoSemanal_dao extends ConnectionDB
     {
         public function __construct(){
             parent::__construct();

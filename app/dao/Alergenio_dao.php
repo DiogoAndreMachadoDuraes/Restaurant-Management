@@ -1,7 +1,7 @@
 <?php
 
 namespace App\DAO;
-use ConnectionDB;
+
 use App\Models\Alergenio;
 
 class Alergenio_dao extends ConnectionDB

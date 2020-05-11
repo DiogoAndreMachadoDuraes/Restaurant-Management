@@ -6,6 +6,7 @@ namespace App\Models;
     {
         private int $id_cartao;
         private int $n_compras;
+        private int $id_cliente;
 
         public function Cartaofidelizacao(){ }
 
@@ -24,6 +25,15 @@ namespace App\Models;
 
         public function setN_compras($n_compras): Cartaofidelizacao{
             $this->n_compras = $n_compras;
+            return $this;
+        }
+
+        public function getId_cliente(){
+            return $this->id_cliente;
+        }
+        
+        public function setId_cliente($id_cliente): Cartaofidelizacao{
+            $this->id_cliente = $id_cliente;
             return $this;
         }
     }

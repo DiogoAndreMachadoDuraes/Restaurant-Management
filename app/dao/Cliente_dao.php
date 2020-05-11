@@ -3,7 +3,6 @@
 namespace App\DAO;
 
     use App\Models\Cliente;
-    use ConnectionDB;
 
     class Cliente_dao extends ConnectionDB
     {

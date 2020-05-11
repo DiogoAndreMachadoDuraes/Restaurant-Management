@@ -1,7 +1,7 @@
 <?php
 
 namespace App\DAO;
-use ConnectionDB;
+
 use App\Models\Gestor;
 
 class Gestor_dao extends ConnectionDB

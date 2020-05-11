@@ -1,7 +1,7 @@
 <?php
 
 namespace App\DAO;
-use ConnectionDB;
+
 use App\Models\Fatura;
 
 class Fatura_dao extends ConnectionDB

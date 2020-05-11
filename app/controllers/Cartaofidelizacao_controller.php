@@ -75,14 +75,17 @@ namespace App\Controllers;
         public function RefeicaoGratis() :void
         {
             $numerocompras=Cartaofidelizacao::getN_compras();
-            $nif_cliente=Cartaofidelizacao::getNif();
+            $nif_cliente=Cliente::getNif_cliente();
 
-            if($numerocompras==10 && $nif=Cliente::getNif())
+            if($numerocompras==10 && $nif=Cliente::getNif_cliente())
             {
                 $id_cartao=Cartaofidelizacao::getId();
-                $nome=Cliente::getNome();
+                $id_cartaofk=Cartaofidelizacao::getId_cartao();
 
-                echo("O cliente ") .$nome. ("com cartao ") .$id_cartao. ("tem uma refeicao gratis");
+                while($id_cartao==$id_cartaofk){
+                    $nif=Cliente::getNif_cliente();
+                    echo("O cliente com o nif:") .$nif. ("com cartao ") .$id_cartao. ("tem uma refeicao gratis");
+                }
             }
         }
     }

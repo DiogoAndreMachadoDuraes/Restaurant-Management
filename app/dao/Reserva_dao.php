@@ -3,7 +3,6 @@
 namespace App\DAO;
 
     use App\Models\Reserva;
-    use ConnectionDB;
 
     class Reserva_dao extends ConnectionDB
     {
@@ -18,8 +17,7 @@ namespace App\DAO;
                     null, 
                     :pagamento
                     );');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'pagamento' => $reservas->getPagamento()
                 ]);
         }
@@ -27,7 +25,7 @@ namespace App\DAO;
         public function Select() : array
         {
             $reservas=$this->pdo
-                ->query('SELECT * FROM Reserva')
+                ->query('SELECT id_reserva, pagamento FROM Reserva')
                 ->fetchAll(\PDO::FETCH_ASSOC);
             return $reservas;
         }
@@ -36,8 +34,7 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Reserva SET pagamento=:pagamento WHERE id_reserva=:id_reserva');
-                $statement=$this->pdo
-                ->execute([
+                $statement->execute([
                     'id_reserva' => $reservas->getId(),
                     'pagamento' => $reservas->getPagamento()
                 ]);
@@ -47,11 +44,9 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('DELETE FROM Reserva WHERE id_reserva=:id_reserva');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'id_reserva' => $id_reserva
                 ]);
         }
-
     }
 ?>

@@ -2,7 +2,6 @@
 
 namespace App\DAO;
 use App\Models\Menu;
-use ConnectionDB;
 
 class Menu_dao extends ConnectionDB
 {

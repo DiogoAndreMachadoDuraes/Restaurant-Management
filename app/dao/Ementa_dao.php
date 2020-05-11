@@ -3,7 +3,6 @@
 namespace App\DAO;
 
     use App\Models\Ementa;
-    use ConnectionDB;
 
     class Ementa_dao extends ConnectionDB
     {

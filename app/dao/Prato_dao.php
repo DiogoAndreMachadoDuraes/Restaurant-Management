@@ -2,7 +2,6 @@
 
 namespace App\DAO;
 use App\Models\Prato;
-use ConnectionDB;
 
 class Prato_dao extends ConnectionDB
 {

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\DAO;
-use ConnectionDB;
+
 use App\Models\Restaurante;
 
 class Restaurante_dao extends ConnectionDB
