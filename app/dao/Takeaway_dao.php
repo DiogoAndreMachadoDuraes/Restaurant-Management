@@ -21,7 +21,7 @@ class Takeaway_dao extends ConnectionDB
         hora,
         tipodeentrega
     From takeaway;')
-      ->  fetchAll(\PDO::FETCH_ASSOC);
+      -> fetchAll(\PDO::FETCH_ASSOC);
 
         return $takeaway;
     }

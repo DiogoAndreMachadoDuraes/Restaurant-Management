@@ -29,7 +29,7 @@ use App\Models\Token;
                 ->prepare('Select id From Token WHERE refreshToken = :refresehToken AND active = 1;');
             $statement->bindParam('refreshToken', $refreshToken);
             $statement->execute();
-            $token=$statement->fecthAll(\PDO::FETCH_ASSOC);
+            $token=$statement->fetchAll(\PDO::FETCH_ASSOC);
             return count($token)==0 ? false:true ;
         }
     }
