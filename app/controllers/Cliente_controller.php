@@ -27,7 +27,7 @@ namespace App\Controllers;
             $clientesdao=new Cliente_dao();
             $clientes=$clientesdao->Select();
             $json=json_encode($clientes);
-            $response->getBody()->write($clientes);
+            $response->getBody()->write($json);
             return $response;
         }
         

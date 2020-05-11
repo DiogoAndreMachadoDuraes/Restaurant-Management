@@ -16,7 +16,7 @@ final class Takeaway_controller
       $takeaway_dao=new Takeaway_dao();
       $takeaway=$takeaway_dao->Select();
       $json=json_encode($takeaway);
-      $response -> getBody() -> write($takeaway);
+      $response->getBody()->write($json);
       return $response;
    }
 

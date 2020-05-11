@@ -16,7 +16,7 @@ final class Prato_controller
       $prato_dao=new Prato_dao();
       $prato=$prato_dao->Select();
       $json=json_encode($prato);
-      $response -> getBody() -> write($prato);
+      $response->getBody()->write($json);
       return $response;
    }
 

@@ -14,7 +14,7 @@ final class Utilizador_controller
       $utilizador_dao=new Utilizador_dao();
       $utilizador=$utilizador_dao->Select();
       $json=json_encode($utilizador);
-      $response -> getBody() -> write($utilizador);
+      $response->getBody()->write($json);
       return $response;
    }
 

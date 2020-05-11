@@ -29,7 +29,7 @@ namespace App\Controllers;
             $compraextrasdao=new Compraextra_dao();
             $compraextras=$compraextrasdao->Select();
             $json=json_encode($compraextras);
-            $response->getBody()->write($compraextras);
+            $response->getBody()->write($json);
             return $response;
         }
         

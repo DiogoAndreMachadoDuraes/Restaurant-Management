@@ -16,7 +16,7 @@ final class Fatura_controller
       $fatura_dao=new Fatura_dao();
       $fatura=$fatura_dao->Select();
       $json=json_encode($fatura);
-      $response -> getBody() -> write($fatura);
+      $response -> getBody() -> write($json);
       return $response;
    }
 

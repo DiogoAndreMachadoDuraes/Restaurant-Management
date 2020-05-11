@@ -28,8 +28,8 @@ namespace App\Controllers;
         {
             $compramenusdao=new Compramenu_dao();
             $compramenus=$compramenusdao->Select();
-            $response->getBody->write($compramenus);
             $json=json_encode($compramenus);
+            $response->getBody->write($json);
             return $response;
         }
         

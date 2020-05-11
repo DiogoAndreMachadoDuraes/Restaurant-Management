@@ -14,7 +14,7 @@ final class Alergenio_controller
       $alergenio_dao=new Alergenio_dao();
       $alergenio=$alergenio_dao->Select();
       $json=json_encode($alergenio);
-      $response -> getBody() -> write ($alergenio);
+      $response->getBody()->write($json);
       return $response;
    }
 

@@ -16,7 +16,7 @@ final class Menu_controller
       $menu_dao=new Menu_dao();
       $menu=$menu_dao->Select();
       $json=json_encode($menu);
-      $response->getBody()->write($menu);
+      $response->getBody()->write($json);
       return $response;
    }
  

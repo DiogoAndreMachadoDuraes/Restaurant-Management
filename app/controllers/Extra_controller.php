@@ -28,8 +28,8 @@ namespace App\Controllers;
         {
             $extrasdao=new Extra_dao();
             $extras=$extrasdao->Select();
-            $response->getBody()->write($extras);
             $json=json_encode($extras);
+            $response->getBody()->write($json);
             return $response;
         }
         

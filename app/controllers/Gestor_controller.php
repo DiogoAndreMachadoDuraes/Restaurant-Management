@@ -16,7 +16,7 @@ final class Gestor_controller
       $gestor_dao=new Gestor_dao();
       $gestor=$gestor_dao->Select();
       $json=json_encode($gestor);
-      $response -> getBody() -> write($gestor);
+      $response->getBody()->write($json);
       return $response;
    }
 

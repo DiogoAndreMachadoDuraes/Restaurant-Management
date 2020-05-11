@@ -27,8 +27,8 @@ namespace App\Controllers;
         {
             $ementasdao=new Ementa_dao();
             $ementas=$ementasdao->Select();
-            $response->getBody()->write($ementas);
             $json=json_encode($ementas);
+            $response->getBody()->write($json);
             return $response;
         }
         

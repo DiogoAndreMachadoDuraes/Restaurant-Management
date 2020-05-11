@@ -28,8 +28,8 @@ namespace App\Controllers;
         {
             $refeicaosemanalsdao=new RefeicaoSemanal_dao();
             $refeicaosemanals=$refeicaosemanalsdao->Select();
-            $response->getBody()->write($refeicaosemanals);
             $json=json_encode($refeicaosemanals);
+            $response->getBody()->write($json);
             return $response;
         }
         
