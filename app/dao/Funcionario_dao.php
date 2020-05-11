@@ -13,14 +13,14 @@ class Funcionario_dao extends ConnectionDB
     public function Select (): array
     {
         $funcionario = $this->pdo
-        ->query ('SELECT
-        id_func,
-        nif_func,
-        nome,
-        telefone,
-        email
-    From funcionaio;')
-       -> fetchAll(\PDO::FETCH_ASSOC);
+            ->query ('SELECT
+                id_func,
+                nif_func,
+                nome,
+                telefone,
+                email
+                From funcionaio;')
+            ->fetchAll(\PDO::FETCH_ASSOC);
 
         return $funcionario;
     }
@@ -70,7 +70,7 @@ class Funcionario_dao extends ConnectionDB
        
         $statement->execute([
             'id_func' => $id_func()
-            ]);
+        ]);
     }       
 }
 ?>

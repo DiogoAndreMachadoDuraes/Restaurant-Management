@@ -64,5 +64,4 @@ class Fatura_dao extends ConnectionDB
         ]);
     }
 }
-
 ?>

@@ -19,11 +19,10 @@ namespace App\DAO;
                     :nome_extra, 
                     :tipo
                     );');
-            $statement=$this->pdo
-                ->execute([
-                    'nome_extra' => $extras->getNome(),
-                    'tipo' => $extras->getTipo()
-                ]);
+            $statement->execute([
+                'nome_extra' => $extras->getNome(),
+                'tipo' => $extras->getTipo()
+            ]);
         }
 
         public function Select() : array
@@ -38,22 +37,20 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Extra set nome_extra=:nome_extra and tipo=:tipo Where id_extra=:id_extra');
-                $statement=$this->pdo
-                ->execute([
-                    'id_extra' => $extras->getId(),
-                    'nome_extra' => $extras->getNome(),
-                    'tipo' => $extras->getTipo()
-                ]);
+            $statement->execute([
+                'id_extra' => $extras->getId(),
+                'nome_extra' => $extras->getNome(),
+                'tipo' => $extras->getTipo()
+            ]);
         }
 
         public function Delete(int $id_extra) : void
         {
             $statement=$this->pdo
                 ->prepare('DELETE Extra Where id_extra=:id_extra');
-            $statement=$this->pdo
-                ->execute([
-                    'id_extra' => $id_extra
-                ]);
+            $statement->execute([
+                'id_extra' => $id_extra
+            ]);
         }
 
     }

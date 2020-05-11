@@ -18,8 +18,8 @@ namespace App\DAO;
                     :pagamento
                     );');
             $statement->execute([
-                    'pagamento' => $reservas->getPagamento()
-                ]);
+                'pagamento' => $reservas->getPagamento()
+            ]);
         }
 
         public function Select() : array
@@ -46,7 +46,7 @@ namespace App\DAO;
                 ->prepare('DELETE FROM Reserva WHERE id_reserva=:id_reserva');
             $statement->execute([
                     'id_reserva' => $id_reserva
-                ]);
+            ]);
         }
     }
 ?>

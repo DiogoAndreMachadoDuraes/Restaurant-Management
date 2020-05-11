@@ -13,13 +13,12 @@ class Menu_dao extends ConnectionDB
     public function Select (): array
     {
         $menu = $this->pdo
-        ->query ('SELECT
-        numero_menu,
-        valormenu,
-        descricao
-    From menu;')
-       -> fetchAll(\PDO::FETCH_ASSOC);
-
+            ->query ('SELECT
+                numero_menu,
+                valormenu,
+                descricao
+                From menu;')
+            ->fetchAll(\PDO::FETCH_ASSOC);
         return $menu;
     }
 
@@ -60,7 +59,7 @@ class Menu_dao extends ConnectionDB
        
         $statement->execute([
             'numero_menu' => $numero_menu
-            ]);
+        ]);
     }    
 }
 ?>

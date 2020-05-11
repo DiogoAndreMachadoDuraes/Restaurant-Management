@@ -17,8 +17,7 @@ namespace App\DAO;
                     null, 
                     :descricao
                     );');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'descricao' => $ementas->getDescricao()
                 ]);
         }
@@ -35,21 +34,19 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Ementa set descricao=:descricao Where id_ementa=:id_ementa');
-                $statement=$this->pdo
-                ->execute([
-                    'id_compramenu' => $ementas->getId(),
-                    'descricao' => $ementas->getDescricao()
-                ]);
+            $statement->execute([
+                'id_compramenu' => $ementas->getId(),
+                'descricao' => $ementas->getDescricao()
+            ]);
         }
 
         public function Delete(int $id_compramenu) : void
         {
             $statement=$this->pdo
                 ->prepare('DELETE Ementa Where id_ementa=:id_ementa');
-            $statement=$this->pdo
-                ->execute([
-                    'id_compramenu' => $id_compramenu
-                ]);
+            $statement->execute([
+                'id_compramenu' => $id_compramenu
+            ]);
         }
 
     }

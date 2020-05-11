@@ -17,8 +17,7 @@ namespace App\DAO;
                     null,
                     :N_compras
                 );');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'N_compras' => $cartoes->getN_compras()
                 ]);
         }
@@ -35,8 +34,7 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Cartaofidelizacao SET n_compras=:n_compras WHERE id_Cartao=:id_cartao');
-                $statement=$this->pdo
-                ->execute([
+                $statement->execute([
                     'id_cartao' => $cartoes->getID(),
                     'n_compras' => $cartoes->getN_compras()
                 ]);
@@ -46,8 +44,7 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('DELETE FROM Cartaofidelizacao WHERE id_cartao=:id_cartao');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'id_cartao' => $id_cartao
                 ]);
         }

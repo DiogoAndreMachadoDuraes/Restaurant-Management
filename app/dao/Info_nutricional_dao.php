@@ -13,14 +13,13 @@ class Info_nutricional_dao extends ConnectionDB
     public function Select (): array
     {
         $info_nutricional = $this->pdo
-        ->query ('SELECT
-        id_nutri,
-        tipo,
-        quantidade_nutrientes,
-        descricao
-    From info_nutricional;')
-        -> fetchAll(\PDO::FETCH_ASSOC);
-
+            ->query ('SELECT
+                id_nutri,
+                tipo,
+                quantidade_nutrientes,
+                descricao
+                From info_nutricional;')
+            -> fetchAll(\PDO::FETCH_ASSOC);
         return $info_nutricional;
     }
 
@@ -65,7 +64,7 @@ class Info_nutricional_dao extends ConnectionDB
        
         $statement->execute([
             'id_nutri' => $id_nutri
-            ]);
+        ]);
     } 
 }
 ?>

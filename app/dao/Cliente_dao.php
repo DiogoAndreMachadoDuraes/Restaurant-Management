@@ -17,8 +17,7 @@ namespace App\DAO;
                     :id_cliente, 
                     :nif_cliente,
                     );');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'id_cliente' => $clientes->getId_cliente(),
                     'nif_cliente' => $clientes->getNif_cliente(),
                 ]);
@@ -36,8 +35,7 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Cliente SET nif_cliente=:nif_cliente WHERE id_cliente=:id_cliente');
-                $statement=$this->pdo
-                ->execute([
+                $statement->execute([
                     'id_cliente' => $clientes->getId_cliente(),
                     'nif_cliente' => $clientes->getNif_cliente(),
                 ]);
@@ -47,8 +45,7 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('DELETE FROM Cliente WHERE id_cliente=:id_cliente');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'id_cliente' => $id_cliente
                 ]);
         }

@@ -13,15 +13,14 @@ class Prato_dao extends ConnectionDB
     public function Select(): array
     {
         $prato = $this->pdo
-        ->query ('SELECT
-        id_prato,
-        nomeprato,
-        quantidade,
-        descricao,
-        preco
-    From prato;')
-      -> fetchAll(\PDO::FETCH_ASSOC);
-
+            ->query ('SELECT
+                id_prato,
+                nomeprato,
+                quantidade,
+                descricao,
+                preco
+            From prato;')
+            ->fetchAll(\PDO::FETCH_ASSOC);
         return $prato;
     }
 
@@ -73,7 +72,7 @@ class Prato_dao extends ConnectionDB
        
         $statement->execute([
             'id_prato' => $id_prato
-            ]);
-        }   
+        ]);
+    }   
 }
 ?>

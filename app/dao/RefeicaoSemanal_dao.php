@@ -17,12 +17,11 @@ namespace App\DAO;
                     null, 
                     :dia, 
                     :hora
-                    );');
-            $statement=$this->pdo
-                ->execute([
-                    'dia' => $refeicoes->getDia(),
-                    'hora' => $refeicoes->getHora()
-                ]);
+                );');
+            $statement->execute([
+                'dia' => $refeicoes->getDia(),
+                'hora' => $refeicoes->getHora()
+            ]);
         }
 
         public function Select() : array
@@ -37,23 +36,20 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('UPDATE RefeicaoSemanal set dia=:dia and hora=:hora Where id_semana=:id_semana');
-                $statement=$this->pdo
-                ->execute([
-                    'id_semana' => $refeicoes->getId(),
-                    'dia' => $refeicoes->getDia(),
-                    'hora' => $refeicoes->getHora()
-                ]);
+            $statement->execute([
+                'id_semana' => $refeicoes->getId(),
+                'dia' => $refeicoes->getDia(),
+                'hora' => $refeicoes->getHora()
+            ]);
         }
 
         public function Delete(int $id_semana) : void
         {
             $statement=$this->pdo
                 ->prepare('DELETE RefeicaoSemanal Where id_semana=:id_semana');
-            $statement=$this->pdo
-                ->execute([
-                    'id_semana' => $id_semana
-                ]);
+            $statement->execute([
+                'id_semana' => $id_semana
+            ]);
         }
-
     }
 ?>

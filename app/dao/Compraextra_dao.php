@@ -18,8 +18,7 @@ namespace App\DAO;
                     :quantidade, 
                     :preco_extra
                     );');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'quantidade' => $comprasextras->getQuantidade(),
                     'preco_extra' => $comprasextras->getPreco(),
                 ]);
@@ -37,8 +36,7 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Compraextra set quantidade=:quantidade and preco_extra=:preco_extra Where id_compraextra=:id_compraextra');
-                $statement=$this->pdo
-                ->execute([
+                $statement->execute([
                     'id_compraextra' => $comprasextras->getId(),
                     'quantidade' => $comprasextras->getQuantidade(),
                     'preco_extra' => $comprasextras->getPreco(),
@@ -49,8 +47,7 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('DELETE Compraextra Where id_compraextra=:id_compraextra');
-            $statement=$this->pdo
-                ->execute([
+            $statement->execute([
                     'id_compraextra' => $id_compraextra
                 ]);
         }

@@ -14,15 +14,14 @@ class Takeaway_dao extends ConnectionDB
     public function Select (): array
     {
         $takeaway = $this->pdo
-        ->query ('SELECT
-        id_take,
-        preco,
-        dia,
-        hora,
-        tipodeentrega
-    From takeaway;')
-      -> fetchAll(\PDO::FETCH_ASSOC);
-
+            ->query ('SELECT
+                id_take,
+                preco,
+                dia,
+                hora,
+                tipodeentrega
+                From takeaway;')
+            -> fetchAll(\PDO::FETCH_ASSOC);
         return $takeaway;
     }
 
@@ -71,7 +70,7 @@ class Takeaway_dao extends ConnectionDB
        
         $statement->execute([
             'id_take' => $id_take
-            ]);
+        ]);
     }    
 }
 ?>

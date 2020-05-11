@@ -80,7 +80,7 @@ class Utilizador_dao extends ConnectionDB
        
         $statement->execute([
             'id_utilizador' => $id_utilizador
-            ]);
+        ]);
     } 
     
     public function SelectByEmail (string $email): ?Utilizador

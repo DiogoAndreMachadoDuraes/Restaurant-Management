@@ -14,12 +14,11 @@ class Gestor_dao extends ConnectionDB
     public function Select (): array
     {
         $gestor = $this->pdo
-        ->query ('SELECT
-        id_gestor,
-        nif_gestor
-    From gestor;')
-      ->  fetchAll(\PDO::FETCH_ASSOC);
-
+            ->query ('SELECT
+                id_gestor,
+                nif_gestor
+                From gestor;')
+            ->fetchAll(\PDO::FETCH_ASSOC);
         return $gestor;
     }
 
@@ -33,7 +32,7 @@ class Gestor_dao extends ConnectionDB
         $statement->execute([
             'id_gestor' => $gestor->getId_gestor(),
             'nif_gestor' => $gestor->getNif_gestor()
-     ]);
+        ]);
     }
 
     public function Update (Gestor $gestor): void
@@ -56,7 +55,7 @@ class Gestor_dao extends ConnectionDB
        
         $statement->execute([
             'id_gestor' => $id_gestor
-            ]);
+        ]);
     }    
 }
 ?>

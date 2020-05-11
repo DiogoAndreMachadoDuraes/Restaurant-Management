@@ -14,15 +14,14 @@ class Restaurante_dao extends ConnectionDB
     public function Select(): array
     {
         $restaurante = $this->pdo
-        ->query ('SELECT
-        id_restaurante,
-        nome,
-        localizacao,
-        telefone,
-        email
-    From restautante;')
-       -> fetchAll(\PDO::FETCH_ASSOC);
-
+            ->query ('SELECT
+                id_restaurante,
+                nome,
+                localizacao,
+                telefone,
+                email
+                From restautante;')
+            -> fetchAll(\PDO::FETCH_ASSOC);
         return $restaurante;
     }
 
@@ -71,7 +70,7 @@ class Restaurante_dao extends ConnectionDB
        
         $statement->execute([
             'id_restaurante' => $id_restaurante
-            ]);
+        ]);
     }    
 }
 ?>
