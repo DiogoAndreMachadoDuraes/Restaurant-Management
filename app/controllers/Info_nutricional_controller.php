@@ -15,7 +15,7 @@ final class Info_nutricional_controller
    {
       $info_nutricional_dao=new Info_nutricional_dao();
       $info_nutricional=$info_nutricional_dao->Select();
-
+      $json=json_encode($info_nutricional);
       $response -> getBody() -> write($info_nutricional);
       return $response;
    }

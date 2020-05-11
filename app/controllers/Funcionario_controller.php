@@ -15,7 +15,7 @@ final class Funcionario_controller
    {
       $funcionario_dao=new Funcionario_dao();
       $funcionario=$funcionario_dao->Select();
-
+      $json=json_encode($funcionario);
       $response -> getBody() -> write($funcionario);
       return $response;
    }
