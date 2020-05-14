@@ -3,13 +3,13 @@
     use Slim\Factory\AppFactory;
     use App\Controllers\{
         Auth_controller,
-        Cartaofidelizacao_controller,
+        Cartao_fidelizacao_controller,
         Cliente_controller,
-        Compraextra_controller,
-        Compramenu_controller,
+        Compra_extra_controller,
+        Compra_menu_controller,
         Ementa_controller,
         Extra_controller,
-        RefeicaoSemanal_controller,
+        Refeicao_semanal_controller,
         Reserva_controller,
         Utilizador_controller,
         Funcionario_controller,
@@ -64,13 +64,13 @@
         $app->put('/Reserva', Reserva_controller::class . ':Update');
         $app->delete('/Reserva', Reserva_controller::class . ':Delete');
 
-        $app->get('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Select');
+        $app->get('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Select');
         $app->get('/Cliente', Cliente_controller::class . ':Select');
-        $app->get('/Compraextra', Compraextra_controller::class . ':Select');
-        $app->get('/Compramenu', Compramenu_controller::class . ':Select');
+        $app->get('/Compra_extra', Compra_extra_controller::class . ':Select');
+        $app->get('/Compra_menu', Compra_menu_controller::class . ':Select');
         $app->get('/Ementa', Ementa_controller::class . ':Select');
         $app->get('/Extra', Extra_controller::class . ':Select');
-        $app->get('/RefeicaoSemanal', RefeicaoSemanal_controller::class . ':Select');
+        $app->get('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Select');
         $app->get('/Funcionario',Funcionario_controller::class . 'Select');
         $app->get('/Fatura',Fatura_controller::class . 'Select');
         $app->get('/Alergenio',Alergenio_controller::class . 'Select');
@@ -84,25 +84,25 @@
         ->add(Jwt_Auth());
     
     $app->group('/gestorlogin', function() use($app) {
-        $app->get('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Select');
-        $app->post('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Insert');
-        $app->put('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Update');
-        $app->delete('/Cartaofidelizacao', Cartaofidelizacao_controller::class . ':Delete');
+        $app->get('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Select');
+        $app->post('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Insert');
+        $app->put('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Update');
+        $app->delete('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Delete');
 
         $app->get('/Cliente', Cliente_controller::class . ':Select');
         $app->post('/Cliente', Cliente_controller::class . ':Insert');
         $app->put('/Cliente', Cliente_controller::class . ':Update');
         $app->delete('/Cliente', Cliente_controller::class . ':Delete');
 
-        $app->get('/Compraextra', Compraextra_controller::class . ':Select');
-        $app->post('/Compraextra', Compraextra_controller::class . ':Insert');
-        $app->put('/Compraextra', Compraextra_controller::class . ':Update');
-        $app->delete('/Compraextra', Compraextra_controller::class . ':Delete');
+        $app->get('/Compra_extra', Compra_extra_controller::class . ':Select');
+        $app->post('/Compra_extra', Compra_extra_controller::class . ':Insert');
+        $app->put('/Compra_extra', Compra_extra_controller::class . ':Update');
+        $app->delete('/Compra_extra', Compra_extra_controller::class . ':Delete');
 
-        $app->get('/Compramenu', Compramenu_controller::class . ':Select');
-        $app->post('/Compramenu', Compramenu_controller::class . ':Insert');
-        $app->put('/Compramenu', Compramenu_controller::class . ':Update');
-        $app->delete('/Compramenu', Compramenu_controller::class . ':Delete');
+        $app->get('/Compra_menu', Compra_menu_controller::class . ':Select');
+        $app->post('/Compra_menu', Compra_menu_controller::class . ':Insert');
+        $app->put('/Compra_menu', Compra_menu_controller::class . ':Update');
+        $app->delete('/Compra_menu', Compra_menu_controller::class . ':Delete');
 
         $app->get('/Ementa', Ementa_controller::class . ':Select');
         $app->post('/Ementa', Ementa_controller::class . ':Insert');
@@ -114,10 +114,10 @@
         $app->put('/Extra', Extra_controller::class . ':Update');
         $app->delete('/Extra', Extra_controller::class . ':Delete');
 
-        $app->get('/RefeicaoSemanal', RefeicaoSemanal_controller::class . ':Select');
-        $app->post('/RefeicaoSemanal', RefeicaoSemanal_controller::class . ':Insert');
-        $app->put('/RefeicaoSemanal', RefeicaoSemanal_controller::class . ':Update');
-        $app->delete('/RefeicaoSemanal', RefeicaoSemanal_controller::class . ':Delete');
+        $app->get('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Select');
+        $app->post('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Insert');
+        $app->put('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Update');
+        $app->delete('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Delete');
 
         $app->get('/Reserva', Reserva_controller::class . ':Select');
         $app->post('/Reserva', Reserva_controller::class . ':Insert');
