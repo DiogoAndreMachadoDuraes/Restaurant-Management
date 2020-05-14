@@ -13,10 +13,10 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
 
-            $clientesdao=new Cliente_dao();
+            $cliente_dao=new Cliente_dao();
             $cliente=new Cliente();
-            $cliente->setNif_cliente($data['nif_cliente']);
-            $clientesdao->Insert($cliente);
+            $cliente->setNif($data['nif']);
+            $cliente_dao->Insert($cliente);
 
             $response->getBody()->write("Cliente criado com sucesso!");
             return $response;
@@ -24,9 +24,9 @@ namespace App\Controllers;
 
         public function Select (Request $request, Response $response, array $arg) : Response 
         {
-            $clientesdao=new Cliente_dao();
-            $clientes=$clientesdao->Select();
-            $json=json_encode($clientes);
+            $cliente_dao=new Cliente_dao();
+            $cliente=$cliente_dao->Select();
+            $json=json_encode($cliente);
             $response->getBody()->write($json);
             return $response;
         }
@@ -35,10 +35,10 @@ namespace App\Controllers;
         {   
             $data=$request->getParsedBody();
 
-            $clientesdao=new Cliente_dao();
+            $cliente_dao=new Cliente_dao();
             $cliente=new Cliente();
-            $cliente->setNif_cliente($data['nif_cliente']);
-            $clientesdao->Update($cliente);
+            $cliente->setNif($data['nif']);
+            $cliente_dao->Update($cliente);
 
             $response->getBody()->write ("Cliente modificado com sucesso!");
             return $response;
@@ -48,10 +48,10 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
 
-            $clientesdao=new Cliente_dao();
+            $cliente_dao=new Cliente_dao();
             $cliente=new Cliente();
             $cliente->setId_cliente($data['id_cliente']);
-            $clientesdao->Delete(intval($cliente));
+            $cliente_dao->Delete(intval($cliente));
 
             $response->getBody()->write("Cliente eliminado com sucesso!");
             return $response;

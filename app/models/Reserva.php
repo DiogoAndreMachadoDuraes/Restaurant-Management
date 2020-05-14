@@ -9,11 +9,11 @@ namespace App\Models;
 
         public function Reserva(){ }
 
-        public function getId(){
+        public function getId_reserva(){
             return $this->id_reserva;
         }
 
-        public function setId($id_reserva): Reserva{
+        public function setId_reserva($id_reserva): Reserva{
             $this->id_reserva = $id_reserva;
             return $this;
         }

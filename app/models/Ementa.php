@@ -9,11 +9,11 @@ namespace App\Models;
 
         public function Ementa(){ }
 
-        public function getId(){
+        public function getId_ementa(){
             return $this->id_ementa;
         }
         
-        public function setId($id_ementa): Ementa{
+        public function setId_ementa($id_ementa): Ementa{
             $this->id_ementa = $id_ementa;
             return $this;
         }

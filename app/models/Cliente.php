@@ -5,7 +5,7 @@ namespace App\Models;
     final class Cliente
     {
         private int $id_cliente;
-        private int $nif_cliente;
+        private int $nif;
 
         public function Cliente(){ }
 
@@ -18,12 +18,12 @@ namespace App\Models;
             return $this;
         }
 
-        public function getNif_cliente(){
-            return $this->nif_cliente;
+        public function getNif(){
+            return $this->nif;
         }
 
-        public function setNif_cliente($nif_cliente): Cliente{
-            $this->nif = $nif_cliente;
+        public function setNif($nif): Cliente{
+            $this->nif = $nif;
             return $this;
         }
     }

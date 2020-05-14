@@ -11,36 +11,36 @@ namespace App\DAO;
             parent::__construct();
         }
 
-        public function Insert(Extra $extras) : void
+        public function Insert(Extra $extra) : void
         {
             $statement=$this->pdo
                 ->prepare('INSERT INTO Extra values (
                     null, 
-                    :nome_extra, 
+                    :nome, 
                     :tipo
                     );');
             $statement->execute([
-                'nome_extra' => $extras->getNome(),
-                'tipo' => $extras->getTipo()
+                'nome' => $extra->getNome(),
+                'tipo' => $extra->getTipo()
             ]);
         }
 
         public function Select() : array
         {
-            $extras=$this->pdo
+            $extra=$this->pdo
                 ->query('SELECT * FROM Extra')
                 ->fetchAll(\PDO::FETCH_ASSOC);
-            return $extras;
+            return $extra;
         }
 
-        public function Update(Extra $extras) : void
+        public function Update(Extra $extra) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Extra set nome_extra=:nome_extra and tipo=:tipo Where id_extra=:id_extra');
+                ->prepare('UPDATE Extra set nome=:nome and tipo=:tipo Where id_extra=:id_extra');
             $statement->execute([
-                'id_extra' => $extras->getId(),
-                'nome_extra' => $extras->getNome(),
-                'tipo' => $extras->getTipo()
+                'id_extra' => $extra->getId(),
+                'nome' => $extra->getNome(),
+                'tipo' => $extra->getTipo()
             ]);
         }
 

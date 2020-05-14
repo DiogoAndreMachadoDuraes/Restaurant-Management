@@ -4,21 +4,21 @@ namespace App\Controllers;
 
     use Psr\Http\Message\ServerRequestInterface as Request;
     use Psr\Http\Message\ResponseInterface as Response;
-    use App\DAO\Compraextra_dao;
-    use App\Models\Compraextra;
+    use App\DAO\Compra_extra_dao;
+    use App\Models\Compra_extra;
 
-    class Compraextra_controller
+    class Compra_extra_controller
     {
         public function Insert (Request $request, Response $response, array $arg) : Response 
         {
             $data=$request->getParsedBody();
 
-            $compraextrasdao=new Compraextra_dao();
-            $compraextra=new Compraextra();
-            $compraextra->setId($data['id_compraextra'])
+            $compra_extra_dao=new Compra_extra_dao();
+            $compra_extra=new Compra_extra();
+            $compra_extra->setId_compra_extra($data['id_compra_extra'])
                 ->setQuantidade($data['quantidade'])
-                ->setPreco($data['preco_compraextra']);
-            $compraextrasdao->Insert($compraextra);
+                ->setPreco($data['preco']);
+            $compra_extra_dao->Insert($compra_extra);
 
             $response->getBody()->write("Compra extra criada com sucesso!");
             return $response;
@@ -26,8 +26,8 @@ namespace App\Controllers;
 
         public function Select (Request $request, Response $response, array $arg) : Response 
         {
-            $compraextrasdao=new Compraextra_dao();
-            $compraextras=$compraextrasdao->Select();
+            $compra_extra_dao=new Compra_extra_dao();
+            $compraextras=$compra_extra_dao->Select();
             $json=json_encode($compraextras);
             $response->getBody()->write($json);
             return $response;
@@ -37,12 +37,12 @@ namespace App\Controllers;
         {   
             $data=$request->getParsedBody();
 
-            $compraextrasdao=new Compraextra_dao();
-            $compraextra=new Compraextra();
-            $compraextra->setId($data['id_compraextra'])
+            $compra_extra_dao=new Compra_extra_dao();
+            $compra_extra=new Compra_extra();
+            $compra_extra->setId_compra_extra($data['id_compra_extra'])
                 ->setQuantidade($data['quantidade'])
-                ->setPreco($data['preco_compraextra']);
-            $compraextrasdao->Update($compraextra);
+                ->setPreco($data['preco']);
+            $compra_extra_dao->Update($compra_extra);
 
             $response->getBody()->write("Compra extra modificada com sucesso!");
             return $response;
@@ -52,10 +52,10 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
 
-            $compraextrasdao=new Compraextra_dao();
-            $compraextra=new Compraextra();
-            $compraextra->setId($data['id_compraextra']);
-            $compraextrasdao->Delete(intval($compraextra));
+            $compra_extra_dao=new Compra_extra_dao();
+            $compra_extra=new Compra_extra();
+            $compra_extra->setId_compra_extra($data['id_compra_extra']);
+            $compra_extra_dao->Delete(intval($compra_extra));
 
             $response->getBody()->write("Compra extra eliminada com sucesso!");
             return $response;

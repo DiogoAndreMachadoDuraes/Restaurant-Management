@@ -10,7 +10,7 @@ namespace App\DAO;
             parent::__construct();
         }
 
-        public function Insert(Reserva $reservas) : void
+        public function Insert(Reserva $reserva) : void
         {
             $statement=$this->pdo
                 ->prepare('INSERT INTO Reserva VALUES (
@@ -18,25 +18,25 @@ namespace App\DAO;
                     :pagamento
                     );');
             $statement->execute([
-                'pagamento' => $reservas->getPagamento()
+                'pagamento' => $reserva->getPagamento()
             ]);
         }
 
         public function Select() : array
         {
-            $reservas=$this->pdo
-                ->query('SELECT id_reserva, pagamento FROM Reserva')
+            $reserva=$this->pdo
+                ->query('SELECT * FROM Reserva')
                 ->fetchAll(\PDO::FETCH_ASSOC);
-            return $reservas;
+            return $reserva;
         }
 
-        public function Update(Reserva $reservas) : void
+        public function Update(Reserva $reserva) : void
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Reserva SET pagamento=:pagamento WHERE id_reserva=:id_reserva');
                 $statement->execute([
-                    'id_reserva' => $reservas->getId(),
-                    'pagamento' => $reservas->getPagamento()
+                    'id_reserva' => $reserva->getId_reserva(),
+                    'pagamento' => $reserva->getPagamento()
                 ]);
         }
 

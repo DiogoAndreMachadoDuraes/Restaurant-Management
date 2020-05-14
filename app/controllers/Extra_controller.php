@@ -13,12 +13,12 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
 
-            $extrasdao=new Extra_dao();
+            $extra_dao=new Extra_dao();
             $extra=new Extra();
-            $extra->setId($data['id_reserva'])
+            $extra->setId_extra($data['id_extra'])
                 ->setNome($data['nome'])
                 ->setTipo($data['tipo']);
-            $extrasdao->Insert($extra);
+            $extra_dao->Insert($extra);
 
             $response->getBody()->write("Extra criado com sucesso!");
             return $response;
@@ -26,9 +26,9 @@ namespace App\Controllers;
 
         public function Select (Request $request, Response $response, array $arg) : Response 
         {
-            $extrasdao=new Extra_dao();
-            $extras=$extrasdao->Select();
-            $json=json_encode($extras);
+            $extra_dao=new Extra_dao();
+            $extra=$extra_dao->Select();
+            $json=json_encode($extra);
             $response->getBody()->write($json);
             return $response;
         }
@@ -37,12 +37,12 @@ namespace App\Controllers;
         {   
             $data=$request->getParsedBody();
 
-            $extrasdao=new Extra_dao();
+            $extra_dao=new Extra_dao();
             $extra=new Extra();
-            $extra->setId($data['id_reserva'])
+            $extra->setId_extra($data['id_extra'])
                 ->setNome($data['nome'])
                 ->setTipo($data['tipo']);
-            $extrasdao->Update($extra);
+            $extra_dao->Update($extra);
 
             $response->getBody()->write("Extra modificado com sucesso!");
             return $response;
@@ -52,10 +52,10 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
 
-            $extrasdao=new Extra_dao();
+            $extra_dao=new Extra_dao();
             $extra=new Extra();
-            $extra->setId($data['id_reserva']);
-            $extrasdao->Delete(intval($extra));
+            $extra->setId_extra($data['id_extra']);
+            $extra_dao->Delete(intval($extra));
 
             $response->getBody()->write("Extra eliminado com sucesso!");
             return $response;

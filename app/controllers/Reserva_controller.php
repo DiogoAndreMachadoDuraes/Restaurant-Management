@@ -13,11 +13,11 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
 
-            $reservasdao=new Reserva_dao();
+            $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->setId($data['id_reserva'])
+            $reserva->setId_reserva($data['id_reserva'])
                 ->setPagamento($data['pagamento']);
-            $reservasdao->Insert($reserva);
+            $reserva_dao->Insert($reserva);
 
             $response->getBody()->write("Reserva criada com sucesso!");
             return $response;
@@ -25,9 +25,9 @@ namespace App\Controllers;
 
         public function Select (Request $request, Response $response, array $arg) : Response 
         {
-            $reservasdao=new Reserva_dao();
-            $reservas=$reservasdao->Select();
-            $json=json_encode($reservas);
+            $reserva_dao=new Reserva_dao();
+            $reserva=$reserva_dao->Select();
+            $json=json_encode($reserva);
             $response->getBody()->write($json);
             return $response;
         }
@@ -36,11 +36,11 @@ namespace App\Controllers;
         {   
             $data=$request->getParsedBody();
 
-            $reservasdao=new Reserva_dao();
+            $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->setId($data['id_reserva'])
+            $reserva->setId_reserva($data['id_reserva'])
                 ->setPagamento($data['pagamento']);
-            $reservasdao->Update($reserva);
+            $reserva_dao->Update($reserva);
 
             $response->getBody()->write("Reserva modificada com sucesso!");
             return $response;
@@ -50,10 +50,10 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
 
-            $reservasdao=new Reserva_dao();
+            $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->setId($data['id_reserva']);
-            $reservasdao->Delete(intval($reserva));
+            $reserva->setId_reserva($data['id_reserva']);
+            $reserva_dao->Delete(intval($reserva));
 
             $response->getBody()->write("Reserva eliminada com sucesso!");
             return $response;

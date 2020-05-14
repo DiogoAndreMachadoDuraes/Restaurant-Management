@@ -15,11 +15,11 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('INSERT INTO Cliente VALUES (
                     :id_cliente, 
-                    :nif_cliente,
+                    :nif,
                     );');
             $statement->execute([
                     'id_cliente' => $clientes->getId_cliente(),
-                    'nif_cliente' => $clientes->getNif_cliente(),
+                    'nif' => $clientes->getNif(),
                 ]);
         }
 
@@ -34,10 +34,10 @@ namespace App\DAO;
         public function Update(Cliente $clientes) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Cliente SET nif_cliente=:nif_cliente WHERE id_cliente=:id_cliente');
+                ->prepare('UPDATE Cliente SET nif=:nif WHERE id_cliente=:id_cliente');
                 $statement->execute([
                     'id_cliente' => $clientes->getId_cliente(),
-                    'nif_cliente' => $clientes->getNif_cliente(),
+                    'nif' => $clientes->getNif(),
                 ]);
         }
 

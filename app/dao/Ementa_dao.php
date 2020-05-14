@@ -10,7 +10,7 @@ namespace App\DAO;
             parent::__construct();
         }
 
-        public function Insert(Ementa $ementas) : void
+        public function Insert(Ementa $ementa) : void
         {
             $statement=$this->pdo
                 ->prepare('INSERT INTO Ementa values (
@@ -18,34 +18,34 @@ namespace App\DAO;
                     :descricao
                     );');
             $statement->execute([
-                    'descricao' => $ementas->getDescricao()
+                    'descricao' => $ementa->getDescricao()
                 ]);
         }
 
         public function Select() : array
         {
-            $ementas=$this->pdo
+            $ementa=$this->pdo
                 ->query('SELECT * FROM Ementa')
                 ->fetchAll(\PDO::FETCH_ASSOC);
-            return $ementas;
+            return $ementa;
         }
 
-        public function Update(Ementa $ementas) : void
+        public function Update(Ementa $ementa) : void
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Ementa set descricao=:descricao Where id_ementa=:id_ementa');
             $statement->execute([
-                'id_compramenu' => $ementas->getId(),
-                'descricao' => $ementas->getDescricao()
+                'id_ementa' => $ementa->getId_ementa(),
+                'descricao' => $ementa->getDescricao()
             ]);
         }
 
-        public function Delete(int $id_compramenu) : void
+        public function Delete(int $id_ementa) : void
         {
             $statement=$this->pdo
                 ->prepare('DELETE Ementa Where id_ementa=:id_ementa');
             $statement->execute([
-                'id_compramenu' => $id_compramenu
+                'id_ementa' => $id_ementa
             ]);
         }
 

@@ -13,11 +13,11 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
             
-            $ementasdao=new Ementa_dao();
+            $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
-            $ementa->setId($data['id_ementa']) 
+            $ementa->setId_ementa_ementa($data['id_ementa']) 
                 ->setDescricao($data['descricao']);
-            $ementasdao->Insert($ementa);
+            $ementa_dao->Insert($ementa);
 
             $response->getBody()->write("Ementa criada com sucesso!");
             return $response;
@@ -25,8 +25,8 @@ namespace App\Controllers;
 
         public function Select (Request $request, Response $response, array $arg) : Response 
         {
-            $ementasdao=new Ementa_dao();
-            $ementas=$ementasdao->Select();
+            $ementa_dao=new Ementa_dao();
+            $ementas=$ementa_dao->Select();
             $json=json_encode($ementas);
             $response->getBody()->write($json);
             return $response;
@@ -36,11 +36,11 @@ namespace App\Controllers;
         {   
             $data=$request->getParsedBody();
 
-            $ementasdao=new Ementa_dao();
+            $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
-            $ementa->setId($data['id_ementa']) 
+            $ementa->setId_ementa($data['id_ementa']) 
                 ->setDescricao($data['descricao']);
-            $ementasdao->Update($ementa);
+            $ementa_dao->Update($ementa);
 
             $response->getBody()->write("Ementa modificada com sucesso!");
             return $response;
@@ -50,10 +50,10 @@ namespace App\Controllers;
         {
             $data=$request->getParsedBody();
             
-            $ementasdao=new Ementa_dao();
+            $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
-            $ementa->setId($data['id_ementa']);
-            $ementasdao->Delete(intval($ementa));
+            $ementa->setId_ementa($data['id_ementa']);
+            $ementa_dao->Delete(intval($ementa));
 
             $response->getBody()->write("Ementa eliminada com sucesso!");
             return $response;
