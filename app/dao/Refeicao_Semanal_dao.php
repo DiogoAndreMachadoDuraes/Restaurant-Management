@@ -4,7 +4,7 @@ namespace App\DAO;
 
     use App\Models\Refeicao_semanal;
 
-    class Refeicao_semanal_dao extends ConnectionDB
+    class Refeicao_Semanal_dao extends ConnectionDB
     {
         public function __construct(){
             parent::__construct();
