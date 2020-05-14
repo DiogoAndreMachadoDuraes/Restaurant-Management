@@ -2,19 +2,19 @@
 
 namespace App\Models;
     
-    final class Refeicao_Semanal
+    final class Refeicao_semanal
     {
         private int $id_refeicao_semanal;
         private string $dia;
         private string $hora;
 
-        public function Refeicao_Semanal(){ }
+        public function Refeicao_semanal(){ }
 
         public function getId_refeicao_semanal(){
             return $this->id_refeicao_semanal;
         }
 
-        public function setId_refeicao_semanal($id_refeicao_semanal): Refeicao_Semanal{
+        public function setId_refeicao_semanal($id_refeicao_semanal): Refeicao_semanal{
             $this->id_refeicao_semanal = $id_refeicao_semanal;
             return $this;
         }
@@ -23,7 +23,7 @@ namespace App\Models;
             return $this->dia;
         }
 
-        public function setDia($dia): Refeicao_Semanal{
+        public function setDia($dia): Refeicao_semanal{
             $this->dia = $dia;
             return $this;
         }
@@ -32,7 +32,7 @@ namespace App\Models;
             return $this->hora;
         }
 
-        public function setHora($hora): Refeicao_Semanal{
+        public function setHora($hora): Refeicao_semanal{
             $this->hora = $hora;
             return $this;
         }
