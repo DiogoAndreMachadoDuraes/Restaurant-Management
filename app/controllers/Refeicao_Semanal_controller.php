@@ -7,7 +7,7 @@ namespace App\Controllers;
     use App\DAO\Refeicao_semanal_dao;
     use App\Models\Refeicao_semanal;
     
-    class Refeicao_Semanal_controller
+    class Refeicao_semanal_controller
     {
         public function Insert (Request $request, Response $response, array $arg) : Response 
         {
