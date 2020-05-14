@@ -4,7 +4,7 @@ namespace App\Models;
 
     final class Funcionario
     {
-        private int $id_func;
+        private int $id_funcionario;
         private int $nif_func;
         private string $nome;
         private string $telefone;
@@ -13,13 +13,13 @@ namespace App\Models;
         public function Funcionario() {}
 
         //get e set id funcionario
-        public function getId_func()
+        public function getId_funcionario()
         {
             return $this->id_func;
         }
-        public function setId_func(int $id_func): Funcionario
+        public function setId_funcionario(int $id_funcionario): Funcionario
         {
-            $this->id_func = $id_func;
+            $this->id_funcionario = $id_funcionario;
             return $this;
         }
 
