@@ -14,7 +14,7 @@ class Funcionario_dao extends ConnectionDB
     {
         $funcionario = $this->pdo
             ->query ('SELECT
-                id_func,
+                id_funcionario,
                 nif_func,
                 nome,
                 telefone,
@@ -29,14 +29,14 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO funcionario values(
-            :id_fun,
+            :id_funcionario,
             :nif_func,
             :nome,
             :telefone,
             :email
         );');
         $statement->execute([
-            'id_func' => $funcionario->getId_func(),
+            'id_funcionario' => $funcionario->getId_funcionario(),
             'nif_func' => $funcionario->getNif_func(),
             'nome' => $funcionario->getNome(),
             'telefone' => $funcionario->getTelefone(),
@@ -48,14 +48,14 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('UPDATE INTO funcionario values(
-            :id_func,
+            :id_funcionario,
             :nif_func
             :nome,
             :telefone,
             :email
         );');
         $statement->execute([
-            'id_func' => $funcionario->getId_func(),
+            'id_funcionario' => $funcionario->getId_funcionario(),
             'nif_func' => $funcionario->getNif_func(),
             'nome' => $funcionario->getNome(),
             'telefone' => $funcionario->getTelefone(),
@@ -63,13 +63,13 @@ class Funcionario_dao extends ConnectionDB
         ]);
     }
 
-    public function Delete (int $id_func): void
+    public function Delete (int $id_funcionario): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM funcionario WHERE id_func = :id_func');
+        ->prepare ('DELETE FROM funcionario WHERE id_funcionario = :id_funcionario');
        
         $statement->execute([
-            'id_func' => $id_func()
+            'id_funcionario' => $id_funcionario()
         ]);
     }       
 }
