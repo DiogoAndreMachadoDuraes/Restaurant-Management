@@ -2,7 +2,7 @@
 
 namespace App\Models;
     
-    final class Refeicao_semanal
+    final class Refeicao_Semanal
     {
         private int $id_refeicao_semanal;
         private string $dia;
