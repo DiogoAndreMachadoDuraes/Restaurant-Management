@@ -15,8 +15,7 @@ namespace App\Controllers;
             
             $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
-            $ementa->setId_ementa_ementa($data['id_ementa']) 
-                ->setDescricao($data['descricao']);
+            $ementa->set_descricao($data['descricao']);
             $ementa_dao->Insert($ementa);
 
             $response->getBody()->write("Ementa criada com sucesso!");
@@ -38,8 +37,8 @@ namespace App\Controllers;
 
             $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
-            $ementa->setId_ementa($data['id_ementa']) 
-                ->setDescricao($data['descricao']);
+            $ementa->set_id_ementa($data['id_ementa']) 
+                ->set_descricao($data['descricao']);
             $ementa_dao->Update($ementa);
 
             $response->getBody()->write("Ementa modificada com sucesso!");
@@ -52,7 +51,7 @@ namespace App\Controllers;
             
             $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
-            $ementa->setId_ementa($data['id_ementa']);
+            $ementa->set_id_ementa($data['id_ementa']);
             $ementa_dao->Delete(intval($ementa));
 
             $response->getBody()->write("Ementa eliminada com sucesso!");

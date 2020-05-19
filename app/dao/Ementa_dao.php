@@ -18,7 +18,7 @@ namespace App\DAO;
                     :descricao
                     );');
             $statement->execute([
-                    'descricao' => $ementa->getDescricao()
+                    'descricao' => $ementa->get_descricao()
                 ]);
         }
 
@@ -35,8 +35,8 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('UPDATE Ementa set descricao=:descricao Where id_ementa=:id_ementa');
             $statement->execute([
-                'id_ementa' => $ementa->getId_ementa(),
-                'descricao' => $ementa->getDescricao()
+                'id_ementa' => $ementa->get_id_ementa(),
+                'descricao' => $ementa->get_descricao()
             ]);
         }
 

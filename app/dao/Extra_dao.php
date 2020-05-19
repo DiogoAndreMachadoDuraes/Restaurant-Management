@@ -20,8 +20,8 @@ namespace App\DAO;
                     :tipo
                     );');
             $statement->execute([
-                'nome' => $extra->getNome(),
-                'tipo' => $extra->getTipo()
+                'nome' => $extra->get_nome(),
+                'tipo' => $extra->get_tipo()
             ]);
         }
 
@@ -38,9 +38,9 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('UPDATE Extra set nome=:nome and tipo=:tipo Where id_extra=:id_extra');
             $statement->execute([
-                'id_extra' => $extra->getId(),
-                'nome' => $extra->getNome(),
-                'tipo' => $extra->getTipo()
+                'id_extra' => $extra->get_id_extra(),
+                'nome' => $extra->get_nome(),
+                'tipo' => $extra->get_tipo()
             ]);
         }
 

@@ -15,9 +15,9 @@ namespace App\Controllers;
 
             $compra_extra_dao=new Compra_extra_dao();
             $compra_extra=new Compra_extra();
-            $compra_extra->setId_compra_extra($data['id_compra_extra'])
-                ->setQuantidade($data['quantidade'])
-                ->setPreco($data['preco']);
+            $compra_extra->set_id_compra_extra($data['id_compra_extra'])
+                ->set_quantidade($data['quantidade'])
+                ->set_preco($data['preco']);
             $compra_extra_dao->Insert($compra_extra);
 
             $response->getBody()->write("Compra extra criada com sucesso!");
@@ -39,9 +39,9 @@ namespace App\Controllers;
 
             $compra_extra_dao=new Compra_extra_dao();
             $compra_extra=new Compra_extra();
-            $compra_extra->setId_compra_extra($data['id_compra_extra'])
-                ->setQuantidade($data['quantidade'])
-                ->setPreco($data['preco']);
+            $compra_extra->set_id_compra_extra($data['id_compra_extra'])
+                ->set_quantidade($data['quantidade'])
+                ->set_preco($data['preco']);
             $compra_extra_dao->Update($compra_extra);
 
             $response->getBody()->write("Compra extra modificada com sucesso!");
@@ -54,7 +54,7 @@ namespace App\Controllers;
 
             $compra_extra_dao=new Compra_extra_dao();
             $compra_extra=new Compra_extra();
-            $compra_extra->setId_compra_extra($data['id_compra_extra']);
+            $compra_extra->set_id_compra_extra($data['id_compra_extra']);
             $compra_extra_dao->Delete(intval($compra_extra));
 
             $response->getBody()->write("Compra extra eliminada com sucesso!");

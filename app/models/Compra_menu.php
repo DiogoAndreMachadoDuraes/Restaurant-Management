@@ -10,29 +10,29 @@ namespace App\Models;
 
         public function Compra_menu(){ }
 
-        public function getId(){
+        public function get_id_compra_menu(){
             return $this->id_compra_menu;
         }
 
-        public function setId($id_compra_menu): Compra_menu{
+        public function set_id_compra_menu($id_compra_menu): Compra_menu{
             $this->id_compra_menu = $id_compra_menu;
             return $this;
         }
 
-        public function getQuantidade(){
+        public function get_quantidade(){
             return $this->quantidade;
         }
 
-        public function setQuantidade($quantidade): Compra_menu{
+        public function set_quantidade($quantidade): Compra_menu{
             $this->quantidade = $quantidade;
             return $this;
         }
 
-        public function getPreco(){
+        public function get_preco(){
             return $this->preco_menu;
         }
 
-        public function setPreco($preco): Compra_menu{
+        public function set_preco($preco): Compra_menu{
             $this->preco = $preco;
             return $this;
         }

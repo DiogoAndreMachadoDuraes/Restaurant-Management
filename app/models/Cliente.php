@@ -5,25 +5,35 @@ namespace App\Models;
     final class Cliente
     {
         private int $id_cliente;
-        private int $nif;
+        private int $numero_cartao;
+        private int $n_compras;
 
         public function Cliente(){ }
 
-        public function getId_cliente(){
+        public function get_id_cliente(){
             return $this->id_cliente;
         }
 
-        public function setId_cliente($id_cliente): Cliente{
+        public function set_id_cliente($id_cliente): Cliente{
             $this->id_cliente = $id_cliente;
             return $this;
         }
 
-        public function getNif(){
-            return $this->nif;
+        public function get_numero_cartao(){
+            return $this->numero_cartao;
+        }
+        
+        public function set_numero_cartao($numero_cartao): Cliente{
+            $this->numero_cartao = $numero_cartao;
+            return $this;
         }
 
-        public function setNif($nif): Cliente{
-            $this->nif = $nif;
+        public function get_n_compras(){
+            return $this->n_compras;
+        }
+
+        public function set_n_compras($n_compras): Cliente{
+            $this->n_compras = $n_compras;
             return $this;
         }
     }
