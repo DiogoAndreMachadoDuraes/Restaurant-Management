@@ -10,8 +10,8 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HelloWorld} />
+      <Drawer.Navigator initialRouteName="Home" drawerType="slide">
+        <Drawer.Screen name="Home" component={HelloWorld} options={{title:"Homepage"}}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
