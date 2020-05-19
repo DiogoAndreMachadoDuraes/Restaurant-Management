@@ -36,11 +36,11 @@ class Restaurante_dao extends ConnectionDB
             :email
         );');
         $statement->execute([
-            'id_restaurante' => $restaurante->getId_restaurante(),
-            'nome' => $restaurante->getNome(),
-            'localizacao' => $restaurante->getLocalizacao(),
-            'telefone' => $restaurante->getTelefone(),
-            'email' => $restaurante->getEmail()
+            'id_restaurante' => $restaurante->getid_restaurante(),
+            'nome' => $restaurante->getnome(),
+            'localizacao' => $restaurante->getlocalizacao(),
+            'telefone' => $restaurante->gettelefone(),
+            'email' => $restaurante->getemail()
         ]);
     }
 
@@ -55,11 +55,11 @@ class Restaurante_dao extends ConnectionDB
             :email
         );');
         $statement->execute([
-            'id_restaurante' => $restaurante->getId_restaurante(),
-            'nome' => $restaurante->getNome(),
-            'localizacao' => $restaurante->getLocalizacao(),
-            'telefone' => $restaurante->getTelefone(),
-            'email' => $restaurante->getEmail()
+            'id_restaurante' => $restaurante->getid_restaurante(),
+            'nome' => $restaurante->getnome(),
+            'localizacao' => $restaurante->getlocalizacao(),
+            'telefone' => $restaurante->gettelefone(),
+            'email' => $restaurante->getemail()
         ]);
     }
 

@@ -24,9 +24,9 @@ final class Menu_controller
         
       $menu_dao=new Menu_dao();
       $menu=new Menu();
-      $menu->setNumero_menu($data['numero_menu'])
-         ->setValormenu($data['valormenu'])
-         ->setDescricao($data['descricao']);
+      $menu->setid_menu($data['id_menu'])
+         ->setvalor($data['valor'])
+         ->setdescricao($data['descricao']);
       $menu_dao->Update($menu);
 
       $response -> getBody() -> write("Menu modificado!");
@@ -39,9 +39,9 @@ final class Menu_controller
 
       $menu_dao=new Menu_dao();
       $menu=new Menu();
-      $menu->setNumero_menu($data['numero_menu'])
-         ->setValormenu($data['valormenu'])
-         ->setDescricao($data['descricao']);
+      $menu->setid_menu($data['id_menu'])
+         ->setvalor($data['valor'])
+         ->setdescricao($data['descricao']);
       $menu_dao->Insert($menu);
 
       $response -> getBody() -> write("Menu inserido!");
@@ -54,7 +54,7 @@ final class Menu_controller
 
       $menu_dao=new Menu_dao();
       $menu=new Menu();
-      $menu->setNumero_menu($data['numero_menu']);
+      $menu->setid_menu($data['id_menu']);
       $menu_dao->Delete(intval($menu));
 
       $response -> getBody() -> write("Menu eliminado!");

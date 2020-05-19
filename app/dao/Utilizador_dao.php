@@ -20,7 +20,9 @@ class Utilizador_dao extends ConnectionDB
             email,
             morada,
             password,
-            tipo
+            tipo,
+            foto,
+            nif
         From utilizador;')
         -> fetchAll(\PDO::FETCH_ASSOC);
 
@@ -37,16 +39,20 @@ class Utilizador_dao extends ConnectionDB
             :email,
             :morada,
             :password,
-            :tipo
+            :tipo,
+            :foto,
+            :nif
         );');
         $statement->execute([
-            'id_utilizador' => $utilizador->getId_utilizador(),
-            'nome' => $utilizador->getNome(),
-            'telefone' => $utilizador->getTelefone(),
-            'email' => $utilizador->getEmail(),
-            'morada' => $utilizador->getMorada(),
-            'password' => $utilizador->getPassword(),
-            'tipo' => $utilizador->getTipo()
+            'id_utilizador' => $utilizador->getid_utilizador(),
+            'nome' => $utilizador->getnome(),
+            'telefone' => $utilizador->gettelefone(),
+            'email' => $utilizador->getemail(),
+            'morada' => $utilizador->getmorada(),
+            'password' => $utilizador->getpassword(),
+            'tipo' => $utilizador->gettipo(),
+            'foto' => $utilizador->getfoto(),
+            'nif' => $utilizador->getnif()
         ]);
     }
 
@@ -60,16 +66,21 @@ class Utilizador_dao extends ConnectionDB
             :email,
             :morada,
             :password,
-            :tipo
+            :tipo,
+            :foto,
+            :nif
         );');
         $statement->execute([
-            'id_utilizador' => $utilizador->getId_utilizador(),
-            'nome' => $utilizador->getNome(),
-            'telefone' => $utilizador->getTelefone(),
-            'email' => $utilizador->getEmail(),
-            'morada' => $utilizador->getMorada(),
-            'password' => $utilizador->getPassword(),
-            'tipo' => $utilizador->getTipo()
+            'id_utilizador' => $utilizador->getid_utilizador(),
+            'nome' => $utilizador->getnome(),
+            'telefone' => $utilizador->gettelefone(),
+            'email' => $utilizador->getemail(),
+            'morada' => $utilizador->getmorada(),
+            'password' => $utilizador->getpassword(),
+            'tipo' => $utilizador->gettipo(),
+            'foto' => $utilizador->getfoto(),
+            'nif' => $utilizador->getnif()
+            ]);
         ]);
     }
 
@@ -93,7 +104,9 @@ class Utilizador_dao extends ConnectionDB
                     email,
                     morada,
                     password,
-                    tipo
+                    tipo,
+                    foto,
+                    nif
                 From utilizador
                 where email=:email');
         $statement->bindParam('email', $email);
@@ -101,13 +114,15 @@ class Utilizador_dao extends ConnectionDB
         $utilizador=$statement->fetchAll(\PDO::FETCH_ASSOC);
         $utilizador= new Utilizador();
         if(count($utilizador)==0){
-            $utilizador->setId_utilizador($utilizador[0]['id_utilizador'])
-                ->setNome($utilizador[0]['nome'])
-                ->setTelefone($utilizador[0]['telefone'])
-                ->setEmail($utilizador[0]['email'])
-                ->setMorada($utilizador[0]['morada'])
-                ->setPassword($utilizador[0]['password'])
-                ->setTipo($utilizador[0]['tipo']);
+            $utilizador->setid_utilizador($utilizador[0]['id_utilizador'])
+                ->setnome($utilizador[0]['nome'])
+                ->settelefone($utilizador[0]['telefone'])
+                ->setemail($utilizador[0]['email'])
+                ->setmorada($utilizador[0]['morada'])
+                ->setpassword($utilizador[0]['password'])
+                ->settipo($utilizador[0]['tipo'])
+                ->setfoto($utilizador[0]['foto']);
+                ->setnif($utilizador[0]['nif']);
             return $utilizador;
         }
         return null;

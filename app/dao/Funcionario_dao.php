@@ -14,11 +14,7 @@ class Funcionario_dao extends ConnectionDB
     {
         $funcionario = $this->pdo
             ->query ('SELECT
-                id_funcionario,
-                nif_func,
-                nome,
-                telefone,
-                email
+                id_funcionario
                 From funcionaio;')
             ->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -29,18 +25,10 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO funcionario values(
-            :id_funcionario,
-            :nif_func,
-            :nome,
-            :telefone,
-            :email
+            :id_funcionario
         );');
         $statement->execute([
-            'id_funcionario' => $funcionario->getId_funcionario(),
-            'nif_func' => $funcionario->getNif_func(),
-            'nome' => $funcionario->getNome(),
-            'telefone' => $funcionario->getTelefone(),
-            'email' => $funcionario->getEmail()
+            'id_funcionario' => $funcionario->getid_funcionario(),
         ]);
     }
 
@@ -48,19 +36,10 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('UPDATE INTO funcionario values(
-            :id_funcionario,
-            :nif_func
-            :nome,
-            :telefone,
-            :email
+            :id_funcionario
         );');
         $statement->execute([
-            'id_funcionario' => $funcionario->getId_funcionario(),
-            'nif_func' => $funcionario->getNif_func(),
-            'nome' => $funcionario->getNome(),
-            'telefone' => $funcionario->getTelefone(),
-            'email' => $funcionario->getEmail()
-        ]);
+            'id_funcionario' => $funcionario->getid_funcionario(),
     }
 
     public function Delete (int $id_funcionario): void

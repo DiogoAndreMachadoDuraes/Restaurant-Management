@@ -14,8 +14,8 @@ class Menu_dao extends ConnectionDB
     {
         $menu = $this->pdo
             ->query ('SELECT
-                numero_menu,
-                valormenu,
+                id_menu,
+                valor,
                 descricao
                 From menu;')
             ->fetchAll(\PDO::FETCH_ASSOC);
@@ -26,14 +26,14 @@ class Menu_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO menu values(
-            :numero_menu,
-            :valormenu,
+            :id_menu,
+            :valor,
             :descricao
         );');
         $statement->execute([
-            'numero_menu' => $menu->getNumero_menu(),
-            'valormenu' => $menu->getValormenu(),
-            'descricao' => $menu->getDescricao()
+            'id_menu' => $menu->getid_menu(),
+            'valor' => $menu->getvalor(),
+            'descricao' => $menu->getdescricao()
         ]);
     }
 
@@ -41,24 +41,24 @@ class Menu_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('UPDATE INTO alergenio values(
-            :numero_menu,
-            :valormenu,
+            :id_menu,
+            :valor,
             :descricao
         );');
         $statement->execute([
-            'numero_menu' => $menu->getNumero_menu(),
-            'valormenu' => $menu->getValormenu(),
-            'descricao' => $menu->getDescricao()
+            'id_menu' => $menu->getid_menu(),
+            'valor' => $menu->getvalor(),
+            'descricao' => $menu->getdescricao()
         ]);
     }
 
-    public function Delete (int $numero_menu): void
+    public function Delete (int $id_menu): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM menu WHERE numero_menu = :numero_menu');
+        ->prepare ('DELETE FROM menu WHERE id_menu = :id_menu');
        
         $statement->execute([
-            'numero_menu' => $numero_menu
+            'id_menu' => $id_menu
         ]);
     }    
 }

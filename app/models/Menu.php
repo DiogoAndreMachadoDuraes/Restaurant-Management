@@ -4,40 +4,40 @@ namespace App\Models;
 
     final class Menu
     {
-        private int $numero_menu;
-        private string $valormenu;
+        private int $id_menu;
+        private string $valor;
         private string $descricao;
 
         public function Menu() {}
 
         //get e set id
-        public function getNumero_menu()
+        public function getid_menu()
         {
-            return $this->numero_menu;
+            return $this->id_menu;
         }
-        public function setNumero_menu(int $numero_menu): Menu
+        public function setid_menu(int $id_menu): Menu
         {
-            $this->numero_menu = $numero_menu;
+            $this->id_menu = $id_menu;
             return $this;
         }
     
         //get e set valor do menu
-        public function getValormenu()
+        public function getValor()
         {
-            return $this->valormenu;
+            return $this->valor;
         }
-        public function setValormenu(string $valormenu): Menu
+        public function setvalor(string $valor): Menu
         {
-            $this->valormenu = $valormenu;
+            $this->valor = $valor;
             return $this;
         }
 
         //get e set descricao
-        public function getDescricao()
+        public function getdescricao()
         {
             return $this->descricao;
         }
-        public function setDescricao(string $descricao): Menu
+        public function setdescricao(string $descricao): Menu
         {
             $this->descricao = $descricao;
             return $this;

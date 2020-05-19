@@ -4,40 +4,40 @@ namespace App\Models;
 
     final class Alergenio
     {
-        private int $id_alerge;
+        private int $id_alergenio;
         private string $tipo;
         private string $descricao;
 
         public function Alergenio(){}
 
         //get e set id
-        public function getId_alerge()
+        public function getid_alergenio()
         {
-            return $this->id_alerge;
+            return $this->id_alergenio;
         }
-        public function setId_alerge(int $id_alerge): Alergenio
+        public function setid_alergenio(int $id_alergenio): Alergenio
         {
-            $this->id_alerge = $id_alerge;
+            $this->id_alergenio = $id_alergenio;
             return $this;
         }
 
         //get e set tipo
-        public function getTipo()
+        public function gettipo()
         {
             return $this->tipo;
         }
-        public function setTipo(string $tipo): Alergenio
+        public function settipo(string $tipo): Alergenio
         {
             $this->tipo = $tipo;
             return $this;
         }
 
         //get e set descricao
-        public function getDescricao()
+        public function getdescricao()
         {
             return $this->descricao;
         }
-        public function setDescricao(string $descricao): Alergenio
+        public function setdescricao(string $descricao): Alergenio
         {
             $this->descricao = $descricao;
             return $this;

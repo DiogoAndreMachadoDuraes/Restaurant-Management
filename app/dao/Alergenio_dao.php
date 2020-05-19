@@ -15,7 +15,7 @@ class Alergenio_dao extends ConnectionDB
     {
         $alergenio = $this->pdo
             ->query ('SELECT
-                id_alerge,
+                id_alergenio,
                 tipo,
                 descricao
             From alergenio;')
@@ -28,14 +28,14 @@ class Alergenio_dao extends ConnectionDB
     {
         $statement = $this->pdo
             ->prepare ('INSERT INTO alergenio values(
-                :id_alerge,
+                :id_alergenio,
                 :tipo,
                 :descricao
             );');
         $statement->execute([
-            'id_alerge' => $alergenio->getId_alerge(),
-            'tipo' => $alergenio->getTipo(),
-            'descricao' => $alergenio->getDescricao()
+            'id_alergenio' => $alergenio->getid_alergenio(),
+            'tipo' => $alergenio->gettipo(),
+            'descricao' => $alergenio->getdescricao()
         ]);
     }
 
@@ -43,23 +43,23 @@ class Alergenio_dao extends ConnectionDB
     {
         $statement = $this->pdo
             ->prepare ('UPDATE INTO alergenio values(
-            :id_alerge,
+            :id_alergenio,
             :tipo,
             :descricao
             );');
         $statement->execute([
-            'id_alerge' => $alergenio->getId_alerge(),
-            'tipo' => $alergenio->getTipo(),
-            'descricao' => $alergenio->getDescricao()
+            'id_alergenio' => $alergenio->getid_alergenio(),
+            'tipo' => $alergenio->gettipo(),
+            'descricao' => $alergenio->getdescricao()
         ]);
     }
 
-    public function Delete (int $id_alerge): void
+    public function Delete (int $id_alergenio): void
     {
         $statement = $this->pdo
-            ->prepare ('DELETE FROM alergenio WHERE id_alerge = :id_alerge');
+            ->prepare ('DELETE FROM alergenio WHERE id_alergenio = :id_alergenio');
         $statement->execute([
-            'id_alerge' => $id_alerge
+            'id_alergenio' => $id_alergenio
         ]);
     }  
 }

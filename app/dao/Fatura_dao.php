@@ -16,8 +16,9 @@ class Fatura_dao extends ConnectionDB
         $fatura = $this->pdo
             ->query ('SELECT
                 id_fatura,
+                taxa,
                 iva,
-                taxa
+                nif_cliente
             From fatura;')
         ->fetchAll (\PDO::FETCH_ASSOC);
 
@@ -29,13 +30,15 @@ class Fatura_dao extends ConnectionDB
         $statement = $this->pdo
         ->prepare ('INSERT INTO fatura values(
             :id_fatura,
+            :taxa,
             :iva,
-            :taxa
+            :nif_cliente
         );');
         $statement->execute([
-            'id_fatura' => $fatura->getId_fatura(),
-            'iva' => $fatura->getIva(),
-            'taxa' => $fatura->getTaxa()
+            'id_fatura' => $fatura->getid_fatura(),
+            'taxa' => $fatura->gettaxa(),
+            'iva' => $fatura->getiva(),
+            'nif_cliente' => $fatura->getnif_cliente()
         ]);
     }
 
@@ -44,13 +47,15 @@ class Fatura_dao extends ConnectionDB
         $statement = $this->pdo
         ->prepare ('UPDATE INTO fatura values(
             :id_fatura,
+            :taxa,
             :iva,
-            :taxa
+            :nif_cliente
         );');
         $statement->execute([
-            'id_fatura' => $fatura->getId_fatura(),
-            'iva' => $fatura->getIva(),
-            'taxa' => $fatura->getTaxa()
+            'id_fatura' => $fatura->getid_fatura(),
+            'taxa' => $fatura->gettaxa(),
+            'iva' => $fatura->getiva(),
+            'nif_cliente' => $fatura->getnif_cliente()
         ]);
     }
 

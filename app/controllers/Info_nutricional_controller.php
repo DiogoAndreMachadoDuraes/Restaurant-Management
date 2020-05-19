@@ -25,10 +25,10 @@ final class Info_nutricional_controller
         
       $info_nutricional_dao=new Info_nutricional_dao();
       $info_nutricional=new Info_nutricional();
-      $info_nutricional->setId_Nutri($data['id_info_nutricional'])
-         ->setTipo($data['tipo'])
-         ->setQuantidade_nutrientes($data['quantidade'])
-         ->setDescricao($data['descricao']);
+      $info_nutricional->setid_info_nutricional($data['id_info_nutricional'])
+         ->settipo($data['tipo'])
+         ->setquantidade_nutrientes($data['quantidade_nutrientes'])
+         ->setdescricao($data['descricao']);
          $info_nutricional_dao->Update($info_nutricional);
 
       $response -> getBody() -> write("Informacao nutricional modificada!");
@@ -41,10 +41,10 @@ final class Info_nutricional_controller
 
       $info_nutricional_dao=new Info_nutricional_dao();
       $info_nutricional=new Info_nutricional();
-      $info_nutricional->setId_Nutri($data['id_info_nutricional'])
-         ->setTipo($data['tipo'])
-         ->setQuantidade_nutrientes($data['quantidade'])
-         ->setDescricao($data['descricao']);
+      $info_nutricional->setid_info_nutricional($data['id_info_nutricional'])
+         ->settipo($data['tipo'])
+         ->setquantidade_nutrientes($data['quantidade_nutrientes'])
+         ->setdescricao($data['descricao']);
          $info_nutricional_dao->Insert($info_nutricional);
 
       $response -> getBody() -> write("Informacao Nutricional inserida!");
@@ -57,7 +57,7 @@ final class Info_nutricional_controller
 
       $info_nutricional_dao=new Info_nutricional_dao();
       $info_nutricional=new Info_nutricional();
-      $info_nutricional->setId_Nutri($data['id_info_nutricional']);
+      $info_nutricional->setid_info_nutricional($data['id_info_nutricional']);
       $info_nutricional_dao->Delete(intval($info_nutricional));
 
       $response -> getBody() -> write("Informacao nutricional eliminada!");

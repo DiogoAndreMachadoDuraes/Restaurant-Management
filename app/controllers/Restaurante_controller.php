@@ -26,11 +26,11 @@ final class Restaurante_controller
         
       $restaurante_dao=new Restaurante_dao();
       $restaurante=new Restaurante();
-      $restaurante->setId_Restaurante($data['id_restaurante'])
-         ->setNome($data['nome'])
-         ->setLocalizacao($data['localizacao'])
-         ->setTelefone($data['telefone'])
-         ->setEmail($data['email']);
+      $restaurante->setid_restaurante($data['id_restaurante'])
+         ->setnome($data['nome'])
+         ->setlocalizacao($data['localizacao'])
+         ->settelefone($data['telefone'])
+         ->setemail($data['email']);
       $restaurante_dao->Update($restaurante);
 
       $response -> getBody() -> write("Restaurante modificado!");
@@ -43,11 +43,11 @@ final class Restaurante_controller
 
       $restaurante_dao=new Restaurante_dao();
       $restaurante=new Restaurante();
-      $restaurante->setId_Restaurante($data['id_restaurante'])
-         ->setNome($data['nome'])
-         ->setLocalizacao($data['localizacao'])
-         ->setTelefone($data['telefone'])
-         ->setEmail($data['email']);
+      $restaurante->setid_restaurante($data['id_restaurante'])
+         ->setnome($data['nome'])
+         ->setlocalizacao($data['localizacao'])
+         ->settelefone($data['telefone'])
+         ->setemail($data['email']);
       $restaurante_dao->Insert($restaurante);
 
       $response -> getBody() -> write("Restaurante inserido!");
@@ -60,7 +60,7 @@ final class Restaurante_controller
 
       $restaurante_dao=new Restaurante_dao();
       $restaurante=new Restaurante();
-      $restaurante->setId_Restaurante($data['id_restaurante']);
+      $restaurante->setid_restaurante($data['id_restaurante']);
       $restaurante_dao->Delete(intval($restaurante));
 
       $response -> getBody() -> write("Restaurante eliminado!");

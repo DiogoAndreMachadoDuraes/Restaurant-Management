@@ -5,7 +5,7 @@ namespace App\Models;
     final class Prato
     {
         private int $id_prato;
-        private string $nomeprato;
+        private string $nome;
         private int $quantidade;
         private string $descricao;
         private float $preco;
@@ -13,55 +13,55 @@ namespace App\Models;
         public function Prato() {}
 
         //get e set id
-        public function getId_prato()
+        public function getid_prato()
         {
             return $this->id_prato;
         }
-        public function setId_prato(int $id_prato): Prato
+        public function setid_prato(int $id_prato): Prato
         {
             $this->id_prato = $id_prato;
             return $this;
         }
     
         //get e set nome do prato
-        public function getNomeprato()
+        public function getnome()
         {
-            return $this->nomeprato;
+            return $this->nome;
         }
-        public function setNomeprato(string $nomeprato): Prato
+        public function setnome(string $nome): Prato
         {
-            $this->nomeprato = $nomeprato;
+            $this->nome = $nome;
             return $this;
         }
 
         //get e set quantidade
-        public function getQuantidade()
+        public function getquantidade()
         {
             return $this->quantidade;
         }
-        public function setQuantidade(int $quantidade): Prato
+        public function setquantidade(int $quantidade): Prato
         {
             $this->quantidade = $quantidade;
             return $this;
         }
 
         //get e set descricao
-        public function getDescricao()
+        public function getdescricao()
         {
             return $this->descricao;
         }
-        public function setDescricao(string $descricao): Prato
+        public function setdescricao(string $descricao): Prato
         {
             $this->descricao = $descricao;
             return $this;
         }
 
         //get e set preco
-        public function getPreco()
+        public function getpreco()
         {
             return $this->preco;
         }
-        public function setPreco(float $preco): Prato
+        public function setpreco(float $preco): Prato
         {
             $this->preco = $preco;
             return $this;

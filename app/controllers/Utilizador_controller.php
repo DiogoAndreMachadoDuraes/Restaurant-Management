@@ -24,13 +24,15 @@ final class Utilizador_controller
       
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
-      $utilizador->setId_utilizador($data['id_utilizador'])
-         ->setNome($data['nome'])
-         ->setTelefone($data['telefone'])
-         ->setEmail($data['email'])
-         ->setMorada($data['morada'])
-         ->setPassword($data['password'])
-         ->setTipo($data['tipo']);
+      $utilizador->setid_utilizador($data['id_utilizador'])
+         ->setnome($data['nome'])
+         ->settelefone($data['telefone'])
+         ->setemail($data['email'])
+         ->setmorada($data['morada'])
+         ->setpassword($data['password'])
+         ->settipo($data['tipo'])
+         ->setfoto($data['foto'])
+         ->setnif($data['nif']);
       $utilizador_dao->Update($utilizador);
 
       $response -> getBody() -> write("Utilizador modificado!");
@@ -43,13 +45,15 @@ final class Utilizador_controller
 
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
-      $utilizador->setId_utilizador($data['id_utilizador'])
-         ->setNome($data['nome'])
-         ->setTelefone($data['telefone'])
-         ->setEmail($data['email'])
-         ->setMorada($data['morada'])
-         ->setPassword($data['password'])
-         ->setTipo($data['tipo']);
+      $utilizador->setid_utilizador($data['id_utilizador'])
+         ->setnome($data['nome'])
+         ->settelefone($data['telefone'])
+         ->setemail($data['email'])
+         ->setmorada($data['morada'])
+         ->setpassword($data['password'])
+         ->settipo($data['tipo'])
+         ->setfoto($data['foto'])
+         ->setnif($data['nif']);
       $utilizador_dao->Insert($utilizador);
 
       $response -> getBody() -> write("Utilizador inserido!");
@@ -62,7 +66,7 @@ final class Utilizador_controller
 
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
-      $utilizador->setId_utilizador($data['id_utilizador']);
+      $utilizador->setid_utilizador($data['id_utilizador']);
       $utilizador_dao->Delete(intval($utilizador));
 
       $response -> getBody() -> write("Utilizador eliminado!");

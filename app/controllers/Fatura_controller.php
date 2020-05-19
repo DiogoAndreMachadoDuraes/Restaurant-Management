@@ -25,9 +25,10 @@ final class Fatura_controller
 
       $fatura_dao=new Fatura_dao();
       $fatura=new Fatura();
-      $fatura->setId_Fatura($data['id_fatura'])
-         ->setIva($data['iva'])
-         ->setTaxa($data['taxa']);
+      $fatura->setid_fatura($data['id_fatura'])
+         ->settaxa($data['taxa'])
+         ->setiva($data['iva'])
+         ->setnif_cliente($data['nif_cliente']);
       $fatura_dao->Update($fatura);
 
       $response -> getBody() -> write("Fatura modificada!");
@@ -40,9 +41,10 @@ final class Fatura_controller
 
       $fatura_dao=new Fatura_dao();
       $fatura=new Fatura();
-      $fatura->setId_Fatura($data['id_fatura'])
-         ->setIva($data['iva'])
-         ->setTaxa($data['taxa']);
+      $fatura->setid_fatura($data['id_fatura'])
+         ->settaxa($data['taxa'])
+         ->setiva($data['iva'])
+         ->setnif_cliente($data['nif_cliente']);
       $fatura_dao->Insert($fatura);
 
       $response -> getBody() -> write("Fatura inserida!");
@@ -55,7 +57,7 @@ final class Fatura_controller
 
       $fatura_dao=new Fatura_dao();
       $fatura=new Fatura();
-      $fatura->setId_Fatura(intval($data['id_fatura']));
+      $fatura->setid_fatura(intval($data['id_fatura']));
       $fatura_dao->Delete(intval($fatura));
 
       $response -> getBody() -> write("Fatura eliminada!");

@@ -25,11 +25,11 @@ final class Prato_controller
         
       $prato_dao=new Prato_dao();
       $prato =new Prato();
-      $prato->setId_prato($data['id_prato'])
-         ->setNomeprato($data['nomeprato'])
-         ->setQuantidade($data['quantidade'])
-         ->setDescricao($data['descricao'])
-         ->setPreco($data['preco']);
+      $prato->setid_prato($data['id_prato'])
+         ->setnome($data['nome'])
+         ->setquantidade($data['quantidade'])
+         ->setdescricao($data['descricao'])
+         ->setpreco($data['preco']);
       $prato_dao->Update($prato);
 
       $response -> getBody() -> write("Prato modificado!");
@@ -42,11 +42,11 @@ final class Prato_controller
 
       $prato_dao=new Prato_dao();
       $prato=new Prato();
-      $prato->setId_prato($data['id_prato'])
-         ->setNomeprato($data['nomeprato'])
-         ->setQuantidade($data['quantidade'])
-         ->setDescricao($data['descricao'])
-         ->setPreco($data['preco']);
+      $prato->setid_prato($data['id_prato'])
+         ->setnome($data['nome'])
+         ->setquantidade($data['quantidade'])
+         ->setdescricao($data['descricao'])
+         ->setpreco($data['preco']);
       $prato_dao->Insert($prato);
 
       $response -> getBody() -> write("Prato inserido!");
@@ -59,7 +59,7 @@ final class Prato_controller
 
       $prato_dao=new Prato_dao();
       $prato=new Prato();
-      $prato->setId_prato($data['id_prato']);
+      $prato->setid_prato($data['id_prato']);
       $prato_dao->Delete(intval($prato));
 
       $response -> getBody() -> write("Prato eliminado!");

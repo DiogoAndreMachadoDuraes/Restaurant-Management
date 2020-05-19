@@ -15,7 +15,7 @@ class Prato_dao extends ConnectionDB
         $prato = $this->pdo
             ->query ('SELECT
                 id_prato,
-                nomeprato,
+                nome,
                 quantidade,
                 descricao,
                 preco
@@ -29,7 +29,7 @@ class Prato_dao extends ConnectionDB
         $statement = $this->pdo
         ->prepare ('INSERT INTO prato values(
             :id_prato,
-            :nomeprato,
+            :nome,
             :quantidade,
             :descricao,
             :preco
@@ -37,11 +37,11 @@ class Prato_dao extends ConnectionDB
         );');
         
         $statement->execute([
-            'id_prato' => $prato ->getId_prato(),
-            'nomeprato' => $prato ->getNomeprato(),
-            'quantidade' => $prato ->getQuantidade(),
-            'descricao' => $prato->getDescricao(),
-            'preco' => $prato ->getPreco()
+            'id_prato' => $prato ->getid_prato(),
+            'nome' => $prato ->getnome(),
+            'quantidade' => $prato ->getquantidade(),
+            'descricao' => $prato->getdescricao(),
+            'preco' => $prato ->getpreco()
         ]);
     }
 
@@ -49,19 +49,19 @@ class Prato_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('UPDATE INTO alergenio values(
-           :id_prato,
-            :nomeprato,
+            :id_prato,
+            :nome,
             :quantidade,
             :descricao,
             :preco
         );');
       
         $statement->execute([
-            'id_prato' => $prato->getId_prato(),
-            'nomeprato' => $prato->getNomeprato(),
-            'quantidade' => $prato->getQuantidade(),
-            'descricao' => $prato->getDescricao(),
-            'preco' => $prato->getPreco(),
+            'id_prato' => $prato->getid_prato(),
+            'nome' => $prato->getnome(),
+            'quantidade' => $prato->getquantidade(),
+            'descricao' => $prato->getdescricao(),
+            'preco' => $prato->getpreco(),
         ]);
     }
 

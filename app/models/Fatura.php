@@ -11,36 +11,47 @@ namespace App\Models;
         public function Fatura() {}
 
         //get e set id
-        public function getId_fatura()
+        public function getid_fatura()
         {
             return $this->id_fatura;
         }
-        public function setId_fatura(int $id_fatura): Fatura
+        public function setid_fatura(int $id_fatura): Fatura
         {
             $this->id_fatura = $id_fatura;
             return $this;
         }
 
         //get e set iva
-        public function getIva()
+        public function gettaxa()
+        {
+            return $this->taxa;
+        }
+        public function settaxa(string $taxa): Fatura
+        {
+            $this->taxa = $taxa;
+            return $this;
+        }
+
+        //get e set taxa
+        public function getiva()
         {
             return $this->iva;
         }
-        public function setIva(float $iva): Fatura
+        public function setiva(float $iva): Fatura
         {
             $this->iva = $iva;
             return $this;
         }
 
-        //get e set taxa
-        public function getTaxa()
-        {
-            return $this->taxa;
-        }
-        public function setTaxa(string $taxa): Fatura
-        {
-            $this->taxa = $taxa;
-            return $this;
-        }
+         //get e set nif_cliente
+         public function getnif_cliente()
+         {
+             return $this->nif_cliente;
+         }
+         public function setnif_cliente(string $nif_cliente): Fatura
+         {
+             $this->nif_cliente = $nif_cliente;
+             return $this;
+         }
     }
 ?>

@@ -13,55 +13,55 @@ namespace App\Models;
         public function Restaurante() {}
 
         //get e set id
-        public function getId_restaurante()
+        public function getid_restaurante()
         {
             return $this->id_restaurante;
         }
-        public function setId_restaurante(int $id_restaurante): Restaurante
+        public function setid_restaurante(int $id_restaurante): Restaurante
         {
             $this->id_restaurante = $id_restaurante;
             return $this;
         }
     
         //get e set nome
-        public function getNome()
+        public function getnome()
         {
             return $this->nome;
         }
-        public function setNome(string $nome): Restaurante
+        public function setnome(string $nome): Restaurante
         {
             $this->nome = $nome;
             return $this;
         }
 
         //get e set localizacao
-        public function getLocalizacao()
+        public function getlocalizacao()
         {
         return $this->localizacao;
         }
-        public function setLocalizacao(string $localizacao): Restaurante
+        public function setlocalizacao(string $localizacao): Restaurante
         {
         $this->localizacao = $localizacao;
         return $this;
         }
 
         //get e set telefone
-        public function getTelefone()
+        public function gettelefone()
         {
             return $this->telefone;
         }
-        public function setTelefone(string $telefone): Restaurante
+        public function settelefone(string $telefone): Restaurante
         {
             $this->telefone = $telefone;
             return $this;
         }
 
         //get e set email
-        public function getEmail()
+        public function getemail()
         {
             return $this->email;
         }
-        public function setEmail(string $email): Restaurante
+        public function setemail(string $email): Restaurante
         {
             $this->email = $email;
             return $this;

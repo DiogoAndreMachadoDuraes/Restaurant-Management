@@ -24,9 +24,9 @@ final class Alergenio_controller
         
       $alergenio_dao=new Alergenio_dao();
       $alergenio=new Alergenio();
-      $alergenio->setId_Alerge($data['id_alerge'])
-         ->setTipo($data['tipo'])
-         ->setDescricao($data['descricao']);
+      $alergenio->setid_alergenio($data['id_alergenio'])
+         ->settipo($data['tipo'])
+         ->setdescricao($data['descricao']);
       $alergenio_dao->Update($alergenio);
 
       $response -> getBody() -> write("Alergenio modificado!");
@@ -39,9 +39,9 @@ final class Alergenio_controller
 
       $alergenio_dao=new Alergenio_dao();
       $alergenio=new Alergenio();
-      $alergenio->setId_Alerge($data['id_alerge'])
-         ->setTipo($data['tipo'])
-         ->setDescricao($data['descricao']);
+      $alergenio->setid_alergenio($data['id_alergenio'])
+         ->settipo($data['tipo'])
+         ->setdescricao($data['descricao']);
       $alergenio_dao->Insert($alergenio);
 
       $response -> getBody() -> write("Alergenio inserido!");
@@ -54,7 +54,7 @@ final class Alergenio_controller
 
       $alergenio_dao=new Alergenio_dao();
       $alergenio=new Alergenio();
-      $alergenio->setId_Alerge($data['id_alerge']);
+      $alergenio->setid_alergenio($data['id_alergenio']);
       $alergenio_dao->Delete(intval($alergenio));
 
       $response -> getBody() -> write("Alergenio eliminado!");

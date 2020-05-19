@@ -11,83 +11,107 @@ namespace App\Models;
         private string $morada;
         private string $password;
         private string $tipo;
+        private string $foto;
+        private string $nif;
 
         public function Utilizador() {}
 
         //get e set id_utilizador
-        public function getId_utilizador()
+        public function getid_utilizador()
         {
             return $this->id_utilizador;
         }
-        public function setId_utilizador(int $id_utilizador): Utilizador
+        public function setid_utilizador(int $id_utilizador): Utilizador
         {
             $this->id_utilizador = $id_utilizador;
             return $this;
         }
 
         //get e set nome
-        public function getNome()
+        public function getnome()
         {
             return $this->nome;
         }
-        public function setNome(string $nome): Utilizador
+        public function setnome(string $nome): Utilizador
         {
             $this->nome = $nome;
             return $this;
         }
 
         //get e set telefone
-        public function getTelefone()
+        public function gettelefone()
         {
             return $this->telefone;
         }
-        public function setTelefone(string $telefone): Utilizador
+        public function settelefone(string $telefone): Utilizador
         {
             $this->telefone = $telefone;
             return $this;
         }
 
         //get e set email
-        public function getEmail()
+        public function getemail()
         {
             return $this->email;
         }
-        public function setEmail(string $email): Utilizador
+        public function setemail(string $email): Utilizador
         {
             $this->email = $email;
             return $this;
         }
 
         //get e set morada
-        public function getMorada()
+        public function getmorada()
         {
             return $this->morada;
         }
-        public function setMorada(string $morada): Utilizador
+        public function setmorada(string $morada): Utilizador
         {
             $this->morada = $morada;
             return $this;
         }
 
         //get e set password
-        public function getPassword()
+        public function getpassword()
         {
             return $this->password;
         }
-        public function setPassword(string $password): Utilizador
+        public function setpassword(string $password): Utilizador
         {
             $this->password = $password;
             return $this;
         }
 
         //get e set tipo
-        public function getTipo()
+        public function gettipo()
         {
             return $this->tipo;
         }
-        public function setTipo(string $tipo): Utilizador
+        public function settipo(string $tipo): Utilizador
         {
             $this->tipo = $tipo;
+            return $this;
+        }
+
+        //get e set foto
+        public function getfoto()
+        {
+            return $this->foto;
+        }
+        public function setfoto(string $foto): Utilizador
+        {
+            $this->foto = $foto;
+            return $this;
+        }
+
+        //get e set nif_utilizador
+        public function getnif()
+        {
+            return $this->nif;
+        }
+        public function setnif(string $nif): Utilizador
+        {
+            $this->nif = $nif;
             return $this;
         }
     }

@@ -14,7 +14,7 @@ class Info_nutricional_dao extends ConnectionDB
     {
         $info_nutricional = $this->pdo
             ->query ('SELECT
-                id_nutri,
+                id_info_nutricional,
                 tipo,
                 quantidade_nutrientes,
                 descricao
@@ -27,16 +27,16 @@ class Info_nutricional_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO info_nutricional values(
-            :id_nutri,
+            :id_info_nutricional,
             :tipo,
             :quantidade_nutrientes,
             :descricao
         );');
         $statement->execute([
-            'id_nutri' => $info_nutricional->getId_nutri(),
-            'tipo' => $info_nutricional->getTipo(),
-            'quantidade_nutrientes' => $info_nutricional->getQuantidade_nutrientes(),
-            'descricao' => $info_nutricional->getDescricao()
+            'id_info_nutricional' => $info_nutricional->getid_info_nutricional(),
+            'tipo' => $info_nutricional->gettipo(),
+            'quantidade_nutrientes' => $info_nutricional->getquantidade_nutrientes(),
+            'descricao' => $info_nutricional->getdescricao()
         ]);
     }
 
@@ -44,26 +44,26 @@ class Info_nutricional_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('UPDATE INTO alergenio values(
-           :id_nutri,
+            :id_info_nutricional,
             :tipo,
             :quantidade_nutrientes,
             :descricao
         );');
         $statement->execute([
-            'id_nutri' => $info_nutricional->getId_nutri(),
-            'tipo' => $info_nutricional->getTipo(),
-            'quantidade_nutrientes' => $info_nutricional->getQuantidade_nutrientes(),
-            'descricao' => $info_nutricional->getDescricao()
+            'id_info_nutricional' => $info_nutricional->getid_info_nutricional(),
+            'tipo' => $info_nutricional->gettipo(),
+            'quantidade_nutrientes' => $info_nutricional->getquantidade_nutrientes(),
+            'descricao' => $info_nutricional->getdescricao()
         ]);
     }
 
-    public function Delete (int $id_nutri): void
+    public function Delete (int $id_info_nutricional): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM info_nutricional WHERE id_nutri = :id_nutri');
+        ->prepare ('DELETE FROM info_nutricional WHERE id_info_nutricional = :id_info_nutricional');
        
         $statement->execute([
-            'id_nutri' => $id_nutri
+            'id_info_nutricional' => $id_info_nutricional
         ]);
     } 
 }

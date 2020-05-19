@@ -4,7 +4,7 @@ namespace App\Models;
 
     final class Info_nutricional
     {
-        private int $id_nutri;
+        private int $id_info_nutricional;
         private string $tipo;
         private string $quantidade_nutrientes;
         private string $descricao;
@@ -12,44 +12,44 @@ namespace App\Models;
         public function Info_nutricional() {}
 
         //get e set id
-        public function getId_nutri()
+        public function getid_info_nutricional()
         {
-            return $this->id_nutri;
+            return $this->id_info_nutricional;
         }
-        public function setId_nutri(int $id_nutri): Info_nutricional
+        public function setid_info_nutricional(int $id_info_nutricional): Info_nutricional
         {
-            $this->id_nutri = $id_nutri;
+            $this->id_info_nutricional = $id_info_nutricional;
             return $this;
         }
 
         //get e set tipo
-        public function getTipo()
+        public function gettipo()
         {
             return $this->tipo;
         }
-        public function setTipo(string $tipo): Info_nutricional
+        public function settipo(string $tipo): Info_nutricional
         {
             $this->tipo = $tipo;
             return $this;
         }
 
         //get e set qtd nutrientes
-        public function getQuantidade_nutrientes()
+        public function getquantidade_nutrientes()
         {
             return $this->quantidade_nutrientes;
         }
-        public function setQuantidade_nutrientes(string $quantidade_nutrientes): Info_nutricional
+        public function setquantidade_nutrientes(string $quantidade_nutrientes): Info_nutricional
         {
             $this->quantidade_nutrientes = $quantidade_nutrientes;
             return $this;
         }
 
         //get e set descricao
-        public function getDescricao()
+        public function getdescricao()
         {
             return $this->descricao;
         }
-        public function setDescricao(string $descricao): Info_nutricional
+        public function setdescricao(string $descricao): Info_nutricional
         {
             $this->descricao = $descricao;
             return $this;
