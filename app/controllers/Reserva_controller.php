@@ -15,8 +15,7 @@ namespace App\Controllers;
 
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->setId_reserva($data['id_reserva'])
-                ->setPagamento($data['pagamento']);
+            $reserva->set_pagamento($data['pagamento']);
             $reserva_dao->Insert($reserva);
 
             $response->getBody()->write("Reserva criada com sucesso!");
@@ -38,8 +37,8 @@ namespace App\Controllers;
 
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->setId_reserva($data['id_reserva'])
-                ->setPagamento($data['pagamento']);
+            $reserva->set_id_reserva($data['id_reserva'])
+                ->set_pagamento($data['pagamento']);
             $reserva_dao->Update($reserva);
 
             $response->getBody()->write("Reserva modificada com sucesso!");
@@ -52,7 +51,7 @@ namespace App\Controllers;
 
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->setId_reserva($data['id_reserva']);
+            $reserva->set_id_reserva($data['id_reserva']);
             $reserva_dao->Delete(intval($reserva));
 
             $response->getBody()->write("Reserva eliminada com sucesso!");

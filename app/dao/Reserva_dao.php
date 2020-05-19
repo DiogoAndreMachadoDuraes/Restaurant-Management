@@ -18,7 +18,7 @@ namespace App\DAO;
                     :pagamento
                     );');
             $statement->execute([
-                'pagamento' => $reserva->getPagamento()
+                'pagamento' => $reserva->get_pagamento()
             ]);
         }
 
@@ -35,8 +35,8 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('UPDATE Reserva SET pagamento=:pagamento WHERE id_reserva=:id_reserva');
                 $statement->execute([
-                    'id_reserva' => $reserva->getId_reserva(),
-                    'pagamento' => $reserva->getPagamento()
+                    'id_reserva' => $reserva->get_id_reserva(),
+                    'pagamento' => $reserva->get_pagamento()
                 ]);
         }
 

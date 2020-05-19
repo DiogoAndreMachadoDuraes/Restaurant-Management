@@ -14,13 +14,15 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('INSERT INTO Refeicao_semanal values (
-                    null, 
-                    :dia, 
+                    null,
+                    :dia_semana, 
+                    :data, 
                     :hora
                 );');
             $statement->execute([
-                'dia' => $refeicao_semanal->getDia(),
-                'hora' => $refeicao_semanal->getHora()
+                'dia_semana' => $refeicao_semanal->get_dia_semana(),
+                'data' => $refeicao_semanal->get_data(),
+                'hora' => $refeicao_semanal->get_hora()
             ]);
         }
 
@@ -35,11 +37,12 @@ namespace App\DAO;
         public function Update(Refeicao_semanal $refeicao_semanal) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Refeicao_semanal set dia=:dia and hora=:hora Where id_refeicao_semanal=:id_refeicao_semanal');
+                ->prepare('UPDATE Refeicao_semanal set dia_semana=:dia_semana, data=:data and hora=:hora Where id_refeicao_semanal=:id_refeicao_semanal');
             $statement->execute([
-                'id_refeicao_semanal' => $refeicao_semanal->getId_refeicao_semanal(),
-                'dia' => $refeicao_semanal->getDia(),
-                'hora' => $refeicao_semanal->getHora()
+                'id_refeicao_semanal' => $refeicao_semanal->get_id_refeicao_semanal(),
+                'dia_semana' => $refeicao_semanal->get_dia_semana(),
+                'data' => $refeicao_semanal->get_data(),
+                'hora' => $refeicao_semanal->get_hora()
             ]);
         }
 

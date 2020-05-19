@@ -10,7 +10,7 @@ namespace App\DAO;
             parent::__construct();
         }
 
-        public function Insert(Compra_menu $comprasmenus) : void
+        public function Insert(Compra_menu $compra_menu) : void
         {
             $statement=$this->pdo
                 ->prepare('INSERT INTO Compra_menu values (
@@ -19,27 +19,27 @@ namespace App\DAO;
                     :preco
                     );');
             $statement->execute([
-                    'quantidade' => $comprasmenus->getQuantidade(),
-                    'preco' => $comprasmenus->getPreco(),
+                    'quantidade' => $compra_menu->get_quantidade(),
+                    'preco' => $compra_menu->get_preco(),
                 ]);
         }
 
         public function Select() : array
         {
-            $comprasmenus=$this->pdo
+            $compra_menu=$this->pdo
                 ->query('SELECT * FROM Compra_menu')
                 ->fetchAll(\PDO::FETCH_ASSOC);
-            return $comprasmenus;
+            return $compra_menu;
         }
 
-        public function Update(Compra_menu $comprasmenus) : void
+        public function Update(Compra_menu $compra_menu) : void
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Compra_menu set quantidade=:quantidade and preco=:preco Where id_compra_menu=:id_compra_menu');
                 $statement->execute([
-                    'id_compra_menu' => $comprasmenus->getId(),
-                    'quantidade' => $comprasmenus->getQuantidade(),
-                    'preco' => $comprasmenus->getPreco(),
+                    'id_compra_menu' => $compra_menu->get_id_compra_menu(),
+                    'quantidade' => $compra_menu->get_quantidade(),
+                    'preco' => $compra_menu->get_preco(),
                 ]);
         }
 

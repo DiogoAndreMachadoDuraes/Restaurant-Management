@@ -15,9 +15,8 @@ namespace App\Controllers;
 
             $extra_dao=new Extra_dao();
             $extra=new Extra();
-            $extra->setId_extra($data['id_extra'])
-                ->setNome($data['nome'])
-                ->setTipo($data['tipo']);
+            $extra->set_nome($data['nome'])
+                ->set_tipo($data['tipo']);
             $extra_dao->Insert($extra);
 
             $response->getBody()->write("Extra criado com sucesso!");
@@ -39,9 +38,9 @@ namespace App\Controllers;
 
             $extra_dao=new Extra_dao();
             $extra=new Extra();
-            $extra->setId_extra($data['id_extra'])
-                ->setNome($data['nome'])
-                ->setTipo($data['tipo']);
+            $extra->set_id_extra($data['id_extra'])
+                ->set_nome($data['nome'])
+                ->set_tipo($data['tipo']);
             $extra_dao->Update($extra);
 
             $response->getBody()->write("Extra modificado com sucesso!");
@@ -54,7 +53,7 @@ namespace App\Controllers;
 
             $extra_dao=new Extra_dao();
             $extra=new Extra();
-            $extra->setId_extra($data['id_extra']);
+            $extra->set_id_extra($data['id_extra']);
             $extra_dao->Delete(intval($extra));
 
             $response->getBody()->write("Extra eliminado com sucesso!");

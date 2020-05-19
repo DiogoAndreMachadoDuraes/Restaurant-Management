@@ -9,20 +9,20 @@ namespace App\Models;
 
         public function Reserva(){ }
 
-        public function getId_reserva(){
+        public function get_id_reserva(){
             return $this->id_reserva;
         }
 
-        public function setId_reserva($id_reserva): Reserva{
+        public function set_id_reserva($id_reserva): Reserva{
             $this->id_reserva = $id_reserva;
             return $this;
         }
 
-        public function getPagamento(){
+        public function get_pagamento(){
             return $this->pagamento;
         }
 
-        public function setPagamento($pagamento): Reserva{
+        public function set_pagamento($pagamento): Reserva{
             $this->pagamento = $pagamento;
             return $this;
         }

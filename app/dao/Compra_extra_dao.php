@@ -19,8 +19,8 @@ namespace App\DAO;
                     :preco
                     );');
             $statement->execute([
-                    'quantidade' => $compra_extra->getQuantidade(),
-                    'preco' => $compra_extra->getPreco(),
+                    'quantidade' => $compra_extra->get_quantidade(),
+                    'preco' => $compra_extra->get_preco(),
                 ]);
         }
 
@@ -37,9 +37,9 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('UPDATE Compra_extra set quantidade=:quantidade and preco=:preco Where id_compra_extra=:id_compra_extra');
                 $statement->execute([
-                    'id_compra_extra' => $compra_extra->getId_compra_extra(),
-                    'quantidade' => $compra_extra->getQuantidade(),
-                    'preco' => $compra_extra->getPreco(),
+                    'id_compra_extra' => $compra_extra->get_id_compra_extra(),
+                    'quantidade' => $compra_extra->get_quantidade(),
+                    'preco' => $compra_extra->get_preco(),
                 ]);
         }
 

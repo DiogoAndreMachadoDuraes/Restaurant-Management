@@ -10,29 +10,29 @@ namespace App\Models;
 
         public function Extra(){ }
 
-        public function getId_extra(){
+        public function get_id_extra(){
             return $this->id_extra;
         }
 
-        public function setId_extra($id_extra): Extra{
+        public function set_id_extra($id_extra): Extra{
             $this->id_extra = $id_extra;
             return $this;
         }
 
-        public function getNome(){
+        public function get_nome(){
             return $this->nome;
         }
 
-        public function setNome($nome): Extra{
+        public function set_nome($nome): Extra{
             $this->nome = $nome;
             return $this;
         }
 
-        public function getTipo(){
+        public function get_tipo(){
             return $this->tipo;
         }
 
-        public function setTipo($tipo): Extra{
+        public function set_tipo($tipo): Extra{
             $this->tipo = $tipo;
             return $this;
         }
