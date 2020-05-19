@@ -23,7 +23,7 @@ class Utilizador_dao extends ConnectionDB
             tipo,
             foto,
             nif
-        From utilizador;')
+        From Utilizador;')
         -> fetchAll(\PDO::FETCH_ASSOC);
 
         return $utilizador;
@@ -32,7 +32,7 @@ class Utilizador_dao extends ConnectionDB
     public function Insert (Utilizador $utilizador): void
     {
         $statement = $this->pdo
-        ->prepare ('INSERT INTO utilizador values(
+        ->prepare ('INSERT INTO Utilizador values(
             :id_utilizador,
             :nome,
             :telefone,
@@ -59,7 +59,7 @@ class Utilizador_dao extends ConnectionDB
     public function Update (Utilizador $utilizador): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO utilizador values(
+        ->prepare ('UPDATE INTO Utilizador values(
             :id_utilizador,
             :nome,
             :telefone,
@@ -87,7 +87,7 @@ class Utilizador_dao extends ConnectionDB
     public function Delete (int $id_utilizador): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM utilizador WHERE id_utilizador = :id_utilizador');
+        ->prepare ('DELETE FROM Utilizador WHERE id_utilizador = :id_utilizador');
        
         $statement->execute([
             'id_utilizador' => $id_utilizador

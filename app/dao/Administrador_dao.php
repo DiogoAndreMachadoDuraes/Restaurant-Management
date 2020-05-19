@@ -16,7 +16,7 @@ class Administrador_dao extends ConnectionDB
         $administrador = $this->pdo
             ->query ('SELECT
                 id_administrador
-                From administrador;')
+                From Administrador;')
             ->fetchAll(\PDO::FETCH_ASSOC);
         return $administrador;
     }
@@ -24,7 +24,7 @@ class Administrador_dao extends ConnectionDB
     public function Insert (Administrador $administrador): void
     {
         $statement = $this->pdo
-        ->prepare ('INSERT INTO administrador values(
+        ->prepare ('INSERT INTO Administrador values(
             :id_administrador
         );');
         $statement->execute([
@@ -35,7 +35,7 @@ class Administrador_dao extends ConnectionDB
     public function Update (Administrador $administrador): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO administrador values(
+        ->prepare ('UPDATE INTO Administrador values(
            :id_administrador
         );');
         $statement->execute([
@@ -46,7 +46,7 @@ class Administrador_dao extends ConnectionDB
     public function Delete (int $id_administrador): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM administrador WHERE id_administrador = :id_administrador');
+        ->prepare ('DELETE FROM Administrador WHERE id_administrador = :id_administrador');
        
         $statement->execute([
             'id_administrador' => $id_administrador

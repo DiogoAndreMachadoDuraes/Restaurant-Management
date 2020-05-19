@@ -20,7 +20,7 @@ class Take_away_dao extends ConnectionDB
                 data,
                 hora,
                 tipo_entrega
-                From take_away;')
+                From Take_away;')
             -> fetchAll(\PDO::FETCH_ASSOC);
         return $take_away;
     }
@@ -28,7 +28,7 @@ class Take_away_dao extends ConnectionDB
     public function Insert (Take_away $take_away): void
     {
         $statement = $this->pdo
-        ->prepare ('INSERT INTO take_away values(
+        ->prepare ('INSERT INTO Take_away values(
             :id_take_away,
             :preco,
             :data,
@@ -47,7 +47,7 @@ class Take_away_dao extends ConnectionDB
     public function Update (Take_away $take_away): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO take_away values(
+        ->prepare ('UPDATE INTO Take_away values(
             :id_take_away,
             :preco,
             :data,
@@ -66,7 +66,7 @@ class Take_away_dao extends ConnectionDB
     public function Delete (int $id_take_away): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM take_away WHERE id_take_away = :id_take_away');
+        ->prepare ('DELETE FROM Take_away WHERE id_take_away = :id_take_away');
        
         $statement->execute([
             'id_take_away' => $id_take_away

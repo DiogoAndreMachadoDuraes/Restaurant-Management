@@ -20,7 +20,7 @@ class Restaurante_dao extends ConnectionDB
                 localizacao,
                 telefone,
                 email
-                From restautante;')
+                From Restautante;')
             -> fetchAll(\PDO::FETCH_ASSOC);
         return $restaurante;
     }
@@ -28,7 +28,7 @@ class Restaurante_dao extends ConnectionDB
     public function Insert (Restaurante $restaurante): void
     {
         $statement = $this->pdo
-        ->prepare ('INSERT INTO restaurante values(
+        ->prepare ('INSERT INTO Restaurante values(
             :id_restaurante,
             :nome,
             :localizacao,
@@ -47,7 +47,7 @@ class Restaurante_dao extends ConnectionDB
     public function Update (Restaurante $restaurante): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO restaurante values(
+        ->prepare ('UPDATE INTO Restaurante values(
             :id_restaurante,
             :nome,
             :localizacao,
@@ -66,7 +66,7 @@ class Restaurante_dao extends ConnectionDB
     public function Delete (int $id_restaurante): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM restaurante WHERE id_restaurate = :id_restaurante');
+        ->prepare ('DELETE FROM Restaurante WHERE id_restaurate = :id_restaurante');
        
         $statement->execute([
             'id_restaurante' => $id_restaurante

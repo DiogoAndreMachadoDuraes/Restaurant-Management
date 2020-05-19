@@ -18,7 +18,7 @@ class Info_nutricional_dao extends ConnectionDB
                 tipo,
                 quantidade_nutrientes,
                 descricao
-                From info_nutricional;')
+                From Info_nutricional;')
             -> fetchAll(\PDO::FETCH_ASSOC);
         return $info_nutricional;
     }
@@ -26,7 +26,7 @@ class Info_nutricional_dao extends ConnectionDB
     public function Insert (Info_nutricional $info_nutricional): void
     {
         $statement = $this->pdo
-        ->prepare ('INSERT INTO info_nutricional values(
+        ->prepare ('INSERT INTO Info_nutricional values(
             :id_info_nutricional,
             :tipo,
             :quantidade_nutrientes,
@@ -43,7 +43,7 @@ class Info_nutricional_dao extends ConnectionDB
     public function Update (Info_nutricional $info_nutricional): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO alergenio values(
+        ->prepare ('UPDATE INTO Info_nutricional values(
             :id_info_nutricional,
             :tipo,
             :quantidade_nutrientes,
@@ -60,7 +60,7 @@ class Info_nutricional_dao extends ConnectionDB
     public function Delete (int $id_info_nutricional): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM info_nutricional WHERE id_info_nutricional = :id_info_nutricional');
+        ->prepare ('DELETE FROM Info_nutricional WHERE id_info_nutricional = :id_info_nutricional');
        
         $statement->execute([
             'id_info_nutricional' => $id_info_nutricional

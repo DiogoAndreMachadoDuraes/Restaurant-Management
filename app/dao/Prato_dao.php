@@ -19,7 +19,7 @@ class Prato_dao extends ConnectionDB
                 quantidade,
                 descricao,
                 preco
-            From prato;')
+            From Prato;')
             ->fetchAll(\PDO::FETCH_ASSOC);
         return $prato;
     }
@@ -27,7 +27,7 @@ class Prato_dao extends ConnectionDB
     public function Insert (Prato $prato): void
     {
         $statement = $this->pdo
-        ->prepare ('INSERT INTO prato values(
+        ->prepare ('INSERT INTO Prato values(
             :id_prato,
             :nome,
             :quantidade,
@@ -48,7 +48,7 @@ class Prato_dao extends ConnectionDB
     public function Update (Prato $prato): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO alergenio values(
+        ->prepare ('UPDATE INTO Prato values(
             :id_prato,
             :nome,
             :quantidade,
@@ -68,7 +68,7 @@ class Prato_dao extends ConnectionDB
     public function Delete (int $id_prato): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM prato WHERE id_prato = :id_prato');
+        ->prepare ('DELETE FROM Prato WHERE id_prato = :id_prato');
        
         $statement->execute([
             'id_prato' => $id_prato

@@ -17,7 +17,7 @@ class Menu_dao extends ConnectionDB
                 id_menu,
                 valor,
                 descricao
-                From menu;')
+                From Menu;')
             ->fetchAll(\PDO::FETCH_ASSOC);
         return $menu;
     }
@@ -25,7 +25,7 @@ class Menu_dao extends ConnectionDB
     public function Insert (Menu $menu): void
     {
         $statement = $this->pdo
-        ->prepare ('INSERT INTO menu values(
+        ->prepare ('INSERT INTO Menu values(
             :id_menu,
             :valor,
             :descricao
@@ -40,7 +40,7 @@ class Menu_dao extends ConnectionDB
     public function Update (Menu $menu): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO alergenio values(
+        ->prepare ('UPDATE INTO Menu values(
             :id_menu,
             :valor,
             :descricao
@@ -55,7 +55,7 @@ class Menu_dao extends ConnectionDB
     public function Delete (int $id_menu): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM menu WHERE id_menu = :id_menu');
+        ->prepare ('DELETE FROM Menu WHERE id_menu = :id_menu');
        
         $statement->execute([
             'id_menu' => $id_menu

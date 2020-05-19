@@ -18,7 +18,7 @@ class Alergenio_dao extends ConnectionDB
                 id_alergenio,
                 tipo,
                 descricao
-            From alergenio;')
+            From Alergenio;')
         ->fetchAll (\PDO::FETCH_ASSOC);
 
         return $alergenio;
@@ -27,7 +27,7 @@ class Alergenio_dao extends ConnectionDB
     public function Insert (Alergenio $alergenio): void
     {
         $statement = $this->pdo
-            ->prepare ('INSERT INTO alergenio values(
+            ->prepare ('INSERT INTO Alergenio values(
                 :id_alergenio,
                 :tipo,
                 :descricao
@@ -42,7 +42,7 @@ class Alergenio_dao extends ConnectionDB
     public function Update (Alergenio $alergenio): void
     {
         $statement = $this->pdo
-            ->prepare ('UPDATE INTO alergenio values(
+            ->prepare ('UPDATE INTO Alergenio values(
             :id_alergenio,
             :tipo,
             :descricao
@@ -57,7 +57,7 @@ class Alergenio_dao extends ConnectionDB
     public function Delete (int $id_alergenio): void
     {
         $statement = $this->pdo
-            ->prepare ('DELETE FROM alergenio WHERE id_alergenio = :id_alergenio');
+            ->prepare ('DELETE FROM Alergenio WHERE id_alergenio = :id_alergenio');
         $statement->execute([
             'id_alergenio' => $id_alergenio
         ]);

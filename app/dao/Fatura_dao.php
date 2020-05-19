@@ -19,7 +19,7 @@ class Fatura_dao extends ConnectionDB
                 taxa,
                 iva,
                 nif_cliente
-            From fatura;')
+            From Fatura;')
         ->fetchAll (\PDO::FETCH_ASSOC);
 
         return $fatura;
@@ -28,7 +28,7 @@ class Fatura_dao extends ConnectionDB
     public function Insert (Fatura $fatura): void
     { 
         $statement = $this->pdo
-        ->prepare ('INSERT INTO fatura values(
+        ->prepare ('INSERT INTO Fatura values(
             :id_fatura,
             :taxa,
             :iva,
@@ -45,7 +45,7 @@ class Fatura_dao extends ConnectionDB
     public function Update (Fatura $fatura): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO fatura values(
+        ->prepare ('UPDATE INTO Fatura values(
             :id_fatura,
             :taxa,
             :iva,
@@ -62,7 +62,7 @@ class Fatura_dao extends ConnectionDB
     public function Delete (int $id_fatura): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM fatura WHERE id_fatura = :id_fatura');
+        ->prepare ('DELETE FROM Fatura WHERE id_fatura = :id_fatura');
        
         $statement->execute([
             'id_fatura' => $id_fatura
