@@ -35,6 +35,6 @@ namespace App\Models;
         public function setHora($hora): Refeicao_semanal{
             $this->hora = $hora;
             return $this;
-        }
+        }  
     }
 ?>
