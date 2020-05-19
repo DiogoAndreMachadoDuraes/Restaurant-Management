@@ -60,6 +60,5 @@ namespace App\Controllers;
             $response->getBody()->write("Refeicao Semanal eliminada com sucesso!");
             return $response;
         }
-        
     }
 ?>

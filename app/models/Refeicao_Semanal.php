@@ -36,6 +36,5 @@ namespace App\Models;
             $this->hora = $hora;
             return $this;
         } 
-         
     }
 ?>
