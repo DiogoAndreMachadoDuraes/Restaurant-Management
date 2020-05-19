@@ -121,7 +121,7 @@ class Utilizador_dao extends ConnectionDB
                 ->setmorada($utilizador[0]['morada'])
                 ->setpassword($utilizador[0]['password'])
                 ->settipo($utilizador[0]['tipo'])
-                ->setfoto($utilizador[0]['foto']);
+                ->setfoto($utilizador[0]['foto'])
                 ->setnif($utilizador[0]['nif']);
             return $utilizador;
         }
