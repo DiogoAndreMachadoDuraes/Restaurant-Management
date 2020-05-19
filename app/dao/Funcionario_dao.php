@@ -40,6 +40,7 @@ class Funcionario_dao extends ConnectionDB
         );');
         $statement->execute([
             'id_funcionario' => $funcionario->getid_funcionario(),
+        ]);
     }
 
     public function Delete (int $id_funcionario): void
