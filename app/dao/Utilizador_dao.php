@@ -59,17 +59,7 @@ class Utilizador_dao extends ConnectionDB
     public function Update (Utilizador $utilizador): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO Utilizador values(
-            :id_utilizador,
-            :nome,
-            :telefone,
-            :email,
-            :morada,
-            :password,
-            :tipo,
-            :foto,
-            :nif
-        );');
+            ->prepare('UPDATE Utilizador set nome=:nome and telefone=:telefone and email=:email and morada=:morada and password=:password and tipo=:tipo and foto=:foto and nif=:nif Where id_utilizador=:id_utilizador');
         $statement->execute([
             'id_utilizador' => $utilizador->getid_utilizador(),
             'nome' => $utilizador->getnome(),

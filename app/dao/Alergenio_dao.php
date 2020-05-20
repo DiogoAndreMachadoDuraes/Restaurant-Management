@@ -42,11 +42,7 @@ class Alergenio_dao extends ConnectionDB
     public function Update (Alergenio $alergenio): void
     {
         $statement = $this->pdo
-            ->prepare ('UPDATE INTO Alergenio values(
-            :id_alergenio,
-            :tipo,
-            :descricao
-            );');
+            ->prepare('UPDATE Aergenio set tipo=:tipo and descricao=:descricao Where id_alergenio=:id_alergenio');
         $statement->execute([
             'id_alergenio' => $alergenio->getid_alergenio(),
             'tipo' => $alergenio->gettipo(),

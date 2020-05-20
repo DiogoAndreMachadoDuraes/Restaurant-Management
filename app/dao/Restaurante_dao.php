@@ -47,13 +47,7 @@ class Restaurante_dao extends ConnectionDB
     public function Update (Restaurante $restaurante): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO Restaurante values(
-            :id_restaurante,
-            :nome,
-            :localizacao,
-            :telefone,
-            :email
-        );');
+          ->prepare('UPDATE Restaurante set nome=:nome and localizacao=:localizacao and telefone=:telefone and email=:email Where id_restaurante=:id_restaurante');
         $statement->execute([
             'id_restaurante' => $restaurante->getid_restaurante(),
             'nome' => $restaurante->getnome(),

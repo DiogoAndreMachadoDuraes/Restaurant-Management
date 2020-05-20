@@ -35,9 +35,7 @@ class Funcionario_dao extends ConnectionDB
     public function Update (Funcionario $funcionario): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO Funcionario values(
-            :id_funcionario
-        );');
+            ->prepare('UPDATE Funcionario Where id_funcionario=:id_funcionario');
         $statement->execute([
             'id_funcionario' => $funcionario->getid_funcionario(),
         ]);

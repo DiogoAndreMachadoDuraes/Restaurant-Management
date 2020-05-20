@@ -12,7 +12,7 @@ namespace App\Models;
         private string $password;
         private string $tipo;
         private string $foto;
-        private string $nif;
+        private int $nif;
 
         public function Utilizador() {}
 
@@ -109,7 +109,7 @@ namespace App\Models;
         {
             return $this->nif;
         }
-        public function setnif(string $nif): Utilizador
+        public function setnif(int $nif): Utilizador
         {
             $this->nif = $nif;
             return $this;
