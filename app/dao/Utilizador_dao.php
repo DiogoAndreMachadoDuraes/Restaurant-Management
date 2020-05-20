@@ -81,7 +81,6 @@ class Utilizador_dao extends ConnectionDB
             'foto' => $utilizador->getfoto(),
             'nif' => $utilizador->getnif()
             ]);
-        ]);
     }
 
     public function Delete (int $id_utilizador): void
