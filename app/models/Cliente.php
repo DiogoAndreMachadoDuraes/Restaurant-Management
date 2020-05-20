@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-    final class Cliente
+    final class Cliente extends Utilizador
     {
         private int $id_cliente;
         private int $numero_cartao;
