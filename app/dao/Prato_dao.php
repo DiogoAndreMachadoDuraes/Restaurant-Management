@@ -48,14 +48,7 @@ class Prato_dao extends ConnectionDB
     public function Update (Prato $prato): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO Prato values(
-            :id_prato,
-            :nome,
-            :quantidade,
-            :descricao,
-            :preco
-        );');
-      
+            ->prepare('UPDATE Prato set nome=:nome and quantidade=:quantidade and descricao=:descricao and preco=:preco Where id_prato=:id_prato');
         $statement->execute([
             'id_prato' => $prato->getid_prato(),
             'nome' => $prato->getnome(),

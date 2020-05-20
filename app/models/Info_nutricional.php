@@ -6,7 +6,7 @@ namespace App\Models;
     {
         private int $id_info_nutricional;
         private string $tipo;
-        private string $quantidade_nutrientes;
+        private int $quantidade_nutrientes;
         private string $descricao;
 
         public function Info_nutricional() {}
@@ -38,7 +38,7 @@ namespace App\Models;
         {
             return $this->quantidade_nutrientes;
         }
-        public function setquantidade_nutrientes(string $quantidade_nutrientes): Info_nutricional
+        public function setquantidade_nutrientes(int $quantidade_nutrientes): Info_nutricional
         {
             $this->quantidade_nutrientes = $quantidade_nutrientes;
             return $this;

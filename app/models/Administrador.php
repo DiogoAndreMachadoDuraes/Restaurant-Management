@@ -14,7 +14,7 @@ namespace App\Models;
         {
             return $this->id_administrador;
         }
-        public function setid_administrador(string $id_administrador): Administrador
+        public function setid_administrador(int $id_administrador): Administrador
         {
             $this->id_administrador = $id_administrador;
             return $this;

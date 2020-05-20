@@ -39,9 +39,9 @@ namespace App\Models;
         {
             return $this->dia;
         }
-        public function setdata(string $dia): Take_away
+        public function setdata(string $data): Take_away
         {
-            $this->dia = $dia;
+            $this->data = $data;
             return $this;
         }
 
@@ -59,7 +59,7 @@ namespace App\Models;
         //get e set tipo da entrega
         public function gettipo_entrega()
         {
-            return $this->tipodeentrega;
+            return $this->tipo_entrega;
         }
         public function settipo_entrega(string $tipo_entrega): Take_away
         {

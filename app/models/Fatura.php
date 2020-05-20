@@ -7,6 +7,7 @@ namespace App\Models;
         private int $id_fatura;
         private float $iva;
         private string $taxa;
+        private int $nif_cliente;
 
         public function Fatura() {}
 
@@ -48,7 +49,7 @@ namespace App\Models;
          {
              return $this->nif_cliente;
          }
-         public function setnif_cliente(string $nif_cliente): Fatura
+         public function setnif_cliente(int $nif_cliente): Fatura
          {
              $this->nif_cliente = $nif_cliente;
              return $this;

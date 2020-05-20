@@ -35,9 +35,7 @@ class Administrador_dao extends ConnectionDB
     public function Update (Administrador $administrador): void
     {
         $statement = $this->pdo
-        ->prepare ('UPDATE INTO Administrador values(
-           :id_administrador
-        );');
+            ->prepare('UPDATE Administrador Where id_administrador=:id_administrador');
         $statement->execute([
             'id_administrador' => $administrador->getid_administrador()
         ]);

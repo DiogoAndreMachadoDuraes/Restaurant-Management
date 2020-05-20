@@ -5,7 +5,7 @@ namespace App\Models;
     final class Menu
     {
         private int $id_menu;
-        private string $valor;
+        private float $valor;
         private string $descricao;
 
         public function Menu() {}
@@ -26,7 +26,7 @@ namespace App\Models;
         {
             return $this->valor;
         }
-        public function setvalor(string $valor): Menu
+        public function setvalor(float $valor): Menu
         {
             $this->valor = $valor;
             return $this;
