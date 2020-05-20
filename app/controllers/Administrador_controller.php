@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Administrador_dao;
 use App\Models\Administrador;
 
-final class Gestor_controller
+final class Administrador_controller
 {                                
  
    public function Select (Request $request, Response $response, array $args) : Response
@@ -28,7 +28,7 @@ final class Gestor_controller
       $administrador->setid_administrador($data['id_administrador']);
       $administrador_dao->Update($administrador);
 
-      $response -> getBody() -> write("Gestor modificado!");
+      $response -> getBody() -> write("Administrador modificado!");
       return $response;
    }
 
@@ -41,7 +41,7 @@ final class Gestor_controller
       $administrador->setid_administrador($data['id_administrador']);
       $administrador_dao->Insert($administrador);
 
-      $response -> getBody() -> write("administrador inserido!");
+      $response -> getBody() -> write("Administrador inserido!");
       return $response;
    }
  
