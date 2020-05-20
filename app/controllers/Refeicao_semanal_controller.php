@@ -27,8 +27,8 @@ namespace App\Controllers;
         public function Select (Request $request, Response $response, array $arg) : Response 
         {
             $refeicao_semanal_dao=new Refeicao_semanal_dao();
-            $refeicaosemanals=$refeicao_semanal_dao->Select();
-            $json=json_encode($refeicaosemanals);
+            $refeicao_semanal=$refeicao_semanal_dao->Select();
+            $json=json_encode($refeicao_semanal);
             $response->getBody()->write($json);
             return $response;
         }

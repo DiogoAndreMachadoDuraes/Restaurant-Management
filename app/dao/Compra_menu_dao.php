@@ -36,11 +36,11 @@ namespace App\DAO;
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Compra_menu set quantidade=:quantidade and preco=:preco Where id_compra_menu=:id_compra_menu');
-                $statement->execute([
-                    'id_compra_menu' => $compra_menu->get_id_compra_menu(),
-                    'quantidade' => $compra_menu->get_quantidade(),
-                    'preco' => $compra_menu->get_preco(),
-                ]);
+            $statement->execute([
+                'id_compra_menu' => $compra_menu->get_id_compra_menu(),
+                'quantidade' => $compra_menu->get_quantidade(),
+                'preco' => $compra_menu->get_preco(),
+            ]);
         }
 
         public function Delete(int $id_compra_menu) : void
@@ -48,8 +48,8 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('DELETE Compra_menu Where id_compra_menu=:id_compra_menu');
             $statement->execute([
-                    'id_compra_menu' => $id_compra_menu
-                ]);
+                'id_compra_menu' => $id_compra_menu
+            ]);
         }
     }
 ?>

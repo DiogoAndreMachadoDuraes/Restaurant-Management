@@ -7,7 +7,7 @@ namespace App\Controllers;
     use App\DAO\Compra_menu_dao;
     use App\Models\Compra_menu;
 
-    class Compramenu_controller
+    class Compra_menu_controller
     {
         public function Insert (Request $request, Response $response, array $arg) : Response 
         {
