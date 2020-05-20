@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-    final class Funcionario
+    final class Funcionario extends Utilizador
     {
         private int $id_funcionario;
 

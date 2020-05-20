@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-    final class Administrador
+    final class Administrador extends Utilizador
     {
         private int $id_administrador;
         
