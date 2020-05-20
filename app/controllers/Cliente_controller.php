@@ -60,7 +60,7 @@ namespace App\Controllers;
             return $response;
         }
         
-        public function Contar_menus() :int
+        /*public function Contar_menus() :int
         {
             $compra_menu= new Compramenu();
 
@@ -87,6 +87,6 @@ namespace App\Controllers;
                     echo("O cliente com o nif:") .$nif. ("com cartao ") .$id_cartao_fidelizacao. ("tem uma refeicao gratis");
                 }
             }
-        }
+        }*/
     }
 ?>
