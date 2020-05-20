@@ -25,8 +25,8 @@ namespace App\Controllers;
         public function Select (Request $request, Response $response, array $arg) : Response 
         {
             $ementa_dao=new Ementa_dao();
-            $ementas=$ementa_dao->Select();
-            $json=json_encode($ementas);
+            $ementa=$ementa_dao->Select();
+            $json=json_encode($ements);
             $response->getBody()->write($json);
             return $response;
         }

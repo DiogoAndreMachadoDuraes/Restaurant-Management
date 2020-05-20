@@ -18,8 +18,8 @@ namespace App\DAO;
                     :descricao
                     );');
             $statement->execute([
-                    'descricao' => $ementa->get_descricao()
-                ]);
+                 'descricao' => $ementa->get_descricao()
+            ]);
         }
 
         public function Select() : array

@@ -3,7 +3,6 @@
     use Slim\Factory\AppFactory;
     use App\Controllers\{
         Auth_controller,
-        Cartao_fidelizacao_controller,
         Cliente_controller,
         Compra_extra_controller,
         Compra_menu_controller,
@@ -14,13 +13,13 @@
         Utilizador_controller,
         Funcionario_controller,
         Alergenio_controller,
-        Gestor_controller,
+        Administrador_controller,
         Fatura_controller,
         Info_nutricional_controller,
         Menu_controller,
         Prato_controller,
         Restaurante_controller,
-        Takeaway_controller
+        Take_away_controller
     };
     use App\DAO\{
         Token_dao
@@ -47,24 +46,23 @@
     ];*/
 
 /*
-    $app->post('/register', Utilizador_controller::class . ':Insert');
+    $app->post('/Registar', Utilizador_controller::class . ':Insert');
 
-    $app->post('/login', Auth_controller::class. ':login');
-    $app->post('/refreshToken', Auth_controller::class . ':refreshToken');
+    $app->post('/Login', Auth_controller::class. ':login');
+    $app->post('/RefreshToken', Auth_controller::class . ':refreshToken');
 */
     $app->get('/Reserva', Reserva_controller::class . ':Select');
 
 /*
-    $app->group('/clientelogin', function() use($app) {
-        $app->put('/clientechanges', Utilizador_controller::class . ':Update');
-        $app->delete('/delete', Utilizador_controller::class . ':Delete');
+    $app->group('/Clientelogin', function() use($app) {
+        $app->put('/Utilizadorchanges', Utilizador_controller::class . ':Update');
+        $app->delete('/Utilizadordelete', Utilizador_controller::class . ':Delete');
 
         $app->get('/Reserva', Reserva_controller::class . ':Select');
         $app->post('/Reserva', Reserva_controller::class . ':Insert');
         $app->put('/Reserva', Reserva_controller::class . ':Update');
         $app->delete('/Reserva', Reserva_controller::class . ':Delete');
 
-        $app->get('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Select');
         $app->get('/Cliente', Cliente_controller::class . ':Select');
         $app->get('/Compra_extra', Compra_extra_controller::class . ':Select');
         $app->get('/Compra_menu', Compra_menu_controller::class . ':Select');
@@ -78,17 +76,12 @@
         $app->get('/Menu',Menu_controller::class . 'Select');
         $app->get('/Prato',Prato_controller::class . 'Select');
         $app->get('/Restaurante',Restaurante_controller::class . 'Select');
-        $app->get('/Takeaway',Takeaway_controller::class . 'Select');
+        $app->get('/Take_away',Take_away_controller::class . 'Select');
 
     })  ->add(new Auth_middleware())
         ->add(Jwt_Auth());
     
-    $app->group('/gestorlogin', function() use($app) {
-        $app->get('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Select');
-        $app->post('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Insert');
-        $app->put('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Update');
-        $app->delete('/Cartao_fidelizacao', Cartao_fidelizacao_controller::class . ':Delete');
-
+    $app->group('/Administradorlogin', function() use($app) {
         $app->get('/Cliente', Cliente_controller::class . ':Select');
         $app->post('/Cliente', Cliente_controller::class . ':Insert');
         $app->put('/Cliente', Cliente_controller::class . ':Update');
@@ -139,10 +132,10 @@
         $app->put('/Fatura',Fatura_controller::class . 'Update');
         $app->delete('/Fatura',Fatura_controller::class . 'Delete');
 
-        $app->get('/Gestor',Gestor_controller::class . 'Select');
-        $app->post('/Gestor',Gestor_controller::class . 'Insert');
-        $app->put('/Gestor',Gestor_controller::class . 'Update');
-        $app->delete('/Gestor',Gestor_controller::class . 'Delete');
+        $app->get('/Administrador',Administrador_controller::class . 'Select');
+        $app->post('/Administrador',Administrador_controller::class . 'Insert');
+        $app->put('/Administrador',Administrador_controller::class . 'Update');
+        $app->delete('/Administrador',Administrador_controller::class . 'Delete');
 
         $app->get('/Info_nutricional',Info_nutricional_controller::class . 'Select');
         $app->post('/Info_nutricional',Info_nutricional_controller::class . 'Insert');
@@ -164,15 +157,15 @@
         $app->put('/Restaurante',Restaurante_controller::class . 'Update');
         $app->delete('/Restaurante',Restaurante_controller::class . 'Delete');
 
-        $app->get('/Takeaway',Takeaway_controller::class . 'Select');
-        $app->post('/Takeaway',Takeaway_controller::class . 'Insert');
-        $app->put('/Takeaway',Takeaway_controller::class . 'Update');
-        $app->delete('/Takeaway',Takeaway_controller::class . 'Delete');
+        $app->get('/Take_away',Take_away_controller::class . 'Select');
+        $app->post('/Take_away',Take_away_controller::class . 'Insert');
+        $app->put('/Take_away',Take_away_controller::class . 'Update');
+        $app->delete('/Take_away',Take_away_controller::class . 'Delete');
 
         $app->post('/Token',Token_dao::class . 'Insert');
 
-        $app->put('/gestorchanges', Utilizador_controller::class . ':Update');
-        $app->delete('/delete', Utilizador_controller::class . ':Delete');
+        $app->put('/Utilizadorchanges', Utilizador_controller::class . ':Update');
+        $app->delete('/Utilizadordelete', Utilizador_controller::class . ':Delete');
 
     })  ->add(new Auth_middleware())
         ->add(Jwt_Auth());
