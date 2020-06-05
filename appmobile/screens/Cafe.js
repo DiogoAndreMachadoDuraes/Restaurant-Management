@@ -62,7 +62,7 @@ class Cafe extends React.Component{
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../src/cafe.jpg')} style={style.image} opacity={0.8}/>
+                <Image source={require('../assets/cafe.jpg')} style={style.image} opacity={0.8}/>
                 <Text style={style.text}>O nosso delicioso café da avó. Venha experimentar.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>

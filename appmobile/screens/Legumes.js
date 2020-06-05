@@ -64,18 +64,18 @@ class Legumes extends React.Component{
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../src/legumesAssados.jpg')} style={style.image} opacity={0.8}/>
+                <Image source={require('../assets/legumesAssados.jpg')} style={style.image} opacity={0.8}/>
                 <Text style={style.text}>Um prato perfeito para quem é vegetariano. Venha provar e deixe-se levar pelo surprendente sabor.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Categoria image={require('../src/massa.jpg')} name="Massa de lasanha"  />
-                <Categoria image={require('../src/queijo.jpg')} name="Queijo"  />
-                <Categoria image={require('../src/cogumelos.jpg')} name="Cogumelos" />
-                <Categoria image={require('../src/brocolos.jpg')} name="Brócolos" />
-                <Categoria image={require('../src/couveFlor.jpg')} name="Couve-flor" />
+                <Categoria image={require('../assets/massa.jpg')} name="Massa de lasanha"  />
+                <Categoria image={require('../assets/queijo.jpg')} name="Queijo"  />
+                <Categoria image={require('../assets/cogumelos.jpg')} name="Cogumelos" />
+                <Categoria image={require('../assets/brocolos.jpg')} name="Brócolos" />
+                <Categoria image={require('../assets/couveFlor.jpg')} name="Couve-flor" />
               </ScrollView>
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>

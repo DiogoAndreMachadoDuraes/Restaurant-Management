@@ -31,17 +31,17 @@ class BebidasFrias extends React.Component{
               </View>
               <View style={style.bebidasFrias}>
                 <TouchableOpacity style={style.bebidasFriasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("VinhoTinto")}>
-                  <Image style={style.bebidasFriasExpFoto} source={require('../src/vinhoTinto.jpg')} ></Image>
+                  <Image style={style.bebidasFriasExpFoto} source={require('../assets/vinhoTinto.jpg')} ></Image>
                   <Text style={style.titlebebidasFrias}>Vinho Tinto</Text>
                   <Text style={style.textbebidasFrias}>Caseiro</Text>
                 </TouchableOpacity>
                 <View style={style.bebidasFriasExp}>
-                <Image style={style.bebidasFriasExpFoto} source={require('../src/agua.jpg')}></Image>
+                <Image style={style.bebidasFriasExpFoto} source={require('../assets/agua.jpg')}></Image>
                   <Text style={style.titlebebidasFrias}>Água</Text>
                   <Text style={style.textbebidasFrias}>Penacova</Text>
                 </View>
                 <View style={style.bebidasFriasExp}>
-                  <Image style={style.bebidasFriasExpFoto} source={require('../src/vinhoBranco.jpg')}></Image>
+                  <Image style={style.bebidasFriasExpFoto} source={require('../assets/vinhoBranco.jpg')}></Image>
                   <Text style={style.titlebebidasFrias}>Vinho Branco</Text>
                   <Text style={style.textbebidasFrias}>Caseiro</Text>
                 </View>

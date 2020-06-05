@@ -64,16 +64,16 @@ class CaldoVerde extends React.Component{
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../src/caldoVerde.jpg')} style={style.image} opacity={0.8}/>
+                <Image source={require('../assets/caldoVerde.jpg')} style={style.image} opacity={0.8}/>
                 <Text style={style.text}>Caldo verde caseiro à moda da Avó. Deixe-se levar pelo surprendente sabor.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Categoria image={require('../src/batata.jpg')} name="Batata" />
-                <Categoria image={require('../src/couve.jpg')} name="Couve"  />
-                <Categoria image={require('../src/chourico.jpg')} name="Chouriço"  />
+                <Categoria image={require('../assets/batata.jpg')} name="Batata" />
+                <Categoria image={require('../assets/couve.jpg')} name="Couve"  />
+                <Categoria image={require('../assets/chourico.jpg')} name="Chouriço"  />
               </ScrollView>
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>

@@ -62,7 +62,7 @@ class BatataFrita extends React.Component{
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../src/batataFrita.jpg')} style={style.image} opacity={0.8}/>
+                <Image source={require('../assets/batataFrita.jpg')} style={style.image} opacity={0.8}/>
                 <Text style={style.text}>Uma surpreendente batata caseira com o toque da avó. Venha provar e deixe-se surpreender.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>

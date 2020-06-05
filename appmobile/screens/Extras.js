@@ -34,47 +34,47 @@ class Extras extends React.Component{
               <ScrollView>
                 <View style={style.extras}>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Salmao")} >
-                    <Image style={style.extrasExpFoto} source={require('../src/salmao.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/salmao.jpg')} ></Image>
                     <Text style={style.titleExtras}>Pratos de peixe</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Estrogonofe")}>
-                    <Image style={style.extrasExpFoto} source={require('../src/estrogonofe.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/estrogonofe.jpg')} ></Image>
                     <Text style={style.titleExtras}>Pratos sem gluten e sem lactose</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Legumes")} >
-                    <Image style={style.extrasExpFoto} source={require('../src/legumesAssados.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/legumesAssados.jpg')} ></Image>
                     <Text style={style.titleExtras}>Pratos vegan/vegetarianos</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("BatataFrita")} >
-                    <Image style={style.extrasExpFoto} source={require('../src/batataFrita.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/batataFrita.jpg')} ></Image>
                     <Text style={style.titleExtras}>Batatas Fritas</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Saladas")} >
-                    <Image style={style.extrasExpFoto} source={require('../src/saladaTropical.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/saladaTropical.jpg')} ></Image>
                     <Text style={style.titleExtras}>Saladas</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("CaldoVerde")} >
-                    <Image style={style.extrasExpFoto} source={require('../src/caldoVerde.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/caldoVerde.jpg')} ></Image>
                     <Text style={style.titleExtras}>Sopas</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("BebidasFrias")} >
-                    <Image style={style.extrasExpFoto} source={require('../src/agua.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/agua.jpg')} ></Image>
                     <Text style={style.titleExtras}>Bebidas</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Extras")}>
-                    <Image style={style.extrasExpFoto} source={require('../src/geladoMorango.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/geladoMorango.jpg')} ></Image>
                     <Text style={style.titleExtras}>Extras</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("BebidasQuentes")} >
-                    <Image style={style.extrasExpFoto} source={require('../src/cafe.jpg')} ></Image>
+                    <Image style={style.extrasExpFoto} source={require('../assets/cafe.jpg')} ></Image>
                     <Text style={style.titleExtras}>Bebidas Quentes</Text>
                     <Text style={style.textExtras}>À moda da Avó</Text>
                   </TouchableOpacity>

@@ -72,7 +72,7 @@ class SaladaTropical extends React.Component{
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../src/saladaTropical.jpg')} style={style.image} opacity={0.8}/>
+                <Image source={require('../assets/saladaTropical.jpg')} style={style.image} opacity={0.8}/>
                 <Text style={style.text}>Com um toque tropical e uma mistura de sabores, eleva o nosso patamar de excelência. Deixe-se surpreender.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>

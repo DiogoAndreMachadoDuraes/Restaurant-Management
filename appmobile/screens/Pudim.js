@@ -64,16 +64,16 @@ class Pudim extends React.Component{
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../src/pudim.jpg')} style={style.image} opacity={0.8}/>
+                <Image source={require('../assets/pudim.jpg')} style={style.image} opacity={0.8}/>
                 <Text style={style.text}>Pudim de ovos caseiro. Deixe-se levar pelo surprendente sabor.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Categoria image={require('../src/leite.jpg')} name="Leite" />
-                <Categoria image={require('../src/leiteCondensado.jpg')} name="Leite Condensado"  />
-                <Categoria image={require('../src/ovos.jpg')} name="Ovos"  />
+                <Categoria image={require('../assets/leite.jpg')} name="Leite" />
+                <Categoria image={require('../assets/leiteCondensado.jpg')} name="Leite Condensado"  />
+                <Categoria image={require('../assets/ovos.jpg')} name="Ovos"  />
               </ScrollView>
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>

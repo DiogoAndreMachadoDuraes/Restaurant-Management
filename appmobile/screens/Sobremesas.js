@@ -31,17 +31,17 @@ class Sobremesas extends React.Component{
               </View>
               <View style={style.sobremesas}>
                 <TouchableOpacity style={style.sobremesasExp} activeOpacity={0.5}>
-                  <Image style={style.sobremesasExpFoto} source={require('../src/pudim.jpg')} onPress={()=>this.props.navigation.navigate("Pudim")}></Image>
+                  <Image style={style.sobremesasExpFoto} source={require('../assets/pudim.jpg')} onPress={()=>this.props.navigation.navigate("Pudim")}></Image>
                   <Text style={style.titleSobremesas}>Pudim</Text>
                   <Text style={style.textSobremesas}>À moda da Avó</Text>
                 </TouchableOpacity>
                 <View style={style.sobremesasExp}>
-                  <Image style={style.sobremesasExpFoto} source={require('../src/saladaFruta.jpg')} ></Image>
+                  <Image style={style.sobremesasExpFoto} source={require('../assets/saladaFruta.jpg')} ></Image>
                   <Text style={style.titleSobremesas}>Salada de Fruta</Text>
                   <Text style={style.textSobremesas}>À moda da Avó</Text>
                 </View>
                 <View style={style.sobremesasExp}>
-                  <Image style={style.sobremesasExpFoto} source={require('../src/geladoMorango.jpg')}></Image>
+                  <Image style={style.sobremesasExpFoto} source={require('../assets/geladoMorango.jpg')}></Image>
                   <Text style={style.titleSobremesas}>Gelado de Morango</Text>
                   <Text style={style.textSobremesas}>À moda da Avó</Text>
                 </View>

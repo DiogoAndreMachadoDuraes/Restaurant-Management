@@ -64,17 +64,17 @@ class Estrogonofe extends React.Component{
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../src/estrogonofe.jpg')} style={style.image} opacity={0.8}/>
+                <Image source={require('../assets/estrogonofe.jpg')} style={style.image} opacity={0.8}/>
                 <Text style={style.text}>Um prato perfeito para quem é alérgico à lactose e ao glúten. Venha provar e deixe-se levar pelo surprendente sabor.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Categoria image={require('../src/arroz.jpg')} name="Arroz cozido"  />
-                <Categoria image={require('../src/frango.jpg')} name="Frango"  />
-                <Categoria image={require('../src/cogumelos.jpg')} name="Cogumelos" />
-                <Categoria image={require('../src/batataPalha.jpg')} name="Batata Frita Palha" />
+                <Categoria image={require('../assets/arroz.jpg')} name="Arroz cozido"  />
+                <Categoria image={require('../assets/frango.jpg')} name="Frango"  />
+                <Categoria image={require('../assets/cogumelos.jpg')} name="Cogumelos" />
+                <Categoria image={require('../assets/batataPalha.jpg')} name="Batata Frita Palha" />
               </ScrollView>
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>

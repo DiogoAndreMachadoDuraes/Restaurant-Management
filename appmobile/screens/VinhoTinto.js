@@ -64,7 +64,7 @@ class VinhoTinto extends React.Component{
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../src/vinhoTinto.jpg')} style={style.image} opacity={0.8}/>
+                <Image source={require('../assets/vinhoTinto.jpg')} style={style.image} opacity={0.8}/>
                 <Text style={style.text}>Vinho tinto caseiro. À moda de trás-dos-montes.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>

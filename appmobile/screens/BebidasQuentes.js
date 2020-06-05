@@ -31,17 +31,17 @@ class BebidasQuentes extends React.Component{
               </View>
               <View style={style.bebidasQuentes}>
                 <TouchableOpacity style={style.bebidasQuentesExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Cafe")} >
-                  <Image style={style.bebidasQuentesExpFoto} source={require('../src/cafe.jpg')} ></Image>
+                  <Image style={style.bebidasQuentesExpFoto} source={require('../assets/cafe.jpg')} ></Image>
                   <Text style={style.titlebebidasQuentes}>Café</Text>
                   <Text style={style.textbebidasQuentes}>DolceGusto</Text>
                 </TouchableOpacity>
                 <View style={style.bebidasQuentesExp}>
-                  <Image style={style.bebidasQuentesExpFoto} source={require('../src/cappuccino.jpg')} ></Image>
+                  <Image style={style.bebidasQuentesExpFoto} source={require('../assets/cappuccino.jpg')} ></Image>
                   <Text style={style.titlebebidasQuentes}>Cappuccino</Text>
                   <Text style={style.textbebidasQuentes}>À moda da Avó</Text>
                 </View>
                 <View style={style.bebidasQuentesExp}>
-                  <Image style={style.bebidasQuentesExpFoto} source={require('../src/pingo.jpg')}></Image>
+                  <Image style={style.bebidasQuentesExpFoto} source={require('../assets/pingo.jpg')}></Image>
                   <Text style={style.titlebebidasQuentes}>Café com leite</Text>
                   <Text style={style.textbebidasQuentes}>Café com leite meio gordo</Text>
                 </View>
