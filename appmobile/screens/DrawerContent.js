@@ -53,7 +53,7 @@ export function DrawerContent(props){
                             />
                         )}
                         label="Página Inicial"
-                        onPress={() => {props.navigation.navigate('Agradecimento')}}
+                        onPress={() => {props.navigation.navigate('Home')}}
                     />
                     <DrawerItem 
                         icon={({color, size}) => (
@@ -75,7 +75,7 @@ export function DrawerContent(props){
                             />
                         )}
                         label="Menus"
-                        //onPress={() => {props.navigation.navigate('Menus')}}
+                        onPress={() => {props.navigation.navigate('Menus')}}
                     />
                     <DrawerItem 
                         icon={({color, size}) => (

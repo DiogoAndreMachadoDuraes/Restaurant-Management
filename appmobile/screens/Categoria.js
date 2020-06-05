@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 class Categoria extends React.Component{
     render(){

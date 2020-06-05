@@ -1,8 +1,8 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image } from "react-native";
-import {Header, Icon} from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SocialIcon } from 'react-native-elements';
+import NossoHeader from "./NossoHeader.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -20,16 +20,7 @@ class Extras extends React.Component{
         return (
           <View style={style.container}>
             <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
-            <Header
-                leftComponent={<Icon name="menu" color= '#fff' size={30} onPress={() => this.props.navigation.toggleDrawer()}/>}
-                centerComponent={<Text style={{fontSize: 25, fontWeight: 'bold', fontStyle: 'italic', color: '#fff', marginTop: -20}}>Extras</Text>}
-                rightComponent={<Icon name="local-grocery-store" color= '#fff' size={30} onPress={() => this.props.navigation.navigate("Carrinho")}/>}
-                containerStyle={{
-                  backgroundColor: '#c6cbef',
-                  justifyContent: 'space-around',
-                  height: 80,
-                }}
-            />
+            <NossoHeader name={this.state.name}/>
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={0.5}>
               <ScrollView>
                 <View style={style.extras}>

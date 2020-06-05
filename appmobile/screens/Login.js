@@ -10,7 +10,6 @@ import { Input } from 'react-native-elements';
 //const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
 class Login extends React.Component {
-
     constructor(props){
         super(props);
         this.state={
@@ -74,7 +73,7 @@ class Login extends React.Component {
                     <TouchableOpacity /*onPress={() => this.props.navigation.navigate("Home")}*/>
                         <Text style={style.esqueceuPass}>Esqueceu-se da palavra-passe?</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.login} /*onPress={() => this.props.navigation.navigate("Home")}*/>
+                    <TouchableOpacity style={style.login} onPress={() => this.props.navigation.navigate("Home")}>
                         <Text style={style.loginText}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.registar} /*onPress={() => this.props.navigation.navigate("Register")}*/>
