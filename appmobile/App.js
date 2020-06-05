@@ -55,7 +55,6 @@ const App = () => {
             <Drawer.Screen name="Sobremesas" component={Sobremesas} options={{ drawerLabel: 'Sobremesas' }}/>
             <Drawer.Screen name="CaldoVerde" component={CaldoVerde} options={{ drawerLabel: 'CaldoVerde' }}/>
             <Drawer.Screen name="VinhoTinto" component={VinhoTinto} options={{ drawerLabel: 'VinhoTinto' }}/>
-            <Drawer.Screen name="Login" component={Login} options={{drawerLabel:'Login'}}/>
             <Drawer.Screen name="Home" component={Home} options={{drawerLabel:'Home'}}/>
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>
             <Drawer.Screen name="Estilo" component={Estilo} options={{drawerLabel:'Estilo'}}/>
