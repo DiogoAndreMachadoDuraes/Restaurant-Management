@@ -23,8 +23,10 @@ import VinhoTinto from "./screens/VinhoTinto.js";
 import Home from "./screens/Home.js";
 import Menu from "./screens/Menu.js";
 import Estilo from "./screens/Estilo.js";
+import Registar from "./screens/Registar.js";
 import Hamburguer from "./screens/Hamburguer.js";
 import HamburguerCamarao from "./screens/HamburguerCamarao.js";
+import Imagem from "./screens/Imagem.js";
 
 import { DrawerContent } from './screens/DrawerContent';
 import NossoHeader from "./screens/NossoHeader.js";
@@ -58,8 +60,10 @@ const App = () => {
             <Drawer.Screen name="Home" component={Home} options={{drawerLabel:'Home'}}/>
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>
             <Drawer.Screen name="Estilo" component={Estilo} options={{drawerLabel:'Estilo'}}/>
+            <Drawer.Screen name="Registar" component={Registar} options={{drawerLabel:'Registar'}}/>
             <Drawer.Screen name="Hamburguer" component={Hamburguer} options={{drawerLabel:'Hamburguer'}}/>
             <Drawer.Screen name="HamburguerCamarao" component={HamburguerCamarao} options={{drawerLabel:'HamburguerCamarao'}}/>
+            <Drawer.Screen name="Imagem" component={Imagem} options={{drawerLabel:'Imagem'}}/>
 
           </Drawer.Navigator>
         </NavigationContainer>
