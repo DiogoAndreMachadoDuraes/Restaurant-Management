@@ -36,7 +36,7 @@ const App = () => {
       //<AppearanceProvider>
         <NavigationContainer /*theme={scheme === 'dark' ? DarkTheme : DefaultTheme}*/>
           <Drawer.Navigator initialRouteName="Login" drawerStyle={{ backgroundColor: '#fff'}} drawerContent={props => <DrawerContent {...props} />}>
-            <Drawer.Screen name="NossoHeader" component={NossoHeader}/>
+            <Drawer.Screen name="NossoHeader" component={NossoHeader} />
             <Drawer.Screen name="Login" component={Login} />
             <Drawer.Screen name="BatataFrita" component={BatataFrita} options={{ drawerLabel: 'BatataFrita' }}/>
             <Drawer.Screen name="BebidasFrias" component={BebidasFrias} options={{ drawerLabel: 'BebidasFrias' }}/>
@@ -60,7 +60,6 @@ const App = () => {
             <Drawer.Screen name="Estilo" component={Estilo} options={{drawerLabel:'Estilo'}}/>
             <Drawer.Screen name="Hamburguer" component={Hamburguer} options={{drawerLabel:'Hamburguer'}}/>
             <Drawer.Screen name="HamburguerCamarao" component={HamburguerCamarao} options={{drawerLabel:'HamburguerCamarao'}}/>
-
           </Drawer.Navigator>
         </NavigationContainer>
       //</AppearanceProvider>
