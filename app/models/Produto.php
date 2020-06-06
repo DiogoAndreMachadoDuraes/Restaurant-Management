@@ -2,24 +2,24 @@
 
 namespace App\Models;
 
-    final class Prato
+    final class Produto
     {
-        private int $id_prato;
+        private int $id_produto;
         private string $nome;
         private int $quantidade;
         private string $descricao;
         private float $preco;
 
-        public function Prato() {}
+        public function Produto() {}
 
         //get e set id
-        public function getid_prato()
+        public function getid_produto()
         {
-            return $this->id_prato;
+            return $this->id_produto;
         }
-        public function setid_prato(int $id_prato): Prato
+        public function setid_produto(int $id_produto): Produto
         {
-            $this->id_prato = $id_prato;
+            $this->id_produto = $id_produto;
             return $this;
         }
     
@@ -28,7 +28,7 @@ namespace App\Models;
         {
             return $this->nome;
         }
-        public function setnome(string $nome): Prato
+        public function setnome(string $nome): Produto
         {
             $this->nome = $nome;
             return $this;
@@ -39,7 +39,7 @@ namespace App\Models;
         {
             return $this->quantidade;
         }
-        public function setquantidade(int $quantidade): Prato
+        public function setquantidade(int $quantidade): Produto
         {
             $this->quantidade = $quantidade;
             return $this;
@@ -50,7 +50,7 @@ namespace App\Models;
         {
             return $this->descricao;
         }
-        public function setdescricao(string $descricao): Prato
+        public function setdescricao(string $descricao): Produto
         {
             $this->descricao = $descricao;
             return $this;
@@ -61,7 +61,7 @@ namespace App\Models;
         {
             return $this->preco;
         }
-        public function setpreco(float $preco): Prato
+        public function setpreco(float $preco): Produto
         {
             $this->preco = $preco;
             return $this;

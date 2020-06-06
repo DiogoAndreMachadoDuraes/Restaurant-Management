@@ -4,17 +4,17 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use App\DAO\Prato_dao;
-use App\Models\Prato;
+use App\DAO\Produto_dao;
+use App\Models\Produto;
 
-final class Prato_controller
+final class Produto_controller
 {                                
  
    public function Select (Request $request, Response $response, array $args) : Response
    {
-      $prato_dao=new Prato_dao();
-      $prato=$prato_dao->Select();
-      $json=json_encode($prato);
+      $produto_dao=new Produto_dao();
+      $produto=$produto_dao->Select();
+      $json=json_encode($produto);
       $response->getBody()->write($json);
       return $response;
    }
@@ -23,16 +23,16 @@ final class Prato_controller
    {
       $data=$request->getParsedBody();
         
-      $prato_dao=new Prato_dao();
-      $prato =new Prato();
-      $prato->setid_prato($data['id_prato'])
+      $produto_dao=new Produto_dao();
+      $produto =new Produto();
+      $produto->setid_produto($data['id_produto'])
          ->setnome($data['nome'])
          ->setquantidade($data['quantidade'])
          ->setdescricao($data['descricao'])
          ->setpreco($data['preco']);
-      $prato_dao->Update($prato);
+      $produto_dao->Update($produto);
 
-      $response -> getBody() -> write("Prato modificado!");
+      $response -> getBody() -> write("Produto modificado!");
       return $response;
    }
 
@@ -40,16 +40,16 @@ final class Prato_controller
    {
       $data=$request->getParsedBody();
 
-      $prato_dao=new Prato_dao();
-      $prato=new Prato();
-      $prato->setid_prato($data['id_prato'])
+      $produto_dao=new Produto_dao();
+      $produto=new Produto();
+      $produto->setid_produto($data['id_produto'])
          ->setnome($data['nome'])
          ->setquantidade($data['quantidade'])
          ->setdescricao($data['descricao'])
          ->setpreco($data['preco']);
-      $prato_dao->Insert($prato);
+      $produto_dao->Insert($produto);
 
-      $response -> getBody() -> write("Prato inserido!");
+      $response -> getBody() -> write("Produto inserido!");
       return $response;
    }
  
@@ -57,12 +57,12 @@ final class Prato_controller
    {  
       $data=$request->getParsedBody();
 
-      $prato_dao=new Prato_dao();
-      $prato=new Prato();
-      $prato->setid_prato($data['id_prato']);
-      $prato_dao->Delete(intval($prato));
+      $produto_dao=new Produto_dao();
+      $produto=new Produto();
+      $produto->setid_produto($data['id_produto']);
+      $produto_dao->Delete(intval($produto));
 
-      $response -> getBody() -> write("Prato eliminado!");
+      $response -> getBody() -> write("Produto eliminado!");
       return $response;
    }
 } 
