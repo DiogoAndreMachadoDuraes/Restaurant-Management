@@ -4,7 +4,7 @@
     use App\Controllers\{
         Auth_controller,
         Cliente_controller,
-        Compra_extra_controller,
+        Compra_produto_controller,
         Compra_menu_controller,
         Ementa_controller,
         Extra_controller,
@@ -17,7 +17,7 @@
         Fatura_controller,
         Info_nutricional_controller,
         Menu_controller,
-        Prato_controller,
+        Produto_controller,
         Restaurante_controller,
         Take_away_controller
     };
@@ -64,7 +64,7 @@
         $app->delete('/Reserva', Reserva_controller::class . ':Delete');
 
         $app->get('/Cliente', Cliente_controller::class . ':Select');
-        $app->get('/Compra_extra', Compra_extra_controller::class . ':Select');
+        $app->get('/Compra_produto', Compra_produto_controller::class . ':Select');
         $app->get('/Compra_menu', Compra_menu_controller::class . ':Select');
         $app->get('/Ementa', Ementa_controller::class . ':Select');
         $app->get('/Extra', Extra_controller::class . ':Select');
@@ -74,7 +74,7 @@
         $app->get('/Alergenio',Alergenio_controller::class . 'Select');
         $app->get('/Info_nutricional',Info_nutricional_controller::class . 'Select');
         $app->get('/Menu',Menu_controller::class . 'Select');
-        $app->get('/Prato',Prato_controller::class . 'Select');
+        $app->get('/Produto',Produto_controller::class . 'Select');
         $app->get('/Restaurante',Restaurante_controller::class . 'Select');
         $app->get('/Take_away',Take_away_controller::class . 'Select');
 
@@ -87,10 +87,10 @@
         $app->put('/Cliente', Cliente_controller::class . ':Update');
         $app->delete('/Cliente', Cliente_controller::class . ':Delete');
 
-        $app->get('/Compra_extra', Compra_extra_controller::class . ':Select');
-        $app->post('/Compra_extra', Compra_extra_controller::class . ':Insert');
-        $app->put('/Compra_extra', Compra_extra_controller::class . ':Update');
-        $app->delete('/Compra_extra', Compra_extra_controller::class . ':Delete');
+        $app->get('/Compra_produto', Compra_produto_controller::class . ':Select');
+        $app->post('/Compra_produto', Compra_produto_controller::class . ':Insert');
+        $app->put('/Compra_produto', Compra_produto_controller::class . ':Update');
+        $app->delete('/Compra_produto', Compra_produto_controller::class . ':Delete');
 
         $app->get('/Compra_menu', Compra_menu_controller::class . ':Select');
         $app->post('/Compra_menu', Compra_menu_controller::class . ':Insert');
@@ -147,10 +147,10 @@
         $app->put('/Menu',Menu_controller::class . 'Update');
         $app->delete('/Menu',Menu_controller::class . 'Delete');
 
-        $app->get('/Prato',Prato_controller::class . 'Select');
-        $app->post('/Prato',Prato_controller::class . 'Insert');
-        $app->put('/Prato',Prato_controller::class . 'Update');
-        $app->delete('/Prato',Prato_controller::class . 'Delete');
+        $app->get('/Produto',Produto_controller::class . 'Select');
+        $app->post('/Produto',Produto_controller::class . 'Insert');
+        $app->put('/Produto',Produto_controller::class . 'Update');
+        $app->delete('/Produto',Produto_controller::class . 'Delete');
 
         $app->get('/Restaurante',Restaurante_controller::class . 'Select');
         $app->post('/Restaurante',Restaurante_controller::class . 'Insert');

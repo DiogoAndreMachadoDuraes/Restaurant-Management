@@ -8,14 +8,14 @@
 
       public function __construct()
       {
-         /*$host=getenv('ementasrestauracao_HOST=');
-         $user=getenv('ementasrestauracao_USER=');
-         $pass=getenv('ementasrestauracao_PASSWORD=');
-         $dbname=getenv('ementasrestauracao_DBNAME=');
-         $port=getenv('ementasrestauracao_PORT=');
+         /*$host=getenv('ementarestauracao_HOST=');
+         $user=getenv('ementarestauracao_USER=');
+         $pass=getenv('ementarestauracao_PASSWORD=');
+         $dbname=getenv('ementarestauracao_DBNAME=');
+         $port=getenv('ementarestauracao_PORT=');
          
          $dsn="mysql:host={$host};dbname={$dbname};port={$port}";*/
-         $dsn="mysql:host=178.62.212.71;dbname=ementasrestauracao;port=3306";
+         $dsn="mysql:host=178.62.212.71;dbname=ementarestauracao;port=3306";
 
          $this->pdo= new \PDO($dsn, 'rh_user', 'rFrH2016');
          $this->pdo->setAttribute(
