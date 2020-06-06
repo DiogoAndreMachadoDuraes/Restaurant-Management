@@ -1,3 +1,5 @@
 vendor/*
 appmobile/*
 mobile/*
+appmobile/*
+node_modules/*

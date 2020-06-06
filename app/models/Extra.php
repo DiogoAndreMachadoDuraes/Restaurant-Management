@@ -7,6 +7,7 @@ namespace App\Models;
         private int $id_extra;
         private string $nome;
         private string $tipo;
+        private float $preco;
 
         public function Extra(){ }
 
@@ -34,6 +35,15 @@ namespace App\Models;
 
         public function set_tipo($tipo): Extra{
             $this->tipo = $tipo;
+            return $this;
+        }
+
+        public function get_preco(){
+            return $this->preco;
+        }
+
+        public function set_preco($preco): Extra{
+            $this->preco = $preco;
             return $this;
         }
     }

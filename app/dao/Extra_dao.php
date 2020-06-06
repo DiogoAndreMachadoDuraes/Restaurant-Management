@@ -17,11 +17,13 @@ namespace App\DAO;
                 ->prepare('INSERT INTO Extra values (
                     null, 
                     :nome, 
-                    :tipo
+                    :tipo,
+                    :preco
                     );');
             $statement->execute([
                 'nome' => $extra->get_nome(),
-                'tipo' => $extra->get_tipo()
+                'tipo' => $extra->get_tipo(),
+                'preco' => $extra->get_preco()
             ]);
         }
 
@@ -36,11 +38,12 @@ namespace App\DAO;
         public function Update(Extra $extra) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Extra set nome=:nome and tipo=:tipo Where id_extra=:id_extra');
+                ->prepare('UPDATE Extra set nome=:nome, tipo=:tipo and preco=:preco Where id_extra=:id_extra');
             $statement->execute([
                 'id_extra' => $extra->get_id_extra(),
                 'nome' => $extra->get_nome(),
-                'tipo' => $extra->get_tipo()
+                'tipo' => $extra->get_tipo(),
+                'preco' => $extra->get_preco()
             ]);
         }
 

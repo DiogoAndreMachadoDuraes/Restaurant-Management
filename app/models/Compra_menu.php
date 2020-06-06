@@ -29,7 +29,7 @@ namespace App\Models;
         }
 
         public function get_preco(){
-            return $this->preco_menu;
+            return $this->preco;
         }
 
         public function set_preco($preco): Compra_menu{
