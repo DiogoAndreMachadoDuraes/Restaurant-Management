@@ -23,7 +23,6 @@ import VinhoTinto from "./screens/VinhoTinto.js";
 import Home from "./screens/Home.js";
 import Menu from "./screens/Menu.js";
 import Estilo from "./screens/Estilo.js";
-import Registar from "./screens/Registar.js";
 import Hamburguer from "./screens/Hamburguer.js";
 import HamburguerCamarao from "./screens/HamburguerCamarao.js";
 import Imagem from "./screens/Imagem.js";
@@ -38,7 +37,7 @@ const App = () => {
       //<AppearanceProvider>
         <NavigationContainer /*theme={scheme === 'dark' ? DarkTheme : DefaultTheme}*/>
           <Drawer.Navigator initialRouteName="Login" drawerStyle={{ backgroundColor: '#fff'}} drawerContent={props => <DrawerContent {...props} />}>
-            <Drawer.Screen name="NossoHeader" component={NossoHeader}/>
+            <Drawer.Screen name="NossoHeader" component={NossoHeader} />
             <Drawer.Screen name="Login" component={Login} />
             <Drawer.Screen name="BatataFrita" component={BatataFrita} options={{ drawerLabel: 'BatataFrita' }}/>
             <Drawer.Screen name="BebidasFrias" component={BebidasFrias} options={{ drawerLabel: 'BebidasFrias' }}/>
@@ -60,9 +59,9 @@ const App = () => {
             <Drawer.Screen name="Home" component={Home} options={{drawerLabel:'Home'}}/>
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>
             <Drawer.Screen name="Estilo" component={Estilo} options={{drawerLabel:'Estilo'}}/>
-            <Drawer.Screen name="Registar" component={Registar} options={{drawerLabel:'Registar'}}/>
             <Drawer.Screen name="Hamburguer" component={Hamburguer} options={{drawerLabel:'Hamburguer'}}/>
             <Drawer.Screen name="HamburguerCamarao" component={HamburguerCamarao} options={{drawerLabel:'HamburguerCamarao'}}/>
+
             <Drawer.Screen name="Imagem" component={Imagem} options={{drawerLabel:'Imagem'}}/>
 
           </Drawer.Navigator>
