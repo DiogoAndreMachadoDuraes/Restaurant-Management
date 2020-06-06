@@ -10,9 +10,12 @@ export default class NossoHeader extends React.Component{
                 centerComponent={<Text style={{fontSize: 25, fontWeight: 'bold', fontStyle: 'italic', color: '#fff', marginTop: -20}}>{this.props.name}</Text>}
                 rightComponent={<Icon name="local-grocery-store" color= '#fff' size={30} onPress={() => this.props.navigation.navigate("Carrinho")} />}
                 containerStyle={{
-                  backgroundColor: '#c6cbef',
-                  justifyContent: 'space-around',
-                  height: 80,
+                    backgroundColor: "green",
+                    justifyContent: 'space-around',
+                    borderTopLeftRadius: 30,
+                    borderTopRightRadius: 30,
+                    borderColor: "white",
+                    height: 80,
                 }}
             />
         )

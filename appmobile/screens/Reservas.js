@@ -30,18 +30,7 @@ class Reservas extends React.Component{
         return (
           <View style={style.container}>
           <StatusBar hidden={false} barStyle={"dark-content"} backgroundColor={'white'}></StatusBar>
-            <Header
-                leftComponent={<Icon name="menu" color= '#fff' size={30} onPress={() => this.props.navigation.toggleDrawer()}/>}
-                centerComponent={<Text style={{fontSize: 25, fontWeight: 'bold', fontStyle: 'italic', color: '#fff', marginTop: -20}}>Reservas</Text>}
-                rightComponent={<Icon name="local-grocery-store" color= '#fff' size={30} onPress={() => this.props.navigation.navigate("Carrinho")}/>}
-                containerStyle={{
-                  backgroundColor: "green",
-                  justifyContent: 'space-around',
-                  borderTopLeftRadius: 30,
-                  borderTopRightRadius: 30,
-                  borderColor: "white",
-                  height: 80,
-                }}
+          <NossoHeader name={this.state.name}/>
             />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={0.5}>
             <ScrollView>
