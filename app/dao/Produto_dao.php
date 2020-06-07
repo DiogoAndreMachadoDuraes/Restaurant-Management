@@ -12,7 +12,7 @@ class Produto_dao extends ConnectionDB
 
     public function Select(): array
     {
-        $prato = $this->pdo
+        $produto = $this->pdo
             ->query ('SELECT
                 id_produto,
                 nome,
