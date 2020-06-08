@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
 import {Header, Icon} from "react-native-elements";
+import NossoFinal from './NossoFinal.js';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -20,7 +21,7 @@ class Peixe extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#ffa07a'}></StatusBar>
             <ScrollView>
               <View style={style.menuText}>
-                <ImageBackground source={require('../assets/peixe.jpg')} style={style.imageBackgound} opacity={1}>             
+                <ImageBackground source={require('../assets/marisco.jpg')} style={style.imageBackgound} opacity={1}>             
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Menu")} size={45} color={"#ff6347"}></Icon>
                   </View>
@@ -35,6 +36,7 @@ class Peixe extends React.Component{
                   <Text style={style.textMenu}>Saborei este nosso salmão confecionado com os melhores produtos portugues. Acompanhe ainda com um excelente copo de Vinho Alentejano. </Text>
                 </TouchableOpacity>
                 </View>
+                <NossoFinal></NossoFinal>
             </ScrollView>
           </View>
         );

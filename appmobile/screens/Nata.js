@@ -4,6 +4,7 @@ import { Header, Icon } from "react-native-elements";
 //import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
+import NossoFinal from './NossoFinal.js';
 
 class Nata extends React.Component{
     constructor(){
