@@ -68,21 +68,21 @@ class FrancesinhaEspecial extends React.Component{
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
                 <Image source={require('../assets/francesinha.jpg')} style={style.image} opacity={0.8}/>
-                <Text style={style.text}>Um peixe super fresco e delicioso que agrega da melhor forma a nossa cozinha. venha provar e deixe-se surpreender.</Text>
+                <Text style={style.text}> Francesinha Especial com queijo, fiambre, chouriço, bife de vitela e ovo. O segredo desta maravilha está no molho feito pela Avó.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Categoria image={require('../assets/salmao.jpg')} name="Salmão Grelhado"  />
-                <Categoria image={require('../assets/arroz.jpg')} name="Arroz cozido"  />
-                <Categoria image={alface} name="Alface"  />
-                <Categoria image={tomate} name="Tomate" />
-                <Categoria image={require('../assets/pepino.jpg')} name="Pepino" />
+             
+                <Categoria image={require('../assets/chourico.jpg')} name="Chourico"  />
+                <Categoria image={require('../assets/queijo.jpg')} name="Queijo"  />
+                <Categoria image={require('../assets/fiambre.jpg')} name="Fiambre" />
+                <Categoria image={require('../assets/ovo.jpg')} name="Ovo" />
+                <Categoria image={require('../assets/molho.jpg')} name="Molho" />
+                <Categoria image={require('../assets/bife.jpg')} name="Bife" />
               </ScrollView>
-              
-              <NossoFinal></NossoFinal>
-
+              <Text style={style.alergeniosText}>Alergénios</Text>
             </ScrollView>
           </View>
         );
@@ -103,12 +103,7 @@ class FrancesinhaEspecial extends React.Component{
         marginTop: 80,
         marginLeft: 50
       },
-      imageScroll: {
-        width: 100,
-        height: 100,
-        marginTop: 80,
-        marginLeft: 50
-      },
+    
       title: {
         color: "#000",
         fontSize: 40,
