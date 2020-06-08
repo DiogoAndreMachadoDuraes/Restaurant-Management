@@ -13,6 +13,7 @@ const alface = { uri: "https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=
 const tomate = { uri: "https://img.freepik.com/fotos-gratis/um-tomate-vermelho-fresco-isolado-no-branco_1205-548.jpg?size=626&ext=jpg" };
 const cenoura = { uri: "https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2018/06/06/folhas-cenoura.jpg" };
 const azeitonas = { uri: "https://img.vixdata.io/pd/jpg-large/pt/sites/default/files/a/azeitonas-em-conserva-022017-1400x800.jpg" };
+const posta = {uri: "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA02/CONTENIDOS/201510/22/05218411800073____1__600x600.jpg"};
 
 class Vitela extends React.Component{
     constructor(){
@@ -86,6 +87,7 @@ class Vitela extends React.Component{
             /> */}
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                <Categoria image={posta} name="Vitela Mirandesa"  />
                 <Categoria image={alface} name="Alface"  />
                 <Categoria image={tomate} name="Tomate" />
                 <Categoria image={cenoura} name="Cenoura" />

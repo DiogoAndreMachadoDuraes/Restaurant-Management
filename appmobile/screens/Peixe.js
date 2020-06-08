@@ -21,7 +21,7 @@ class Peixe extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#ffa07a'}></StatusBar>
             <ScrollView>
               <View style={style.menuText}>
-                <ImageBackground source={require('../assets/marisco.jpg')} style={style.imageBackgound} opacity={1}>             
+                <ImageBackground source={require('../assets/peixe.jpg')} style={style.imageBackgound} opacity={1}>             
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Menu")} size={45} color={"#ff6347"}></Icon>
                   </View>
