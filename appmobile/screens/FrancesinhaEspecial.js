@@ -10,15 +10,15 @@ import Categoria from "./Categoria.js";
 const alface = { uri: "https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=NGNl88jzGknot26JMojOuazXgJK7LxXKMWes/sScQk5fBN0SWv2+xq8Og5AdjwcYXZJl2CwN0AY5Ofv1E2o6thyTdQ==" };
 const tomate = { uri: "https://img.freepik.com/fotos-gratis/um-tomate-vermelho-fresco-isolado-no-branco_1205-548.jpg?size=626&ext=jpg" };
 
-class Salmao extends React.Component{
+class FrancesinhaEspecial extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Salmão grelhado",
+          name:"Francesinha Especial",
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Salmão...");
+        console.log("Montando o ecrã Francesinha Especial...");
       }
       render(){
        /* const data = [
@@ -61,35 +61,28 @@ class Salmao extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
             <ScrollView>
                 <View style={style.arrow}>
-                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Peixe")} size={45}/>
+                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Francesinha")} size={45}/>
                 </View>
                 <View style={style.shop}>
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../assets/salmao.jpg')} style={style.image} opacity={0.8}/>
-                <Text style={style.text}>Um peixe super fresco e delicioso que agrega da melhor forma a nossa cozinha. venha provar e deixe-se surpreender.</Text>
+                <Image source={require('../assets/francesinha.jpg')} style={style.image} opacity={0.8}/>
+                <Text style={style.text}> Francesinha Especial com queijo, fiambre, chouriço, bife de vitela e ovo. O segredo desta maravilha está no molho feito pela Avó.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Categoria image={require('../assets/salmao.jpg')} name="Salmão Grelhado"  />
-                <Categoria image={require('../assets/arroz.jpg')} name="Arroz cozido"  />
-                <Categoria image={alface} name="Alface"  />
-                <Categoria image={tomate} name="Tomate" />
-                <Categoria image={require('../assets/pepino.jpg')} name="Pepino" />
+             
+                <Categoria image={require('../assets/chourico.jpg')} name="Chourico"  />
+                <Categoria image={require('../assets/queijo.jpg')} name="Queijo"  />
+                <Categoria image={require('../assets/fiambre.jpg')} name="Fiambre" />
+                <Categoria image={require('../assets/ovo.jpg')} name="Ovo" />
+                <Categoria image={require('../assets/molho.jpg')} name="Molho" />
+                <Categoria image={require('../assets/bife.jpg')} name="Bife" />
               </ScrollView>
-              <Text style={style.infoText}>Informação Nutricional</Text>
-              <Text style={style.alergeniosText}>Alergenios</Text>
-              <Text style={style.alergenioText}>Não contém alergenios.</Text>
-              <View style={style.final}>
-                <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-                <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-                <Text style={style.redesText}>Siga-nos em:</Text>
-                <FontAwesome name="facebook-official" style={style.facebook} size={30}/>
-                <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+              <Text style={style.alergeniosText}>Alergénios</Text>
             </ScrollView>
           </View>
         );
@@ -110,12 +103,7 @@ class Salmao extends React.Component{
         marginTop: 80,
         marginLeft: 50
       },
-      imageScroll: {
-        width: 100,
-        height: 100,
-        marginTop: 80,
-        marginLeft: 50
-      },
+    
       title: {
         color: "#000",
         fontSize: 40,
@@ -227,4 +215,4 @@ class Salmao extends React.Component{
       }
     });
 
-export default Salmao;
+export default FrancesinhaEspecial;

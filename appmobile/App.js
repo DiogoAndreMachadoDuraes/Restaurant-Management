@@ -22,9 +22,18 @@ import CaldoVerde from "./screens/CaldoVerde.js";
 import VinhoTinto from "./screens/VinhoTinto.js";
 import Home from "./screens/Home.js";
 import Menu from "./screens/Menu.js";
-import Estilo from "./screens/Estilo.js";
 import Hamburguer from "./screens/Hamburguer.js";
-import HamburguerCamarao from "./screens/HamburguerCamarao.js";
+import HamburguerVitela from "./screens/HamburguerVitela.js";
+import Vitela from "./screens/Vitela.js";
+import Francesinha from "./screens/Francesinha.js";
+import FrancesinhaEspecial from "./screens/FrancesinhaEspecial.js";
+import Carne from "./screens/Carne.js";
+import Peixe from "./screens/Peixe.js";
+import Pizza from "./screens/Pizza.js";
+import PizzaPortuguesa from "./screens/PizzaPortuguesa.js";
+import Registar from "./screens/Registar.js";
+import Doce from "./screens/Doce.js";
+import Nata from "./screens/Nata.js";
 
 import { DrawerContent } from './screens/DrawerContent';
 
@@ -55,9 +64,19 @@ const App = () => {
             <Drawer.Screen name="VinhoTinto" component={VinhoTinto} options={{ drawerLabel: 'VinhoTinto' }}/>
             <Drawer.Screen name="Home" component={Home} options={{drawerLabel:'Home'}}/>
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>
-            <Drawer.Screen name="Estilo" component={Estilo} options={{drawerLabel:'Estilo'}}/>
             <Drawer.Screen name="Hamburguer" component={Hamburguer} options={{drawerLabel:'Hamburguer'}}/>
-            <Drawer.Screen name="HamburguerCamarao" component={HamburguerCamarao} options={{drawerLabel:'HamburguerCamarao'}}/>
+            <Drawer.Screen name="HamburguerVitela" component={HamburguerVitela} options={{drawerLabel:'HamburguerVitela'}}/>
+            <Drawer.Screen name="Registar" component={Registar} options={{drawerLabel:'Registar'}}/>
+            <Drawer.Screen name="Carne" component={Carne} options={{drawerLabel:'Carne'}}/>
+            <Drawer.Screen name="Peixe" component={Peixe} options={{drawerLabel:'Peixe'}}/>
+            <Drawer.Screen name="Francesinha" component={Francesinha} options={{drawerLabel:'Francesinha'}}/>
+            <Drawer.Screen name="FrancesinhaEspecial" component={FrancesinhaEspecial} options={{drawerLabel:'FrancesinhaEspecial'}}/>
+            <Drawer.Screen name="Pizza" component={Pizza} options={{drawerLabel:'Pizza'}}/>
+            <Drawer.Screen name="Vitela" component={Vitela} options={{drawerLabel:'Vitela'}}/>
+            <Drawer.Screen name="PizzaPortuguesa" component={PizzaPortuguesa} options={{drawerLabel:'PizzaPortuguesa'}}/>
+            <Drawer.Screen name="Doce" component={Doce} options={{drawerLabel:'Doce'}}/>
+            <Drawer.Screen name="Nata" component={Nata} options={{drawerLabel:'Nata'}}/>
+
           </Drawer.Navigator>
         </NavigationContainer>
       //</AppearanceProvider>

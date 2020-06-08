@@ -7,18 +7,21 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Categoria from "./Categoria.js";
 
+const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const alface = { uri: "https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=NGNl88jzGknot26JMojOuazXgJK7LxXKMWes/sScQk5fBN0SWv2+xq8Og5AdjwcYXZJl2CwN0AY5Ofv1E2o6thyTdQ==" };
 const tomate = { uri: "https://img.freepik.com/fotos-gratis/um-tomate-vermelho-fresco-isolado-no-branco_1205-548.jpg?size=626&ext=jpg" };
+const cenoura = { uri: "https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2018/06/06/folhas-cenoura.jpg" };
+const azeitonas = { uri: "https://img.vixdata.io/pd/jpg-large/pt/sites/default/files/a/azeitonas-em-conserva-022017-1400x800.jpg" };
 
-class Salmao extends React.Component{
+class Vitela extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Salmão grelhado",
+          name:"Vitela",
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Salmão...");
+        console.log("Montando o ecrã Vitela...");
       }
       render(){
        /* const data = [
@@ -61,24 +64,31 @@ class Salmao extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
             <ScrollView>
                 <View style={style.arrow}>
-                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Peixe")} size={45}/>
+                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Carne")} size={45}/>
                 </View>
                 <View style={style.shop}>
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../assets/salmao.jpg')} style={style.image} opacity={0.8}/>
-                <Text style={style.text}>Um peixe super fresco e delicioso que agrega da melhor forma a nossa cozinha. venha provar e deixe-se surpreender.</Text>
+                <Image source={require('../assets/carne.jpg')} style={style.image} opacity={0.8}/>
+                <Text style={style.text}>Deixe-se levar por esta suculenta carne 100% vaca que temos para si. Acompanhada por uma alface fresca, cenoura e tomate do campo e, azeitonas. Delicie-se!</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
+               {/* <StackedBarChart
+                style={{ height: 200 }}
+                keys={keys}
+                colors={colors}
+                data={data}
+                showGrid={false}
+                contentInset={{ top: 30, bottom: 30 }}
+            /> */}
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Categoria image={require('../assets/salmao.jpg')} name="Salmão Grelhado"  />
-                <Categoria image={require('../assets/arroz.jpg')} name="Arroz cozido"  />
                 <Categoria image={alface} name="Alface"  />
                 <Categoria image={tomate} name="Tomate" />
-                <Categoria image={require('../assets/pepino.jpg')} name="Pepino" />
+                <Categoria image={cenoura} name="Cenoura" />
+                <Categoria image={azeitonas} name="Azeitonas" />
               </ScrollView>
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>
@@ -124,7 +134,7 @@ class Salmao extends React.Component{
         fontStyle: "italic",
         top: 50
       },
-      salmaoText: {
+      saladaTropicalText: {
        height: 300
       },
       arrow: {
@@ -227,4 +237,4 @@ class Salmao extends React.Component{
       }
     });
 
-export default Salmao;
+export default Vitela;

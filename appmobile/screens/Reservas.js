@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar,
 import {Header, Icon} from "react-native-elements";
 import CalendarPicker from 'react-native-calendar-picker';
 import { SocialIcon } from 'react-native-elements';
+import NossoFinal from './NossoFinal.js';
+
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -57,13 +59,7 @@ class Reservas extends React.Component{
                   accessibilityLabel="Learn more about this purple button"
                 />
               </View>
-              <View style={style.final}>
-                    <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-                    <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-                    <Text style={style.redesText}>Siga-nos em:</Text>
-                    <SocialIcon type='facebook' style={style.facebook}/>
-                    <SocialIcon type="instagram"style={style.instagram}/>
-                  </View>
+              <NossoFinal></NossoFinal>
               </ScrollView>
             </ImageBackground>
           </View>

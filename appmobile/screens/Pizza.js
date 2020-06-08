@@ -4,15 +4,15 @@ import {Header, Icon} from "react-native-elements";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
-class Estilo extends React.Component{
+class Pizza extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Hamburgueria Gourmet",
+          name:"Pizzaria",
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Estilo de Hamburgueres...");
+        console.log("Montando o ecrã Estilo de Pizzas...");
       }
       render(){
         return (
@@ -20,7 +20,7 @@ class Estilo extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#ffa07a'}></StatusBar>
             <ScrollView>
               <View style={style.menuText}>
-                <ImageBackground source={require('../assets/gourmet.jpg')} style={style.imageBackgound} opacity={1}>             
+                <ImageBackground source={require('../assets/pizzamenu.jpg')} style={style.imageBackgound} opacity={1}>             
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Menu")} size={45} color={"#ff6347"}></Icon>
                   </View>
@@ -29,21 +29,11 @@ class Estilo extends React.Component{
               </View>
               
               <View style={style.menu}>
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/vitela.jpg')} ></Image>
-                  <Text style={style.titleMenu}>Hamburguer de Vitela</Text>
-                  <Text style={style.textMenu}>Hamburguer de vitela acompanhado por batata frita gourmet e bebida à descrição. </Text>
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("PizzaPortuguesa")}>
+                  <Image style={style.menuExpFoto} source={require('../assets/portuguesa.jpg')} ></Image>
+                  <Text style={style.titleMenu}>Pizza Portuguesa</Text>
+                  <Text style={style.textMenu}>Pizza Portuguesa com um sabor delicioso a chouriço tipico portugues, ovo cozido, pimento verde e azeitona à rodela.</Text>
                 </TouchableOpacity>
-                <View style={style.menuExp}>
-                <Image style={style.menuExpFoto} source={require('../assets/marisco.jpg')}></Image>
-                  <Text style={style.titleMenu}>Hamburguer com Miolo de Camarão </Text>
-                  <Text style={style.textMenu}>Hamburguer integral com um delicioso miolo de camarão acompanhado pelas nossas batatas caseiras e bebida à descrição. </Text>
-                </View>
-                <View style={style.menuExp}>
-                  <Image style={style.menuExpFoto} source={require('../assets/frango.jpg')}></Image>
-                  <Text style={style.titleMenu}>Hamburguer de Frango </Text>
-                  <Text style={style.textMenu}> Hamburguer de frango grelhado acompanhado por batata frita e bebida à descrição. </Text>
-                </View>
               </View>
             </ScrollView>
           </View>
@@ -59,7 +49,7 @@ class Estilo extends React.Component{
         height: 250,
         marginLeft: 0,
         top: 0,
-        opacity: 0.5,
+        opacity: 0.9,
       },
 
       title: {                                  //titulo que diz Hamburgueria Gourmet
@@ -139,4 +129,4 @@ class Estilo extends React.Component{
         top: 20
       },
     });
-export default Estilo;
+export default Pizza;

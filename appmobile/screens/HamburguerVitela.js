@@ -5,11 +5,11 @@ import { Header, Icon } from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 
-class HamburguerCamarao extends React.Component{
+class HamburguerVitela extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Hambúrguer com Miolo de Camarão",
+          name:"Hambúrguer de Vitela",
         };
       }
       componentDidMount(){ 
@@ -55,7 +55,7 @@ class HamburguerCamarao extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#556b2f'}></StatusBar>
             <ScrollView>
                 <View style={style.arrow}>
-                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Estilo")} size={45}/>
+                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Hamburguer")} size={45}/>
                 </View>
                 <View style={style.shop}>
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
@@ -213,4 +213,4 @@ class HamburguerCamarao extends React.Component{
         marginTop: 50
       }
     });
-export default HamburguerCamarao;
+export default HamburguerVitela;
