@@ -12,7 +12,7 @@ class Francesinha extends React.Component{
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Estilo de Pratos de Peixe...");
+        console.log("Montando o ecrã Estilo de Menus de Francesinha...");
       }
       render(){
         return (
@@ -29,7 +29,7 @@ class Francesinha extends React.Component{
               </View>
               
               <View style={style.menu}>
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Francesinha")}>
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("FrancesinhaEspecial")}>
                   <Image style={style.menuExpFoto} source={require('../assets/francesinha.jpg')} ></Image>
                   <Text style={style.titleMenu}>Francesinha Especial</Text>
                   <Text style={style.textMenu}> Surpreenda se com esta Francesinha típica do restaurante Sabor da Avó! </Text>
