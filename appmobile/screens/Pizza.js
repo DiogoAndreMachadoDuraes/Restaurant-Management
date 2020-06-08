@@ -4,15 +4,15 @@ import {Header, Icon} from "react-native-elements";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
-class Hamburguer extends React.Component{
+class Pizza extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Hamburgueria Gourmet",
+          name:"Pizzaria",
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Estilo de Hamburgueres...");
+        console.log("Montando o ecrã Estilo de Pizzas...");
       }
       render(){
         return (
@@ -29,7 +29,7 @@ class Hamburguer extends React.Component{
               </View>
               
               <View style={style.menu}>
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("HamburguerVitela")}>
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer")}>
                   <Image style={style.menuExpFoto} source={require('../assets/vitela.jpg')} ></Image>
                   <Text style={style.titleMenu}>Hamburguer de Vitela</Text>
                   <Text style={style.textMenu}>Hamburguer de vitela acompanhado por batata frita gourmet e bebida à descrição. </Text>
@@ -139,4 +139,4 @@ class Hamburguer extends React.Component{
         top: 20
       },
     });
-export default Hamburguer;
+export default Pizza;

@@ -4,15 +4,15 @@ import {Header, Icon} from "react-native-elements";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
-class Estilo extends React.Component{
+class Doce extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Hamburgueria Gourmet",
+          name:"Menu Café",
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Estilo de Hamburgueres...");
+        console.log("Montando o ecrã Estilo de Menu de Café...");
       }
       render(){
         return (
@@ -34,16 +34,6 @@ class Estilo extends React.Component{
                   <Text style={style.titleMenu}>Hamburguer de Vitela</Text>
                   <Text style={style.textMenu}>Hamburguer de vitela acompanhado por batata frita gourmet e bebida à descrição. </Text>
                 </TouchableOpacity>
-                <View style={style.menuExp}>
-                <Image style={style.menuExpFoto} source={require('../assets/marisco.jpg')}></Image>
-                  <Text style={style.titleMenu}>Hamburguer com Miolo de Camarão </Text>
-                  <Text style={style.textMenu}>Hamburguer integral com um delicioso miolo de camarão acompanhado pelas nossas batatas caseiras e bebida à descrição. </Text>
-                </View>
-                <View style={style.menuExp}>
-                  <Image style={style.menuExpFoto} source={require('../assets/frango.jpg')}></Image>
-                  <Text style={style.titleMenu}>Hamburguer de Frango </Text>
-                  <Text style={style.textMenu}> Hamburguer de frango grelhado acompanhado por batata frita e bebida à descrição. </Text>
-                </View>
               </View>
             </ScrollView>
           </View>
@@ -139,4 +129,4 @@ class Estilo extends React.Component{
         top: 20
       },
     });
-export default Estilo;
+export default Doce;
