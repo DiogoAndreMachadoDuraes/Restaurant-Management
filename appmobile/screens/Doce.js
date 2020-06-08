@@ -20,7 +20,7 @@ class Doce extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#ffa07a'}></StatusBar>
             <ScrollView>
               <View style={style.menuText}>
-                <ImageBackground source={require('../assets/gourmet.jpg')} style={style.imageBackgound} opacity={1}>             
+                <ImageBackground source={require('../assets/doces.jpg')} style={style.imageBackgound} opacity={1}>             
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Menu")} size={45} color={"#ff6347"}></Icon>
                   </View>
@@ -29,10 +29,10 @@ class Doce extends React.Component{
               </View>
               
               <View style={style.menu}>
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/vitela.jpg')} ></Image>
-                  <Text style={style.titleMenu}>Hamburguer de Vitela</Text>
-                  <Text style={style.textMenu}>Hamburguer de vitela acompanhado por batata frita gourmet e bebida à descrição. </Text>
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Nata")}>
+                  <Image style={style.menuExpFoto} source={require('../assets/cafe.jpg')} ></Image>
+                  <Text style={style.titleMenu}>Cafe e Nata</Text>
+                  <Text style={style.textMenu}> Saiba mais sobre este menu delicioso que temos para si! </Text>
                 </TouchableOpacity>
               </View>
             </ScrollView>
@@ -49,7 +49,7 @@ class Doce extends React.Component{
         height: 250,
         marginLeft: 0,
         top: 0,
-        opacity: 0.5,
+        opacity: 0.8,
       },
 
       title: {                                  //titulo que diz Hamburgueria Gourmet

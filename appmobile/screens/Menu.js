@@ -2,6 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
 import {Header, Icon} from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import NossoFinal from './NossoFinal.js';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -35,44 +36,50 @@ class Menu extends React.Component{
               </View>
               
               <View style={style.menu}>
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Estilo")}>
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer")}>
                   <Image style={style.menuExpFoto} source={require('../assets/hamburguer.jpg')} ></Image>
                   <Text style={style.titleMenu}>Menus de Hamburguer </Text>
                   <Text style={style.textMenu}> Todas as sugestões e informações aqui! </Text>
                 </TouchableOpacity>
-                <View style={style.menuExp}>
+                
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Francesinha")}>
                 <Image style={style.menuExpFoto} source={require('../assets/francesinha.jpg')}></Image>
-                  <Text style={style.titleMenu}>Menus de Francesinha </Text>
-                  <Text style={style.textMenu}>Todas as sugestões e informações aqui! </Text>
-                </View>
-                <View style={style.menuExp}>
+                <Text style={style.titleMenu}>Menus de Francesinha </Text>
+                <Text style={style.textMenu}>Todas as sugestões e informações aqui! </Text>
+                </TouchableOpacity>
+                
+
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Carne")}>
                   <Image style={style.menuExpFoto} source={require('../assets/carne.jpg')}></Image>
                   <Text style={style.titleMenu}>Pratos de Carne </Text>
                   <Text style={style.textMenu}> Todas as sugestões e informações aqui! </Text>
-                </View>
-                <View style={style.menuExp}>
+                  </TouchableOpacity>              
+                
+
+                  <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Peixe")}>
                   <Image style={style.menuExpFoto} source={require('../assets/salmao.jpg')}></Image>
                   <Text style={style.titleMenu}>Pratos de Peixe </Text>
                   <Text style={style.textMenu}> Todas as sugestões e informações aqui! </Text>
-                </View>
-                <View style={style.menuExp}>
+                  </TouchableOpacity>
+                
+
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Pizza")}>
                   <Image style={style.menuExpFoto} source={require('../assets/pizza.jpg')}></Image>
                   <Text style={style.titleMenu}>Menus de Pizza </Text>
                   <Text style={style.textMenu}>Todas as sugestões e informações aqui! </Text>
-                </View>
-                <View style={style.menuExp}>
+                  </TouchableOpacity>
+                
+               
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Doce")}>
                   <Image style={style.menuExpFoto} source={require('../assets/cafe.jpg')}></Image>
                   <Text style={style.titleMenu}> Menu Café </Text>
                   <Text style={style.textMenu}>Todas as sugestões e informações aqui! </Text>
-                </View>
+                  </TouchableOpacity>
+
               </View>
-              <View style={style.final}>
-            <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-            <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-            <Text style={style.redesText}>Siga-nos em:</Text>
-            <FontAwesome name="facebook-official" style={style.facebook} size={30}/>            
-            <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+
+            <NossoFinal></NossoFinal>
+
             </ScrollView>
           </View>
         );

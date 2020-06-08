@@ -4,15 +4,15 @@ import {Header, Icon} from "react-native-elements";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
-class Pizza extends React.Component{
+class Peixe extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Pizzaria",
+          name:"Pratos de Peixe",
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Estilo de Pizzas...");
+        console.log("Montando o ecrã Estilo de Pratos de Peixe...");
       }
       render(){
         return (
@@ -20,7 +20,7 @@ class Pizza extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#ffa07a'}></StatusBar>
             <ScrollView>
               <View style={style.menuText}>
-                <ImageBackground source={require('../assets/pizzamenu.jpg')} style={style.imageBackgound} opacity={1}>             
+                <ImageBackground source={require('../assets/peixe.jpg')} style={style.imageBackgound} opacity={1}>             
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Menu")} size={45} color={"#ff6347"}></Icon>
                   </View>
@@ -29,12 +29,12 @@ class Pizza extends React.Component{
               </View>
               
               <View style={style.menu}>
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("PizzaPortuguesa")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/portuguesa.jpg')} ></Image>
-                  <Text style={style.titleMenu}>Pizza Portuguesa</Text>
-                  <Text style={style.textMenu}>Pizza Portuguesa com um sabor delicioso a chouriço tipico portugues, ovo cozido, pimento verde e azeitona à rodela.</Text>
+                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Salmao")}>
+                  <Image style={style.menuExpFoto} source={require('../assets/salmao.jpg')} ></Image>
+                  <Text style={style.titleMenu}>Salmão Grelhado</Text>
+                  <Text style={style.textMenu}>Saborei este nosso salmão confecionado com os melhores produtos portugues. Acompanhe ainda com um excelente copo de Vinho Alentejano. </Text>
                 </TouchableOpacity>
-              </View>
+                </View>
             </ScrollView>
           </View>
         );
@@ -49,7 +49,7 @@ class Pizza extends React.Component{
         height: 250,
         marginLeft: 0,
         top: 0,
-        opacity: 0.9,
+        opacity: 0.8,
       },
 
       title: {                                  //titulo que diz Hamburgueria Gourmet
@@ -129,4 +129,4 @@ class Pizza extends React.Component{
         top: 20
       },
     });
-export default Pizza;
+export default Peixe;

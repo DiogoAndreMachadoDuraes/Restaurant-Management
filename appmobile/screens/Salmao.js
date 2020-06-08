@@ -61,7 +61,7 @@ class Salmao extends React.Component{
             <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
             <ScrollView>
                 <View style={style.arrow}>
-                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Extras")} size={45}/>
+                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Peixe")} size={45}/>
                 </View>
                 <View style={style.shop}>
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>

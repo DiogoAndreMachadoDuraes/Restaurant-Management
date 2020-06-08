@@ -25,7 +25,9 @@ import Menu from "./screens/Menu.js";
 import Hamburguer from "./screens/Hamburguer.js";
 import HamburguerVitela from "./screens/HamburguerVitela.js";
 import Vitela from "./screens/Vitela.js";
+import Francesinha from "./screens/Francesinha.js";
 import Carne from "./screens/Carne.js";
+import Peixe from "./screens/Peixe.js";
 import Pizza from "./screens/Pizza.js";
 import PizzaPortuguesa from "./screens/PizzaPortuguesa.js";
 import Registar from "./screens/Registar.js";
@@ -67,6 +69,8 @@ const App = () => {
             <Drawer.Screen name="HamburguerVitela" component={HamburguerVitela} options={{drawerLabel:'HamburguerVitela'}}/>
             <Drawer.Screen name="Registar" component={Registar} options={{drawerLabel:'Registar'}}/>
             <Drawer.Screen name="Carne" component={Carne} options={{drawerLabel:'Carne'}}/>
+            <Drawer.Screen name="Peixe" component={Peixe} options={{drawerLabel:'Peixe'}}/>
+            <Drawer.Screen name="Francesinha" component={Francesinha} options={{drawerLabel:'Francesinha'}}/>
             <Drawer.Screen name="Pizza" component={Pizza} options={{drawerLabel:'Pizza'}}/>
             <Drawer.Screen name="Vitela" component={Vitela} options={{drawerLabel:'Vitela'}}/>
             <Drawer.Screen name="PizzaPortuguesa" component={PizzaPortuguesa} options={{drawerLabel:'PizzaPortuguesa'}}/>

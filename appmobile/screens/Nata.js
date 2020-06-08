@@ -62,7 +62,7 @@ class Nata extends React.Component{
                 </View>
                 <Text style={style.title}>{this.state.name}</Text>
                 <Image source={require('../assets/cafe.jpg')} style={style.image} opacity={0.8}/>
-                <Text style={style.text}> O hambúrguer mais cobiçado do restaurante Sabor da Avó. Feito com um hambúrguer 100% carne de vaca, alface, tomate e um delicioso molho especial.</Text>
+                <Text style={style.text}> Delicie se com este café e claro, com a nossa nata de sabor a canela.</Text>
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
