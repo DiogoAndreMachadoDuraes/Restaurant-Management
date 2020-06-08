@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SocialIcon } from 'react-native-elements';
-import NossoHeader from "./NossoHeader.js";
+import {NossoHeader} from "./NossoHeader.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -20,7 +20,7 @@ class Extras extends React.Component{
         return (
           <View style={style.container}>
             <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
-            <NossoHeader name={this.state.name}/>
+            <NossoHeader name={this.state.name} navigation={this.props.navigation}/>
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={0.5}>
               <ScrollView>
                 <View style={style.extras}>

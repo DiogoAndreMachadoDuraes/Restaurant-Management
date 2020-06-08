@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar,
 import {Header, Icon} from "react-native-elements";
 import { SocialIcon } from 'react-native-elements';
 
+import NossoHeader from './NossoHeader.js';
+
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const restaurante1 = { uri: "https://media-cdn.tripadvisor.com/media/photo-s/0e/c5/b5/dc/restaurante-los-galenos.jpg" };
 const restaurante2 = { uri: "https://nit.pt/wp-content/uploads/2018/11/938be5b746b428231a166de642ab8252-754x394.jpg" };

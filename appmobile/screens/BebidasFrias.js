@@ -4,6 +4,27 @@ import {Header, Icon} from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
+//const VinhoTinto = { source = require('../assets/vinhoTinto.jpg') };
+//const VinhoBranco = { source = require('../assets/vinhoBranco.jpg') };
+
+const dataFromApi = [
+  {
+    id: 1,
+    name: "Vinho Tinto",
+    subtitle: "Venha beber o melhor vinho do país!",
+    //imagem: VinhoTinto
+  },
+  {
+    id: 2,
+    name: "Vinho Branco",
+    subtitle: "Venha beber o melhor vinho do país!",
+    //imagem: VinhoBranco
+  },
+  {
+    id: 3,
+    name: "Água"
+  }
+]
 
 class BebidasFrias extends React.Component{
     constructor(){
@@ -30,21 +51,17 @@ class BebidasFrias extends React.Component{
                 </ImageBackground>
               </View>
               <View style={style.bebidasFrias}>
-                <TouchableOpacity style={style.bebidasFriasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("VinhoTinto")}>
-                  <Image style={style.bebidasFriasExpFoto} source={require('../assets/vinhoTinto.jpg')} ></Image>
-                  <Text style={style.titlebebidasFrias}>Vinho Tinto</Text>
-                  <Text style={style.textbebidasFrias}>Caseiro</Text>
-                </TouchableOpacity>
-                <View style={style.bebidasFriasExp}>
-                <Image style={style.bebidasFriasExpFoto} source={require('../assets/agua.jpg')}></Image>
-                  <Text style={style.titlebebidasFrias}>Água</Text>
-                  <Text style={style.textbebidasFrias}>Penacova</Text>
-                </View>
-                <View style={style.bebidasFriasExp}>
-                  <Image style={style.bebidasFriasExpFoto} source={require('../assets/vinhoBranco.jpg')}></Image>
-                  <Text style={style.titlebebidasFrias}>Vinho Branco</Text>
-                  <Text style={style.textbebidasFrias}>Caseiro</Text>
-                </View>
+                {
+                  dataFromApi.map((item)=>{
+                    return (
+                      <TouchableOpacity style={style.bebidasFriasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
+                        <Image style={style.bebidasFriasExpFoto} source={require('../assets/vinhoTinto.jpg')} ></Image>
+                        <Text style={style.titlebebidasFrias}>{item.name}</Text>
+                        <Text style={style.textbebidasFrias}>{item.subtitle}</Text>
+                      </TouchableOpacity>
+                    );
+                  })
+                }
               </View>
             </ScrollView>
           </View>

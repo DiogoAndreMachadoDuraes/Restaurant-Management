@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image } from "react-native";
-import { Header, Icon } from "react-native-elements";
-import { TouchableRipple } from "react-native-paper";
+import { Icon } from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 
@@ -18,7 +17,8 @@ class VinhoTinto extends React.Component{
         console.log("Montando o ecrã VinhoTinto...");
       }
       render(){
-       /* const data = [
+/*
+        const data = [
           {
               month: new Date(2015, 0, 1),
               apples: 3840,
@@ -51,8 +51,8 @@ class VinhoTinto extends React.Component{
       ]
 
       const colors = ['#7b4173', '#a55194', '#ce6dbd', '#de9ed6']
-      const keys = ['apples', 'bananas', 'cherries', 'dates']
-*/
+      const keys = ['apples', 'bananas', 'cherries', 'dates'] */
+
         return (
           <View style={style.container}>
             <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
@@ -71,6 +71,14 @@ class VinhoTinto extends React.Component{
                 </TouchableOpacity>
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <Text style={style.infoText}>Informação Nutricional</Text>
+              { /*<StackedBarChart
+                style={{ height: 200 }}
+                keys={keys}
+                colors={colors}
+                data={data}
+                showGrid={false}
+                contentInset={{ top: 30, bottom: 30 }}
+              /> */}
               <Text style={style.alergeniosText}>Alergenios</Text>
               <Text style={style.alergenioText}>Não contém alergenios.</Text>
               <View style={style.final}>
