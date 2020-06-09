@@ -4,7 +4,7 @@ import { Header, Icon } from "react-native-elements";
 //import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
-
+import BarraEstados from "./shared/BarraEstados.js";
 import Categoria from "./Categoria.js";
 
 class PizzaPortuguesa extends React.Component{
@@ -54,7 +54,7 @@ class PizzaPortuguesa extends React.Component{
 */
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#556b2f'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
                 <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Pizza")} size={45}/>

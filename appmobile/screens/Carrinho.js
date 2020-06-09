@@ -9,6 +9,7 @@ import { Input } from 'react-native-elements';
 //import AsyncStorage from '@react-native-community/async-storage';
 // import icons
 //import Icon from 'react-native-vector-icons/Ionicons';
+import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -26,7 +27,7 @@ class Carrinho extends React.Component {
     {
         return (
             <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#ffa07a'}></StatusBar>
+           <BarraEstados />
             <ScrollView>
             <View style={style.regform}>
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>

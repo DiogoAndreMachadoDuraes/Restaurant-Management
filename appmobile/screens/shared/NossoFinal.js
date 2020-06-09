@@ -1,10 +1,13 @@
 import * as React from "react";
 import {Text, StyleSheet, View} from "react-native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import BarraEstados from "./shared/BarraEstados.js";
+
 
 export default function NossoFinal (){
   return(
     <View style={style.final}>
+      <BarraEstados />
       <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
       <Text style={style.direitosText}>Todos os direitos autorais.</Text>
       <Text style={style.redesText}>Siga-nos em:</Text>
