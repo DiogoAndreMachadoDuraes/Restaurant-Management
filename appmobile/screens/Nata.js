@@ -5,7 +5,7 @@ import { Header, Icon } from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 import NossoFinal from './NossoFinal.js';
-
+import BarraEstados from "./shared/BarraEstados.js";
 import Categoria from "./Categoria.js";
 
 const folhada = { uri: "https://receitas.pasteldenata.info/wp-content/uploads/2009/04/forma_de_pasteldenata.jpg" };
@@ -61,7 +61,7 @@ class Nata extends React.Component{
 */
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#556b2f'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
                 <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Doce")} size={45}/>

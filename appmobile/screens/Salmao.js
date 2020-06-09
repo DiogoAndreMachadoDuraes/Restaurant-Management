@@ -5,7 +5,7 @@ import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 import NossoFinal from './NossoFinal.js';
-
+import BarraEstados from "./shared/BarraEstados.js";
 import Categoria from "./shared/Categoria.js";
 
 const alface = { uri: "https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=NGNl88jzGknot26JMojOuazXgJK7LxXKMWes/sScQk5fBN0SWv2+xq8Og5AdjwcYXZJl2CwN0AY5Ofv1E2o6thyTdQ==" };
@@ -59,7 +59,7 @@ class Salmao extends React.Component{
 */
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
+           <BarraEstados />
             <ScrollView>
                 <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Peixe")} size={45}/>

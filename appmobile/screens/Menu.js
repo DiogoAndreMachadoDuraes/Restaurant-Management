@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar,
 import {Header, Icon} from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NossoFinal from './shared/NossoFinal.js';
+import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -19,7 +20,7 @@ class Menu extends React.Component{
       render(){
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#ffa07a'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
               <View style={style.menuText}>
                 <ImageBackground source={require('../assets/ementa.jpg')} style={style.imageBackgound} opacity={1}>             
