@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity } from "react-native";
 
 import {NossoHeader} from './shared/NossoHeader.js';
-import NossoFinal from "./NossoFinal.js";
+import NossoFinal from "./shared/NossoFinal.js";
 import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
@@ -68,7 +68,7 @@ class Restaurantes extends React.Component{
                         );
                       })
                     }
-                    <NossoFinal/>
+                    <NossoFinal />
                   </View>
               </ScrollView>
             </ImageBackground>

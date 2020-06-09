@@ -1,19 +1,17 @@
 import * as React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
-class Categoria extends React.Component{
-    render(){
-        return(
-            <View style={style.container}>
-                <View style={style.imageScroll}>
-                    <Image source={this.props.image} style={style.image}/>
-                </View>
-                <View style={style.textScroll}>
-                    <Text>{this.props.name}</Text>
-                </View>
+function Categoria (){
+    return(
+        <View style={style.container}>
+            <View style={style.imageScroll}>
+                <Image source={this.props.image} style={style.image}/>
             </View>
-        )
-    }
+            <View style={style.textScroll}>
+                <Text>{this.props.name}</Text>
+            </View>
+        </View>
+    )
 }
 
 const style = StyleSheet.create({

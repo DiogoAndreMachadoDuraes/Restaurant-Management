@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar,
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import {NossoHeader} from "./shared/NossoHeader.js";
-import NossoFinal from "./NossoFinal.js";
+import NossoFinal from "./shared/NossoFinal.js";
 import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
