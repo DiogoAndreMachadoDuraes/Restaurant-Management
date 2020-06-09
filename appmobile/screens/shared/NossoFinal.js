@@ -1,19 +1,18 @@
 import * as React from "react";
 import {Text, StyleSheet, View} from "react-native";
-import {Header, Icon} from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function NossoFinal (){
-    return(
-        
-            <View style={style.final}>
-            <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-            <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-            <Text style={style.redesText}>Siga-nos em:</Text>
-            <FontAwesome name="facebook-official" style={style.facebook} size={30}/>            
-            <FontAwesome name="instagram" style={style.instagram} size={30}/>
-            </View>
-    )}
+  return(
+    <View style={style.final}>
+      <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
+      <Text style={style.direitosText}>Todos os direitos autorais.</Text>
+      <Text style={style.redesText}>Siga-nos em:</Text>
+      <FontAwesome name="facebook-official" style={style.facebook} size={30}/>            
+      <FontAwesome name="instagram" style={style.instagram} size={30}/>
+    </View>
+  )
+}
 
 const style = StyleSheet.create({
 companhiaText: {
