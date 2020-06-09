@@ -1,9 +1,9 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image } from "react-native";
-import {Header, Icon} from "react-native-elements";
+import { StyleSheet, Text, View, ScrollView, ImageBackground, Image } from "react-native";
+import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import NossoFinal from "./NossoFinal.js";
+import NossoFinal from "./shared/NossoFinal.js";
 import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };

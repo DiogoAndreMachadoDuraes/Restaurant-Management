@@ -1,11 +1,11 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Icon } from "react-native-elements";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 
-import Categoria from "./Categoria.js";
-import NossoFinal from "./NossoFinal.js";
+import Categoria from "./shared/Categoria.js";
+import NossoFinal from "./shared/NossoFinal.js";
+import BarraEstados from "./shared/BarraEstados.js";
 
 class VinhoTinto extends React.Component{
     constructor(){
@@ -56,7 +56,7 @@ class VinhoTinto extends React.Component{
 
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
                 <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Extras")} size={45}/>
@@ -183,40 +183,6 @@ class VinhoTinto extends React.Component{
         fontSize: 15,
         marginLeft: 20,
         marginTop: 20
-      },
-      companhiaText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 50
-      },
-      direitosText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      redesText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      facebook: {
-        textAlign: 'center',
-        marginTop: 10,
-        marginRight: 20,
-      },
-      instagram: {
-        textAlign: 'center',
-        marginTop: -31,
-        marginRight: -50,
-        marginVertical: 50
-      },
-      final: {
-        backgroundColor: "#c6cbef",
-        justifyContent: 'center',
-        marginTop: 50
       }
     });
 

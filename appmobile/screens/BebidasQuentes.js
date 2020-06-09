@@ -1,6 +1,6 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image } from "react-native";
-import {Header, Icon} from "react-native-elements";
+import { StyleSheet, Text, View, ScrollView, ImageBackground, Image } from "react-native";
+import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import BarraEstados from "./shared/BarraEstados.js";

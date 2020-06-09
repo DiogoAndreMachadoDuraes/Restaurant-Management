@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image } from "react-native";
 import { Icon } from "react-native-elements";
 
-import NossoFinal from "./NossoFinal";
+import NossoFinal from "./shared/NossoFinal";
 import BarraEstados from "./shared/BarraEstados.js";
 //import { StackedBarChart } from 'react-native-svg-charts';
 
@@ -203,40 +203,6 @@ class Produto extends React.Component{
         fontSize: 15,
         marginLeft: 20,
         marginTop: 20
-      },
-      companhiaText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 50
-      },
-      direitosText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      redesText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      facebook: {
-        textAlign: 'center',
-        marginTop: 10,
-        marginRight: 20,
-      },
-      instagram: {
-        textAlign: 'center',
-        marginTop: -31,
-        marginRight: -50,
-        marginVertical: 50
-      },
-      final: {
-        backgroundColor: "#c6cbef",
-        justifyContent: 'center',
-        marginTop: 50
       }
     });
 

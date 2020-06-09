@@ -1,11 +1,12 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image } from "react-native";
-import { Header, Icon } from "react-native-elements";
-import { TouchableRipple } from "react-native-paper";
+import { StyleSheet, Text, View, ScrollView,  TouchableOpacity, Image } from "react-native";
+import { Icon } from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 
 import Categoria from "./shared/Categoria.js";
+import BarraEstados from "./shared/BarraEstados.js";
+import NossoFinal from "./shared/NossoFinal.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const alface = { uri: "https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=NGNl88jzGknot26JMojOuazXgJK7LxXKMWes/sScQk5fBN0SWv2+xq8Og5AdjwcYXZJl2CwN0AY5Ofv1E2o6thyTdQ==" };
@@ -63,7 +64,7 @@ class SaladaTropical extends React.Component{
 */
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
                 <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Saladas")} size={45}/>
@@ -97,13 +98,7 @@ class SaladaTropical extends React.Component{
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>
               <Text style={style.alergenioText}>Não contém alergenios.</Text>
-              <View style={style.final}>
-                <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-                <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-                <Text style={style.redesText}>Siga-nos em:</Text>
-                <FontAwesome name="facebook-official" style={style.facebook} size={30}/>
-                <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+              <NossoFinal />
             </ScrollView>
           </View>
         );
@@ -204,40 +199,6 @@ class SaladaTropical extends React.Component{
         fontSize: 15,
         marginLeft: 20,
         marginTop: 20
-      },
-      companhiaText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 50
-      },
-      direitosText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      redesText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      facebook: {
-        textAlign: 'center',
-        marginTop: 10,
-        marginRight: 20,
-      },
-      instagram: {
-        textAlign: 'center',
-        marginTop: -31,
-        marginRight: -50,
-        marginVertical: 50
-      },
-      final: {
-        backgroundColor: "#c6cbef",
-        justifyContent: 'center',
-        marginTop: 50
       }
     });
 

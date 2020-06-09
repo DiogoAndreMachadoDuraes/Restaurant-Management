@@ -1,11 +1,10 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image } from "react-native";
-import { Header, Icon } from "react-native-elements";
-import { TouchableRipple } from "react-native-paper";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { StyleSheet, Text, View, ScrollView, StatusBar, TouchableOpacity, Image } from "react-native";
+import { Icon } from "react-native-elements";
 //import { StackedBarChart } from 'react-native-svg-charts';
 
 import Categoria from "./shared/Categoria.js";
+import NossoFinal from "./shared/NossoFinal.js";
 
 class CaldoVerde extends React.Component{
     constructor(){
@@ -78,13 +77,7 @@ class CaldoVerde extends React.Component{
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>
               <Text style={style.alergenioText}>Não contém alergenios.</Text>
-              <View style={style.final}>
-                <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-                <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-                <Text style={style.redesText}>Siga-nos em:</Text>
-                <FontAwesome name="facebook-official" style={style.facebook} size={30}/>
-                <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+              <NossoFinal />
             </ScrollView>
           </View>
         );
@@ -185,40 +178,6 @@ class CaldoVerde extends React.Component{
         fontSize: 15,
         marginLeft: 20,
         marginTop: 20
-      },
-      companhiaText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 50
-      },
-      direitosText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      redesText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      facebook: {
-        textAlign: 'center',
-        marginTop: 10,
-        marginRight: 20,
-      },
-      instagram: {
-        textAlign: 'center',
-        marginTop: -31,
-        marginRight: -50,
-        marginVertical: 50
-      },
-      final: {
-        backgroundColor: "#c6cbef",
-        justifyContent: 'center',
-        marginTop: 50
       }
     });
 
