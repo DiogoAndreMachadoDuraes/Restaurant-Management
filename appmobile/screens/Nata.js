@@ -4,6 +4,15 @@ import { Header, Icon } from "react-native-elements";
 //import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
+import NossoFinal from './NossoFinal.js';
+
+import Categoria from "./Categoria.js";
+
+const folhada = { uri: "https://receitas.pasteldenata.info/wp-content/uploads/2009/04/forma_de_pasteldenata.jpg" };
+const nata = {uri: "https://lh3.googleusercontent.com/proxy/jQptr64FbetvpybFCAlKpnKfBqnivDAiruRWBcRg2gZIZ_i-x_OCJG4BcOFyyTwg6ejdBFTl9XerVouL7CU8boVe8vkGP1L22q4E-XMIu-iPODE7SA"};
+const canela = {uri: "https://www.spdm.org.br/media/k2/items/cache/0990257def9e36e39ea94b2cedd7baef_XL.jpg"};
+const cafe = {uri: "https://lh3.googleusercontent.com/proxy/Ghd3QYheLDWeXkHjkqb63OmGAjP0RkSbwBDZwkIvgqVuFcLrCvr93b54kb8Ihs62yu6Dqn14tp1CTZfBkBZhXY5gYT7IbkuBcz2cD-1PGgSs1ROxkV1bHxJYyZWclV2v7lUH2Vep"};
+
 
 class Nata extends React.Component{
     constructor(){
@@ -66,18 +75,15 @@ class Nata extends React.Component{
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
-
-            
-            <Text style={style.infoText}>Informação Nutricional</Text>
-            <Text style={style.alergeniosText}>Alergenios</Text>
-            <Text style={style.alergenioText}>Não contém alergenios.</Text>
-            <View style={style.final}>
-            <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-            <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-            <Text style={style.redesText}>Siga-nos em:</Text>
-            <FontAwesome name="facebook-official" style={style.facebook} size={30}/>            
-            <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+                <Text style={style.ingredientesText}>Ingredientes</Text>
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+              <Categoria image={cafe} name="Cafe" />
+                <Categoria image={folhada} name="Massa folhada" />
+                <Categoria image={nata} name="Creme de Nata" />
+                <Categoria image={canela} name="Canela" />
+               
+              </ScrollView>
+              <Text style={style.alergeniosText}>Alergénios</Text>
             </ScrollView>
           </View>
         );

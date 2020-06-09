@@ -5,6 +5,8 @@ import { Header, Icon } from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 
+import Categoria from "./Categoria.js";
+
 class PizzaPortuguesa extends React.Component{
     constructor(){
         super();
@@ -66,18 +68,15 @@ class PizzaPortuguesa extends React.Component{
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
-
-            
-            <Text style={style.infoText}>Informação Nutricional</Text>
-            <Text style={style.alergeniosText}>Alergenios</Text>
-            <Text style={style.alergenioText}>Não contém alergenios.</Text>
-            <View style={style.final}>
-            <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-            <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-            <Text style={style.redesText}>Siga-nos em:</Text>
-            <FontAwesome name="facebook-official" style={style.facebook} size={30}/>            
-            <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+                <Text style={style.ingredientesText}>Ingredientes</Text>
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+              <Categoria image={require('../assets/moza.jpg')} name="Queijo Mozzarella"  />
+                <Categoria image={require('../assets/polpa.jpg')} name="Polpa de Tomate"  />
+                <Categoria image={require('../assets/pimento.jpg')} name="Pimento Verde" />
+                <Categoria image={require('../assets/bolonhesa.jpg')} name="Bolonhesa" />
+                <Categoria image={require('../assets/oregao.jpg')} name="Orégãos" />
+              </ScrollView>
+              <Text style={style.alergeniosText}>Alergénios</Text>
             </ScrollView>
           </View>
         );

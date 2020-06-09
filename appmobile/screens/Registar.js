@@ -55,6 +55,7 @@ class Registar extends React.Component {
                 </TouchableOpacity>
             </ImageBackground>    
             </View>
+            <NossoFinal></NossoFinal>
             </ScrollView>
             </View>
         );

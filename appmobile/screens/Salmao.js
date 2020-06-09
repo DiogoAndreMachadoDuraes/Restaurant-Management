@@ -4,6 +4,7 @@ import { Header, Icon } from "react-native-elements";
 import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
+import NossoFinal from './NossoFinal.js';
 
 import Categoria from "./shared/Categoria.js";
 
@@ -74,22 +75,11 @@ class Salmao extends React.Component{
                 </TouchableOpacity>
               <Text style={style.ingredientesText}>Ingredientes</Text>
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <Categoria image={require('../assets/salmao.jpg')} name="Salmão Grelhado"  />
-                <Categoria image={require('../assets/arroz.jpg')} name="Arroz cozido"  />
-                <Categoria image={alface} name="Alface"  />
-                <Categoria image={tomate} name="Tomate" />
-                <Categoria image={require('../assets/pepino.jpg')} name="Pepino" />
+                <Categoria image={require('../assets/peixinho.jpg')} name="Salmão da Noruega"  />
+                <Categoria image={require('../assets/salteados.jpg')} name="Legumes Salteados"  />
+                <Categoria image={require('../assets/pimenta.jpg')} name="Pimenta" />
               </ScrollView>
-              <Text style={style.infoText}>Informação Nutricional</Text>
-              <Text style={style.alergeniosText}>Alergenios</Text>
-              <Text style={style.alergenioText}>Não contém alergenios.</Text>
-              <View style={style.final}>
-                <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-                <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-                <Text style={style.redesText}>Siga-nos em:</Text>
-                <FontAwesome name="facebook-official" style={style.facebook} size={30}/>
-                <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+    
             </ScrollView>
           </View>
         );

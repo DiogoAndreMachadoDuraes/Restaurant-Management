@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
 import {Header, Icon} from "react-native-elements";
+import NossoFinal from './NossoFinal.js';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -35,6 +36,7 @@ class Peixe extends React.Component{
                   <Text style={style.textMenu}>Saborei este nosso salmão confecionado com os melhores produtos portugues. Acompanhe ainda com um excelente copo de Vinho Alentejano. </Text>
                 </TouchableOpacity>
                 </View>
+                <NossoFinal></NossoFinal>
             </ScrollView>
           </View>
         );

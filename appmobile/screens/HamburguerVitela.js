@@ -4,6 +4,9 @@ import { Header, Icon } from "react-native-elements";
 //import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
+import NossoFinal from './NossoFinal.js';
+
+import Categoria from "./Categoria.js";
 
 class HamburguerVitela extends React.Component{
     constructor(){
@@ -66,18 +69,16 @@ class HamburguerVitela extends React.Component{
                 <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
                   <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
-
-            
-            <Text style={style.infoText}>Informação Nutricional</Text>
-            <Text style={style.alergeniosText}>Alergenios</Text>
-            <Text style={style.alergenioText}>Não contém alergenios.</Text>
-            <View style={style.final}>
-            <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-            <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-            <Text style={style.redesText}>Siga-nos em:</Text>
-            <FontAwesome name="facebook-official" style={style.facebook} size={30}/>            
-            <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+                <Text style={style.ingredientesText}>Ingredientes</Text>
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+             
+                <Categoria image={require('../assets/hamb.jpg')} name="Hamburguer"  />
+                <Categoria image={require('../assets/alface.jpg')} name="Alface"  />
+                <Categoria image={require('../assets/tomate.jpg')} name="Tomate" />
+                <Categoria image={require('../assets/ovo.jpg')} name="Ovo" />
+                <Categoria image={require('../assets/molhohamb.jpg')} name="Molho de Hamburguer" />
+              </ScrollView>
+              <Text style={style.alergeniosText}>Alergénios</Text>
             </ScrollView>
           </View>
         );
