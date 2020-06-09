@@ -1,10 +1,78 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { SocialIcon } from 'react-native-elements';
-import {NossoHeader} from "./NossoHeader.js";
+
+import {NossoHeader} from "./shared/NossoHeader.js";
+import NossoFinal from "./NossoFinal.js";
+import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
+const PratoPeixe = require('../assets/salmao.jpg');
+const PratoSemGluten = require('../assets/estrogonofe.jpg');
+const PratoVegan = require('../assets/legumesAssados.jpg');
+const BatataFrita = require('../assets/batataFrita.jpg');
+const Saladas = require('../assets/saladaTropical.jpg');
+const Sopas = require('../assets/caldoVerde.jpg');
+const Bebidas = require('../assets/agua.jpg');
+const Sobremesas = require('../assets/geladoMorango.jpg');
+const BebidasQuentes = require('../assets/cafe.jpg');
+
+const dataFromApi = [
+  {
+    id: 1,
+    name: "Pratos de peixe",
+    subtitle: "À moda da Avó",
+    imagem: PratoPeixe
+  },
+  {
+    id: 2,
+    name: "Pratos sem glúten",
+    subtitle: "À moda da Avó",
+    imagem: PratoSemGluten
+  },
+  {
+    id: 3,
+    name: "Pratos Vegan",
+    subtitle: "À moda da Avó",
+    imagem: PratoVegan
+  },
+  {
+    id: 4,
+    name: "Batata Frita",
+    subtitle: "À moda da Avó",
+    imagem: BatataFrita
+  },
+  {
+    id: 5,
+    name: "Saladas",
+    subtitle: "À moda da Avó",
+    imagem: Saladas
+  },
+  {
+    id: 6,
+    name: "Sopas",
+    subtitle: "À moda da Avó",
+    imagem: Sopas
+  },
+  {
+    id: 7,
+    name: "Bebidas",
+    subtitle: "À moda da Avó",
+    imagem: Bebidas
+  },
+  {
+    id: 8,
+    name: "Sobremesas",
+    subtitle: "À moda da Avó",
+    imagem: Sobremesas
+  },
+  {
+    id: 9,
+    name: "Bebidas Quentes",
+    subtitle: "À moda da Avó",
+    imagem: BebidasQuentes
+  }
+]
 
 class Extras extends React.Component{
     constructor(){
@@ -19,63 +87,23 @@ class Extras extends React.Component{
       render(){
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
-            <NossoHeader name={this.state.name} navigation={this.props.navigation}/>
-            <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={0.5}>
+            <BarraEstados />
+            <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
+            <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
               <ScrollView>
                 <View style={style.extras}>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Salmao")} >
-                    <Image style={style.extrasExpFoto} source={require('../assets/salmao.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Pratos de peixe</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Estrogonofe")}>
-                    <Image style={style.extrasExpFoto} source={require('../assets/estrogonofe.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Pratos sem gluten e sem lactose</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Legumes")} >
-                    <Image style={style.extrasExpFoto} source={require('../assets/legumesAssados.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Pratos vegan/vegetarianos</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("BatataFrita")} >
-                    <Image style={style.extrasExpFoto} source={require('../assets/batataFrita.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Batatas Fritas</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Saladas")} >
-                    <Image style={style.extrasExpFoto} source={require('../assets/saladaTropical.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Saladas</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("CaldoVerde")} >
-                    <Image style={style.extrasExpFoto} source={require('../assets/caldoVerde.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Sopas</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("BebidasFrias")} >
-                    <Image style={style.extrasExpFoto} source={require('../assets/agua.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Bebidas</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Extras")}>
-                    <Image style={style.extrasExpFoto} source={require('../assets/geladoMorango.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Extras</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("BebidasQuentes")} >
-                    <Image style={style.extrasExpFoto} source={require('../assets/cafe.jpg')} ></Image>
-                    <Text style={style.titleExtras}>Bebidas Quentes</Text>
-                    <Text style={style.textExtras}>À moda da Avó</Text>
-                  </TouchableOpacity>
-                  <View style={style.final}>
-                    <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-                    <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-                    <Text style={style.redesText}>Siga-nos em:</Text>
-                    <SocialIcon type='facebook' style={style.facebook}/>
-                    <SocialIcon light type="instagram"style={style.instagram}/>
-                  </View>
+                  {
+                    dataFromApi.map((item)=>{
+                      return (
+                        <TouchableOpacity style={style.extrasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Sobremesas", {item})}>
+                          <Image style={style.extrasExpFoto} source={item.imagem} ></Image>
+                          <Text style={style.titleExtras}>{item.name}</Text>
+                          <Text style={style.textExtras}>{item.subtitle}</Text>
+                        </TouchableOpacity>
+                      );
+                    })
+                  }
+                  <NossoFinal />
                 </View>
               </ScrollView>
             </ImageBackground>
@@ -87,6 +115,7 @@ class Extras extends React.Component{
     const style = StyleSheet.create({
       container: {
         flex: 1,
+        backgroundColor: "black"
       },
       imageBackgound: {
         flex: 1
@@ -106,14 +135,14 @@ class Extras extends React.Component{
       },
       extras: {
         width: "100%",
-        height: 3132,
+        height: "100%",
       },
       extrasExp: {
         marginTop: 30,
         marginLeft: 40,
         padding: 30,
         width: 320,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
@@ -146,39 +175,6 @@ class Extras extends React.Component{
         fontStyle: "italic",
         textAlign: 'center',
         top: 20
-      },
-      companhiaText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      direitosText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      redesText: {
-        color: "#000",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-      facebook: {
-        marginTop: 20,
-        right: -120,
-      },
-      instagram: {
-        marginTop: -59,
-        right: -200,
-      },
-      final: {
-        backgroundColor: "#c6cbef",
-        justifyContent: 'center',
-        textAlign: 'center',
-        marginTop: 20,
-        paddingVertical: 40,
       }
     });
 

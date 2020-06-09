@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar,
 import { Header, Icon } from "react-native-elements";
 import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import NossoFinal from "./NossoFinal.js";
+import BarraEstados from "./shared/BarraEstados.js";
 //import { StackedBarChart } from 'react-native-svg-charts';
 
 class BatataFrita extends React.Component{
@@ -53,7 +56,7 @@ class BatataFrita extends React.Component{
 */
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
                 <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Extras")} size={45}/>
@@ -70,13 +73,7 @@ class BatataFrita extends React.Component{
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>
               <Text style={style.alergenioText}>Não contém alergenios.</Text>
-              <View style={style.final}>
-                <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-                <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-                <Text style={style.redesText}>Siga-nos em:</Text>
-                <FontAwesome name="facebook-official" style={style.facebook} size={30}/>
-                <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
+              <NossoFinal />
             </ScrollView>
           </View>
         );

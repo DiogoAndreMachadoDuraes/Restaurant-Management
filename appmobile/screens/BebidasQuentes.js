@@ -3,7 +3,34 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar,
 import {Header, Icon} from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+import BarraEstados from "./shared/BarraEstados.js";
+
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
+
+const Cafe = require('../assets/cafe.jpg');
+const Cappuccino = require('../assets/cappuccino.jpg');
+const CafeLeite = require('../assets/pingo.jpg');
+
+const dataFromApi = [
+  {
+    id: 1,
+    name: "Café",
+    subtitle: "Ótimo para todos os momentos",
+    imagem: Cafe
+  },
+  {
+    id: 2,
+    name: "Cappuccino",
+    subtitle: "Cappuccino à moda da Avó",
+    imagem: Cappuccino
+  },
+  {
+    id: 3,
+    name: "Café com leite",
+    subtitle: "Café com leite maravilhoso",
+    imagem: CafeLeite
+  }
+]
 
 class BebidasQuentes extends React.Component{
     constructor(){
@@ -18,7 +45,7 @@ class BebidasQuentes extends React.Component{
       render(){
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
               <View style={style.bebidasQuentesText}>
                 <ImageBackground source={require('../assets/fundodrawer.jpg')} style={style.imageBackgound} opacity={0.8}>
@@ -30,21 +57,17 @@ class BebidasQuentes extends React.Component{
                 </ImageBackground>
               </View>
               <View style={style.bebidasQuentes}>
-                <TouchableOpacity style={style.bebidasQuentesExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Cafe")} >
-                  <Image style={style.bebidasQuentesExpFoto} source={require('../assets/cafe.jpg')} ></Image>
-                  <Text style={style.titlebebidasQuentes}>Café</Text>
-                  <Text style={style.textbebidasQuentes}>DolceGusto</Text>
-                </TouchableOpacity>
-                <View style={style.bebidasQuentesExp}>
-                  <Image style={style.bebidasQuentesExpFoto} source={require('../assets/cappuccino.jpg')} ></Image>
-                  <Text style={style.titlebebidasQuentes}>Cappuccino</Text>
-                  <Text style={style.textbebidasQuentes}>À moda da Avó</Text>
-                </View>
-                <View style={style.bebidasQuentesExp}>
-                  <Image style={style.bebidasQuentesExpFoto} source={require('../assets/pingo.jpg')}></Image>
-                  <Text style={style.titlebebidasQuentes}>Café com leite</Text>
-                  <Text style={style.textbebidasQuentes}>Café com leite meio gordo</Text>
-                </View>
+              {
+                  dataFromApi.map((item)=>{
+                    return (
+                      <TouchableOpacity style={style.bebidasQuentesExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
+                        <Image style={style.bebidasQuentesExpFoto} source={item.imagem} ></Image>
+                        <Text style={style.titlebebidasQuentes}>{item.name}</Text>
+                        <Text style={style.textbebidasQuentes}>{item.subtitle}</Text>
+                      </TouchableOpacity>
+                    );
+                  })
+                }
               </View>
             </ScrollView>
           </View>

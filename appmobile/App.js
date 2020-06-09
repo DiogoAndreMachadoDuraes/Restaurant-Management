@@ -36,7 +36,7 @@ import Doce from "./screens/Doce.js";
 import Nata from "./screens/Nata.js";
 import Carrinho from "./screens/Carrinho.js";
 
-import { DrawerContent } from './screens/DrawerContent';
+import { DrawerContent } from './screens/shared/DrawerContent';
 
 const Drawer = createDrawerNavigator();
 

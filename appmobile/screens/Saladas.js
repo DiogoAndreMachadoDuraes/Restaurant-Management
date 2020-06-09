@@ -3,10 +3,34 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar,
 import {Header, Icon} from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+import NossoFinal from "./NossoFinal.js";
+import BarraEstados from "./shared/BarraEstados.js";
+
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-const saladaTropical = { uri: "https://www.anamariabrogui.com.br/assets/uploads/receitas/fotos/usuario-3453-871ff3a4e3844b0fe17f8bc6e192b71b.jpg" };
-const saladaAtum = { uri: "https://www.teleculinaria.pt/wp-content/uploads/2017/07/salada-de-atum-com-feijao-frade.jpg" };
-const saladaFrango = { uri: "https://img.vixdata.io/pd/jpg-large/pt/sites/default/files/bdm/salada-ceasar-mc-donalds.png" };
+const SaladaTropical = { uri: "https://www.anamariabrogui.com.br/assets/uploads/receitas/fotos/usuario-3453-871ff3a4e3844b0fe17f8bc6e192b71b.jpg" };
+const SaladaAtum = { uri: "https://www.teleculinaria.pt/wp-content/uploads/2017/07/salada-de-atum-com-feijao-frade.jpg" };
+const SaladaFrango = { uri: "https://img.vixdata.io/pd/jpg-large/pt/sites/default/files/bdm/salada-ceasar-mc-donalds.png" };
+
+const dataFromApi = [
+  {
+    id: 1,
+    name: "Salada Tropical",
+    subtitle: "Salada com alface, cenoura, azeitonas, tomate, manga e ananás",
+    imagem: SaladaTropical
+  },
+  {
+    id: 2,
+    name: "Salada de Atum",
+    subtitle: "Salada com alface, ovo, atum, salsa, pimento, cebola, tomate e feijão frade",
+    imagem: SaladaAtum
+  },
+  {
+    id: 3,
+    name: "Salada de Frango",
+    subtitle: "Salada com alface, frango, cebola, tomate e couve roxa",
+    imagem: SaladaFrango
+  }
+]
 
 class Saladas extends React.Component{
     constructor(){
@@ -21,7 +45,7 @@ class Saladas extends React.Component{
       render(){
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
               <View style={style.saladasText}>
                 <ImageBackground source={require('../assets/fundodrawer.jpg')} style={style.imageBackgound} opacity={0.8}>
@@ -33,21 +57,18 @@ class Saladas extends React.Component{
                 </ImageBackground>
               </View>
               <View style={style.saladas}>
-                <TouchableOpacity style={style.saladasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("SaladaTropical")}>
-                  <Image style={style.saladasExpFoto} source={saladaTropical}></Image>
-                  <Text style={style.titleSaladas}>Salada Tropical</Text>
-                  <Text style={style.textSaladas}>Salada com alface, cenoura, azeitonas, tomate, manga e ananás</Text>
-                </TouchableOpacity>
-                <View style={style.saladasExp}>
-                  <Image style={style.saladasExpFoto} source={saladaAtum}></Image>
-                  <Text style={style.titleSaladas}>Salada de Atum</Text>
-                  <Text style={style.textSaladas}>Salada com alface, ovo, atum, salsa, pimento, cebola, tomate e feijão frade</Text>
-                </View>
-                <View style={style.saladasExp}>
-                  <Image style={style.saladasExpFoto} source={saladaFrango}></Image>
-                  <Text style={style.titleSaladas}>Salada de Frango</Text>
-                  <Text style={style.textSaladas}>Salada com alface, frango, cebola, tomate e couve roxa</Text>
-                </View>
+                {
+                  dataFromApi.map((item)=>{
+                    return (
+                      <TouchableOpacity style={style.saladasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
+                        <Image style={style.saladasExpFoto} source={item.imagem} ></Image>
+                        <Text style={style.titleSaladas}>{item.name}</Text>
+                        <Text style={style.textSaladas}>{item.subtitle}</Text>
+                      </TouchableOpacity>
+                    );
+                  })
+                }
+                <NossoFinal/>
               </View>
             </ScrollView>
           </View>
@@ -85,7 +106,7 @@ class Saladas extends React.Component{
       },
       saladas: {
         width: "100%",
-        height: 1000,
+        height: "100%",
       },
       saladasExp: {
         marginTop: 30,
