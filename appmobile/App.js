@@ -34,6 +34,7 @@ import PizzaPortuguesa from "./screens/PizzaPortuguesa.js";
 import Registar from "./screens/Registar.js";
 import Doce from "./screens/Doce.js";
 import Nata from "./screens/Nata.js";
+import Carrinho from "./screens/Carrinho.js";
 
 import { DrawerContent } from './screens/DrawerContent';
 
@@ -76,6 +77,7 @@ const App = () => {
             <Drawer.Screen name="PizzaPortuguesa" component={PizzaPortuguesa} options={{drawerLabel:'PizzaPortuguesa'}}/>
             <Drawer.Screen name="Doce" component={Doce} options={{drawerLabel:'Doce'}}/>
             <Drawer.Screen name="Nata" component={Nata} options={{drawerLabel:'Nata'}}/>
+            <Drawer.Screen name="Carrinho" component={Carrinho} options={{drawerLabel:'Carrinho'}}/>
 
           </Drawer.Navigator>
         </NavigationContainer>

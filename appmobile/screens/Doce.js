@@ -22,10 +22,12 @@ class Doce extends React.Component{
             <ScrollView>
               <View style={style.menuText}>
                 <ImageBackground source={require('../assets/doces.jpg')} style={style.imageBackgound} opacity={1}>             
+                <View style={style.caixatexto2}></View>
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Menu")} size={45} color={"#ff6347"}></Icon>
                   </View>
-                
+                  <View style={style.caixatexto}></View>
+                  <Text style={style.title}>{this.state.name}</Text>
                 </ImageBackground>
               </View>
               
@@ -50,7 +52,7 @@ class Doce extends React.Component{
         height: 250,
         marginLeft: 0,
         top: 0,
-        opacity: 0.8,
+        opacity: 0.9,
       },
 
       title: {                                  //titulo que diz Hamburgueria Gourmet
@@ -62,24 +64,25 @@ class Doce extends React.Component{
         top: 0,
         marginLeft: 0,
       },
+      title: {                                  //titulo que diz MENU
+        color: "white",
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontStyle: "normal",
+        top: -60,
+        marginLeft: 0,
+      },
       caixatexto:{
-        width: 415,
-        height: 100,
+        width: 390,
+        height: 70,
         backgroundColor: '#000',
         opacity: 0.7,
-        marginTop: 5,
-        marginLeft: 0,
-        borderRadius: 5,
+        marginTop: 20,
+        marginLeft: 2,
+        borderRadius: 100,
     },
-      text: {                       
-        color: "white",
-        fontSize: 20,
-        fontStyle: "italic",
-        textAlign: 'center',
-        fontWeight: 'bold',
-        top: 30,
-        opacity: 1,
-      },
+
       menuText: {
         width: 400,
         height: 320
@@ -108,7 +111,19 @@ class Doce extends React.Component{
       arrow: {                          //come back (seta)
         marginTop: 45,
         marginLeft: -320,
+        top: -50,
       },
+
+      caixatexto2:{
+        width: 40,
+        height: 40,
+        backgroundColor: '#000',
+        opacity: 0.7,
+        top: 40,
+        marginLeft: 18,
+        borderRadius: 5,
+    },
+
       menuExpText: {
         width: 180,
         height: 180,

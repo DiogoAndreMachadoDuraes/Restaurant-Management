@@ -23,13 +23,14 @@ class Menu extends React.Component{
             <ScrollView>
               <View style={style.menuText}>
                 <ImageBackground source={require('../assets/ementa.jpg')} style={style.imageBackgound} opacity={1}>             
+                <View style={style.caixatexto2}></View>
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Home")} size={45} color={"#ff6347"}></Icon>
                   </View>
                   
                   <Text style={style.title}>{this.state.name}</Text>
                   <View style={style.caixatexto}>
-                  <Text style={style.text}>Acompanhem aqui todos os nossos Menus deliciosos!</Text>
+                    <Text style={style.text}>Acompanhem aqui todos os nossos Menus deliciosos!</Text>
                   </View>
                 
                 </ImageBackground>
@@ -101,7 +102,7 @@ class Menu extends React.Component{
         fontWeight: 'bold',
         textAlign: 'center',
         fontStyle: "italic",
-        top: -45,
+        top: -35,
         marginLeft: 130,
       },
 
@@ -110,7 +111,7 @@ class Menu extends React.Component{
         height: 100,
         backgroundColor: '#000',
         opacity: 0.7,
-        marginTop: 5,
+        marginTop: -35,
         marginLeft: 0,
         borderRadius: 5,
     },
@@ -157,7 +158,18 @@ class Menu extends React.Component{
       arrow: {                          //come back (seta)
         marginTop: 45,
         marginLeft: -320,
+        top: -50,
       },
+
+      caixatexto2:{
+        width: 40,
+        height: 40,
+        backgroundColor: '#000',
+        opacity: 1,
+        top: 40,
+        marginLeft: 31,
+        borderRadius: 5,
+    },
 
       menuExpText: {
         width: 180,
