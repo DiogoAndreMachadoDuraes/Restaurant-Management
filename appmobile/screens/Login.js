@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, Text, Image, TextInput, TouchableOpacity, ImageBackground, StatusBar, KeyboardAvoidingView } from 'react-native';
+import { Alert, StyleSheet, View, Text, Image, TextInput, TouchableOpacity, ImageBackground, StatusBar, KeyboardAvoidingView, Keyboard } from 'react-native';
 //import Icon1 from 'native-base';
 //import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import Feather from 'react-native-vector-icons/Feather';
@@ -33,7 +33,7 @@ class Login extends React.Component {
             <View style={style.container}>
                 <StatusBar hidden={true}></StatusBar>
                 <View style={style.parteCima}>
-                    <Image source={require("../assets/logo.jpg")}></Image>
+                    <Image source={require("../assets/logo.png")}></Image>
                 </View>
                 <KeyboardAvoidingView behavior="padding" style={style.parteBaixo}>
                     <Text style={style.text}>Email:</Text>
@@ -44,9 +44,12 @@ class Login extends React.Component {
                             <Icon
                                 name='user'
                                 size={24}
-                                color='yellow'
+                                color='white'
                             />
                         }
+                        autoCapitalize="none"
+                        keyboardType="email-address"
+                        returnKeyType="next"
                     />
                     <Text style={style.text}>Password:</Text>
                     <Input {...this.props}
@@ -58,17 +61,19 @@ class Login extends React.Component {
                             <Icon
                                 name='lock'
                                 size={24}
-                                color='yellow'
+                                color='white'
                             />
                         }
                         rightIcon={
                             <Icon
                                 name={this.state.iconName}
                                 size={24}
-                                color='yellow'
+                                color='white'
                                 onPress={this.onIconPress}
                             />
                         }
+                        onSubmitEditing={Keyboard.dismiss}
+                        autoCapitalize="none"
                     />
                     <TouchableOpacity /*onPress={() => this.props.navigation.navigate("Home")}*/>
                         <Text style={style.esqueceuPass}>Esqueceu-se da palavra-passe?</Text>
@@ -97,7 +102,7 @@ const style = StyleSheet.create({
     },
     parteBaixo:{
         flex: 1.5,
-        backgroundColor: '#27742d',
+        backgroundColor: "#556b2f",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 30,
@@ -127,7 +132,7 @@ const style = StyleSheet.create({
     loginText:{
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'rgb(218,41,28)'
+        color: 'black'
     },
     registar:{
         width: 100,
@@ -142,12 +147,12 @@ const style = StyleSheet.create({
     registarText:{
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'rgb(218,41,28)'
+        color: 'black'
     },
     esqueceuPass:{
         fontSize: 14,
         fontWeight: 'bold',
-        color: 'yellow',
+        color: 'black',
         top: -10,
         left: 15
     }

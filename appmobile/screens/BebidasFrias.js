@@ -3,26 +3,31 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar,
 import {Header, Icon} from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+import BarraEstados from "./shared/BarraEstados.js";
+
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-//const VinhoTinto = { source = require('../assets/vinhoTinto.jpg') };
-//const VinhoBranco = { source = require('../assets/vinhoBranco.jpg') };
+const VinhoTinto = require('../assets/vinhoTinto.jpg');
+const VinhoBranco = require('../assets/vinhoBranco.jpg');
+const Agua = require('../assets/agua.jpg');
 
 const dataFromApi = [
   {
     id: 1,
     name: "Vinho Tinto",
-    subtitle: "Venha beber o melhor vinho do país!",
-    //imagem: VinhoTinto
+    subtitle: "Venha beber o melhor vinho tinto do país!",
+    imagem: VinhoTinto
   },
   {
     id: 2,
     name: "Vinho Branco",
-    subtitle: "Venha beber o melhor vinho do país!",
-    //imagem: VinhoBranco
+    subtitle: "Venha beber o melhor vinho branco do país!",
+    imagem: VinhoBranco
   },
   {
     id: 3,
-    name: "Água"
+    name: "Água",
+    subtitle: "O que é essecial é indispensável",
+    imagem: Agua
   }
 ]
 
@@ -39,7 +44,7 @@ class BebidasFrias extends React.Component{
       render(){
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
               <View style={style.bebidasFriasText}>
                 <ImageBackground source={require('../assets/fundodrawer.jpg')} style={style.imageBackgound} opacity={0.8}>
@@ -55,7 +60,7 @@ class BebidasFrias extends React.Component{
                   dataFromApi.map((item)=>{
                     return (
                       <TouchableOpacity style={style.bebidasFriasExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
-                        <Image style={style.bebidasFriasExpFoto} source={require('../assets/vinhoTinto.jpg')} ></Image>
+                        <Image style={style.bebidasFriasExpFoto} source={item.imagem} ></Image>
                         <Text style={style.titlebebidasFrias}>{item.name}</Text>
                         <Text style={style.textbebidasFrias}>{item.subtitle}</Text>
                       </TouchableOpacity>

@@ -35,7 +35,7 @@ import Registar from "./screens/Registar.js";
 import Doce from "./screens/Doce.js";
 import Nata from "./screens/Nata.js";
 
-import { DrawerContent } from './screens/DrawerContent';
+import { DrawerContent } from './screens/shared/DrawerContent';
 
 const Drawer = createDrawerNavigator();
 

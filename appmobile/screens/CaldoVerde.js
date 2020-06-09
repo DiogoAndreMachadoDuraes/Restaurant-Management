@@ -5,7 +5,7 @@ import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 
-import Categoria from "./Categoria.js";
+import Categoria from "./shared/Categoria.js";
 
 class CaldoVerde extends React.Component{
     constructor(){

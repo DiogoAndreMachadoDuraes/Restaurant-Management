@@ -1,25 +1,48 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image } from "react-native";
 import { Icon } from "react-native-elements";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import NossoFinal from "./NossoFinal";
+import BarraEstados from "./shared/BarraEstados.js";
 //import { StackedBarChart } from 'react-native-svg-charts';
 
-import Categoria from "./Categoria.js";
-import NossoFinal from "./NossoFinal.js";
+const VinhoTinto = require('../assets/vinhoTinto.jpg');
+const VinhoBranco = require('../assets/vinhoBranco.jpg');
+const Agua = require('../assets/agua.jpg');
 
-class VinhoTinto extends React.Component{
+const dataFromApi = [
+    {
+      id: 1,
+      name: "Vinho Tinto",
+      subtitle: "Venha beber o melhor vinho tinto do país!",
+      imagem: VinhoTinto
+    },
+    {
+      id: 2,
+      name: "Vinho Branco",
+      subtitle: "Venha beber o melhor vinho branco do país!",
+      imagem: VinhoBranco
+    },
+    {
+      id: 3,
+      name: "Água",
+      subtitle: "O que é essecial é indispensável",
+      imagem: Agua
+    }
+]
+
+class Produto extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Vinho Tinto",
+          name:"Batatas Fritas",
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã VinhoTinto...");
+        console.log("Montando o ecrã Produto...");
       }
       render(){
-/*
-        const data = [
+       /* const data = [
           {
               month: new Date(2015, 0, 1),
               apples: 3840,
@@ -52,11 +75,11 @@ class VinhoTinto extends React.Component{
       ]
 
       const colors = ['#7b4173', '#a55194', '#ce6dbd', '#de9ed6']
-      const keys = ['apples', 'bananas', 'cherries', 'dates'] */
-
+      const keys = ['apples', 'bananas', 'cherries', 'dates']
+*/
         return (
           <View style={style.container}>
-            <StatusBar hidden={false} backgroundColor={'#c6cbef'}></StatusBar>
+            <BarraEstados />
             <ScrollView>
                 <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Extras")} size={45}/>
@@ -64,25 +87,22 @@ class VinhoTinto extends React.Component{
                 <View style={style.shop}>
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} size={40}/>
                 </View>
-                <Text style={style.title}>{this.state.name}</Text>
-                <Image source={require('../assets/vinhoTinto.jpg')} style={style.image} opacity={0.8}/>
-                <Text style={style.text}>Vinho tinto caseiro. À moda de trás-dos-montes.</Text>
-                <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}*/>
-                  <Text style={style.buttonText}>Adicionar ao carrinho</Text>
-                </TouchableOpacity>
-              <Text style={style.ingredientesText}>Ingredientes</Text>
-              <Text style={style.infoText}>Informação Nutricional</Text>
-              { /*<StackedBarChart
-                style={{ height: 200 }}
-                keys={keys}
-                colors={colors}
-                data={data}
-                showGrid={false}
-                contentInset={{ top: 30, bottom: 30 }}
-              /> */}
-              <Text style={style.alergeniosText}>Alergenios</Text>
-              <Text style={style.alergenioText}>Não contém alergenios.</Text>
-              <NossoFinal />
+                { /*
+                  dataFromApi.map((item) => {
+                    return (
+                        <Text style={style.title}>{item.nome}</Text>
+                        <Image source={item.imagem} style={style.image} opacity={0.8}/>
+                        <Text style={style.text}>{item.subtitle}</Text>
+                        <TouchableOpacity style={style.button} /*onPress={() => this.props.navigation.navigate("Register")}>
+                            <Text style={style.buttonText}>Adicionar ao carrinho</Text>
+                        </TouchableOpacity>
+                        <Text style={style.infoText}>Informação Nutricional</Text>
+                        <Text style={style.alergeniosText}>Alergenios</Text>
+                        <Text style={style.alergenioText}>Não contém alergenios.</Text>
+                    );
+                  })
+                */}
+                <NossoFinal />
             </ScrollView>
           </View>
         );
@@ -111,13 +131,13 @@ class VinhoTinto extends React.Component{
       },
       title: {
         color: "#000",
-        fontSize: 35,
+        fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'center',
         fontStyle: "italic",
         top: 50
       },
-      vinhoTintoText: {
+      ProdutoText: {
        height: 300
       },
       arrow: {
@@ -220,4 +240,4 @@ class VinhoTinto extends React.Component{
       }
     });
 
-export default VinhoTinto;
+export default Produto;
