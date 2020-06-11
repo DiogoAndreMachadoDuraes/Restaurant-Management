@@ -27,7 +27,7 @@ export function DrawerContent(props){
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
-                        <ImageBackground source={require('../assets/fundodrawer.jpg')} style={{flexDirection:'row', marginTop:-10, marginLeft:-20, padding:40}}>
+                        <ImageBackground source={require('../../assets/fundodrawer.jpg')} style={{flexDirection:'row', marginTop:-10, marginLeft:-20, padding:40}}>
                             <View style={{flexDirection:'row',marginTop: 15}}>
                                 <TouchableRipple>
                                 <Avatar.Image 

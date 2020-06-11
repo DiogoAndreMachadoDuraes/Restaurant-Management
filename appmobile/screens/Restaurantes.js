@@ -53,23 +53,23 @@ class Restaurantes extends React.Component{
             <BarraEstados />
             <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={0.5}>
-                <ScrollView>
-                  <View style={style.restaurantes}>
-                    {
-                      dataFromApi.map((item)=>{
-                        return (
-                          <TouchableOpacity style={style.restaurantesExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
-                            <Image style={style.restaurantesExpFoto} source={item.imagem} ></Image>
-                            <Text style={style.textrestaurantes}>Rua: {item.rua}</Text>
-                            <Text style={style.textrestaurantes}>Código Postal: {item.morada}</Text>
-                            <Text style={style.textrestaurantes}>Email: {item.email}</Text>
-                            <Text style={style.textrestaurantes}>Telefone: {item.telefone}</Text>
-                          </TouchableOpacity>
-                        );
-                      })
-                    }
-                    <NossoFinal />
-                  </View>
+              <ScrollView>
+                <View style={style.restaurantes}>
+                  {
+                    dataFromApi.map((item)=>{
+                      return (
+                        <TouchableOpacity style={style.restaurantesExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
+                          <Image style={style.restaurantesExpFoto} source={item.imagem} ></Image>
+                          <Text style={style.textrestaurantes}>Rua: {item.rua}</Text>
+                          <Text style={style.textrestaurantes}>Código Postal: {item.morada}</Text>
+                          <Text style={style.textrestaurantes}>Email: {item.email}</Text>
+                          <Text style={style.textrestaurantes}>Telefone: {item.telefone}</Text>
+                        </TouchableOpacity>
+                      );
+                    })
+                  }
+                  <NossoFinal />
+                </View>
               </ScrollView>
             </ImageBackground>
           </View>
