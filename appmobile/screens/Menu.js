@@ -7,6 +7,52 @@ import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
+const Hamburguer = require('../assets/gourmet.jpg');
+const Francesinha = require('../assets/french.jpg');
+const Carne = require('../assets/variedade.jpg');
+const Peixe = require('../assets/peixe.jpg');
+const Pizza = require('../assets/pizzamenu.jpg');
+const Doce = require('../assets/doces.jpg');
+
+const dataFromApi = [
+  {
+    id: 1,
+    name: "Menus de Hambúrgueres",
+    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
+    imagem: Hamburguer
+  },
+  {
+    id: 2,
+    name: "Menus de Francesinhas",
+    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
+    imagem: Francesinha
+  },
+  {
+    id: 3,
+    name: "Pratos de Carne",
+    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
+    imagem: Carne
+  },
+  {
+    id: 4,
+    name: "Pratos de Peixe",
+    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
+    imagem: Peixe
+  },
+  {
+    id: 5,
+    name: "Menus de Pizzas",
+    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
+    imagem: Pizza
+  },
+  {
+    id: 6,
+    name: "Menus de Cafés",
+    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
+    imagem: Doce
+  }
+]
+
 class Menu extends React.Component{
     constructor(){
         super();
@@ -21,68 +67,39 @@ class Menu extends React.Component{
         return (
           <View style={style.container}>
             <BarraEstados />
+            <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
+            <ImageBackground>
             <ScrollView>
+            
               <View style={style.menuText}>
                 <ImageBackground source={require('../assets/ementa.jpg')} style={style.imageBackgound} opacity={1}>             
                 <View style={style.caixatexto2}></View>
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Home")} size={45} color={"#ff6347"}></Icon>
                   </View>
-                  
-                  <Text style={style.title}>{this.state.name}</Text>
-                  <View style={style.caixatexto}>
-                    <Text style={style.text}>Acompanhem aqui todos os nossos Menus deliciosos!</Text>
-                  </View>
                 
                 </ImageBackground>
               </View>
               
               <View style={style.menu}>
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/hamburguer.jpg')} ></Image>
-                  <Text style={style.titleMenu}>Menus de Hamburguer </Text>
-                  <Text style={style.textMenu}> Todas as sugestões e informações aqui! </Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Francesinha")}>
-                <Image style={style.menuExpFoto} source={require('../assets/francesinha.jpg')}></Image>
-                <Text style={style.titleMenu}>Menus de Francesinha </Text>
-                <Text style={style.textMenu}>Todas as sugestões e informações aqui! </Text>
-                </TouchableOpacity>
-                
-
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Carne")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/carne.jpg')}></Image>
-                  <Text style={style.titleMenu}>Pratos de Carne </Text>
-                  <Text style={style.textMenu}> Todas as sugestões e informações aqui! </Text>
-                  </TouchableOpacity>              
-                
-
-                  <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Peixe")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/salmao.jpg')}></Image>
-                  <Text style={style.titleMenu}>Pratos de Peixe </Text>
-                  <Text style={style.textMenu}> Todas as sugestões e informações aqui! </Text>
-                  </TouchableOpacity>
-                
-
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Pizza")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/pizza.jpg')}></Image>
-                  <Text style={style.titleMenu}>Menus de Pizza </Text>
-                  <Text style={style.textMenu}>Todas as sugestões e informações aqui! </Text>
-                  </TouchableOpacity>
-                
-               
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Doce")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/cafe.jpg')}></Image>
-                  <Text style={style.titleMenu}> Menu Café </Text>
-                  <Text style={style.textMenu}>Todas as sugestões e informações aqui! </Text>
-                  </TouchableOpacity>
+                  {
+                    dataFromApi.map((item)=>{
+                      return (
+                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Vitela", {item})}>
+                          <Image style={style.menuExpFoto} source={item.imagem} ></Image>
+                          <Text style={style.titleMenu}>{item.name}</Text>
+                          <Text style={style.textMenu}>{item.subtitle}</Text>
+                        </TouchableOpacity>
+                      );
+                    })
+                  }
 
               </View>
 
             <NossoFinal></NossoFinal>
-
+            
             </ScrollView>
+            </ImageBackground>
           </View>
         );
       }

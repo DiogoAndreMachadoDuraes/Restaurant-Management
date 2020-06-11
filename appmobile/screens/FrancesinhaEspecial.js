@@ -4,7 +4,7 @@ import { Header, Icon } from "react-native-elements";
 import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
-import NossoFinal from './NossoFinal.js';
+import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 import Categoria from "./Categoria.js";
 
@@ -84,6 +84,7 @@ class FrancesinhaEspecial extends React.Component{
                 <Categoria image={require('../assets/bife.jpg')} name="Bife" />
               </ScrollView>
               <Text style={style.alergeniosText}>Alergénios</Text>
+              <NossoFinal></NossoFinal>
             </ScrollView>
           </View>
         );

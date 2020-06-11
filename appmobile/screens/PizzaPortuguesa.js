@@ -5,6 +5,7 @@ import { Header, Icon } from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 import BarraEstados from "./shared/BarraEstados.js";
+import NossoFinal from './shared/NossoFinal.js';
 import Categoria from "./Categoria.js";
 
 class PizzaPortuguesa extends React.Component{
@@ -77,6 +78,7 @@ class PizzaPortuguesa extends React.Component{
                 <Categoria image={require('../assets/oregao.jpg')} name="Orégãos" />
               </ScrollView>
               <Text style={style.alergeniosText}>Alergénios</Text>
+              <NossoFinal></NossoFinal>
             </ScrollView>
           </View>
         );

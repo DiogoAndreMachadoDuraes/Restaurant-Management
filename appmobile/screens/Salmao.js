@@ -4,7 +4,7 @@ import { Header, Icon } from "react-native-elements";
 import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
-import NossoFinal from './NossoFinal.js';
+import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 import Categoria from "./shared/Categoria.js";
 
@@ -79,7 +79,7 @@ class Salmao extends React.Component{
                 <Categoria image={require('../assets/salteados.jpg')} name="Legumes Salteados"  />
                 <Categoria image={require('../assets/pimenta.jpg')} name="Pimenta" />
               </ScrollView>
-    
+              <NossoFinal></NossoFinal>
             </ScrollView>
           </View>
         );

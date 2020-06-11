@@ -6,6 +6,7 @@ import { Alert, StyleSheet, View, Text, Image, TextInput, TouchableOpacity, Imag
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
+import NossoFinal from './shared/NossoFinal.js';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
