@@ -4,6 +4,8 @@ import {Header, Icon} from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
+import {NossoHeader} from "./shared/NossoHeader.js";
+
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -68,17 +70,18 @@ class Menu extends React.Component{
           <View style={style.container}>
             <BarraEstados />
             <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
-            <ImageBackground>
+            <View style={style.imageBackgound}> 
+            <ImageBackground source={imageBackgound}/>           
             <ScrollView>
             
               <View style={style.menuText}>
-                <ImageBackground source={require('../assets/ementa.jpg')} style={style.imageBackgound} opacity={1}>             
+                <Image source={require('../assets/ementa.jpg')} style={style.image} opacity={1}>             
                 <View style={style.caixatexto2}></View>
                   <View style={style.arrow}>
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Home")} size={45} color={"#ff6347"}></Icon>
                   </View>
                 
-                </ImageBackground>
+                </Image>
               </View>
               
               <View style={style.menu}>
@@ -99,7 +102,8 @@ class Menu extends React.Component{
             <NossoFinal></NossoFinal>
             
             </ScrollView>
-            </ImageBackground>
+            </View>
+            
           </View>
         );
       }
@@ -110,6 +114,10 @@ class Menu extends React.Component{
       },
 
       imageBackgound: {                         //foto por tras do titulo
+        flex:1,
+      },
+
+      image: {                         //foto por tras do titulo
         width: 420,
         height: 250
       },

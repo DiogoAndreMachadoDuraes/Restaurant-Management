@@ -4,9 +4,9 @@ import { Header, Icon } from "react-native-elements";
 import { TouchableRipple } from "react-native-paper";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
-import NossoFinal from './NossoFinal.js';
+import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
-import Categoria from "./Categoria.js";
+import Categoria from "./shared/Categoria.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const alface = { uri: "https://thumbs.web.sapo.io/?W=800&H=0&delay_optim=1&epic=NGNl88jzGknot26JMojOuazXgJK7LxXKMWes/sScQk5fBN0SWv2+xq8Og5AdjwcYXZJl2CwN0AY5Ofv1E2o6thyTdQ==" };
@@ -103,6 +103,8 @@ class Vitela extends React.Component{
                 <FontAwesome name="facebook-official" style={style.facebook} size={30}/>
                 <FontAwesome name="instagram" style={style.instagram} size={30}/>
               </View>
+              <NossoFinal></NossoFinal>
+
             </ScrollView>
           </View>
         );

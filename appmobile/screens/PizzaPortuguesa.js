@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 import BarraEstados from "./shared/BarraEstados.js";
 import NossoFinal from './shared/NossoFinal.js';
-import Categoria from "./Categoria.js";
+import Categoria from "./shared/Categoria.js";
 
 class PizzaPortuguesa extends React.Component{
     constructor(){

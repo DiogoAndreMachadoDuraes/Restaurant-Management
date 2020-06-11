@@ -1,8 +1,9 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
 import {Header, Icon} from "react-native-elements";
-import NossoFinal from './NossoFinal.js';
+import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
+import Categoria from "./shared/Categoria.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -51,6 +52,7 @@ class Hamburguer extends React.Component{
                   <Text style={style.textMenu}> Hamburguer de frango grelhado acompanhado por batata frita e bebida à descrição. </Text>
                 </View>
               </View>
+              <NossoFinal></NossoFinal>
             </ScrollView>
           </View>
         );

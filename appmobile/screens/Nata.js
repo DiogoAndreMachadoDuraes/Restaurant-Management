@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import { StackedBarChart } from 'react-native-svg-charts';
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
-import Categoria from "./Categoria.js";
+import Categoria from "./shared/Categoria.js";
 
 const folhada = { uri: "https://receitas.pasteldenata.info/wp-content/uploads/2009/04/forma_de_pasteldenata.jpg" };
 const nata = {uri: "https://lh3.googleusercontent.com/proxy/jQptr64FbetvpybFCAlKpnKfBqnivDAiruRWBcRg2gZIZ_i-x_OCJG4BcOFyyTwg6ejdBFTl9XerVouL7CU8boVe8vkGP1L22q4E-XMIu-iPODE7SA"};

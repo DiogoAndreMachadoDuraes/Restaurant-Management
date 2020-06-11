@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
 import {Header, Icon} from "react-native-elements";
+import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
@@ -39,6 +40,8 @@ class Carne extends React.Component{
                   <Text style={style.textMenu}>Vitela assada acompanhada por batata frita gourmet e uma combinação de legumes selecionados portugueses. </Text>
                 </TouchableOpacity>
                 </View>
+                <NossoFinal></NossoFinal>
+
             </ScrollView>
           </View>
         );
