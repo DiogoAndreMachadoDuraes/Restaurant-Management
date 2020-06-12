@@ -89,7 +89,7 @@ class Extras extends React.Component{
           <View style={style.container}>
             <BarraEstados />
             <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
-            <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
+            <ImageBackground source={imageBackgound} style={style.imageBackgound} >
               <ScrollView>
                 <View style={style.extras}>
                   {
@@ -115,7 +115,7 @@ class Extras extends React.Component{
     const style = StyleSheet.create({
       container: {
         flex: 1,
-        backgroundColor: "black"
+        backgroundColor: "white"
       },
       imageBackgound: {
         flex: 1
