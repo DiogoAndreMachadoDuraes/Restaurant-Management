@@ -11,6 +11,7 @@ const Pudim = require('../assets/pudim.jpg');
 const SaladaFruta = require('../assets/saladaFruta.jpg');
 const GeladoMorango = require('../assets/geladoMorango.jpg');
 
+ //assumindo que a lista é sobremesas
 const dataFromApi = [
   {
     id: 1,
@@ -43,6 +44,7 @@ class Sobremesas extends React.Component{
         console.log("Montando o ecrã Sobremesas...");
       }
       render(){
+        console.log("item", this.props.route.params.item);
         return (
           <View style={style.container}>
             <BarraEstados />

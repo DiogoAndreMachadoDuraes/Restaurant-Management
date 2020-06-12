@@ -44,7 +44,7 @@ const App = () => {
     return (
       //<AppearanceProvider>
         <NavigationContainer /*theme={scheme === 'dark' ? DarkTheme : DefaultTheme}*/>
-          <Drawer.Navigator initialRouteName="Login" drawerStyle={{ backgroundColor: '#fff'}} drawerContent={props => <DrawerContent {...props} />}>
+          <Drawer.Navigator initialRouteName="Login" drawerContentOptions={{ activeBackgroundColor: "#556b2f", activeTintColor: "#fff" }} drawerContent={props => <DrawerContent {...props} />}>
             <Drawer.Screen name="Login" component={Login} />
             <Drawer.Screen name="BatataFrita" component={BatataFrita} options={{ drawerLabel: 'BatataFrita' }}/>
             <Drawer.Screen name="BebidasFrias" component={BebidasFrias} options={{ drawerLabel: 'BebidasFrias' }}/>

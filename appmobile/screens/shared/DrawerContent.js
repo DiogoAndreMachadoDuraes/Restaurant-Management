@@ -1,11 +1,7 @@
 import React from "react";
 import {StyleSheet, View, ImageBackground } from "react-native";
 import {
-    useTheme,
     Avatar,
-    Title,
-    Caption,
-    Paragraph,
     Drawer,
     Text,
     TouchableRipple,
@@ -17,33 +13,26 @@ import {
 } from '@react-navigation/drawer';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
-import { color } from "react-native-reanimated";
 
 const avatar = { uri: "https://cdn4.iconfinder.com/data/icons/avatars-circle-2/72/146-512.png" };
 
 export function DrawerContent(props){
-    return (
-        <View style={{flex:1}}>
-            <DrawerContentScrollView {...props}>
-                <View style={styles.drawerContent}>
-                    <View style={styles.userInfoSection}>
-                        <ImageBackground source={require('../../assets/fundodrawer.jpg')} style={{flexDirection:'row', marginTop:-10, marginLeft:-20, padding:40}}>
-                            <View style={{flexDirection:'row',marginTop: 15}}>
-                                <TouchableRipple>
-                                <Avatar.Image 
-                                    source={avatar}
-                                    size={100}
-                                    style={{marginLeft: -20, marginTop: -10}}
-                                />
-                                </TouchableRipple>
-                                <View style={{marginLeft:18, flexDirection:'column', marginTop:18}}>
-                                    <Title style={styles.title}>José Silva</Title>
-                                </View>
-                            </View>
-                        </ImageBackground>
-                    </View>
 
-                    <Drawer.Section style={styles.drawerSection}>
+    const [ isDark, setTheme]= React.useState(false);
+    const toggleTheme = () => {
+        setTheme(!isDark);
+    }
+
+    return (
+        <View style={style.container}>
+            <DrawerContentScrollView {...props}>
+                <View style={style.menuIniciar}>
+                    <View style={style.infoEmpresa}>
+                        <View style={style.logoBack}>
+                            <ImageBackground source={require('../../assets/logo.png')} style={style.logo} />
+                        </View>
+                    </View>
+                    <Drawer.Section style={style.menus}>
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
@@ -54,6 +43,9 @@ export function DrawerContent(props){
                             )}
                             label="Sabor da Avó"
                             onPress={() => {props.navigation.navigate('Home')}}
+                            labelStyle={style.title}
+                            activeBackgroundColor= "#556b2f"
+                            activeTintColor= "#fff"
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -65,6 +57,7 @@ export function DrawerContent(props){
                             )}
                             label="Restaurantes"
                             onPress={() => {props.navigation.navigate('Restaurantes')}}
+                            labelStyle={style.title}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -76,6 +69,7 @@ export function DrawerContent(props){
                             )}
                             label="Menus"
                             onPress={() => {props.navigation.navigate('Menu')}}
+                            labelStyle={style.title}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -85,8 +79,9 @@ export function DrawerContent(props){
                                 size={size}
                                 />
                             )}
-                            label="Extras"
+                            label="Produtos"
                             onPress={() => {props.navigation.navigate('Extras')}}
+                            labelStyle={style.title}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -98,6 +93,7 @@ export function DrawerContent(props){
                             )}
                             label="Reserva"
                             onPress={() => {props.navigation.navigate('Reserva')}}
+                            labelStyle={style.title}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -108,21 +104,47 @@ export function DrawerContent(props){
                                 />
                             )}
                             label="Lista de desejos"
+                            labelStyle={style.title}
                         />
+                    </Drawer.Section>
+                    <Drawer.Section title="Preferencias">
+                        <TouchableRipple onPress={() => {toggleTheme()}}>
+                            <View style={style.preferencias}>
+                                <Text style={style.title}>Dark Theme</Text>
+                                    <View pointerEvents="none">
+                                        <Switch value={isDark}/>
+                                    </View>
+                            </View>
+                        </TouchableRipple>
                     </Drawer.Section>
                     <Drawer.Section title="Conta">
                         <TouchableRipple>
-                            <View style={styles.drawerSection}>
+                            <View>
                                 <DrawerItem 
+                                    icon={({size}) => (
+                                        <Avatar.Image 
+                                        source={avatar}
+                                        size={size}
+                                        />
+                                    )}
+                                    label="Perfil"
+                                    onPress={() => {props.navigation.navigate('Login')}}
+                                    labelStyle={style.title}
+                                />
+                            </View>
+                        </TouchableRipple>
+                    </Drawer.Section>
+                    <Drawer.Section title="Definições">
+                            <DrawerItem 
                                     icon={({color, size}) => (
                                         <Icon 
-                                        name="account-outline" 
+                                        name="account-check-outline" 
                                         color={color}
                                         size={size}
                                         />
                                     )}
-                                    label="Prefil"
-                                    onPress={() => {props.navigation.navigate('Login')}}
+                                    label="Suporte"
+                                    labelStyle={style.title}
                                 />
                                 <DrawerItem 
                                     icon={({color, size}) => (
@@ -133,92 +155,66 @@ export function DrawerContent(props){
                                         />
                                     )}
                                     label="Definições"
+                                    labelStyle={style.title}
                                 />
-                                <DrawerItem 
-                                    icon={({color, size}) => (
-                                        <Icon 
-                                        name="account-check-outline" 
-                                        color={color}
-                                        size={size}
-                                        />
-                                    )}
-                                    label="Suporte"
-                                />
-                            </View>
-                        </TouchableRipple>
-                    </Drawer.Section>
-                    <Drawer.Section title="Preferencias">
-                        <TouchableRipple>
-                            <View style={styles.preference}>
-                                <Text>Dark Theme</Text>
-                                    <View pointerEvents="none">
-                                        <Switch />
-                                    </View>
-                            </View>
-                        </TouchableRipple>
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
-            <Drawer.Section style={styles.bottomDrawerSection}>
+            <Drawer.Section style={{borderTopWidth: 0.5, borderTopColor: "black", top: 10}}>
                 <DrawerItem 
                     icon={({color, size}) => (
                         <Icon 
                         name="exit-to-app" 
-                        color={color}
+                        color={"white"}
                         size={size}
                         />
                     )}
                     label="Sair da conta"
+                    labelStyle={{color: 'white'}}
+                    style={{ backgroundColor: '#556b2f' }}
                 />
             </Drawer.Section>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    drawerContent: {
-      flex: 1
+const style = StyleSheet.create({
+    container:{
+        flex:1
     },
-    userInfoSection: {
-      paddingLeft: 20,
+    menuIniciar: {
+        flex: 1
     },
-    title: {
-      fontSize: 20,
-      marginTop: 3,
-      fontWeight: 'bold',
-      fontStyle: 'italic',
-      color: '#fff'
+    infoEmpresa: {
+        top: -30, 
+        paddingVertical: 40, 
+        backgroundColor: "#556b2f"
     },
-    caption: {
-      fontSize: 14,
-      lineHeight: 14,
+    logoBack:{
+        justifyContent: "center",
+        alignItems: "center",
+        top: 10,
+        left: 10,
+        marginRight: 25,
+        borderRadius: 50,
+        backgroundColor: "white",
+        paddingVertical: 10
     },
-    row: {
-      marginTop: 20,
-      flexDirection: 'row',
-      alignItems: 'center',
+    logo: {
+        width: 210,
+        height: 230
     },
-    section: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginRight: 15,
+    menus: {
+        marginTop: -15,
     },
-    paragraph: {
-      fontWeight: 'bold',
-      marginRight: 3,
-    },
-    drawerSection: {
-      marginTop: 15
-    },
-    bottomDrawerSection: {
-        marginBottom: 15,
-        borderTopColor: 'green',
-        borderTopWidth: 1
-    },
-    preference: {
+    preferencias: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingVertical: 12,
       paddingHorizontal: 16
     },
+    title:{
+        color: '#556b2f',
+        fontStyle: "italic",
+    }
   });
