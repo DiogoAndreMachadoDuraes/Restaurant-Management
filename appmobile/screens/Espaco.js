@@ -26,13 +26,18 @@ class Espaco extends React.Component{
                 
                     <NossoHeader nome={this.state.name} navigation={this.props.navigation}/>
 
-                        <ImageBackground source={imageBackgound} style={style.imagemdefundo} opacity={1}>
+                        <ImageBackground source={imageBackgound} style={style.imagemdefundo} opacity={0.1}>
                             <ScrollView>
                                 <View style={style.espaco}>
                                     <View style={style.caixatexto}>
-                                        <Text style={style.titulo}>Esta nossa imagem carateriza se por ser um cantinho rústico e ao mesmo tempo moderno. Ideal para jantares de negócios e, claro para um almoço em família. Venha visitar nos! Estamos à sua espera!</Text>
+                                        <Text style={style.titulo}>Esta nossa imagem carateriza se por ser um cantinho rústico e ao mesmo tempo moderno. Ideal para jantares de negócios e, claro, para um almoço em família. Venha visitar nos! Estamos à sua espera!</Text>
+                                        <Text style={style.titulo1}>O Sabor da Avó é um excelente sabor que nos leva à nossa infância e, à aquele cheirinho caraterístico dos pratos que as nossas avós faziam. Contudo, acompanhamos sempre a inovação e como tal, apresentamos uma selação variada de pratos vegan, pratos sem glúten, uma especialidade de hamburgueria gourmet e muito mais. Venha descobrir todas as nossas novidades!</Text>
                                     </View>
-                                            <Image source={require('../assets/french.jpg')} style={style.image}/>
+                                            <Image source={require('../assets/space.jpg')} style={style.image}/>
+                                            <Image source={require('../assets/space1.jpg')} style={style.image1}/>
+                                            <Image source={require('../assets/space2.jpg')} style={style.image2}/>
+                                            <Image source={require('../assets/space3.jpg')} style={style.image3}/>
+                                        
                                 </View>
                             </ScrollView>
                         </ImageBackground>
@@ -48,52 +53,68 @@ const style = StyleSheet.create({
 
     imagemdefundo: {
         flex: 1,
+        backgroundColor: '#556b2f',
     },
 
     espaco: {
         width: '100%',
-        height: 1650,
+        height: 1070,
     },
 
     image: {
-        width: 120,
-        height: 150,
-        marginTop: 120,
-        top:-80,
-        marginLeft: 0,
+        width: 180,
+        height: 300,
+        marginTop: 80,
+        top: -60,
+        marginLeft: 15,
     },
 
-    caixatexto:{
-        width: 175,
-        height: 425,
-        backgroundColor: '#cd5c5c',
-        opacity: 0.8,
-        marginTop: 50,
-        marginLeft: 215,
-        borderRadius: 20,
+    image1: {
+        width: 180,
+        height: 300,
+        marginTop: 120,
+        top: -450,
+        marginLeft: 195,
     },
+
+    image2: {
+        width: 180,
+        height: 300,
+        marginTop: 120,
+        top: -600,
+        marginLeft: 15,
+    },
+
+    image3: {
+        width: 180,
+        height: 300,
+        marginTop: 120,
+        top: -990,
+        marginLeft: 195,
+    },
+
     titulo:{
         color: "#fff",
-        fontSize: 20,
+        fontSize: 17,
         fontWeight: 'bold',
         fontStyle: "normal",
         marginLeft: 30,
         left: -10,
-        marginTop: -10,
+        marginTop: 50,
         padding:10,
     },
 
-    subtitulo1:{
-        color: "black",
-        fontSize: 15,
-        textAlign:'center',
-        fontWeight: 'normal',
+    titulo1:{
+        color: "#fff",
+        fontSize: 17,
+        fontWeight: 'bold',
         fontStyle: "normal",
-        top: -5,
-        marginLeft: -50,
-        letterSpacing: 1,
+        marginLeft: 30,
+        left: -10,
+        marginTop: -220,
+        top: 880,
+        padding:10,
     }
-
   });
 
   export default Espaco;
