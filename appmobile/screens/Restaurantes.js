@@ -52,7 +52,7 @@ class Restaurantes extends React.Component{
           <View style={style.container}>
             <BarraEstados />
             <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
-            <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={0.5}>
+            <ImageBackground source={imageBackgound} style={style.imageBackgound} >
               <ScrollView>
                 <View style={style.restaurantes}>
                   {
