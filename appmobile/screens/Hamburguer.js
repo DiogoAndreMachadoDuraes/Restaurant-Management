@@ -7,6 +7,32 @@ import Categoria from "./shared/Categoria.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
+const HamburguerVitela = require('../assets/vitela.jpg');
+const HamburguerMarisco = require('../assets/marisco.jpg');
+const HamburguerFrango = require('../assets/frango.jpg');
+
+const dataFromApi = [
+  {
+    id: 1,
+    name: "Hambúrguer de Vitela",
+    subtitle: "Hamburguer de vitela acompanhado por batata frita gourmet e bebida à descrição.",
+    imagem: HamburguerVitela
+  },
+  {
+    id: 2,
+    name: "Hambúrguer com Miolo de Camarão",
+    subtitle: "Hamburguer integral com um delicioso miolo de camarão acompanhado pelas nossas batatas caseiras e bebida à descrição.",
+    imagem: HamburguerMarisco
+  },
+  {
+    id: 3,
+    name: "Hambúrguer de Frango",
+    subtitle: "Hamburguer de frango grelhado acompanhado por batata frita e bebida à descrição.",
+    imagem: HamburguerFrango
+  }
+] 
+
+
 class Hamburguer extends React.Component{
     constructor(){
         super();
@@ -34,26 +60,21 @@ class Hamburguer extends React.Component{
                 
                 </ImageBackground>
               </View>
-              
               <View style={style.menu}>
-                <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("HamburguerVitela")}>
-                  <Image style={style.menuExpFoto} source={require('../assets/vitela.jpg')} ></Image>
-                  <Text style={style.titleMenu}>Hamburguer de Vitela</Text>
-                  <Text style={style.textMenu}>Hamburguer de vitela acompanhado por batata frita gourmet e bebida à descrição. </Text>
-                </TouchableOpacity>
-                <View style={style.menuExp}>
-                <Image style={style.menuExpFoto} source={require('../assets/marisco.jpg')}></Image>
-                  <Text style={style.titleMenu}>Hamburguer com Miolo de Camarão </Text>
-                  <Text style={style.textMenu}>Hamburguer integral com um delicioso miolo de camarão acompanhado pelas nossas batatas caseiras e bebida à descrição. </Text>
+                  {
+                    dataFromApi.map((item)=>{
+                      return (
+                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer", {item})}>
+                          <Image style={style.menuExpFoto} source={item.imagem} ></Image>
+                          <Text style={style.titleMenu}>{item.name}</Text>
+                          <Text style={style.textMenu}>{item.subtitle}</Text>
+                        </TouchableOpacity>
+                      );
+                    })
+                  }
+                  <NossoFinal />
                 </View>
-                <View style={style.menuExp}>
-                  <Image style={style.menuExpFoto} source={require('../assets/frango.jpg')}></Image>
-                  <Text style={style.titleMenu}>Hamburguer de Frango </Text>
-                  <Text style={style.textMenu}> Hamburguer de frango grelhado acompanhado por batata frita e bebida à descrição. </Text>
-                </View>
-              </View>
-              <NossoFinal></NossoFinal>
-            </ScrollView>
+              </ScrollView>
           </View>
         );
       }

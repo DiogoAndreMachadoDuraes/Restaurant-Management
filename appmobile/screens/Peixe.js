@@ -4,8 +4,20 @@ import {Header, Icon} from "react-native-elements";
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 import Categoria from "./shared/Categoria.js";
+import {NossoHeader} from "./shared/NossoHeader.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
+
+const Salmao = require('../assets/salmao.jpg');
+
+const dataFromApi = [
+  {
+    id: 1,
+    name: "Salmao Grelhado",
+    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
+    imagem: Salmao
+  }
+]  
 
 class Peixe extends React.Component{
     constructor(){

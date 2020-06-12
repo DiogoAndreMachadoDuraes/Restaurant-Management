@@ -33,16 +33,16 @@ class Home extends React.Component{
 
                 <Image source={require('../assets/espaco.jpg')} style={style.image}/>
                 <TouchableOpacity style={style.buttonEspaco} onPress={() => this.props.navigation.navigate("Espaco") }>
-                <Text style={style.buttondesign}>Espaço</Text>
+                <Text style={style.buttondesign}>Nosso Espaço</Text>
                 </TouchableOpacity>
                 
                 <Image source={require('../assets/ementa.jpg')} style={style.image1} opacity={1}/>
                 <TouchableOpacity style={style.buttonEmenta} onPress={() => this.props.navigation.navigate("Menu") }>
-                <Text style={style.buttoncardapio}>Menu</Text>
+                <Text style={style.buttoncardapio}>Menus</Text>
                 </TouchableOpacity>
 
                 <Image source={require('../assets/reserva.jpeg')} style={style.image2} opacity={1}/>
-                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Reservas") }>
+                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Reserva") }>
                 <Text style={style.buttonreserved}>Reserva</Text>
                 </TouchableOpacity>
 
@@ -306,6 +306,7 @@ const style = StyleSheet.create({
     buttondesign:{
         fontSize: 13,
         fontWeight: 'bold',
+        justifyContent: 'center',
         color: '#fff8dc'
     },
 

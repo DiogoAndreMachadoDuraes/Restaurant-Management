@@ -76,7 +76,7 @@ class Menu extends React.Component{
                   {
                     dataFromApi.map((item)=>{
                       return (
-                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Peixe", {item})}>
+                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer", {item})}>
                           <Image style={style.menuExpFoto} source={item.imagem} ></Image>
                           <Text style={style.titleMenu}>{item.name}</Text>
                           <Text style={style.textMenu}>{item.subtitle}</Text>
