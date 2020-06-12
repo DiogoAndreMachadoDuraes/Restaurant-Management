@@ -70,25 +70,13 @@ class Menu extends React.Component{
           <View style={style.container}>
             <BarraEstados />
             <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
-            <View style={style.imageBackgound}> 
-            <ImageBackground source={imageBackgound}/>           
-            <ScrollView>
-            
-              <View style={style.menuText}>
-                <Image source={require('../assets/ementa.jpg')} style={style.image} opacity={1}>             
-                <View style={style.caixatexto2}></View>
-                  <View style={style.arrow}>
-                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Home")} size={45} color={"#ff6347"}></Icon>
-                  </View>
-                
-                </Image>
-              </View>
-              
-              <View style={style.menu}>
+            <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
+              <ScrollView>
+                <View style={style.menu}>
                   {
                     dataFromApi.map((item)=>{
                       return (
-                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Vitela", {item})}>
+                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Peixe", {item})}>
                           <Image style={style.menuExpFoto} source={item.imagem} ></Image>
                           <Text style={style.titleMenu}>{item.name}</Text>
                           <Text style={style.textMenu}>{item.subtitle}</Text>
@@ -96,14 +84,10 @@ class Menu extends React.Component{
                       );
                     })
                   }
-
-              </View>
-
-            <NossoFinal></NossoFinal>
-            
-            </ScrollView>
-            </View>
-            
+                  <NossoFinal />
+                </View>
+              </ScrollView>
+            </ImageBackground>
           </View>
         );
       }
@@ -119,28 +103,8 @@ class Menu extends React.Component{
 
       image: {                         //foto por tras do titulo
         width: 420,
-        height: 250
+        height: 250,
       },
-
-      title: {                                  //titulo que diz MENU
-        color: "#ff6347",
-        fontSize: 40,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        fontStyle: "italic",
-        top: -35,
-        marginLeft: 130,
-      },
-
-      caixatexto:{
-        width: 415,
-        height: 100,
-        backgroundColor: '#000',
-        opacity: 0.7,
-        marginTop: -35,
-        marginLeft: 0,
-        borderRadius: 5,
-    },
 
       text: {                       
         color: "white",
@@ -159,15 +123,15 @@ class Menu extends React.Component{
 
       menu: {                           //scrollview
         width: "100%",
-        height: 1160,
+        height: 1690,
       },
 
       menuExp: {
-        marginTop: 10,
-        top: -65,
+        marginTop: 25,
+        top: 40,
         marginLeft: 55,
-        padding: 30,
-        width: 300,
+        padding: 20,
+        width: 290,
         height: 200,
         backgroundColor: '#fff',
         borderRadius: 5,
@@ -178,13 +142,7 @@ class Menu extends React.Component{
       menuExpFoto: {
         width: 100,
         height: 100,
-        marginTop: -20
-      },
-
-      arrow: {                          //come back (seta)
-        marginTop: 45,
-        marginLeft: -320,
-        top: -50,
+        marginTop: -10
       },
 
       caixatexto2:{
@@ -217,46 +175,6 @@ class Menu extends React.Component{
         fontStyle: "italic",
         textAlign: 'center',
         top: 20
-      },
-
-      companhiaText: {
-        color: "#fff",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 50
-      },
-
-      direitosText: {
-        color: "#fff",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-
-      redesText: {
-        color: "#fff",
-        fontSize: 15,
-        textAlign: 'center',
-        marginTop: 20
-      },
-
-      facebook: {
-        textAlign: 'center',
-        marginTop: 10,
-        marginRight: 20,
-      },
-
-      instagram: {
-        textAlign: 'center',
-        marginTop: -31,
-        marginRight: -50,
-        marginVertical: 50,
-      },
-
-      final: {
-        backgroundColor: "#556b2f",
-        justifyContent: 'center',
-        marginTop: 100
       }
     });
 export default Menu;

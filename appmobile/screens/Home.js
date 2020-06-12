@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Alert, StyleSheet, View, Text, Image, Image1, TextInput, TouchableOpacity, ImageBackground, StatusBar } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Header, Icon} from "react-native-elements";
+import { NossoHeader } from './shared/NossoHeader';
+import BarraEstados from './shared/BarraEstados';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const image = {uri: "https://images.trustinnews.pt/uploads/sites/5/2019/12/MB-Rest-JNCquoi-Asia-07.jpg"};
@@ -10,6 +12,7 @@ const image1 = {uri: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.eate
 class Home extends React.Component{
     constructor(){
         super();
+        this.state={ name:'Sabor da Avó' };
     }
     componentDidMount(){ 
         console.log("Montar ecrã Home...");
@@ -18,19 +21,9 @@ class Home extends React.Component{
         return (
 
             <View style={style.container}>
-                <Header                                            //cabeçalho
-                    placement="center"
-                    leftComponent={<Icon name="menu" color= '#fff' onPress={() => this.props.navigation.toggleDrawer()}/>}
-                    centerComponent={{ text: 'Sabor da Avó', style: { color: 'white' }}}
-                    rightComponent={{ icon: 'shopping-cart', color: '#fff' }}
-                    backgroundColor= "#556b2f"
-                    />
-
-                <StatusBar   
-                    barStyle="dark-content"                             
-                    backgroundColor="#ffa07a"
-                    hidden={false}                                                //cabecalho desaparece (true), reaparece(false)
-                    />     
+                <BarraEstados/>
+                    
+                <NossoHeader nome={this.state.name} navigation={this.props.navigation}/>
 
                 <ImageBackground source={imageBackgound} style={style.imagemdefundo} opacity={1}>
 
@@ -39,7 +32,7 @@ class Home extends React.Component{
                 </View>
 
                 <Image source={require('../assets/espaco.jpg')} style={style.image}/>
-                <TouchableOpacity style={style.buttonEspaco} onPress={() => this.props.navigation.navigate("Login") }>
+                <TouchableOpacity style={style.buttonEspaco} onPress={() => this.props.navigation.navigate("Espaco") }>
                 <Text style={style.buttondesign}>Espaço</Text>
                 </TouchableOpacity>
                 
@@ -49,7 +42,7 @@ class Home extends React.Component{
                 </TouchableOpacity>
 
                 <Image source={require('../assets/reserva.jpeg')} style={style.image2} opacity={1}/>
-                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Login") }>
+                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Reservas") }>
                 <Text style={style.buttonreserved}>Reserva</Text>
                 </TouchableOpacity>
 

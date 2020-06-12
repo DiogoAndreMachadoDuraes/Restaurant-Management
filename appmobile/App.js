@@ -3,6 +3,7 @@ import { createDrawerNavigator} from "@react-navigation/drawer";
 import { NavigationContainer, DarkTheme, DefaultTheme } from "@react-navigation/native";
 
 import Login from "./screens/Login.js";
+import Espaco from "./screens/Espaco.js";
 import BatataFrita from "./screens/BatataFrita.js";
 import BebidasFrias from "./screens/BebidasFrias.js";
 import BebidasQuentes from "./screens/BebidasQuentes.js";
@@ -46,6 +47,7 @@ const App = () => {
         <NavigationContainer /*theme={scheme === 'dark' ? DarkTheme : DefaultTheme}*/>
           <Drawer.Navigator initialRouteName="Login" drawerStyle={{ backgroundColor: '#fff'}} drawerContent={props => <DrawerContent {...props} />}>
             <Drawer.Screen name="Login" component={Login} />
+            <Drawer.Screen name="Espaco" component={Espaco} options={{ drawerLabel: 'Espaco' }}/>
             <Drawer.Screen name="BatataFrita" component={BatataFrita} options={{ drawerLabel: 'BatataFrita' }}/>
             <Drawer.Screen name="BebidasFrias" component={BebidasFrias} options={{ drawerLabel: 'BebidasFrias' }}/>
             <Drawer.Screen name="BebidasQuentes" component={BebidasQuentes} options={{ drawerLabel: 'BebidasQuentes' }}/>

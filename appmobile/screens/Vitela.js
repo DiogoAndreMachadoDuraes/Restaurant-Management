@@ -96,13 +96,6 @@ class Vitela extends React.Component{
               <Text style={style.infoText}>Informação Nutricional</Text>
               <Text style={style.alergeniosText}>Alergenios</Text>
               <Text style={style.alergenioText}>Não contém alergenios.</Text>
-              <View style={style.final}>
-                <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-                <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-                <Text style={style.redesText}>Siga-nos em:</Text>
-                <FontAwesome name="facebook-official" style={style.facebook} size={30}/>
-                <FontAwesome name="instagram" style={style.instagram} size={30}/>
-              </View>
               <NossoFinal></NossoFinal>
 
             </ScrollView>
