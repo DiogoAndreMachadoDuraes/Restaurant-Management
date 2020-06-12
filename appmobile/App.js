@@ -13,7 +13,7 @@ import Estrogonofe from "./screens/Estrogonofe.js"
 import Extras from "./screens/Extras.js";
 import Legumes from "./screens/Legumes.js";
 import Pudim from "./screens/Pudim.js";
-import Reservas from "./screens/Reservas.js";
+import Reserva from "./screens/Reserva.js";
 import Restaurantes from "./screens/Restaurantes.js";
 import Saladas from "./screens/Saladas.js";
 import SaladaTropical from "./screens/SaladaTropical.js";
@@ -57,7 +57,7 @@ const App = () => {
             <Drawer.Screen name="Extras" component={Extras} options={{ drawerLabel: 'Extras' }}/>
             <Drawer.Screen name="Legumes" component={Legumes} options={{ drawerLabel: 'Legumes' }}/>
             <Drawer.Screen name="Pudim" component={Pudim} options={{ drawerLabel: 'Pudim' }}/>
-            <Drawer.Screen name="Reservas" component={Reservas} options={{ drawerLabel: 'Reservas' }}/>
+            <Drawer.Screen name="Reserva" component={Reserva} options={{ drawerLabel: 'Reserva' }}/>
             <Drawer.Screen name="Restaurantes" component={Restaurantes} options={{ drawerLabel: 'Restaurantes' }}/>
             <Drawer.Screen name="Saladas" component={Saladas} options={{ drawerLabel: 'Saladas' }}/>
             <Drawer.Screen name="SaladaTropical" component={SaladaTropical} options={{ drawerLabel: 'SaladaTropical' }}/>

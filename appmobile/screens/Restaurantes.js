@@ -58,7 +58,7 @@ class Restaurantes extends React.Component{
                   {
                     dataFromApi.map((item)=>{
                       return (
-                        <TouchableOpacity style={style.restaurantesExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Pudim")}>
+                        <TouchableOpacity style={style.restaurantesExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
                           <Image style={style.restaurantesExpFoto} source={item.imagem} ></Image>
                           <Text style={style.textrestaurantes}>Rua: {item.rua}</Text>
                           <Text style={style.textrestaurantes}>Código Postal: {item.morada}</Text>

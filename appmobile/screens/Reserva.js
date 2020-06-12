@@ -8,17 +8,17 @@ import BarraEstados from "./shared/BarraEstados.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
-class Reservas extends React.Component{
+class Reserva extends React.Component{
   constructor(){
     super();
     this.state={
-      name:"Reservas",
+      name:"Reserva",
       selectedStartDate: null,
     };
     this.onDateChange = this.onDateChange.bind(this);
   }
   componentDidMount(){ 
-    console.log("Montando o ecrã Reservas...");
+    console.log("Montando o ecrã Reserva...");
   }
   onDateChange(date) {
     this.setState({
@@ -108,4 +108,4 @@ const style = StyleSheet.create({
   }
 });
 
-export default Reservas;
+export default Reserva;
