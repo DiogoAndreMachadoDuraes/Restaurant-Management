@@ -37,7 +37,7 @@ namespace App\Models;
         //get e set dia
         public function getdata()
         {
-            return $this->dia;
+            return $this->data;
         }
         public function setdata(string $data): Take_away
         {

@@ -11,7 +11,7 @@ namespace App\Models;
         //get e set id funcionario
         public function getid_funcionario()
         {
-            return $this->id_func;
+            return $this->id_funcionario;
         }
         public function setid_funcionario(int $id_funcionario): Funcionario
         {
