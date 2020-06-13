@@ -15,7 +15,8 @@ namespace App\Controllers;
             
             $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
-            $ementa->set_descricao($data['descricao']);
+            $ementa->set_nome($data['nome'])
+                ->set_descricao($data['descricao']);
             $ementa_dao->Insert($ementa);
 
             $response->getBody()->write("Ementa criada com sucesso!");
@@ -26,7 +27,7 @@ namespace App\Controllers;
         {
             $ementa_dao=new Ementa_dao();
             $ementa=$ementa_dao->Select();
-            $json=json_encode($ements);
+            $json=json_encode($ementa);
             $response->getBody()->write($json);
             return $response;
         }
@@ -38,6 +39,7 @@ namespace App\Controllers;
             $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
             $ementa->set_id_ementa($data['id_ementa']) 
+                ->set_nome($data['nome'])
                 ->set_descricao($data['descricao']);
             $ementa_dao->Update($ementa);
 

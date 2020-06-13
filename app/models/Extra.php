@@ -8,6 +8,7 @@ namespace App\Models;
         private string $nome;
         private string $tipo;
         private float $preco;
+        private string $foto;
 
         public function Extra(){ }
 
@@ -44,6 +45,15 @@ namespace App\Models;
 
         public function set_preco($preco): Extra{
             $this->preco = $preco;
+            return $this;
+        }
+
+        public function get_foto(){
+            return $this->foto;
+        }
+
+        public function set_foto($foto): Extra{
+            $this->foto = $foto;
             return $this;
         }
     }

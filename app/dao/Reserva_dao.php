@@ -15,10 +15,10 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('INSERT INTO Reserva VALUES (
                     null, 
-                    :pagamento
+                    :estado
                     );');
             $statement->execute([
-                'pagamento' => $reserva->get_pagamento()
+                'estado' => $reserva->get_estado()
             ]);
         }
 
@@ -33,10 +33,10 @@ namespace App\DAO;
         public function Update(Reserva $reserva) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Reserva SET pagamento=:pagamento WHERE id_reserva=:id_reserva');
+                ->prepare('UPDATE Reserva SET estado=:estado WHERE id_reserva=:id_reserva');
                 $statement->execute([
                     'id_reserva' => $reserva->get_id_reserva(),
-                    'pagamento' => $reserva->get_pagamento()
+                    'estado' => $reserva->get_estado()
                 ]);
         }
 

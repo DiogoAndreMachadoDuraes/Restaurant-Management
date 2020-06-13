@@ -17,7 +17,8 @@ namespace App\Controllers;
             $extra=new Extra();
             $extra->set_nome($data['nome'])
                 ->set_tipo($data['tipo'])
-                ->set_preco($data['preco']);
+                ->set_preco($data['preco'])
+                ->set_foto($data['foto']);
             $extra_dao->Insert($extra);
 
             $response->getBody()->write("Extra criado com sucesso!");
@@ -42,7 +43,8 @@ namespace App\Controllers;
             $extra->set_id_extra($data['id_extra'])
                 ->set_nome($data['nome'])
                 ->set_tipo($data['tipo'])
-                ->set_preco($data['preco']);
+                ->set_preco($data['preco'])
+                ->set_foto($data['foto']);
             $extra_dao->Update($extra);
 
             $response->getBody()->write("Extra modificado com sucesso!");

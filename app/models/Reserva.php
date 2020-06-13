@@ -5,7 +5,7 @@ namespace App\Models;
     final class Reserva
     {
         private int $id_reserva;
-        private bool $pagamento;
+        private string $estado;
 
         public function Reserva(){ }
 
@@ -18,12 +18,12 @@ namespace App\Models;
             return $this;
         }
 
-        public function get_pagamento(){
-            return $this->pagamento;
+        public function get_estado(){
+            return $this->estado;
         }
 
-        public function set_pagamento($pagamento): Reserva{
-            $this->pagamento = $pagamento;
+        public function set_estado($estado): Reserva{
+            $this->estado = $estado;
             return $this;
         }
     }

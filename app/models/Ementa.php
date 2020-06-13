@@ -5,6 +5,7 @@ namespace App\Models;
     final class Ementa
     {
         private int $id_ementa;
+        private string $nome;
         private string $descricao;
 
         public function Ementa(){ }
@@ -15,6 +16,16 @@ namespace App\Models;
         
         public function set_id_ementa($id_ementa): Ementa{
             $this->id_ementa = $id_ementa;
+            return $this;
+        }
+
+        public function get_nome()
+        {
+            return $this->nome;
+        }
+
+        public function set_nome($nome): Ementa{
+            $this->nome = $nome;
             return $this;
         }
 

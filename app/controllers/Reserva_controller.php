@@ -15,7 +15,7 @@ namespace App\Controllers;
 
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->set_pagamento($data['pagamento']);
+            $reserva->set_estado($data['estado']);
             $reserva_dao->Insert($reserva);
 
             $response->getBody()->write("Reserva criada com sucesso!");
@@ -38,7 +38,7 @@ namespace App\Controllers;
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
             $reserva->set_id_reserva($data['id_reserva'])
-                ->set_pagamento($data['pagamento']);
+                ->set_estado($data['estado']);
             $reserva_dao->Update($reserva);
 
             $response->getBody()->write("Reserva modificada com sucesso!");
