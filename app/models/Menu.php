@@ -5,8 +5,10 @@ namespace App\Models;
     final class Menu
     {
         private int $id_menu;
+        private string $nome;
         private float $valor;
         private string $descricao;
+        private string $foto;
 
         public function Menu() {}
 
@@ -21,6 +23,17 @@ namespace App\Models;
             return $this;
         }
     
+        //get e set nome
+        public function getnome()
+        {
+            return $this->nome;
+        }
+        public function setnome(string $nome): Menu
+        {
+            $this->nome = $nome;
+            return $this;
+        }
+        
         //get e set valor do menu
         public function getValor()
         {
@@ -40,6 +53,17 @@ namespace App\Models;
         public function setdescricao(string $descricao): Menu
         {
             $this->descricao = $descricao;
+            return $this;
+        }
+
+        //get e set foto
+        public function getfoto()
+        {
+            return $this->foto;
+        }
+        public function setfoto(string $foto): Menu
+        {
+            $this->foto = $foto;
             return $this;
         }
     }

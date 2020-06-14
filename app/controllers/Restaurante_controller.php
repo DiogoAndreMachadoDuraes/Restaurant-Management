@@ -27,10 +27,13 @@ final class Restaurante_controller
       $restaurante_dao=new Restaurante_dao();
       $restaurante=new Restaurante();
       $restaurante->setid_restaurante($data['id_restaurante'])
-         ->setnome($data['nome'])
-         ->setlocalizacao($data['localizacao'])
-         ->settelefone($data['telefone'])
-         ->setemail($data['email']);
+      ->setnome($data['nome'])
+      ->setrua($data['rua'])
+      ->setcodigo_postal($data['codigo_postal'])
+      ->setlocalizacao($data['localizacao'])
+      ->settelefone($data['telefone'])
+      ->setemail($data['email'])
+      ->setfotografia($data['fotografia']);
       $restaurante_dao->Update($restaurante);
 
       $response -> getBody() -> write("Restaurante modificado!");
@@ -45,9 +48,12 @@ final class Restaurante_controller
       $restaurante=new Restaurante();
       $restaurante->setid_restaurante($data['id_restaurante'])
          ->setnome($data['nome'])
+         ->setrua($data['rua'])
+         ->setcodigo_postal($data['codigo_postal'])
          ->setlocalizacao($data['localizacao'])
          ->settelefone($data['telefone'])
-         ->setemail($data['email']);
+         ->setemail($data['email'])
+         ->setfotografia($data['fotografia']);
       $restaurante_dao->Insert($restaurante);
 
       $response -> getBody() -> write("Restaurante inserido!");

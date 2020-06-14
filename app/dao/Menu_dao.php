@@ -15,8 +15,10 @@ class Menu_dao extends ConnectionDB
         $menu = $this->pdo
             ->query ('SELECT
                 id_menu,
+                nome,
                 valor,
-                descricao
+                descricao,
+                foto
                 From Menu;')
             ->fetchAll(\PDO::FETCH_ASSOC);
         return $menu;
@@ -27,13 +29,17 @@ class Menu_dao extends ConnectionDB
         $statement = $this->pdo
         ->prepare ('INSERT INTO Menu values(
             :id_menu,
+            :nome,
             :valor,
-            :descricao
+            :descricao,
+            :foto
         );');
         $statement->execute([
             'id_menu' => $menu->getid_menu(),
+            'nome' => $menu->getnome(),
             'valor' => $menu->getvalor(),
-            'descricao' => $menu->getdescricao()
+            'descricao' => $menu->getdescricao(),
+            'foto' => $menu->getfoto()
         ]);
     }
 
@@ -43,8 +49,10 @@ class Menu_dao extends ConnectionDB
             ->prepare('UPDATE Menu set valor=:valor and descricao=:descricao Where id_menu=:id_menu');
         $statement->execute([
             'id_menu' => $menu->getid_menu(),
+            'nome' => $menu->getnome(),
             'valor' => $menu->getvalor(),
-            'descricao' => $menu->getdescricao()
+            'descricao' => $menu->getdescricao(),
+            'foto' => $menu->getfoto()
         ]);
     }
 
