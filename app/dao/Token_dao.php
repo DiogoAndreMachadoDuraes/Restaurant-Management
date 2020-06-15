@@ -13,21 +13,21 @@ use App\Models\Token;
         public function Insert(Token $token): void
         {
             $statement=$this->pdo
-                ->prepare('Insert INTO token (token, refreshToken, expiredDate, id_utilizador) VALUES (:token, :refresehToken, :expiredDate, :id_utilizador);');
+                ->prepare('Insert INTO Token (token, refresh_token, expired_date, id_utilizador) VALUES (:token, :refreseh_token, :expired_date, :id_utilizador);');
             $statement->execute([
-                'token' => $token->getToken(),
-                'refreshToken' => $token->getRefreshToken(),
-                'expiredDate' => $token->getExpiredDate(),
-                'id_utilizador' => $token->getId_Utilizador(),
-                'active' => $token->getActive()
+                'token' => $token->get_token(),
+                'refresh_token' => $token->get_refresh_token(),
+                'expired_date' => $token->get_expired_date(),
+                'id_utilizador' => $token->get_id_Utilizador(),
+                'active' => $token->get_active()
             ]);
         }
 
-        public function verifyRefreshToken(string $refreshToken): bool
+        public function verifyRefreshToken(string $refresh_token): bool
         {
             $statement=$this->pdo
-                ->prepare('Select id From Token WHERE refreshToken = :refresehToken AND active = 1;');
-            $statement->bindParam('refreshToken', $refreshToken);
+                ->prepare('Select id_token From Token WHERE refresh_token = :refreseh_token AND active = 1;');
+            $statement->bindParam('refresh_token', $refresh_token);
             $statement->execute();
             $token=$statement->fetchAll(\PDO::FETCH_ASSOC);
             return count($token)==0 ? false:true ;

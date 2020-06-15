@@ -6,6 +6,8 @@ namespace App\Models;
     {
         private int $id_compra_produto;
         private float $preco;
+        private int $id_produto;
+        private int $id_reserva;
 
         public function Compra_produto(){ }
 
@@ -24,6 +26,24 @@ namespace App\Models;
 
         public function set_preco($preco): Compra_produto{
             $this->preco = $preco;
+            return $this;
+        }
+
+        public function get_id_produto(){
+            return $this->id_produto;
+        }
+
+        public function set_id_produto($id_produto): Compra_produto{
+            $this->id_produto = $id_produto;
+            return $this;
+        }
+
+        public function get_id_reserva(){
+            return $this->id_reserva;
+        }
+
+        public function set_id_reserva($id_reserva): Compra_produto{
+            $this->id_reserva = $id_reserva;
             return $this;
         }
     }

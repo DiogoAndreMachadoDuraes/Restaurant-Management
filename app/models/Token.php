@@ -6,61 +6,61 @@ namespace App\Models;
     {
         private int $id_token;
         private string $token;
-        private string $refreshToken;
-        private string $expiredDate;
+        private string $refresh_token;
+        private string $expired_date;
         private int $id_utilizador;
         private bool $active;
 
-        public function getId_Token(): int{
+        public function get_id_Token(): int{
             return $this->id_token;
         }
 
-        public function setId_Token($id_token): self{
+        public function set_id_Token($id_token): self{
             $this->id_token = $id_token;
             return $this;
         }
 
-        public function getToken(): string{
+        public function get_token(): string{
             return $this->token;
         }
 
-        public function setToken($token): self{
+        public function set_token($token): self{
             $this->token = $token;
             return $this;
         }
 
-        public function getRefreshToken(): string{
-            return $this->refreshToken;
+        public function get_refresh_token(): string{
+            return $this->refresh_token;
         }
 
-        public function setRefreshToken($refreshToken): self{
-            $this->refreshToken = $refreshToken;
+        public function set_refresh_token($refresh_token): self{
+            $this->refresh_token = $refresh_token;
             return $this;
         }
 
-        public function getExpiredDate(): string{
-            return $this->expiredDate;
+        public function get_expired_date(): string{
+            return $this->expired_date;
         }
 
-        public function setExpiredDate($expiredDate): self{
-            $this->expiredDate = $expiredDate;
+        public function set_expired_date($expired_date): self{
+            $this->expired_date = $expired_date;
             return $this;
         }
 
-        public function getId_Utilizador(): int{
+        public function get_id_utilizador(): int{
             return $this->id_utilizador;
         }
 
-        public function setId_Utilizador($id_utilizador): self{
+        public function set_id_utilizador($id_utilizador): self{
             $this->id_utilizador = $id_utilizador;
             return $this;
         }
 
-        public function getActive(): int{
+        public function get_active(): int{
             return $this->active;
         }
 
-        public function setActive($active): self{
+        public function set_active($active): self{
             $this->active = $active;
             return $this;
         }

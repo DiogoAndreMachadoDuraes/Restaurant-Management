@@ -6,6 +6,7 @@ namespace App\Models;
     {
         private int $id_reserva;
         private string $estado;
+        private int $id_cliente;
 
         public function Reserva(){ }
 
@@ -24,6 +25,15 @@ namespace App\Models;
 
         public function set_estado($estado): Reserva{
             $this->estado = $estado;
+            return $this;
+        }
+
+        public function get_id_cliente(){
+            return $this->id_cliente;
+        }
+
+        public function set_id_cliente($id_cliente): Reserva{
+            $this->id_cliente = $id_cliente;
             return $this;
         }
     }

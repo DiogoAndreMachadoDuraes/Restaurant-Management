@@ -20,7 +20,8 @@ namespace App\DAO;
                     );');
             $statement->execute([
                     'numero_cartao' => $cliente->get_numero_cartao(),
-                    'n_compras' => $cliente->get_n_compras()
+                    'n_compras' => $cliente->get_n_compras(),
+                    'id_utilizador' => $cliente->get_id_utilizador()
                 ]);
         }
 
@@ -38,8 +39,9 @@ namespace App\DAO;
                 ->prepare('UPDATE Cliente SET numero_cartao=:numero_cartao and n_compras=:n_compras WHERE id_cliente=:id_cliente');
             $statement->execute([
                 'id_cliente' => $cliente->get_id_cliente(),
-                'numero_cartao' => $cliente->set_numero_cartao(),
-                'n_compras' => $cliente->set_n_compras()
+                'numero_cartao' => $cliente->get_numero_cartao(),
+                'n_compras' => $cliente->get_n_compras(),
+                'id_utilizador' => $cliente->get_id_utilizador()
             ]);
         }
 
@@ -50,6 +52,24 @@ namespace App\DAO;
             $statement->execute([
                 'id_cliente' => $id_cliente
             ]);
+        }
+
+        public function Update_n_compras(Cliente $cliente) : void
+        {
+            $statement=$this->pdo
+                ->prepare('UPDATE Cliente SET n_compras=:n_compras WHERE id_cliente=:id_cliente');
+            $statement->execute([
+                'id_cliente' => $cliente->get_id_cliente(),
+                'n_compras' => $cliente->get_n_compras(),
+            ]);
+        }
+
+        public function Refeicao_gratis() : array
+        {
+            $cliente=$this->pdo
+                ->query('SELECT n_compras, numero_cartao FROM Cliente')
+                ->fetchAll(\PDO::FETCH_ASSOC);
+            return $cliente;
         }
     }
 ?>

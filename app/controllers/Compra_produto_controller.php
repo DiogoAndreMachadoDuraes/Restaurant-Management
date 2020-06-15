@@ -16,7 +16,9 @@ namespace App\Controllers;
             $compra_produto_dao=new Compra_produto_dao();
             $compra_produto=new Compra_produto();
             $compra_produto->set_id_compra_produto($data['id_compra_produto'])
-                ->set_preco($data['preco']);
+                ->set_preco($data['preco'])
+                ->set_id_produto($data['id_produto'])
+                ->set_id_reserva($data['id_reserva']);
             $compra_produto_dao->Insert($compra_produto);
 
             $response->getBody()->write("Compra produto criada com sucesso!");
@@ -39,7 +41,9 @@ namespace App\Controllers;
             $compra_produto_dao=new Compra_produto_dao();
             $compra_produto=new Compra_produto();
             $compra_produto->set_id_compra_produto($data['id_compra_produto'])
-                ->set_preco($data['preco']);
+                ->set_preco($data['preco'])
+                ->set_id_produto($data['id_produto'])
+                ->set_id_reserva($data['id_reserva']);
             $compra_produto_dao->Update($compra_produto);
 
             $response->getBody()->write("Compra produto modificada com sucesso!");

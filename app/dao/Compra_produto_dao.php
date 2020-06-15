@@ -15,10 +15,14 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('INSERT INTO Compra_produto values (
                     null,
-                    :preco
+                    :preco,
+                    :id_produto,
+                    :id_reserva
                     );');
             $statement->execute([
                     'preco' => $compra_produto->get_preco(),
+                    'id_produto' => $compra_produto->get_id_produto(),
+                    'id_reserva' => $compra_produto->get_id_reserva(),
                 ]);
         }
 
@@ -33,10 +37,12 @@ namespace App\DAO;
         public function Update(Compra_produto $compra_produto) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Compra_produto set preco=:preco Where id_compra_produto=:id_compra_produto');
+                ->prepare('UPDATE Compra_produto set preco=:preco, id_produto=:id_produto and id_reserva=:id_reserva Where id_compra_produto=:id_compra_produto');
             $statement->execute([
                 'id_compra_produto' => $compra_produto->get_id_compra_produto(),
                 'preco' => $compra_produto->get_preco(),
+                'id_produto' => $compra_produto->get_id_produto(),
+                'id_reserva' => $compra_produto->get_id_reserva(),
             ]);
         }
 

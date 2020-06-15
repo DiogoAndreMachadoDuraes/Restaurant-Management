@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-    final class Cliente extends Utilizador
+    final class Cliente
     {
         private int $id_cliente;
         private int $numero_cartao;
         private int $n_compras;
+        private int $id_utilizador;
 
         public function Cliente(){ }
 
@@ -34,6 +35,15 @@ namespace App\Models;
 
         public function set_n_compras($n_compras): Cliente{
             $this->n_compras = $n_compras;
+            return $this;
+        }
+
+        public function get_id_utilizador(){
+            return $this->id_utilizador;
+        }
+
+        public function set_id_utilizador($id_utilizador): Cliente{
+            $this->id_utilizador = $id_utilizador;
             return $this;
         }
     }

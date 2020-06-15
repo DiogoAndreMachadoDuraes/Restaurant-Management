@@ -8,6 +8,8 @@ namespace App\Models;
         private string $dia_semana;
         private string $data;
         private string $hora;
+        private int $id_restaurante;
+        private int $id_ementa;
 
         public function Refeicao_semanal(){ }
 
@@ -46,5 +48,23 @@ namespace App\Models;
             $this->hora = $hora;
             return $this;
         } 
+
+        public function get_id_restaurante(){
+            return $this->id_restaurante;
+        }
+
+        public function set_id_restaurante($id_restaurante): Refeicao_semanal{
+            $this->id_restaurante = $id_restaurante;
+            return $this;
+        }
+
+        public function get_id_ementa(){
+            return $this->id_ementa;
+        }
+
+        public function set_id_ementa($id_ementa): Refeicao_semanal{
+            $this->id_ementa = $id_ementa;
+            return $this;
+        }
     }
 ?>

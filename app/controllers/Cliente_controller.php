@@ -16,7 +16,8 @@ namespace App\Controllers;
             $cliente_dao=new Cliente_dao();
             $cliente=new Cliente();
             $cliente->set_numero_cartao($data['numero_cartao'])
-                    ->set_n_compras($data['n_compras']);
+                ->set_n_compras($data['n_compras'])
+                ->set_id_utilizador($data['id_utilizador']);
             $cliente_dao->Insert($cliente);
 
             $response->getBody()->write("Cliente criado com sucesso!");
@@ -40,7 +41,8 @@ namespace App\Controllers;
             $cliente=new Cliente();
             $cliente->set_id_cliente($data['id_cliente'])
                 ->set_numero_cartao($data['numero_cartao'])
-                ->set_n_compras($data['n_compras']);
+                ->set_n_compras($data['n_compras'])
+                ->set_id_utilizador($data['id_utilizador']);
             $cliente_dao->Update($cliente);
 
             $response->getBody()->write ("Cliente modificado com sucesso!");
@@ -60,33 +62,27 @@ namespace App\Controllers;
             return $response;
         }
         
-        /*public function Contar_menus() :int
+       public function Updade_n_compras(Request $request, Response $response, array $arg) : Response 
         {
-            $compra_menu= new Compramenu();
+            $data=$request->getParsedBody();
 
-            if($compra_menu)
-            {
-                $numero_compras=getN_compras();
-
-                return $numero_compras+1;
-            }
+            $cliente_dao=new Cliente_dao();
+            $cliente=new Cliente();
+            $cliente->set_id_cliente($data['id_cliente'])
+                ->set_n_compras($data['n_compras']);
+            $cliente_dao->Update_n_compras($cliente);
+            $response->getBody()->write("Cliente fez mais uma compra com sucesso!");
+            return $response;
         }
 
-        public function Refeicao_gratis() :void
+        public function Refeicao_gratis($n_compras, $numero_cartao) : void
         {
-            $numero_compras=getN_compras();
-            $nif=Utilizador::getnif();
-
-            if($numero_compras==10 && $nif=Cliente::getNif())
+            $cliente_dao=new Cliente_dao();
+            $cliente_dao->Refeicao_gratis();
+            if($n_compras==10)
             {
-                $id_cartao_fidelizacao=Cartao_fidelizacao::getId();
-                $id_cartaofk=Cartao_fidelizacao::getId_cartao_fidelizacao();
-
-                while($id_cartao_fidelizacao==$id_cartaofk){
-                    $nif=Cliente::getNif();
-                    echo("O cliente com o nif:") .$nif. ("com cartao ") .$id_cartao_fidelizacao. ("tem uma refeicao gratis");
-                }
+                echo("O cliente com o numero de cartao ") .$numero_cartao. ("tem uma refeicao gratis");
             }
-        }*/
+        }
     }
 ?>

@@ -17,7 +17,9 @@ namespace App\Controllers;
             $refeicao_semanal=new Refeicao_semanal();
             $refeicao_semanal->set_dia_semana($data['dia_semana'])
                 ->set_data($data['data'])
-                ->set_hora($data['hora']);
+                ->set_hora($data['hora'])
+                ->set_id_restaurante($data['id_restaurante'])
+                ->set_id_ementa($data['id_ementa']);
             $refeicao_semanal_dao->Insert($refeicao_semanal);
 
             $response->getBody()->write("Refeicao Semanal criada com sucesso!");
@@ -39,10 +41,12 @@ namespace App\Controllers;
 
             $refeicao_semanal_dao=new Refeicao_semanal_dao();
             $refeicao_semanal=new Refeicao_semanal();
-            $refeicao_semanal->setId_refeicao_semanal($data['id_refeicao_semanal'])
+            $refeicao_semanal->set_id_refeicao_semanal($data['id_refeicao_semanal'])
                 ->set_dia_semana($data['dia_semana'])
                 ->set_data($data['data'])
-                ->set_hora($data['hora']);
+                ->set_hora($data['hora'])
+                ->set_id_restaurante($data['id_restaurante'])
+                ->set_id_ementa($data['id_ementa']);
             $refeicao_semanal_dao->Update($refeicao_semanal);
 
             $response->getBody()->write("Refeicao Semanal modificada com sucesso!");

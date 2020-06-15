@@ -15,10 +15,14 @@ namespace App\DAO;
             $statement=$this->pdo
                 ->prepare('INSERT INTO Produto_extra values (
                     null,
-                    :quantidade
+                    :quantidade,
+                    :id_produto,
+                    :id_extra
                     );');
             $statement->execute([
                     'quantidade' => $Produto_extra->get_quantidade(),
+                    'id_produto' => $Produto_extra->get_id_produto(),
+                    'id_extra' => $Produto_extra->get_id_extra()
                 ]);
         }
 
@@ -33,10 +37,12 @@ namespace App\DAO;
         public function Update(Produto_extra $Produto_extra) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Produto_extra set quantidade=:quantidade Where id_produto_extra=:id_produto_extra');
+                ->prepare('UPDATE Produto_extra set quantidade=:quantidade, id_produto=:id_produto and id_extra=:id_extra Where id_produto_extra=:id_produto_extra');
             $statement->execute([
                 'id_produto_extra' => $Produto_extra->get_id_produto_extra(),
                 'quantidade' => $Produto_extra->get_quantidade(),
+                'id_produto' => $Produto_extra->get_id_produto(),
+                'id_extra' => $Produto_extra->get_id_extra()
             ]);
         }
 

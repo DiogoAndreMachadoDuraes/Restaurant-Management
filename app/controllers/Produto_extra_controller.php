@@ -16,7 +16,9 @@ namespace App\Controllers;
             $produto_extra_dao=new Produto_extra_dao();
             $produto_extra=new Produto_extra();
             $produto_extra->set_id_produto_extra($data['id_produto_extra'])
-                ->set_quantidade($data['quantidade']);
+                ->set_quantidade($data['quantidade'])
+                ->set_id_produto($data['id_produto'])
+                ->set_id_extra($data['id_extra']);
             $produto_extra_dao->Insert($produto_extra);
 
             $response->getBody()->write("Compra produto criada com sucesso!");
@@ -39,7 +41,9 @@ namespace App\Controllers;
             $produto_extra_dao=new Produto_extra_dao();
             $produto_extra=new Produto_extra();
             $produto_extra->set_id_produto_extra($data['id_produto_extra'])
-                ->set_quantidade($data['quantidade']);
+                ->set_quantidade($data['quantidade'])
+                ->set_id_produto($data['id_produto'])
+                ->set_id_extra($data['id_extra']);
             $produto_extra_dao->Update($produto_extra);
 
             $response->getBody()->write("Compra produto modificada com sucesso!");

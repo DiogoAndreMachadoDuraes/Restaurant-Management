@@ -16,7 +16,9 @@ namespace App\Controllers;
             $compra_menu_dao=new Compra_menu_dao();
             $compra_menu=new Compra_menu();
             $compra_menu->set_quantidade($data['quantidade'])
-                ->set_preco($data['preco']);
+                ->set_preco($data['preco'])
+                ->set_id_menu($data['id_menu'])
+                ->set_id_reserva($data['id_reserva']);
             $compra_menu_dao->Insert($compra_menu);
             $response->getBody()->write("Compra menu criada com sucesso!");
 
@@ -40,7 +42,9 @@ namespace App\Controllers;
             $compra_menu=new Compra_menu();
             $compra_menu->set_id_compra_menu($data['id_compra_menu'])
                 ->set_quantidade($data['quantidade'])
-                ->set_preco($data['preco']);
+                ->set_preco($data['preco'])
+                ->set_id_menu($data['id_menu'])
+                ->set_id_reserva($data['id_reserva']);
             $compra_menu_dao->Update($compra_menu);
 
             $response->getbody()->write("Compra menu modificada com sucesso!");
