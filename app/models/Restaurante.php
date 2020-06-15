@@ -6,9 +6,12 @@ namespace App\Models;
     {
         private int $id_restaurante;
         private string $nome;
+        private string $rua;
+        private string $codigo_postal;
         private string $localizacao;
         private string $telefone;
         private string $email;
+        private string $fotografia;
 
         public function Restaurante() {}
 
@@ -31,6 +34,28 @@ namespace App\Models;
         public function setnome(string $nome): Restaurante
         {
             $this->nome = $nome;
+            return $this;
+        }
+
+        //get e set rua
+        public function getrua()
+        {
+            return $this->rua;
+        }
+        public function setrua(string $rua): Restaurante
+        {
+            $this->rua = $rua;
+            return $this;
+        }
+
+        //get e set codigo-postal
+        public function getcodigo_postal()
+        {
+            return $this->codigo_postal;
+        }
+        public function setcodigo_postal(string $codigo_postal): Restaurante
+        {
+            $this->codigo_postal = $codigo_postal;
             return $this;
         }
 
@@ -64,6 +89,17 @@ namespace App\Models;
         public function setemail(string $email): Restaurante
         {
             $this->email = $email;
+            return $this;
+        }
+
+        //get e set foto
+        public function getfotografia()
+        {
+            return $this->fotografia;
+        }
+        public function setfotografia(string $fotografia): Restaurante
+        {
+            $this->fotografia = $fotografia;
             return $this;
         }
     }

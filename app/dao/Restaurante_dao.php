@@ -17,9 +17,12 @@ class Restaurante_dao extends ConnectionDB
             ->query ('SELECT
                 id_restaurante,
                 nome,
+                rua,
+                codigo_postal,
                 localizacao,
                 telefone,
-                email
+                email,
+                fotografia
                 From Restautante;')
             -> fetchAll(\PDO::FETCH_ASSOC);
         return $restaurante;
@@ -31,16 +34,22 @@ class Restaurante_dao extends ConnectionDB
         ->prepare ('INSERT INTO Restaurante values(
             :id_restaurante,
             :nome,
+            :rua,
+            :codigo_postal,
             :localizacao,
             :telefone,
-            :email
+            :email,
+            :fotografia
         );');
         $statement->execute([
             'id_restaurante' => $restaurante->getid_restaurante(),
             'nome' => $restaurante->getnome(),
+            'rua' => $restaurante->getrua(),
+            'codigo_postal' => $restaurante->getcodigo_postal(),
             'localizacao' => $restaurante->getlocalizacao(),
             'telefone' => $restaurante->gettelefone(),
-            'email' => $restaurante->getemail()
+            'email' => $restaurante->getemail(),
+            'fotografia' => $restaurante->getfotografia()
         ]);
     }
 
@@ -51,9 +60,12 @@ class Restaurante_dao extends ConnectionDB
         $statement->execute([
             'id_restaurante' => $restaurante->getid_restaurante(),
             'nome' => $restaurante->getnome(),
+            'rua' => $restaurante->getrua(),
+            'codigo_postal' => $restaurante->getcodigo_postal(),
             'localizacao' => $restaurante->getlocalizacao(),
             'telefone' => $restaurante->gettelefone(),
-            'email' => $restaurante->getemail()
+            'email' => $restaurante->getemail(),
+            'fotografia' => $restaurante->getfotografia()
         ]);
     }
 
