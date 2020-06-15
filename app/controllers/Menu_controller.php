@@ -28,7 +28,8 @@ final class Menu_controller
       ->setnome($data['nome'])
       ->setvalor($data['valor'])
       ->setdescricao($data['descricao'])
-      ->setfoto($data['foto']);
+      ->setfoto($data['foto'])
+      ->setid_ementa($data['id_ementa']);
       $menu_dao->Update($menu);
 
       $response -> getBody() -> write("Menu modificado!");
@@ -45,7 +46,8 @@ final class Menu_controller
          ->setnome($data['nome'])
          ->setvalor($data['valor'])
          ->setdescricao($data['descricao'])
-         ->setfoto($data['foto']);
+         ->setfoto($data['foto'])
+         ->setid_ementa($data['id_ementa']);
       $menu_dao->Insert($menu);
 
       $response -> getBody() -> write("Menu inserido!");

@@ -10,6 +10,7 @@ namespace App\Models;
         private string $descricao;
         private float $preco;
         private string $foto;
+        
 
         public function Produto() {}
 

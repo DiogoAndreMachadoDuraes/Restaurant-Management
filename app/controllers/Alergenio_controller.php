@@ -26,7 +26,9 @@ final class Alergenio_controller
       $alergenio=new Alergenio();
       $alergenio->setid_alergenio($data['id_alergenio'])
          ->settipo($data['tipo'])
-         ->setdescricao($data['descricao']);
+         ->setdescricao($data['descricao'])
+         ->setid_extra($data['id_extra'])
+         ->setid_produto($data['id_produto']);
       $alergenio_dao->Update($alergenio);
 
       $response -> getBody() -> write("Alergenio modificado!");
@@ -41,7 +43,9 @@ final class Alergenio_controller
       $alergenio=new Alergenio();
       $alergenio->setid_alergenio($data['id_alergenio'])
          ->settipo($data['tipo'])
-         ->setdescricao($data['descricao']);
+         ->setdescricao($data['descricao'])
+         ->setid_extra($data['id_extra'])
+         ->setid_produto($data['id_produto']);
       $alergenio_dao->Insert($alergenio);
 
       $response -> getBody() -> write("Alergenio inserido!");

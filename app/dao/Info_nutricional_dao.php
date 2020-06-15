@@ -17,7 +17,9 @@ class Info_nutricional_dao extends ConnectionDB
                 id_info_nutricional,
                 tipo,
                 quantidade_nutrientes,
-                descricao
+                descricao,
+                id_produto,
+                id_extra
                 From Info_nutricional;')
             -> fetchAll(\PDO::FETCH_ASSOC);
         return $info_nutricional;
@@ -30,25 +32,31 @@ class Info_nutricional_dao extends ConnectionDB
             :id_info_nutricional,
             :tipo,
             :quantidade_nutrientes,
-            :descricao
+            :descricao,
+            :id_produto,
+            :id_extra
         );');
         $statement->execute([
             'id_info_nutricional' => $info_nutricional->getid_info_nutricional(),
             'tipo' => $info_nutricional->gettipo(),
             'quantidade_nutrientes' => $info_nutricional->getquantidade_nutrientes(),
-            'descricao' => $info_nutricional->getdescricao()
+            'descricao' => $info_nutricional->getdescricao(),
+            'id_produto' => $info_nutricional->getid_produto(),
+            'id_extra' => $info_nutricional->getid_extra()
         ]);
     }
 
     public function Update (Info_nutricional $info_nutricional): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Info_nutricional set tipo=:tipo and quantidade_nutrientes=:quantidade_nutrientes and descricao=:descricao Where id_info_nutricional=:id_info_nutricional');
+            ->prepare('UPDATE Info_nutricional set tipo=:tipo , quantidade_nutrientes=:quantidade_nutrientes , descricao=:descricao , id_produto=:id_produto and id_extra=:id_extra Where id_info_nutricional=:id_info_nutricional');
         $statement->execute([
             'id_info_nutricional' => $info_nutricional->getid_info_nutricional(),
             'tipo' => $info_nutricional->gettipo(),
             'quantidade_nutrientes' => $info_nutricional->getquantidade_nutrientes(),
-            'descricao' => $info_nutricional->getdescricao()
+            'descricao' => $info_nutricional->getdescricao(),
+            'id_produto' => $info_nutricional->getid_produto(),
+            'id_extra' => $info_nutricional->getid_extra()
         ]);
     }
 

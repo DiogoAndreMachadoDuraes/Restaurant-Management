@@ -29,7 +29,9 @@ final class Take_away_controller
          ->setpreco($data['preco'])
          ->setdata($data['data'])
          ->sethora($data['hora'])
-         ->settipo_entrega($data['tipo_entrega']);
+         ->settipo_entrega($data['tipo_entrega'])
+         ->setid_reserva($data['id_reserva'])
+         ->setid_funcionario($data['id_funcionario']);
       $take_away_dao->Update($take_away);
 
       $response->getBody()->write("Take away modificado!");
@@ -46,7 +48,9 @@ final class Take_away_controller
          ->setpreco($data['preco'])
          ->setdata($data['data'])
          ->sethora($data['hora'])
-         ->settipo_entrega($data['tipo_entrega']);
+         ->settipo_entrega($data['tipo_entrega'])
+         ->setid_reserva($data['id_reserva'])
+         ->setid_funcionario($data['id_funcionario']);
       $take_away_dao->Insert($take_away);
 
       $response->getBody()->write("Take away inserido!");

@@ -8,10 +8,12 @@ namespace App\Models;
         private string $tipo;
         private int $quantidade_nutrientes;
         private string $descricao;
+        private int $id_produto;
+        private int $id_extra;
 
         public function Info_nutricional() {}
 
-        //get e set id
+        //get e set id da info
         public function getid_info_nutricional()
         {
             return $this->id_info_nutricional;
@@ -52,6 +54,28 @@ namespace App\Models;
         public function setdescricao(string $descricao): Info_nutricional
         {
             $this->descricao = $descricao;
+            return $this;
+        }
+
+        //get e set id_produto
+        public function getid_produto()
+        {
+            return $this->id_produto;
+        }
+        public function setid_produto(int $id_produto): Info_nutricional
+        {
+            $this->id_produto = $id_produto;
+            return $this;
+        }
+
+        //get e set id_extra
+        public function getid_extra()
+        {
+            return $this->id_extra;
+        }
+        public function setid_extra(int $id_extra): Info_nutricional
+        {
+            $this->id_extra = $id_extra;
             return $this;
         }
     }

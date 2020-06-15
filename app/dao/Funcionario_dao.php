@@ -14,7 +14,9 @@ class Funcionario_dao extends ConnectionDB
     {
         $funcionario = $this->pdo
             ->query ('SELECT
-                id_funcionario
+                id_funcionario,
+                id_restaurante,
+                id_utilizador
                 From Funcionaio;')
             ->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -25,19 +27,25 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Funcionario values(
-            :id_funcionario
+            :id_funcionario,
+            :id_restaurante,
+            :id_utilizador
         );');
         $statement->execute([
             'id_funcionario' => $funcionario->getid_funcionario(),
+            'id_restaurante' => $funcionario->getid_restaurante(),
+            'id_utilizador' => $funcionario->getid_utilizador()
         ]);
     }
 
     public function Update (Funcionario $funcionario): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Funcionario Where id_funcionario=:id_funcionario');
+            ->prepare('UPDATE Funcionario set id_restaurante=:id_restaurante and id_utilizador=:id_utilizador Where id_funcionario=:id_funcionario');
         $statement->execute([
             'id_funcionario' => $funcionario->getid_funcionario(),
+            'id_restaurante' => $funcionario->getid_restaurante(),
+            'id_utilizador' => $funcionario->getid_utilizador()
         ]);
     }
 

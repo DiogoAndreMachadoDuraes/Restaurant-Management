@@ -9,6 +9,8 @@ namespace App\Models;
         private string $data;
         private string $hora;
         private string $tipo_entrega;
+        private int $id_reserva;
+        private int $id_funcionario;
 
         public function take_away() {}
 
@@ -66,5 +68,27 @@ namespace App\Models;
             $this->tipo_entrega = $tipo_entrega;
             return $this;
         }
+
+         //get e set id_funcionario
+         public function getid_funcionario()
+         {
+             return $this->id_funcionario;
+         }
+         public function setid_funcionario(int $id_funcionario): Take_away
+         {
+             $this->id_funcionario = $id_funcionario;
+             return $this;
+         }
+ 
+         //get e set id_reserva
+         public function getid_reserva()
+         {
+             return $this->id_reserva;
+         }
+         public function setid_reserva(int $id_reserva): Take_away
+         {
+             $this->id_reserva = $id_reserva;
+             return $this;
+         }
     }
 ?>

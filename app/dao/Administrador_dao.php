@@ -15,7 +15,8 @@ class Administrador_dao extends ConnectionDB
     {
         $administrador = $this->pdo
             ->query ('SELECT
-                id_administrador
+                id_administrador,
+                id_utilizador
                 From Administrador;')
             ->fetchAll(\PDO::FETCH_ASSOC);
         return $administrador;
@@ -25,10 +26,12 @@ class Administrador_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Administrador values(
-            :id_administrador
+            :id_administrador,
+            :id_utilizador
         );');
         $statement->execute([
             'id_administrador' => $administrador->getid_administrador(),
+            'id_utilizador' => $administrador->getid_utilizador()
         ]);
     }
 
@@ -37,7 +40,8 @@ class Administrador_dao extends ConnectionDB
         $statement = $this->pdo
             ->prepare('UPDATE Administrador Where id_administrador=:id_administrador');
         $statement->execute([
-            'id_administrador' => $administrador->getid_administrador()
+            'id_administrador' => $administrador->getid_administrador(),
+            'id_utilizador' => $administrador->getid_utilizador()
         ]);
     }
 

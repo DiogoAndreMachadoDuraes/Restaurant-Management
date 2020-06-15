@@ -28,7 +28,9 @@ final class Info_nutricional_controller
       $info_nutricional->setid_info_nutricional($data['id_info_nutricional'])
          ->settipo($data['tipo'])
          ->setquantidade_nutrientes($data['quantidade_nutrientes'])
-         ->setdescricao($data['descricao']);
+         ->setdescricao($data['descricao'])
+         ->setid_produto($data['id_produto'])
+         ->setid_extra($data['id_extra']);
          $info_nutricional_dao->Update($info_nutricional);
 
       $response -> getBody() -> write("Informacao nutricional modificada!");
@@ -44,7 +46,9 @@ final class Info_nutricional_controller
       $info_nutricional->setid_info_nutricional($data['id_info_nutricional'])
          ->settipo($data['tipo'])
          ->setquantidade_nutrientes($data['quantidade_nutrientes'])
-         ->setdescricao($data['descricao']);
+         ->setdescricao($data['descricao'])
+         ->setid_produto($data['id_produto'])
+         ->setid_extra($data['id_extra']);
          $info_nutricional_dao->Insert($info_nutricional);
 
       $response -> getBody() -> write("Informacao Nutricional inserida!");

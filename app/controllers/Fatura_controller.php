@@ -28,7 +28,9 @@ final class Fatura_controller
       $fatura->setid_fatura($data['id_fatura'])
          ->settaxa($data['taxa'])
          ->setiva($data['iva'])
-         ->setnif_cliente($data['nif_cliente']);
+         ->setnif_cliente($data['nif_cliente'])
+         ->setid_reserva($data['id_reserva']);
+
       $fatura_dao->Update($fatura);
 
       $response -> getBody() -> write("Fatura modificada!");
@@ -44,7 +46,9 @@ final class Fatura_controller
       $fatura->setid_fatura($data['id_fatura'])
          ->settaxa($data['taxa'])
          ->setiva($data['iva'])
-         ->setnif_cliente($data['nif_cliente']);
+         ->setnif_cliente($data['nif_cliente'])
+         ->setid_reserva($data['id_reserva']);
+         
       $fatura_dao->Insert($fatura);
 
       $response -> getBody() -> write("Fatura inserida!");

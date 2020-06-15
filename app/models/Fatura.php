@@ -8,10 +8,11 @@ namespace App\Models;
         private float $iva;
         private string $taxa;
         private int $nif_cliente;
+        private int $id_reserva;
 
         public function Fatura() {}
 
-        //get e set id
+        //get e set id fatura
         public function getid_fatura()
         {
             return $this->id_fatura;
@@ -52,6 +53,17 @@ namespace App\Models;
          public function setnif_cliente(int $nif_cliente): Fatura
          {
              $this->nif_cliente = $nif_cliente;
+             return $this;
+         }
+
+         //get e set id_reserva
+         public function getid_reserva()
+         {
+             return $this->id_reserva;
+         }
+         public function setid_reserva(int $id_reserva): Fatura
+         {
+             $this->id_reserva = $id_reserva;
              return $this;
          }
     }

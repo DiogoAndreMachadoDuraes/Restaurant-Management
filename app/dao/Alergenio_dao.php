@@ -17,7 +17,9 @@ class Alergenio_dao extends ConnectionDB
             ->query ('SELECT
                 id_alergenio,
                 tipo,
-                descricao
+                descricao,
+                id_extra,
+                id_produto
             From Alergenio;')
         ->fetchAll (\PDO::FETCH_ASSOC);
 
@@ -30,23 +32,29 @@ class Alergenio_dao extends ConnectionDB
             ->prepare ('INSERT INTO Alergenio values(
                 :id_alergenio,
                 :tipo,
-                :descricao
+                :descricao,
+                :id_extra,
+                :id_produto
             );');
         $statement->execute([
             'id_alergenio' => $alergenio->getid_alergenio(),
             'tipo' => $alergenio->gettipo(),
-            'descricao' => $alergenio->getdescricao()
+            'descricao' => $alergenio->getdescricao(),
+            'id_extra'=>$alergenio->getid_extra(),
+            'id_produto'=>$alergenio->getid_produto()
         ]);
     }
 
     public function Update (Alergenio $alergenio): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Aergenio set tipo=:tipo and descricao=:descricao Where id_alergenio=:id_alergenio');
+            ->prepare('UPDATE Alergenio set tipo=:tipo , descricao=:descricao , id_extra=:id_extra and id_produto=:id_produto Where id_alergenio=:id_alergenio');
         $statement->execute([
             'id_alergenio' => $alergenio->getid_alergenio(),
             'tipo' => $alergenio->gettipo(),
-            'descricao' => $alergenio->getdescricao()
+            'descricao' => $alergenio->getdescricao(),
+            'id_extra'=>$alergenio->getid_extra(),
+            'id_produto'=>$alergenio->getid_produto()
         ]);
     }
 

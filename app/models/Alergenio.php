@@ -7,10 +7,12 @@ namespace App\Models;
         private int $id_alergenio;
         private string $tipo;
         private string $descricao;
+        private int $id_extra;
+        private int $id_produto;
 
         public function Alergenio(){}
 
-        //get e set id
+        //get e set id alergenio
         public function getid_alergenio()
         {
             return $this->id_alergenio;
@@ -40,6 +42,28 @@ namespace App\Models;
         public function setdescricao(string $descricao): Alergenio
         {
             $this->descricao = $descricao;
+            return $this;
+        }
+
+        //get e set id_extra
+        public function getid_extra()
+        {
+            return $this->id_extra;
+        }
+        public function setid_extra(int $id_extra): Alergenio
+        {
+            $this->id_extra = $id_extra;
+            return $this;
+        }
+
+        //get e set id_produto
+        public function getid_produto()
+        {
+            return $this->id_produto;
+        }
+        public function setid_produto(int $id_produto): Alergenio
+        {
+            $this->id_produto = $id_produto;
             return $this;
         }
     }

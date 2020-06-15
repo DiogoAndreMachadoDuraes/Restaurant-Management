@@ -25,7 +25,8 @@ final class Administrador_controller
         
       $administrador_dao=new Administrador_dao();
       $administrador=new Administrador();
-      $administrador->setid_administrador($data['id_administrador']);
+      $administrador->setid_administrador($data['id_administrador'])
+               ->setid_utilizador($data['id_utilizador']);
       $administrador_dao->Update($administrador);
 
       $response -> getBody() -> write("Administrador modificado!");
@@ -38,7 +39,8 @@ final class Administrador_controller
 
       $administrador_dao=new Administrador_dao();
       $administrador=new Administrador();
-      $administrador->setid_administrador($data['id_administrador']);
+      $administrador->setid_administrador($data['id_administrador'])
+                ->setid_utilizador($data['id_utilizador']);
       $administrador_dao->Insert($administrador);
 
       $response -> getBody() -> write("Administrador inserido!");

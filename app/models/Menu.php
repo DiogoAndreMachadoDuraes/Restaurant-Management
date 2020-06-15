@@ -9,6 +9,7 @@ namespace App\Models;
         private float $valor;
         private string $descricao;
         private string $foto;
+        private int $id_ementa;
 
         public function Menu() {}
 
@@ -64,6 +65,17 @@ namespace App\Models;
         public function setfoto(string $foto): Menu
         {
             $this->foto = $foto;
+            return $this;
+        }
+
+        //get e set id ementa
+        public function getid_ementa()
+        {
+            return $this->id_ementa;
+        }
+        public function setid_ementa(int $id_ementa): Menu
+        {
+            $this->id_ementa = $id_ementa;
             return $this;
         }
     }
