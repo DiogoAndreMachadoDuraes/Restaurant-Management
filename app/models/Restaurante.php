@@ -11,7 +11,7 @@ namespace App\Models;
         private string $localizacao;
         private string $telefone;
         private string $email;
-        private string $fotografia;
+        private string $foto;
 
         public function Restaurante() {}
 
@@ -93,13 +93,13 @@ namespace App\Models;
         }
 
         //get e set foto
-        public function getfotografia()
+        public function getfoto()
         {
-            return $this->fotografia;
+            return $this->foto;
         }
-        public function setfotografia(string $fotografia): Restaurante
+        public function setfoto(string $foto): Restaurante
         {
-            $this->fotografia = $fotografia;
+            $this->foto = $foto;
             return $this;
         }
     }

@@ -79,13 +79,13 @@
         $app->get('/Ementa', Ementa_controller::class . ':Select');
         $app->get('/Extra', Extra_controller::class . ':Select');
         $app->get('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Select');
-        $app->get('/Funcionario',Funcionario_controller::class . 'Select');
-        $app->get('/Fatura',Fatura_controller::class . 'Select');
-        $app->get('/Alergenio',Alergenio_controller::class . 'Select');
-        $app->get('/Info_nutricional',Info_nutricional_controller::class . 'Select');
-        $app->get('/Menu',Menu_controller::class . 'Select');
-        $app->get('/Produto',Produto_controller::class . 'Select');
-        $app->get('/Restaurante',Restaurante_controller::class . 'Select');
+        $app->get('/Funcionario',Funcionario_controller::class . ':Select');
+        $app->get('/Fatura',Fatura_controller::class . ':Select');
+        $app->get('/Alergenio',Alergenio_controller::class . ':Select');
+        $app->get('/Info_nutricional',Info_nutricional_controller::class . ':Select');
+        $app->get('/Menu',Menu_controller::class . ':Select');
+        $app->get('/Produto',Produto_controller::class . ':Select');
+        $app->get('/Restaurante',Restaurante_controller::class . ':Select');
         $app->get('/Take_away',Take_away_controller::class . ':Select');
 
     })  ->add(new Auth_middleware())

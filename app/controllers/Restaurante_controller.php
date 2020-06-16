@@ -8,7 +8,7 @@ use App\DAO\Restaurante_dao;
 use App\Models\Restaurante;
 
 
-final class Restaurante_controller
+class Restaurante_controller
 {                                
  
    public function Select (Request $request, Response $response, array $args) : Response
@@ -33,7 +33,7 @@ final class Restaurante_controller
       ->setlocalizacao($data['localizacao'])
       ->settelefone($data['telefone'])
       ->setemail($data['email'])
-      ->setfotografia($data['fotografia']);
+      ->setfoto($data['foto']);
       $restaurante_dao->Update($restaurante);
 
       $response -> getBody() -> write("Restaurante modificado!");
@@ -53,7 +53,7 @@ final class Restaurante_controller
          ->setlocalizacao($data['localizacao'])
          ->settelefone($data['telefone'])
          ->setemail($data['email'])
-         ->setfotografia($data['fotografia']);
+         ->setfoto($data['foto']);
       $restaurante_dao->Insert($restaurante);
 
       $response -> getBody() -> write("Restaurante inserido!");

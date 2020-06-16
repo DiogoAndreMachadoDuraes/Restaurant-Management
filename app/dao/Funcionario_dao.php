@@ -17,7 +17,7 @@ class Funcionario_dao extends ConnectionDB
                 id_funcionario,
                 id_restaurante,
                 id_utilizador
-                From Funcionaio;')
+                From Funcionario;')
             ->fetchAll(\PDO::FETCH_ASSOC);
 
         return $funcionario;
