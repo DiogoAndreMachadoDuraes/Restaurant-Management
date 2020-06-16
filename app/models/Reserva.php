@@ -23,7 +23,7 @@ namespace App\Models;
             return $this->estado;
         }
 
-        public function set_estado($estado): Reserva{
+        public function set_estado(string $estado): Reserva{
             $this->estado = $estado;
             return $this;
         }

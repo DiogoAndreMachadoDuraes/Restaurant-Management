@@ -15,8 +15,8 @@ namespace App\Controllers;
 
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->set_estado($data['estado'])
-                ->set_id_cliente($data['id_cliente']);
+            $reserva->set_estado('estado');
+            $reserva->set_id_cliente(intval('id_cliente'));
             $reserva_dao->Insert($reserva);
 
             $response->getBody()->write("Reserva criada com sucesso!");

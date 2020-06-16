@@ -10,30 +10,32 @@ namespace App\Models;
 
         public function Ementa(){ }
 
-        public function get_id_ementa(){
+        public function get_id_ementa(): int
+        {
             return $this->id_ementa;
         }
         
-        public function set_id_ementa($id_ementa): Ementa{
+        public function set_id_ementa(int $id_ementa): Ementa{
             $this->id_ementa = $id_ementa;
             return $this;
         }
 
-        public function get_nome()
+        public function get_nome() : string
         {
             return $this->nome;
         }
 
-        public function set_nome($nome): Ementa{
+        public function set_nome(string $nome): Ementa{
             $this->nome = $nome;
             return $this;
         }
 
-        public function get_descricao(){
+        public function get_descricao() : string
+        {
             return $this->descricao;
         }
 
-        public function set_descricao($descricao): Ementa{
+        public function set_descricao(string $descricao): Ementa{
             $this->descricao = $descricao;
             return $this;
         }
