@@ -52,16 +52,7 @@
     $app->post('/RefreshToken', Auth_controller::class . ':refreshToken');
 */
     $app->get('/Reserva', Reserva_controller::class . ':Select');
-    $app->get('/Administrador',Administrador_controller::class . ':Select');
-    $app->get('/Alergenio',Alergenio_controller::class . ':Select');
-    $app->get('/Fatura',Fatura_controller::class . ':Select');
-    $app->get('/Funcionario',Funcionario_controller::class . ':Select');
-    $app->get('/Info_nutricional',Info_nutricional_controller::class . ':Select');
-    $app->get('/Menu',Menu_controller::class . ':Select');
-    $app->get('/Produto',Produto_controller::class . ':Select');
-    $app->get('/Restaurante',Restaurante_controller::class . ':Select');
-    $app->get('/Take_away',Take_away_controller::class . ':Select');
-    $app->get('/Utilizador',Utilizador_controller::class . ':Select');
+
 
 /*
     $app->group('/Clientelogin', function() use($app) {
