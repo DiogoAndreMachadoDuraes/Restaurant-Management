@@ -19,7 +19,8 @@
         Menu_controller,
         Produto_controller,
         Restaurante_controller,
-        Take_away_controller
+        Take_away_controller,
+        Produto_extra_controller
     };
     use App\DAO\{
         Token_dao

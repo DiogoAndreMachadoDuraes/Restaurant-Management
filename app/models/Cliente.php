@@ -15,16 +15,17 @@ namespace App\Models;
             return $this->id_cliente;
         }
 
-        public function set_id_cliente($id_cliente): Cliente{
+        public function set_id_cliente(int $id_cliente): Cliente{
             $this->id_cliente = $id_cliente;
             return $this;
         }
 
-        public function get_numero_cartao(){
+        public function get_numero_cartao() : int
+        {
             return $this->numero_cartao;
         }
         
-        public function set_numero_cartao($numero_cartao): Cliente{
+        public function set_numero_cartao(int $numero_cartao): Cliente{
             $this->numero_cartao = $numero_cartao;
             return $this;
         }
@@ -33,7 +34,7 @@ namespace App\Models;
             return $this->n_compras;
         }
 
-        public function set_n_compras($n_compras): Cliente{
+        public function set_n_compras(int $n_compras): Cliente{
             $this->n_compras = $n_compras;
             return $this;
         }
@@ -42,7 +43,7 @@ namespace App\Models;
             return $this->id_utilizador;
         }
 
-        public function set_id_utilizador($id_utilizador): Cliente{
+        public function set_id_utilizador(int $id_utilizador): Cliente{
             $this->id_utilizador = $id_utilizador;
             return $this;
         }
