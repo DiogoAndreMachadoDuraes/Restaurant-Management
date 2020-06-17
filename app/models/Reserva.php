@@ -10,16 +10,19 @@ namespace App\Models;
 
         public function Reserva(){ }
 
-        public function get_id_reserva(){
+        public function get_id_reserva(): int
+        {
             return $this->id_reserva;
         }
 
-        public function set_id_reserva($id_reserva): Reserva{
+        public function set_id_reserva(int $id_reserva): Reserva
+        {
             $this->id_reserva = $id_reserva;
             return $this;
         }
 
-        public function get_estado(){
+        public function get_estado(): string
+        {
             return $this->estado;
         }
 
@@ -28,11 +31,12 @@ namespace App\Models;
             return $this;
         }
 
-        public function get_id_cliente(){
+        public function get_id_cliente(): int
+        {
             return $this->id_cliente;
         }
 
-        public function set_id_cliente($id_cliente): Reserva{
+        public function set_id_cliente(int $id_cliente): Reserva{
             $this->id_cliente = $id_cliente;
             return $this;
         }

@@ -35,7 +35,7 @@ namespace App\DAO;
         public function Update(Ementa $ementa) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Ementa set descricao=:descricao and nome=:nome Where id_ementa=:id_ementa');
+                ->prepare('UPDATE Ementa set nome=:nome, descricao=:descricao Where id_ementa=:id_ementa');
             $statement->execute([
                 'id_ementa' => $ementa->get_id_ementa(),
                 'nome' => $ementa->get_nome(),
@@ -43,12 +43,12 @@ namespace App\DAO;
             ]);
         }
 
-        public function Delete(int $id_ementa) : void
+        public function Delete(Ementa $ementa) : void
         {
             $statement=$this->pdo
-                ->prepare('DELETE Ementa Where id_ementa=:id_ementa');
+                ->prepare('DELETE FROM Ementa Where id_ementa=:id_ementa;');
             $statement->execute([
-                'id_ementa' => $id_ementa
+                'id_ementa' => $ementa->get_id_ementa()
             ]);
         }
 

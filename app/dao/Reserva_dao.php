@@ -35,7 +35,7 @@ namespace App\DAO;
         public function Update(Reserva $reserva) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Reserva SET estado=:estado and id_cliente=:id_cliente WHERE id_reserva=:id_reserva');
+                ->prepare('UPDATE Reserva SET estado=:estado, id_cliente=:id_cliente WHERE id_reserva=:id_reserva');
                 $statement->execute([
                     'id_reserva' => $reserva->get_id_reserva(),
                     'estado' => $reserva->get_estado(),
@@ -43,12 +43,12 @@ namespace App\DAO;
                 ]);
         }
 
-        public function Delete(int $id_reserva) : void
+        public function Delete(Reserva $reserva) : void
         {
             $statement=$this->pdo
-                ->prepare('DELETE FROM Reserva WHERE id_reserva=:id_reserva');
+                ->prepare('DELETE FROM Reserva WHERE id_reserva=:id_reserva;');
             $statement->execute([
-                    'id_reserva' => $id_reserva
+                'id_reserva' => $reserva->get_id_reserva()
             ]);
         }
     }
