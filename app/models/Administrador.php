@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-    final class Administrador extends Utilizador
+    final class Administrador
     {
         private int $id_administrador;
         private int $id_utilizador;
         
         public function Administrador() {}
-
 
         //get e set id admin
         public function getid_administrador()

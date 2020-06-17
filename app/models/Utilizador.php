@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-    abstract class Utilizador
+    final class Utilizador
     {
         private int $id_utilizador;
         private string $nome;
