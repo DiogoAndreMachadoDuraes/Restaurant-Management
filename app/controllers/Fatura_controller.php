@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Fatura_dao;
 use App\Models\Fatura;
 
-final class Fatura_controller
+class Fatura_controller
 {                                
  
    public function Select (Request $request, Response $response, array $args) : Response
@@ -43,8 +43,7 @@ final class Fatura_controller
 
       $fatura_dao=new Fatura_dao();
       $fatura=new Fatura();
-      $fatura->setid_fatura($data['id_fatura'])
-         ->settaxa($data['taxa'])
+      $fatura->settaxa($data['taxa'])
          ->setiva($data['iva'])
          ->setnif_cliente($data['nif_cliente'])
          ->setid_reserva($data['id_reserva']);

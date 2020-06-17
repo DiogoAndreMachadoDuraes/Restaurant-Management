@@ -13,9 +13,9 @@ class Restaurante_dao extends ConnectionDB
 
     public function Select(): array
     {
-        $restaurante = $this->pdo
-            ->query ('SELECT * From Restaurante')
-            -> fetchAll(\PDO::FETCH_ASSOC);
+        $restaurante=$this->pdo
+            ->query('SELECT * FROM Restaurante')
+            ->fetchAll(\PDO::FETCH_ASSOC);
         return $restaurante;
     }
 

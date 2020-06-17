@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-    final class Funcionario extends Utilizador
+    final class Funcionario
     {
         private int $id_funcionario;
         private int $id_restaurante;
         private int $id_utilizador;
-
-
+        
         public function Funcionario() {}
 
         //get e set id funcionario

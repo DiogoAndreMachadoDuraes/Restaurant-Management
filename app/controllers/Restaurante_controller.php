@@ -17,6 +17,7 @@ class Restaurante_controller
       $restaurante=$restaurante_dao->Select();
       $json=json_encode($restaurante);
       $response->getBody()->write($json);
+      
       return $response;
    }
  
