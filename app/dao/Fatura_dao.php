@@ -30,14 +30,13 @@ class Fatura_dao extends ConnectionDB
     { 
         $statement = $this->pdo
         ->prepare ('INSERT INTO Fatura values(
-            :id_fatura,
+            null,
             :taxa,
             :iva,
             :nif_cliente,
             :id_reserva
         );');
         $statement->execute([
-            'id_fatura' => $fatura->getid_fatura(),
             'taxa' => $fatura->gettaxa(),
             'iva' => $fatura->getiva(),
             'nif_cliente' => $fatura->getnif_cliente(),
