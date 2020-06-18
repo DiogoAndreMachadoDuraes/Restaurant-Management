@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Administrador_dao;
 use App\Models\Administrador;
 
-final class Administrador_controller
+class Administrador_controller
 {                                
  
    public function Select (Request $request, Response $response, array $args) : Response
@@ -53,7 +53,7 @@ final class Administrador_controller
       $administrador_dao=new Administrador_dao();
       $administrador=new Administrador();
       $administrador->setid_administrador($data['id_administrador']);
-      $administrador_dao->Delete(intval($administrador_dao));
+      $administrador_dao->Delete($administrador);
 
       $response -> getBody() -> write("Administrador eliminado!");
       return $response;

@@ -46,7 +46,7 @@ class Restaurante_dao extends ConnectionDB
     public function Update (Restaurante $restaurante): void
     {
         $statement = $this->pdo
-          ->prepare('UPDATE Restaurante set nome=:nome and localizacao=:localizacao and telefone=:telefone and email=:email Where id_restaurante=:id_restaurante');
+          ->prepare('UPDATE Restaurante set nome=:nome , rua=:rua , codigo_postal=:codigo_postal , localizacao=:localizacao , telefone=:telefone , email=:email , foto=:foto Where id_restaurante=:id_restaurante');
         $statement->execute([
             'id_restaurante' => $restaurante->getid_restaurante(),
             'nome' => $restaurante->getnome(),
@@ -59,13 +59,13 @@ class Restaurante_dao extends ConnectionDB
         ]);
     }
 
-    public function Delete (int $id_restaurante): void
+    public function Delete ( Restaurante $restaurante): void
     {
         $statement = $this->pdo
-        ->prepare ('DELETE FROM Restaurante WHERE id_restaurate = :id_restaurante');
+        ->prepare ('DELETE FROM Restaurante WHERE id_restaurante = :id_restaurante');
        
         $statement->execute([
-            'id_restaurante' => $id_restaurante
+            'id_restaurante' => $restaurante -> getid_restaurante()
         ]);
     }    
 }

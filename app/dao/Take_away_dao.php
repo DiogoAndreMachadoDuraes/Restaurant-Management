@@ -64,13 +64,13 @@ class Take_away_dao extends ConnectionDB
         ]);
     }
 
-    public function Delete (int $id_take_away): void
+    public function Delete (Take_away $take_away): void
     {
         $statement = $this->pdo
         ->prepare ('DELETE FROM Take_away WHERE id_take_away = :id_take_away');
        
         $statement->execute([
-            'id_take_away' => $id_take_away
+            'id_take_away' => $take_away -> getid_take_away()
         ]);
     }    
 }

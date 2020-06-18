@@ -33,6 +33,7 @@ final class Utilizador_controller
          ->settipo($data['tipo'])
          ->setfoto($data['foto'])
          ->setnif($data['nif']);
+         
       $utilizador_dao->Update($utilizador);
 
       $response -> getBody() -> write("Utilizador modificado!");
@@ -66,7 +67,7 @@ final class Utilizador_controller
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
       $utilizador->setid_utilizador($data['id_utilizador']);
-      $utilizador_dao->Delete(intval($utilizador));
+      $utilizador_dao->Delete($utilizador);
 
       $response -> getBody() -> write("Utilizador eliminado!");
       return $response;

@@ -67,7 +67,7 @@ class Restaurante_controller
       $restaurante_dao=new Restaurante_dao();
       $restaurante=new Restaurante();
       $restaurante->setid_restaurante($data['id_restaurante']);
-      $restaurante_dao->Delete(intval($restaurante));
+      $restaurante_dao->Delete($restaurante);
 
       $response -> getBody() -> write("Restaurante eliminado!");
       return $response;

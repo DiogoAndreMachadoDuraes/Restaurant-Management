@@ -47,7 +47,7 @@ class Fatura_dao extends ConnectionDB
     public function Update (Fatura $fatura): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Fatura set taxa=:taxa , iva=:iva , nif_cliente=:nif_cliente and id_reserva Where id_fatura=:id_fatura');
+            ->prepare('UPDATE Fatura set taxa=:taxa , iva=:iva , nif_cliente=:nif_cliente , id_reserva=:id_reserva Where id_fatura=:id_fatura');
         $statement->execute([
             'id_fatura' => $fatura->getid_fatura(),
             'taxa' => $fatura->gettaxa(),

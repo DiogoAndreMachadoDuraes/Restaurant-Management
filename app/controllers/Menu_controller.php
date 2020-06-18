@@ -60,7 +60,7 @@ final class Menu_controller
       $menu_dao=new Menu_dao();
       $menu=new Menu();
       $menu->setid_menu($data['id_menu']);
-      $menu_dao->Delete(intval($menu));
+      $menu_dao->Delete($menu);
 
       $response -> getBody() -> write("Menu eliminado!");
       return $response;

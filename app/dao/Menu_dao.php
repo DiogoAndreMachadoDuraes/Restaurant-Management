@@ -59,13 +59,13 @@ class Menu_dao extends ConnectionDB
         ]);
     }
 
-    public function Delete (int $id_menu): void
+    public function Delete (Menu $menu): void
     {
         $statement = $this->pdo
         ->prepare ('DELETE FROM Menu WHERE id_menu = :id_menu');
        
         $statement->execute([
-            'id_menu' => $id_menu
+            'id_menu' => $menu -> getid_menu()
         ]);
     }    
 }

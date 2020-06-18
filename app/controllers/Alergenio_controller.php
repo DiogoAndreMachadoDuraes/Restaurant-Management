@@ -58,7 +58,7 @@ final class Alergenio_controller
       $alergenio_dao=new Alergenio_dao();
       $alergenio=new Alergenio();
       $alergenio->setid_alergenio($data['id_alergenio']);
-      $alergenio_dao->Delete(intval($alergenio));
+      $alergenio_dao->Delete($alergenio);
 
       $response -> getBody() -> write("Alergenio eliminado!");
       return $response;

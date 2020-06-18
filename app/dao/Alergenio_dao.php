@@ -57,12 +57,12 @@ class Alergenio_dao extends ConnectionDB
         ]);
     }
 
-    public function Delete (int $id_alergenio): void
+    public function Delete (Alergenio $alergenio): void
     {
         $statement = $this->pdo
             ->prepare ('DELETE FROM Alergenio WHERE id_alergenio = :id_alergenio');
         $statement->execute([
-            'id_alergenio' => $id_alergenio
+            'id_alergenio' => $alergenio -> getid_alergenio ()
         ]);
     }  
 }

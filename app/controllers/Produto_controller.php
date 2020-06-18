@@ -61,7 +61,7 @@ final class Produto_controller
       $produto_dao=new Produto_dao();
       $produto=new Produto();
       $produto->setid_produto($data['id_produto']);
-      $produto_dao->Delete(intval($produto));
+      $produto_dao->Delete($produto);
 
       $response -> getBody() -> write("Produto eliminado!");
       return $response;

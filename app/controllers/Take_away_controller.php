@@ -63,7 +63,7 @@ final class Take_away_controller
       $take_away_dao=new Take_away_dao();
       $take_away=new Take_away();
       $take_away->setid_take_away($data['id_take_away']);
-      $take_away_dao->Delete(intval($take_away));
+      $take_away_dao->Delete($take_away);
 
       $response->getBody()->write("Take away eliminado!");
       return $response;
