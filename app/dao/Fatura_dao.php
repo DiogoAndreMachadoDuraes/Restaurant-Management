@@ -57,13 +57,13 @@ class Fatura_dao extends ConnectionDB
         ]);
     }
 
-    public function Delete (int $id_fatura): void
+    public function Delete ( Fatura $fatura): void
     {
         $statement = $this->pdo
         ->prepare ('DELETE FROM Fatura WHERE id_fatura = :id_fatura');
        
         $statement->execute([
-            'id_fatura' => $id_fatura
+            'id_fatura' => $fatura -> getid_fatura()
         ]);
     }
 }

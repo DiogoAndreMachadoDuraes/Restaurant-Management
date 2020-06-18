@@ -26,11 +26,10 @@ class Administrador_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Administrador values(
-            :id_administrador,
+            null,
             :id_utilizador
         );');
         $statement->execute([
-            'id_administrador' => $administrador->getid_administrador(),
             'id_utilizador' => $administrador->getid_utilizador()
         ]);
     }

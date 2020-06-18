@@ -23,7 +23,7 @@ class Restaurante_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Restaurante values(
-            :id_restaurante,
+            null,
             :nome,
             :rua,
             :codigo_postal,
@@ -33,7 +33,6 @@ class Restaurante_dao extends ConnectionDB
             :foto
         );');
         $statement->execute([
-            'id_restaurante' => $restaurante->getid_restaurante(),
             'nome' => $restaurante->getnome(),
             'rua' => $restaurante->getrua(),
             'codigo_postal' => $restaurante->getcodigo_postal(),

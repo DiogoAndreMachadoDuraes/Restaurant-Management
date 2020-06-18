@@ -44,8 +44,7 @@ final class Take_away_controller
 
       $take_away_dao=new Take_away_dao();
       $take_away=new Take_away();
-      $take_away->setid_take_away($data['id_take_away'])
-         ->setpreco($data['preco'])
+      $take_away->setpreco($data['preco'])
          ->setdata($data['data'])
          ->sethora($data['hora'])
          ->settipo_entrega($data['tipo_entrega'])

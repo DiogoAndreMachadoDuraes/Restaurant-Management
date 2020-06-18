@@ -27,12 +27,11 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Funcionario values(
-            :id_funcionario,
+            null,
             :id_restaurante,
             :id_utilizador
         );');
         $statement->execute([
-            'id_funcionario' => $funcionario->getid_funcionario(),
             'id_restaurante' => $funcionario->getid_restaurante(),
             'id_utilizador' => $funcionario->getid_utilizador()
         ]);

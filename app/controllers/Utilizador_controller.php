@@ -45,8 +45,7 @@ final class Utilizador_controller
 
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
-      $utilizador->setid_utilizador($data['id_utilizador'])
-         ->setnome($data['nome'])
+      $utilizador->setnome($data['nome'])
          ->settelefone($data['telefone'])
          ->setemail($data['email'])
          ->setmorada($data['morada'])

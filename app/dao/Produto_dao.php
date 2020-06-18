@@ -29,7 +29,7 @@ class Produto_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Produto values(
-            :id_produto,
+            null,
             :nome,
             :quantidade,
             :descricao,
@@ -39,7 +39,6 @@ class Produto_dao extends ConnectionDB
         );');
         
         $statement->execute([
-            'id_produto' => $produto ->getid_produto(),
             'nome' => $produto ->getnome(),
             'quantidade' => $produto ->getquantidade(),
             'descricao' => $produto->getdescricao(),

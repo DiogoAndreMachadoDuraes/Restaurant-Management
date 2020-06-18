@@ -43,8 +43,7 @@ final class Info_nutricional_controller
 
       $info_nutricional_dao=new Info_nutricional_dao();
       $info_nutricional=new Info_nutricional();
-      $info_nutricional->setid_info_nutricional($data['id_info_nutricional'])
-         ->settipo($data['tipo'])
+      $info_nutricional->settipo($data['tipo'])
          ->setquantidade_nutrientes($data['quantidade_nutrientes'])
          ->setdescricao($data['descricao'])
          ->setid_produto($data['id_produto'])

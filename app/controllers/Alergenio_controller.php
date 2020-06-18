@@ -41,8 +41,7 @@ final class Alergenio_controller
 
       $alergenio_dao=new Alergenio_dao();
       $alergenio=new Alergenio();
-      $alergenio->setid_alergenio($data['id_alergenio'])
-         ->settipo($data['tipo'])
+      $alergenio->settipo($data['tipo'])
          ->setdescricao($data['descricao'])
          ->setid_extra($data['id_extra'])
          ->setid_produto($data['id_produto']);

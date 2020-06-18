@@ -30,14 +30,13 @@ class Alergenio_dao extends ConnectionDB
     {
         $statement = $this->pdo
             ->prepare ('INSERT INTO Alergenio values(
-                :id_alergenio,
+                null,
                 :tipo,
                 :descricao,
                 :id_extra,
                 :id_produto
             );');
         $statement->execute([
-            'id_alergenio' => $alergenio->getid_alergenio(),
             'tipo' => $alergenio->gettipo(),
             'descricao' => $alergenio->getdescricao(),
             'id_extra'=>$alergenio->getid_extra(),

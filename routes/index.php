@@ -65,7 +65,38 @@
     $app->get('/Take_away',Take_away_controller::class . ':Select');
     $app->get('/Utilizador',Utilizador_controller::class . ':Select');
 
+    $app->post('/Administrador',Administrador_controller::class . ':Insert');
+    $app->post('/Alergenio',Alergenio_controller::class . ':Insert');
     $app->post('/Fatura',Fatura_controller::class . ':Insert');
+    $app->post('/Funcionario',Funcionario_controller::class . ':Insert');
+    $app->post('/Info_nutricional',Info_nutricional_controller::class . ':Insert');
+    $app->post('/Menu',Menu_controller::class . ':Insert');
+    $app->post('/Produto',Produto_controller::class . ':Insert');
+    $app->post('/Restaurante',Restaurante_controller::class . ':Insert');
+    $app->post('/Take_away',Take_away_controller::class . ':Insert');
+    $app->post('/Utilizador',Utilizador_controller::class . ':Insert');
+
+    $app->put('/Administrador',Administrador_controller::class . ':Update');
+    $app->put('/Alergenio',Alergenio_controller::class . ':Update');
+    $app->put('/Fatura',Fatura_controller::class . ':Update');
+    $app->put('/Funcionario',Funcionario_controller::class . ':Update');
+    $app->put('/Info_nutricional',Info_nutricional_controller::class . ':Update');
+    $app->put('/Menu',Menu_controller::class . ':Update');
+    $app->put('/Produto',Produto_controller::class . ':Update');
+    $app->put('/Restaurante',Restaurante_controller::class . ':Update');
+    $app->put('/Take_away',Take_away_controller::class . ':Update');
+    $app->put('/Utilizador',Utilizador_controller::class . ':Update');
+
+    $app->delete('/Administrador',Administrador_controller::class . ':Delete');
+    $app->delete('/Alergenio',Alergenio_controller::class . ':Delete');
+    $app->delete('/Fatura',Fatura_controller::class . ':Delete');
+    $app->delete('/Funcionario',Funcionario_controller::class . ':Delete');
+    $app->delete('/Info_nutricional',Info_nutricional_controller::class . ':Delete');
+    $app->delete('/Menu',Menu_controller::class . ':Delete');
+    $app->delete('/Produto',Produto_controller::class . ':Delete');
+    $app->delete('/Restaurante',Restaurante_controller::class . ':Delete');
+    $app->delete('/Take_away',Take_away_controller::class . ':Delete');
+    $app->delete('/Utilizador',Utilizador_controller::class . ':Delete');
 
 /*
     $app->group('/Clientelogin', function() use($app) {

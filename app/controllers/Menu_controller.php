@@ -42,8 +42,7 @@ final class Menu_controller
 
       $menu_dao=new Menu_dao();
       $menu=new Menu();
-      $menu->setid_menu($data['id_menu'])
-         ->setnome($data['nome'])
+      $menu->setnome($data['nome'])
          ->setvalor($data['valor'])
          ->setdescricao($data['descricao'])
          ->setfoto($data['foto'])

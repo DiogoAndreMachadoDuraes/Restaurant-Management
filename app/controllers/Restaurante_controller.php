@@ -47,8 +47,7 @@ class Restaurante_controller
 
       $restaurante_dao=new Restaurante_dao();
       $restaurante=new Restaurante();
-      $restaurante->setid_restaurante($data['id_restaurante'])
-         ->setnome($data['nome'])
+      $restaurante->setnome($data['nome'])
          ->setrua($data['rua'])
          ->setcodigo_postal($data['codigo_postal'])
          ->setlocalizacao($data['localizacao'])

@@ -33,7 +33,7 @@ class Utilizador_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Utilizador values(
-            :id_utilizador,
+            null,
             :nome,
             :telefone,
             :email,
@@ -44,7 +44,6 @@ class Utilizador_dao extends ConnectionDB
             :nif
         );');
         $statement->execute([
-            'id_utilizador' => $utilizador->getid_utilizador(),
             'nome' => $utilizador->getnome(),
             'telefone' => $utilizador->gettelefone(),
             'email' => $utilizador->getemail(),

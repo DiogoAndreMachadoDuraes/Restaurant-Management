@@ -29,7 +29,7 @@ class Menu_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Menu values(
-            :id_menu,
+            null,
             :nome,
             :valor,
             :descricao,
@@ -37,7 +37,6 @@ class Menu_dao extends ConnectionDB
             :id_ementa
         );');
         $statement->execute([
-            'id_menu' => $menu->getid_menu(),
             'nome' => $menu->getnome(),
             'valor' => $menu->getvalor(),
             'descricao' => $menu->getdescricao(),

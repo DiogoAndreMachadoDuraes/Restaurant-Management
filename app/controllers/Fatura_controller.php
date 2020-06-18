@@ -60,8 +60,8 @@ class Fatura_controller
 
       $fatura_dao=new Fatura_dao();
       $fatura=new Fatura();
-      $fatura->setid_fatura(intval($data['id_fatura']));
-      $fatura_dao->Delete(intval($fatura));
+      $fatura->setid_fatura($data['id_fatura']);
+      $fatura_dao->Delete($fatura);
 
       $response -> getBody() -> write("Fatura eliminada!");
       return $response;

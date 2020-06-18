@@ -29,7 +29,7 @@ class Info_nutricional_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Info_nutricional values(
-            :id_info_nutricional,
+            null,
             :tipo,
             :quantidade_nutrientes,
             :descricao,
@@ -37,7 +37,6 @@ class Info_nutricional_dao extends ConnectionDB
             :id_extra
         );');
         $statement->execute([
-            'id_info_nutricional' => $info_nutricional->getid_info_nutricional(),
             'tipo' => $info_nutricional->gettipo(),
             'quantidade_nutrientes' => $info_nutricional->getquantidade_nutrientes(),
             'descricao' => $info_nutricional->getdescricao(),
