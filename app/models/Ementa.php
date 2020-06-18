@@ -15,7 +15,8 @@ namespace App\Models;
             return $this->id_ementa;
         }
         
-        public function set_id_ementa(int $id_ementa): Ementa{
+        public function set_id_ementa(int $id_ementa): Ementa
+        {
             $this->id_ementa = $id_ementa;
             return $this;
         }
@@ -25,7 +26,8 @@ namespace App\Models;
             return $this->nome;
         }
 
-        public function set_nome(string $nome): Ementa{
+        public function set_nome(string $nome): Ementa
+        {
             $this->nome = $nome;
             return $this;
         }

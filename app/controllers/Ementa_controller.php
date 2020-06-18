@@ -54,7 +54,7 @@ namespace App\Controllers;
             $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
             $ementa->set_id_ementa($data['id_ementa']);
-            $ementa_dao->Delete(intval($ementa));
+            $ementa_dao->Delete($ementa);
 
             $response->getBody()->write("Ementa eliminada com sucesso!");
             return $response;
