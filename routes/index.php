@@ -53,7 +53,6 @@
     $app->post('/Login', Auth_controller::class. ':login');
     $app->post('/RefreshToken', Auth_controller::class . ':refreshToken');
 */
-    $app->get('/Reserva', Reserva_controller::class . ':Select');
     $app->get('/Administrador',Administrador_controller::class . ':Select');
     $app->get('/Alergenio',Alergenio_controller::class . ':Select');
     $app->get('/Fatura',Fatura_controller::class . ':Select');
@@ -98,17 +97,6 @@
     $app->delete('/Take_away',Take_away_controller::class . ':Delete');
     $app->delete('/Utilizador',Utilizador_controller::class . ':Delete');
 
-    $app->get('/Administrador',Administrador_controller::class . ':Select');
-    $app->get('/Alergenio',Alergenio_controller::class . ':Select');
-    $app->get('/Fatura',Fatura_controller::class . ':Select');
-    $app->get('/Funcionario',Funcionario_controller::class . ':Select');
-    $app->get('/Info_nutricional',Info_nutricional_controller::class . ':Select');
-    $app->get('/Menu',Menu_controller::class . ':Select');
-    $app->get('/Produto',Produto_controller::class . ':Select');
-    $app->get('/Restaurante',Restaurante_controller::class . ':Select');
-    $app->get('/Take_away',Take_away_controller::class . ':Select');
-    $app->get('/Utilizador',Utilizador_controller::class . ':Select');
-    $app->post('/Fatura',Fatura_controller::class . ':Insert');
     $app->get('/Reserva', Reserva_controller::class . ':Select');
     $app->post('/Reserva', Reserva_controller::class . ':Insert');
     $app->put('/Reserva', Reserva_controller::class . ':Update');
