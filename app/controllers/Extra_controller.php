@@ -58,7 +58,7 @@ namespace App\Controllers;
             $extra_dao=new Extra_dao();
             $extra=new Extra();
             $extra->set_id_extra($data['id_extra']);
-            $extra_dao->Delete(intval($extra));
+            $extra_dao->Delete($extra);
 
             $response->getBody()->write("Extra eliminado com sucesso!");
             return $response;

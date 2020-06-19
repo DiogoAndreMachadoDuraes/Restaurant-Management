@@ -12,11 +12,12 @@ namespace App\Models;
 
         public function Compra_menu(){ }
 
-        public function get_id_compra_menu(){
+        public function get_id_compra_menu()
+        {
             return $this->id_compra_menu;
         }
 
-        public function set_id_compra_menu($id_compra_menu): Compra_menu{
+        public function set_id_compra_menu(int $id_compra_menu): Compra_menu{
             $this->id_compra_menu = $id_compra_menu;
             return $this;
         }
@@ -25,7 +26,7 @@ namespace App\Models;
             return $this->quantidade;
         }
 
-        public function set_quantidade($quantidade): Compra_menu{
+        public function set_quantidade(int $quantidade): Compra_menu{
             $this->quantidade = $quantidade;
             return $this;
         }
@@ -34,16 +35,16 @@ namespace App\Models;
             return $this->preco;
         }
 
-        public function set_preco($preco): Compra_menu{
+        public function set_preco(float $preco): Compra_menu{
             $this->preco = $preco;
             return $this;
         }
 
         public function get_id_menu(){
-            return $this->id_compra_menu;
+            return $this->id_menu;
         }
 
-        public function set_id_menu($id_menu): Compra_menu{
+        public function set_id_menu(int $id_menu): Compra_menu{
             $this->id_menu = $id_menu;
             return $this;
         }
@@ -52,7 +53,7 @@ namespace App\Models;
             return $this->id_reserva;
         }
 
-        public function set_id_reserva($id_reserva): Compra_menu{
+        public function set_id_reserva(int $id_reserva): Compra_menu{
             $this->id_reserva = $id_reserva;
             return $this;
         }

@@ -40,7 +40,7 @@ namespace App\DAO;
         public function Update(Extra $extra) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Extra set nome=:nome, tipo=:tipo, preco=:preco and foto=:foto Where id_extra=:id_extra');
+                ->prepare('UPDATE Extra set nome=:nome, tipo=:tipo, preco=:preco, foto=:foto Where id_extra=:id_extra');
             $statement->execute([
                 'id_extra' => $extra->get_id_extra(),
                 'nome' => $extra->get_nome(),
@@ -50,12 +50,12 @@ namespace App\DAO;
             ]);
         }
 
-        public function Delete(int $id_extra) : void
+        public function Delete(Extra $extra) : void
         {
             $statement=$this->pdo
-                ->prepare('DELETE Extra Where id_extra=:id_extra');
+                ->prepare('DELETE FROM Extra Where id_extra=:id_extra');
             $statement->execute([
-                'id_extra' => $id_extra
+                'id_extra' => $extra->get_id_extra()
             ]);
         }
 

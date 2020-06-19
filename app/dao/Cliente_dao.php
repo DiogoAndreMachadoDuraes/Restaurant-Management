@@ -16,7 +16,7 @@ namespace App\DAO;
                 ->prepare('INSERT INTO Cliente VALUES (
                     null, 
                     :numero_cartao,
-                    :n_compras
+                    :n_compras,
                     :id_utilizador
                     );');
             $statement->execute([
@@ -37,7 +37,7 @@ namespace App\DAO;
         public function Update(Cliente $cliente) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Cliente SET numero_cartao=:numero_cartao, n_compras=:n_compras and id_utilizador=:id_utilizador WHERE id_cliente=:id_cliente');
+                ->prepare('UPDATE Cliente SET numero_cartao=:numero_cartao, n_compras=:n_compras, id_utilizador=:id_utilizador WHERE id_cliente=:id_cliente');
             $statement->execute([
                 'id_cliente' => $cliente->get_id_cliente(),
                 'numero_cartao' => $cliente->get_numero_cartao(),
@@ -46,12 +46,12 @@ namespace App\DAO;
             ]);
         }
 
-        public function Delete(int $id_cliente) : void
+        public function Delete(Cliente $cliente) : void
         {
             $statement=$this->pdo
                 ->prepare('DELETE FROM Cliente WHERE id_cliente=:id_cliente');
             $statement->execute([
-                'id_cliente' => $id_cliente
+                'id_cliente' => $cliente->get_id_cliente()
             ]);
         }
 

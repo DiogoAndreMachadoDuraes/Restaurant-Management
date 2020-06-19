@@ -11,11 +11,11 @@ namespace App\Models;
         private int $id_utilizador;
         private bool $active;
 
-        public function get_id_Token(): int{
+        public function get_id_token(): int{
             return $this->id_token;
         }
 
-        public function set_id_Token($id_token): self{
+        public function set_id_token($id_token): self{
             $this->id_token = $id_token;
             return $this;
         }

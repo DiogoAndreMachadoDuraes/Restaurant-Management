@@ -58,7 +58,7 @@ namespace App\Controllers;
             $compra_menu_dao=new Compra_menu_dao();
             $compra_menu=new Compra_menu();
             $compra_menu->set_id_compra_menu($data['id_compra_menu']);
-            $compra_menu_dao->Delete(intval($compra_menu));
+            $compra_menu_dao->Delete($compra_menu);
 
             $response->getBody()->write("Compra menu eliminada com sucesso!");
             return $response;

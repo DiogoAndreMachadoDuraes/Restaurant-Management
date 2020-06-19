@@ -52,12 +52,12 @@ namespace App\DAO;
             ]);
         }
 
-        public function Delete(int $id_refeicao_semanal) : void
+        public function Delete(Refeicao_semanal $refeicao_semanal) : void
         {
             $statement=$this->pdo
-                ->prepare('DELETE Refeicao_semanal Where id_refeicao_semanal=:id_refeicao_semanal');
+                ->prepare('DELETE FROM Refeicao_semanal Where id_refeicao_semanal=:id_refeicao_semanal');
             $statement->execute([
-                'id_refeicao_semanal' => $id_refeicao_semanal
+                'id_refeicao_semanal' => $refeicao_semanal->get_id_refeicao_semanal()
             ]);
         }
     }

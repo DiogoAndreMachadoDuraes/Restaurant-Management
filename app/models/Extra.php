@@ -16,7 +16,7 @@ namespace App\Models;
             return $this->id_extra;
         }
 
-        public function set_id_extra($id_extra): Extra{
+        public function set_id_extra(int $id_extra): Extra{
             $this->id_extra = $id_extra;
             return $this;
         }
@@ -25,7 +25,7 @@ namespace App\Models;
             return $this->nome;
         }
 
-        public function set_nome($nome): Extra{
+        public function set_nome(string $nome): Extra{
             $this->nome = $nome;
             return $this;
         }
@@ -34,7 +34,7 @@ namespace App\Models;
             return $this->tipo;
         }
 
-        public function set_tipo($tipo): Extra{
+        public function set_tipo(string $tipo): Extra{
             $this->tipo = $tipo;
             return $this;
         }
@@ -43,7 +43,7 @@ namespace App\Models;
             return $this->preco;
         }
 
-        public function set_preco($preco): Extra{
+        public function set_preco(float $preco): Extra{
             $this->preco = $preco;
             return $this;
         }
@@ -52,7 +52,7 @@ namespace App\Models;
             return $this->foto;
         }
 
-        public function set_foto($foto): Extra{
+        public function set_foto(string $foto): Extra{
             $this->foto = $foto;
             return $this;
         }

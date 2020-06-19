@@ -60,7 +60,7 @@ namespace App\Controllers;
             $refeicao_semanal_dao=new Refeicao_semanal_dao();
             $refeicao_semanal=new Refeicao_semanal();
             $refeicao_semanal->set_id_refeicao_semanal($data['id_refeicao_semanal']);
-            $refeicao_semanal_dao->Delete(intval($refeicao_semanal));
+            $refeicao_semanal_dao->Delete($refeicao_semanal);
 
             $response->getBody()->write("Refeicao Semanal eliminada com sucesso!");
             return $response;

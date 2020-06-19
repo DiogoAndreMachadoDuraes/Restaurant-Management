@@ -37,7 +37,7 @@ namespace App\DAO;
         public function Update(Compra_produto $compra_produto) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Compra_produto set preco=:preco, id_produto=:id_produto and id_reserva=:id_reserva Where id_compra_produto=:id_compra_produto');
+                ->prepare('UPDATE Compra_produto set preco=:preco, id_produto=:id_produto, id_reserva=:id_reserva Where id_compra_produto=:id_compra_produto');
             $statement->execute([
                 'id_compra_produto' => $compra_produto->get_id_compra_produto(),
                 'preco' => $compra_produto->get_preco(),
@@ -46,12 +46,12 @@ namespace App\DAO;
             ]);
         }
 
-        public function Delete(int $id_compra_produto) : void
+        public function Delete(Compra_produto $compra_produto) : void
         {
             $statement=$this->pdo
-                ->prepare('DELETE Compra_produto Where id_compra_produto=:id_compra_produto');
+                ->prepare('DELETE FROM Compra_produto Where id_compra_produto=:id_compra_produto');
             $statement->execute([
-                'id_compra_produto' => $id_compra_produto
+                'id_compra_produto' => $compra_produto->get_id_compra_produto()
             ]);
         }
         
