@@ -29,7 +29,7 @@ class Menu_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Menu values(
-            :id_menu,
+            null,
             :nome,
             :valor,
             :descricao,
@@ -37,7 +37,6 @@ class Menu_dao extends ConnectionDB
             :id_ementa
         );');
         $statement->execute([
-            'id_menu' => $menu->getid_menu(),
             'nome' => $menu->getnome(),
             'valor' => $menu->getvalor(),
             'descricao' => $menu->getdescricao(),
@@ -49,7 +48,7 @@ class Menu_dao extends ConnectionDB
     public function Update (Menu $menu): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Menu set valor=:valor , nome=:nome , foto=:foto , descricao=:descricao and id_ementa=:id_ementa Where id_menu=:id_menu');
+            ->prepare('UPDATE Menu set valor=:valor , nome=:nome , foto=:foto , descricao=:descricao , id_ementa=:id_ementa Where id_menu=:id_menu');
         $statement->execute([
             'id_menu' => $menu->getid_menu(),
             'nome' => $menu->getnome(),
@@ -60,13 +59,13 @@ class Menu_dao extends ConnectionDB
         ]);
     }
 
-    public function Delete (int $id_menu): void
+    public function Delete (Menu $menu): void
     {
         $statement = $this->pdo
         ->prepare ('DELETE FROM Menu WHERE id_menu = :id_menu');
        
         $statement->execute([
-            'id_menu' => $id_menu
+            'id_menu' => $menu -> getid_menu()
         ]);
     }    
 }

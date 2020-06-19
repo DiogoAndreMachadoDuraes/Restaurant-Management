@@ -40,8 +40,7 @@ final class Funcionario_controller
 
       $funcionario_dao=new Funcionario_dao();
       $funcionario=new Funcionario();
-      $funcionario->setid_funcionario($data['id_funcionario'])
-            ->setid_restaurante($data['id_restaurante'])
+      $funcionario->setid_restaurante($data['id_restaurante'])
             ->setid_utilizador($data['id_utilizador']);
       $funcionario_dao->Insert($funcionario);
 
@@ -55,8 +54,8 @@ final class Funcionario_controller
 
       $funcionario_dao=new Funcionario_dao();
       $funcionario=new Funcionario();
-      $funcionario->setid_funcionario(intval($data['id_funcionario']));
-      $funcionario_dao->Delete(intval($funcionario));
+      $funcionario->setid_funcionario($data['id_funcionario']);
+      $funcionario_dao->Delete($funcionario);
 
       $response -> getBody() -> write("Funcionario eliminado!");
       return $response;

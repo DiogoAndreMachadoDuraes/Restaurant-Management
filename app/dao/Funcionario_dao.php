@@ -27,12 +27,11 @@ class Funcionario_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Funcionario values(
-            :id_funcionario,
+            null,
             :id_restaurante,
             :id_utilizador
         );');
         $statement->execute([
-            'id_funcionario' => $funcionario->getid_funcionario(),
             'id_restaurante' => $funcionario->getid_restaurante(),
             'id_utilizador' => $funcionario->getid_utilizador()
         ]);
@@ -49,13 +48,13 @@ class Funcionario_dao extends ConnectionDB
         ]);
     }
 
-    public function Delete (int $id_funcionario): void
+    public function Delete (Funcionario $funcionario): void
     {
         $statement = $this->pdo
         ->prepare ('DELETE FROM Funcionario WHERE id_funcionario = :id_funcionario');
        
         $statement->execute([
-            'id_funcionario' => $id_funcionario()
+            'id_funcionario' => $funcionario -> getid_funcionario()
         ]);
     }       
 }

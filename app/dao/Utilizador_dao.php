@@ -33,7 +33,7 @@ class Utilizador_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Utilizador values(
-            :id_utilizador,
+            null,
             :nome,
             :telefone,
             :email,
@@ -44,7 +44,6 @@ class Utilizador_dao extends ConnectionDB
             :nif
         );');
         $statement->execute([
-            'id_utilizador' => $utilizador->getid_utilizador(),
             'nome' => $utilizador->getnome(),
             'telefone' => $utilizador->gettelefone(),
             'email' => $utilizador->getemail(),
@@ -59,7 +58,7 @@ class Utilizador_dao extends ConnectionDB
     public function Update (Utilizador $utilizador): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Utilizador set nome=:nome and telefone=:telefone and email=:email and morada=:morada and password=:password and tipo=:tipo and foto=:foto and nif=:nif Where id_utilizador=:id_utilizador');
+            ->prepare('UPDATE Utilizador set nome=:nome , telefone=:telefone , email=:email , morada=:morada , password=:password , tipo=:tipo , foto=:foto , nif=:nif Where id_utilizador=:id_utilizador');
         $statement->execute([
             'id_utilizador' => $utilizador->getid_utilizador(),
             'nome' => $utilizador->getnome(),
@@ -73,13 +72,13 @@ class Utilizador_dao extends ConnectionDB
             ]);
     }
 
-    public function Delete (int $id_utilizador): void
+    public function Delete ( Utilizador $utilizador): void
     {
         $statement = $this->pdo
         ->prepare ('DELETE FROM Utilizador WHERE id_utilizador = :id_utilizador');
        
         $statement->execute([
-            'id_utilizador' => $id_utilizador
+            'id_utilizador' => $utilizador -> getid_utilizador()
         ]);
     } 
     

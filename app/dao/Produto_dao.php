@@ -29,7 +29,7 @@ class Produto_dao extends ConnectionDB
     {
         $statement = $this->pdo
         ->prepare ('INSERT INTO Produto values(
-            :id_produto,
+            null,
             :nome,
             :quantidade,
             :descricao,
@@ -39,7 +39,6 @@ class Produto_dao extends ConnectionDB
         );');
         
         $statement->execute([
-            'id_produto' => $produto ->getid_produto(),
             'nome' => $produto ->getnome(),
             'quantidade' => $produto ->getquantidade(),
             'descricao' => $produto->getdescricao(),
@@ -51,24 +50,24 @@ class Produto_dao extends ConnectionDB
     public function Update (Produto $produto): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Produto set nome=:nome and quantidade=:quantidade and descricao=:descricao and preco=:preco and foto=:foto Where id_produto=:id_produto');
+            ->prepare('UPDATE Produto set nome=:nome , quantidade=:quantidade , descricao=:descricao , preco=:preco , foto=:foto Where id_produto=:id_produto');
         $statement->execute([
             'id_produto' => $produto->getid_produto(),
             'nome' => $produto->getnome(),
             'quantidade' => $produto->getquantidade(),
             'descricao' => $produto->getdescricao(),
             'preco' => $produto->getpreco(),
-            'foto' => $produto->getfoto(),
+            'foto' => $produto->getfoto()
         ]);
     }
 
-    public function Delete (int $id_produto): void
+    public function Delete (Produto $produto): void
     {
         $statement = $this->pdo
         ->prepare ('DELETE FROM Produto WHERE id_produto = :id_produto');
        
         $statement->execute([
-            'id_produto' => $id_produto
+            'id_produto' => $produto -> getid_produto()
         ]);
     }   
 }
