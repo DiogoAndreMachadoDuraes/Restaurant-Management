@@ -48,7 +48,7 @@ class Menu_dao extends ConnectionDB
     public function Update (Menu $menu): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Menu set valor=:valor , nome=:nome , foto=:foto , descricao=:descricao and id_ementa=:id_ementa Where id_menu=:id_menu');
+            ->prepare('UPDATE Menu set valor=:valor , nome=:nome , foto=:foto , descricao=:descricao , id_ementa=:id_ementa Where id_menu=:id_menu');
         $statement->execute([
             'id_menu' => $menu->getid_menu(),
             'nome' => $menu->getnome(),
