@@ -98,6 +98,54 @@
     $app->delete('/Take_away',Take_away_controller::class . ':Delete');
     $app->delete('/Utilizador',Utilizador_controller::class . ':Delete');
 
+    $app->get('/Administrador',Administrador_controller::class . ':Select');
+    $app->get('/Alergenio',Alergenio_controller::class . ':Select');
+    $app->get('/Fatura',Fatura_controller::class . ':Select');
+    $app->get('/Funcionario',Funcionario_controller::class . ':Select');
+    $app->get('/Info_nutricional',Info_nutricional_controller::class . ':Select');
+    $app->get('/Menu',Menu_controller::class . ':Select');
+    $app->get('/Produto',Produto_controller::class . ':Select');
+    $app->get('/Restaurante',Restaurante_controller::class . ':Select');
+    $app->get('/Take_away',Take_away_controller::class . ':Select');
+    $app->get('/Utilizador',Utilizador_controller::class . ':Select');
+    $app->post('/Fatura',Fatura_controller::class . ':Insert');
+    $app->get('/Reserva', Reserva_controller::class . ':Select');
+    $app->post('/Reserva', Reserva_controller::class . ':Insert');
+    $app->put('/Reserva', Reserva_controller::class . ':Update');
+    $app->delete('/Reserva', Reserva_controller::class . ':Delete');
+    $app->get('/Ementa', Ementa_controller::class . ':Select');
+    $app->post('/Ementa', Ementa_controller::class . ':Insert');
+    $app->put('/Ementa', Ementa_controller::class . ':Update');
+    $app->delete('/Ementa', Ementa_controller::class . ':Delete');
+    $app->get('/Cliente', Cliente_controller::class . ':Select');
+    $app->post('/Cliente', Cliente_controller::class . ':Insert');
+    $app->put('/Cliente', Cliente_controller::class . ':Update');
+    $app->delete('/Cliente', Cliente_controller::class . ':Delete');
+    $app->get('/Compra_produto', Compra_produto_controller::class . ':Select');
+    $app->post('/Compra_produto', Compra_produto_controller::class . ':Insert');
+    $app->put('/Compra_produto', Compra_produto_controller::class . ':Update');
+    $app->delete('/Compra_produto', Compra_produto_controller::class . ':Delete');
+    $app->get('/Compra_menu', Compra_menu_controller::class . ':Select');
+    $app->post('/Compra_menu', Compra_menu_controller::class . ':Insert');
+    $app->put('/Compra_menu', Compra_menu_controller::class . ':Update');
+    $app->delete('/Compra_menu', Compra_menu_controller::class . ':Delete');
+    $app->get('/Produto_extra', Produto_extra_controller::class . ':Select');
+    $app->post('/Produto_extra', Produto_extra_controller::class . ':Insert');
+    $app->put('/Produto_extra', Produto_extra_controller::class . ':Update');
+    $app->delete('/Produto_extra', Produto_extra_controller::class . ':Delete');
+    $app->get('/Extra', Extra_controller::class . ':Select');
+    $app->post('/Extra', Extra_controller::class . ':Insert');
+    $app->put('/Extra', Extra_controller::class . ':Update');
+    $app->delete('/Extra', Extra_controller::class . ':Delete');
+    $app->get('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Select');
+    $app->post('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Insert');
+    $app->put('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Update');
+    $app->delete('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Delete');
+    $app->get('/Token', Token_controller::class . ':Select');
+    $app->post('/Token', Token_controller::class . ':Insert');
+    $app->put('/Token', Token_controller::class . ':Update');
+    $app->delete('/Token', Token_controller::class . ':Delete');
+
 /*
     $app->group('/Clientelogin', function() use($app) {
         $app->put('/Utilizadorchanges', Utilizador_controller::class . ':Update');

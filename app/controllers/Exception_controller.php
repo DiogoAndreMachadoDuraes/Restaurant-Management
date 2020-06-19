@@ -41,9 +41,5 @@ final class Exception_controller
                         ],500);
                         }
             }
-
 }
-
-
-
 ?>
