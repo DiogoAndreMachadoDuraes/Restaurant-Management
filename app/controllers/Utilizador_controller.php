@@ -6,20 +6,27 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Utilizador_dao;
 use App\Models\Utilizador;
+use App\Controllers\Exception_controller;
 
 final class Utilizador_controller
 {                                
    public function Select (Request $request, Response $response, array $args) : Response
    {
+      try{
       $utilizador_dao=new Utilizador_dao();
       $utilizador=$utilizador_dao->Select();
-      $json=json_encode($utilizador);
+      $json=json_encode($utilizador, JSON_UNESCAPED_UNICODE);
       $response->getBody()->write($json);
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Update (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
       
       $utilizador_dao=new Utilizador_dao();
@@ -39,9 +46,14 @@ final class Utilizador_controller
       $response -> getBody() -> write("Utilizador modificado!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+   }
 
    public function Insert (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
 
       $utilizador_dao=new Utilizador_dao();
@@ -59,9 +71,14 @@ final class Utilizador_controller
       $response -> getBody() -> write("Utilizador inserido!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Delete (Request $request, Response $response, array $args) : Response
-   {  
+   {
+      try{  
       $data=$request->getParsedBody();
 
       $utilizador_dao=new Utilizador_dao();
@@ -72,5 +89,9 @@ final class Utilizador_controller
       $response -> getBody() -> write("Utilizador eliminado!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 } 
 ?>
