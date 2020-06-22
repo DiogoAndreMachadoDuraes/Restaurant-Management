@@ -25,7 +25,7 @@ namespace App\Controllers;
                 $response->getBody()->write("Cliente criado com sucesso!");
                 return $response;
             }catch(Exception_controller $e){
-                $e->Testar_excecoes();
+                $e->Testar_excecoes($response);
             }
         }
 
@@ -38,7 +38,7 @@ namespace App\Controllers;
                 $response->getBody()->write($json);
                 return $response;
             }catch(Exception_controller $e){
-                $e->Testar_excecoes();
+                $e->Testar_excecoes($response);
             }
         }
         
@@ -58,7 +58,7 @@ namespace App\Controllers;
                 $response->getBody()->write ("Cliente modificado com sucesso!");
                 return $response;
             }catch(Exception_controller $e){
-                $e->Testar_excecoes();
+                $e->Testar_excecoes($response);
             }
         }
         
@@ -75,7 +75,7 @@ namespace App\Controllers;
                 $response->getBody()->write("Cliente eliminado com sucesso!");
                 return $response;
             }catch(Exception_controller $e){
-                $e->Testar_excecoes();
+                $e->Testar_excecoes($response);
             }
         }
         
@@ -92,21 +92,17 @@ namespace App\Controllers;
                 $response->getBody()->write("Cliente fez mais uma compra com sucesso!");
                 return $response;
             }catch(Exception_controller $e){
-                $e->Testar_excecoes();
+                $e->Testar_excecoes($response);
             }
         }
 
         public function Refeicao_gratis($n_compras, $numero_cartao) : void
         {
-            try{
-                $cliente_dao=new Cliente_dao();
-                $cliente_dao->Refeicao_gratis();
-                if($n_compras==10)
-                {
-                    echo("O cliente com o numero de cartao ") .$numero_cartao. ("tem uma refeicao gratis");
-                }
-            }catch(Exception_controller $e){
-                $e->Testar_excecoes();
+            $cliente_dao=new Cliente_dao();
+            $cliente_dao->Refeicao_gratis();
+            if($n_compras==10)
+            {
+                echo("O cliente com o numero de cartao ") .$numero_cartao. ("tem uma refeicao gratis");
             }
         }
     }
