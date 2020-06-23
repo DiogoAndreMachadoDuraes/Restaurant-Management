@@ -95,7 +95,7 @@ class Utilizador_dao extends ConnectionDB
                     tipo,
                     foto,
                     nif
-                From utilizador
+                From Utilizador
                 where email=:email');
         $statement->bindParam('email', $email);
         $statement->execute();

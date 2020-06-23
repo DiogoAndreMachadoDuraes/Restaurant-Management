@@ -6,21 +6,28 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Info_nutricional_dao;
 use App\Models\Info_nutricional;
+use App\Controllers\Exception_controller;
 
 final class Info_nutricional_controller
 {                                
  
    public function Select (Request $request, Response $response, array $args) : Response
    {
+      try{
       $info_nutricional_dao=new Info_nutricional_dao();
       $info_nutricional=$info_nutricional_dao->Select();
-      $json=json_encode($info_nutricional);
+      $json=json_encode($info_nutricional, JSON_UNESCAPED_UNICODE);
       $response->getBody()->write($json);
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Update (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
         
       $info_nutricional_dao=new Info_nutricional_dao();
@@ -36,9 +43,14 @@ final class Info_nutricional_controller
       $response -> getBody() -> write("Informacao nutricional modificada!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Insert (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
 
       $info_nutricional_dao=new Info_nutricional_dao();
@@ -53,9 +65,14 @@ final class Info_nutricional_controller
       $response -> getBody() -> write("Informacao Nutricional inserida!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
  
    public function Delete (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
 
       $info_nutricional_dao=new Info_nutricional_dao();
@@ -66,5 +83,9 @@ final class Info_nutricional_controller
       $response -> getBody() -> write("Informacao nutricional eliminada!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 } 
 ?>

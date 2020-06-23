@@ -32,6 +32,12 @@
     
     use function src\Jwt_Auth;
 
+    
+    use Psr\Http\Message\ServerRequestInterface;
+    use App\Exceptions\TestException;
+    use Slim\Exception\HttpNotFoundException;
+    use Slim\Psr7\Response;
+
     require __DIR__ . '/../vendor/autoload.php';
 
     $app = AppFactory::create();
@@ -43,9 +49,39 @@
     $app->addErrorMiddleware(true, true, true);
     $app->addBodyParsingMiddleware();
 
-    /*$settings['error_handler_middleware'] = [
-        'display_error_details' => getenv('display_error_details'),
-    ];*/
+    // Set the Not Allowed Handler
+    $errorMiddleware->setErrorHandler(
+        HttpNotFoundException::class,
+        function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails) {
+            $response = new Response();
+            $response->getBody()->write('404 NOT FOUND');
+            return $response->withStatus(404);
+        }
+    );
+    $errorMiddleware->setErrorHandler(
+        HttpMethodNotAllowedException::class,
+        function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails) {
+            $response = new Response();
+            $response->getBody()->write('405 NOT ALLOWED');
+            return $response->withStatus(405);
+        }
+    );
+    $errorMiddleware->setErrorHandler(
+        TestException::class,
+        function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails) {
+            $response = new Response();
+            $response->getBody()->write('504 Gateway timeout');
+            return $response->withStatus(504);
+        }
+    );
+    $errorMiddleware->setErrorHandler(
+        HttpInternalServerErrorException::class,
+        function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails) {
+            $response = new Response();
+            $response->getBody()->write('500 Internal Server Error');
+            return $response->withStatus(500);
+        }
+    );
 
 /*
     $app->post('/Registar', Utilizador_controller::class . ':Insert');

@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Exceptions\TestException;
 
+
 final class Exception_controller
 {
     public function Testar_excecoes ( Response $response)

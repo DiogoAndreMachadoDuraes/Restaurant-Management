@@ -6,21 +6,28 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Take_away_dao;
 use App\Models\Take_away;
+use App\Controllers\Exception_controller;
 
 final class Take_away_controller
 {                                
  
    public function Select (Request $request, Response $response, array $args) : Response
    {
+      try{
       $take_away_dao=new Take_away_dao();
       $take_away=$take_away_dao->Select();
-      $json=json_encode($take_away);
+      $json=json_encode($take_away, JSON_UNESCAPED_UNICODE);
       $response->getBody()->write($json);
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Update (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
 
       $take_away_dao=new Take_away_dao();
@@ -37,9 +44,14 @@ final class Take_away_controller
       $response->getBody()->write("Take away modificado!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Insert (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
 
       $take_away_dao=new Take_away_dao();
@@ -55,9 +67,14 @@ final class Take_away_controller
       $response->getBody()->write("Take away inserido!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Delete (Request $request, Response $response, array $args) : Response
-   {  
+   {
+      try{  
       $data=$request->getParsedBody();
 
       $take_away_dao=new Take_away_dao();
@@ -68,5 +85,9 @@ final class Take_away_controller
       $response->getBody()->write("Take away eliminado!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
 } 
+}
 ?>

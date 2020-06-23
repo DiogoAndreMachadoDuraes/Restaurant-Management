@@ -6,21 +6,28 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\DAO\Produto_dao;
 use App\Models\Produto;
+use App\Controllers\Exception_controller;
 
 final class Produto_controller
 {                                
  
    public function Select (Request $request, Response $response, array $args) : Response
    {
+      try{
       $produto_dao=new Produto_dao();
       $produto=$produto_dao->Select();
-      $json=json_encode($produto);
+      $json=json_encode($produto, JSON_UNESCAPED_UNICODE);
       $response->getBody()->write($json);
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Update (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
         
       $produto_dao=new Produto_dao();
@@ -36,9 +43,14 @@ final class Produto_controller
       $response -> getBody() -> write("Produto modificado!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 
    public function Insert (Request $request, Response $response, array $args) : Response
    {
+      try{
       $data=$request->getParsedBody();
 
       $produto_dao=new Produto_dao();
@@ -53,9 +65,14 @@ final class Produto_controller
       $response -> getBody() -> write("Produto inserido!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
  
    public function Delete (Request $request, Response $response, array $args) : Response
-   {  
+   {
+      try{  
       $data=$request->getParsedBody();
 
       $produto_dao=new Produto_dao();
@@ -66,5 +83,9 @@ final class Produto_controller
       $response -> getBody() -> write("Produto eliminado!");
       return $response;
    }
+   catch(Exception_controller $e){
+      $e->Testar_excecoes ($response);
+   }
+}
 } 
 ?>
