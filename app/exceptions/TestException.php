@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Exceptions;
+    namespace App\Exceptions;
 
-class TestException extends \Exception
-{
-    public function __construct($message, $code = 0, \Exception $previous = null)
-        {
-            parent::__construct($message, $code, $previous);
-        }
+    use Slim\Exception\HttpException;
 
-        public function __toString(): string
-        {
-            return __CLASS__ . ":[{$this -> code}]: {$this -> message}\n";
-        }
-
+    class TestException extends HttpException
+    {
+        protected $code = 504;
+        protected $message = 'Gateway Timeout.';
+        protected $title = '504 Gateway Timeout';
+        protected $description = 'Timed out before receiving response from the upstream server.';
 }
 ?>
