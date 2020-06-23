@@ -28,7 +28,8 @@ namespace App\Controllers;
         {
             $compra_produto_dao=new Compra_produto_dao();
             $compra_produto=$compra_produto_dao->Select();
-            $json=json_encode($compra_produto);
+            $json=json_encode($compra_produto, JSON_UNESCAPED_UNICODE);
+
             $response->getBody()->write($json);
             return $response;
         }
@@ -57,7 +58,7 @@ namespace App\Controllers;
             $compra_produto=new Compra_produto();
             $compra_produto->set_id_compra_produto($data['id_compra_produto']);
             $compra_produto_dao->Delete($compra_produto);
-
+            
             $response->getBody()->write("Compra produto eliminada com sucesso!");
             return $response;
         }

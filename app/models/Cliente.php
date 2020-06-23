@@ -16,8 +16,11 @@ namespace App\Models;
         }
 
         public function set_id_cliente(int $id_cliente): Cliente{
-            if (!$id_cliente&& !is_int($id_cliente)) {
+            if (!$id_cliente) {
                 throw new \InvalidArgumentException("É preciso o id de cliente", 400);
+            }
+            if (!is_int($id_cliente)) {
+                throw new \InvalidArgumentException("Introduziu um valor para o número de compras incorreto", 400);
             }
             $this->id_cliente = $id_cliente;
             return $this;
@@ -29,7 +32,7 @@ namespace App\Models;
         }
         
         public function set_numero_cartao(int $numero_cartao): Cliente{
-            if (!$numero_cartao && !is_int($numero_cartao)) {
+            if (!$numero_cartao && !is_int($numero_cartao) && $numero_cartao==null) {
                 throw new \InvalidArgumentException("É preciso o número do cartão", 400);
             }
             $this->numero_cartao = $numero_cartao;
@@ -42,10 +45,10 @@ namespace App\Models;
 
         public function set_n_compras(int $n_compras): Cliente{
             if (!$n_compras) {
-                throw new \InvalidArgumentException("É preciso o número de compras", 400);
+                throw new \InvalidArgumentException("É preciso o número de compras", $n_compras);
             }
             if (!is_int($n_compras)) {
-                throw new \InvalidArgumentException("Introduziu um valor para o número de compras incorreto", 400);
+                throw new \InvalidArgumentException("Introduziu um valor para o número de compras incorreto", $n_compras);
             }
             $this->n_compras = $n_compras;
             return $this;
@@ -56,8 +59,11 @@ namespace App\Models;
         }
 
         public function set_id_utilizador(int $id_utilizador): Cliente{
-            if (!$id_utilizador && !is_int($id_utilizador)) {
+            if (is_null($id_utilizador)) {
                 throw new \InvalidArgumentException("É preciso o id de utilizador correspondente", 400);
+            }
+            if (!is_int($id_utilizador)) {
+                throw new \InvalidArgumentException("Introduziu um valor para o id utilizador incorreto", $id_utilizador);
             }
             $this->id_utilizador = $id_utilizador;
             return $this;

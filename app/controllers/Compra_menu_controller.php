@@ -29,7 +29,8 @@ namespace App\Controllers;
         {
             $compra_menu_dao=new Compra_menu_dao();
             $compra_menu=$compra_menu_dao->Select();
-            $json=json_encode($compra_menu);
+            $json=json_encode($compra_menu, JSON_UNESCAPED_UNICODE);
+            
             $response->getBody()->write($json);
             return $response;
         }

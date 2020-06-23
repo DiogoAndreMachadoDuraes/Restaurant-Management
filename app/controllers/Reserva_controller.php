@@ -27,7 +27,8 @@ namespace App\Controllers;
         {
             $reserva_dao=new Reserva_dao();
             $reserva=$reserva_dao->Select();
-            $json=json_encode($reserva);
+            $json=json_encode($reserva, JSON_UNESCAPED_UNICODE);
+
             $response->getBody()->write($json);
             return $response;
         }
@@ -45,12 +46,13 @@ namespace App\Controllers;
 
             $response->getBody()->write("Reserva modificada com sucesso!");
             return $response;
+
         }
         
         public function Delete (Request $request, Response $response, array $arg) : Response 
         {
             $data=$request->getParsedBody();
-
+            
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
             $reserva->set_id_reserva($data['id_reserva']);

@@ -19,7 +19,7 @@ namespace App\Controllers;
                 ->set_id_produto($data['id_produto'])
                 ->set_id_extra($data['id_extra']);
             $produto_extra_dao->Insert($produto_extra);
-
+            
             $response->getBody()->write("Produto extra criado com sucesso!");
             return $response;
         }
@@ -28,7 +28,8 @@ namespace App\Controllers;
         {
             $produto_extra_dao=new Produto_extra_dao();
             $produto_extra=$produto_extra_dao->Select();
-            $json=json_encode($produto_extra);
+            $json=json_encode($produto_extra, JSON_UNESCAPED_UNICODE);
+
             $response->getBody()->write($json);
             return $response;
         }

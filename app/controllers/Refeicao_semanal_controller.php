@@ -21,7 +21,6 @@ namespace App\Controllers;
                 ->set_id_restaurante($data['id_restaurante'])
                 ->set_id_ementa($data['id_ementa']);
             $refeicao_semanal_dao->Insert($refeicao_semanal);
-
             $response->getBody()->write("Refeicao Semanal criada com sucesso!");
             return $response;
         }
@@ -30,7 +29,8 @@ namespace App\Controllers;
         {
             $refeicao_semanal_dao=new Refeicao_semanal_dao();
             $refeicao_semanal=$refeicao_semanal_dao->Select();
-            $json=json_encode($refeicao_semanal);
+            $json=json_encode($refeicao_semanal, JSON_UNESCAPED_UNICODE);
+
             $response->getBody()->write($json);
             return $response;
         }
@@ -48,7 +48,6 @@ namespace App\Controllers;
                 ->set_id_restaurante($data['id_restaurante'])
                 ->set_id_ementa($data['id_ementa']);
             $refeicao_semanal_dao->Update($refeicao_semanal);
-
             $response->getBody()->write("Refeicao Semanal modificada com sucesso!");
             return $response;
         }
