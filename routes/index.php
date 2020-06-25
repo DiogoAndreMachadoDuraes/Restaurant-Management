@@ -287,5 +287,10 @@
     })  ->add(new Auth_middleware())
         ->add(Jwt_Auth());
 */
+    try {
     $app->run();
+        } catch (Throwable $exception) {
+                http_response_code(400);
+                    echo sprintf('Error Message: %s', $exception->getMessage());
+}
 ?>
