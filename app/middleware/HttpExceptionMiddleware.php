@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Middleware;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -11,9 +11,9 @@ use Slim\Exception\HttpException;
 
 final class HttpExceptionMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var ResponseFactoryInterface
-     */
+    
+    @var ResponseFactoryInterface
+
     private $responseFactory;
 
     public function __construct(ResponseFactoryInterface $responseFactory)
@@ -29,15 +29,11 @@ final class HttpExceptionMiddleware implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (HttpException $httpException) {
-            // Handle the http exception here
+         
             $statusCode = $httpException->getCode();
             $response = $this->responseFactory->createResponse()->withStatus($statusCode);
             $errorMessage = sprintf('%s %s', $statusCode, $response->getReasonPhrase());
 
-            // Log the errror message
-            // $this->logger->error($errorMessage);
-
-            // Render twig template or just add the content to the body
             $response->getBody()->write($errorMessage);
 
             return $response;

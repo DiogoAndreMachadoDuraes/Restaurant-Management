@@ -37,6 +37,10 @@
     use Slim\Exception\HttpNotFoundException;
     use Slim\Psr7\Response;
 
+    use App\Middleware\HttpExceptionMiddleware;
+    use Slim\Middleware\ErrorMiddleware;
+    use App\Middleware\ErrorHandlerMiddleware;
+
     require __DIR__ . '/../vendor/autoload.php';
     require __DIR__ . '/../src/Jwt_Auth.php';
 
@@ -46,6 +50,8 @@
 
     $app->addRoutingMiddleware();
 
+    $app->add(ErrorHandlerMiddleware::class);
+    
     $app->addErrorMiddleware(true, true, true);
     $app->addBodyParsingMiddleware();
 
@@ -81,6 +87,9 @@
             return $response->withStatus(500);
         }
     );
+
+    $app->add(HttpExceptionMiddleware::class); 
+    $app->add(ErrorMiddleware::class);
 
     $app->group('/v1', function() use($app){
     });

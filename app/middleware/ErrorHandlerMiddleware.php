@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Middleware;
 
 use App\Factory\LoggerFactory;
 use Psr\Http\Message\ResponseInterface;
@@ -9,21 +9,17 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
 
-/**
- * Middleware.
- */
+
 final class ErrorHandlerMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var LoggerInterface
-     */
+    
+    @var LoggerInterface
+    
     private $logger;
 
-    /**
-     * The constructor.
-     *
-     * @param LoggerFactory $loggerFactory The logger
-     */
+    
+    @param LoggerFactory 
+    
     public function __construct( LoggerFactory $loggerFactory)
     {
         $this->Logger = $loggerFactory
@@ -31,14 +27,12 @@ final class ErrorHandlerMiddleware implements MiddlewareInterface
             ->createInstance('error_handler_middleware');
     }
 
-    /**
-     * Invoke middleware.
-     *
-     * @param ServerRequestInterface $request The request
-     * @param RequestHandlerInterface $handler The handler
-     *
-     * @return ResponseInterface The response
-     */
+    
+    @param ServerRequestInterface 
+    @param RequestHandlerInterface 
+     
+    @return ResponseInterface 
+    
     public function process(
         ServerRequestInterface $request, 
         RequestHandlerInterface $handler
@@ -46,7 +40,6 @@ final class ErrorHandlerMiddleware implements MiddlewareInterface
     {
         $errorTypes = E_ALL;
 
-        // Set custom php error handler
         set_error_handler(
             function ($errno, $errstr, $errfile, $errline) {
                 switch ($errno) {
@@ -67,7 +60,6 @@ final class ErrorHandlerMiddleware implements MiddlewareInterface
                         break;
                 }
 
-                // Don't execute PHP internal error handler
                 return true;
             },
             $errorTypes
