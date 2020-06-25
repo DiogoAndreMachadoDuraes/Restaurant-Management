@@ -82,6 +82,12 @@
         }
     );
 
+    $app->group('/v1', function() use($app){
+    });
+
+    $app->group('/v2', function() use($app){
+    });
+
     $app->post('/Registar', Utilizador_controller::class . ':Insert');
 
     $app->post('/Login', Auth_controller::class. ':login');
