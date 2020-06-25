@@ -11,110 +11,133 @@ namespace App\Controllers;
 
     final class Auth_controller
     {
-        public function login(Request $request, Response $response, array $args): Response
+        public function Login(Request $request, Response $response, array $args): Response
         {
             $data=$request->getParsedBody();
             
             $email=$data['email'];
             $password=$data['password'];
+
+            $key='hdX2D3M99ZBQBIFy8jdsAwVHpRpupEWtZUh_CpCfPKE';
             
             $utilizador_dao= new Utilizador_dao();
             $utilizador=$utilizador_dao->SelectByEmail($email);
 
             if(is_null($utilizador)){
+                echo 'Utilizador não encontrado!';
                 return $response->withStatus(401);
-            } else {
-                if(!password_verify($password, $utilizador->getpassword($password))){
-                    return $response->withStatus(401);
-                }
             }
 
-            $expired_date=(new \DateTime())->modify('+7 days')->format('Y-M-D H:i:s');
+            if($password!=$utilizador->getpassword()){ 
+                echo 'Palavra-passe inválida!';
+                return $response->withStatus(401);
+            }
+
+            $expired_date=(new \DateTime('now', new \DateTimeZone('EUROPE/LISBON')))->modify('+7 days')->format('Y-m-d H:i:s');
 
             $tokenInside=[
                 'id_utilizador' => $utilizador->getid_utilizador(),
-                'name' => $utilizador->getnome(),
+                'nome' => $utilizador->getnome(),
                 'email' => $utilizador->getemail(),
-                'expired_at' => $expired_date
+                'expired_date' => $expired_date
             ]; 
             
-            $token=JWT::encode($tokenInside, getenv('JWT_SECRET_KEY'));
+            $token=JWT::encode($tokenInside, $key);
 
             $refresh_token=[
                 'email' => $utilizador->getemail(),
+                'active' => "1",
                 'random' => uniqid()
             ];
 
-            $refresh_token=JWT::encode($refresh_token, getenv('JWT_SECRET_KEY'));
+            $refresh_token=JWT::encode($refresh_token, $key);
 
-            $token= new Token();
-            $token->set_expired_date($expired_date)
+            $token_model= new Token();
+            $token_model->set_expired_date($expired_date)
                 ->set_refresh_token($refresh_token)
                 ->set_token($token)
-                ->set_id_utilizador($utilizador->getid_utilizador());
+                ->set_id_utilizador($utilizador->getid_utilizador())
+                ->set_active(1);
 
             $token_dao= new Token_dao();
-            $token_dao->Insert($token);
+            $token_dao->Insert($token_model);
 
-            $response->getBody()->write(([
-                "token" => $token,
-                "refresh_token" => $refresh_token
-            ]));
+            $response->getBody()->write("Token: ");
+            $response->getBody()->write($token);
+            $response->getBody()->write("<br>");
+            $response->getBody()->write("Refresh_token: ");
+            $response->getBody()->write($refresh_token);
 
             return $response;
         }
 
-        public function refresh_token(Request $request, Response $response, array $args): Response
+        public function Refresh_token(Request $request, Response $response, array $args): Response
         {
             $data=$request->getParsedBody();
             $refresh_token=$data['refresh_token'];
 
-            $tokenDecoded = JWT::decode($refresh_token, getenv('JWT_SECRET_KEY'), ['HS256']);
+            $key='hdX2D3M99ZBQBIFy8jdsAwVHpRpupEWtZUh_CpCfPKE';
+
+            $token_decoded = JWT::decode($refresh_token, $key, ['HS256']);
             
             $token_dao= new Token_dao();
-            $exists=$token_dao->verifyRefreshToken($refresh_token);
+            $exists=$token_dao->Verify_refresh_token($refresh_token);
 
             if(!$exists){
+                echo 'Refresh Token não encontrado!';
                 return $response->withStatus(401);
-            } 
+            }
+
+            if($token_decoded->active==="0"){
+                echo 'Refresh Token não ativo!';
+                return $response->withStatus(401);
+            }
+
+            $token_model= new Token();
+            $token_model->set_refresh_token($refresh_token)
+                ->set_active(0);
+            $token_dao->Update_active($token_model);
 
             $utilizador_dao = new Utilizador_dao();
-            $utilizador=$utilizador_dao->SelectByEmail($refresh_token->email);
+            $utilizador=$utilizador_dao->SelectByEmail($token_decoded->email);
 
             if(is_null($utilizador))
                 return $response->withStatus(401);
-
-            $expired_date=(new \DateTime())->modify('+7 days')->format('Y-M-D H:i:s');
+            
+            $expired_date=(new \DateTime('now', new \DateTimeZone('EUROPE/LISBON')))->modify('+7 days')->format('Y-m-d H:i:s');
             
             $tokenInside=[
-                'id' => $utilizador->getid_utilizador(),
-                'name' => $utilizador->getnome(),
+                'id_utilizador' => $utilizador->getid_utilizador(),
+                'nome' => $utilizador->getnome(),
                 'email' => $utilizador->getemail(),
-                'expired_at' => $expired_date
+                'expired_date' => $expired_date
             ]; 
             
-            $token=JWT::encode($tokenInside, getenv('JWT_SECRET_KEY'));
-
+            $token=JWT::encode($tokenInside, $key);
+            var_dump($token);
             $refresh_token=[
                 'email' => $utilizador->getemail(),
+                'active' => "1",
                 'random' => uniqid()
             ];
 
-            $refresh_token=JWT::encode($refresh_token, getenv('JWT_SECRET_KEY'));
+            $refresh_token=JWT::encode($refresh_token, $key);
 
-            $token= new Token();
-            $token->set_expired_date($expired_date)
+            $token_model= new Token();
+            $token_model->set_expired_date($expired_date)
                 ->set_refresh_token($refresh_token)
                 ->set_token($token)
-                ->set_id_Utilizador($utilizador->getid_utilizador());
+                ->set_id_utilizador($utilizador->getid_utilizador())
+                ->set_active(1);
 
             $token_dao= new Token_dao();
-            $token_dao->Insert($token);
+            $token_dao->Insert($token_model);
 
-            $response->getBody()->write(([
-                "token" => $token,
-                "refresh_token" => $refresh_token
-            ]));
+            $response->getBody()->write("Token: ");
+            $response->getBody()->write($token);
+            $response->getBody()->write("<br>");
+            $response->getBody()->write("Refresh_token: ");
+            $response->getBody()->write($refresh_token);
 
             return $response;
         }

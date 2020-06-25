@@ -7,16 +7,20 @@ namespace App\Middleware;
         ServerRequestInterface as Request,
     };
 
+    use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+
     final class Auth_middleware
     {
-        public function __invoke(Request $request, Response $response, $next)
+        public function __invoke(Request $request, RequestHandler $handler): Response
         {
             $token = $request->getAttribute('jwt');
-            $expireDate = new \DateTime($token['expiredDate']);
+            $expired_date = new \DateTime($token['expired_date']);
             $now = new \DateTime();
-            if($expireDate < $now )
-                return $response->withStatus(401);
-            $response=$next($request, $response);
+            if($expired_date < $now ){
+                $response=new Response();
+                return $response->withStatus(401); 
+            }
+            $response = $handler->handle($request);
             return $response;
         }
     }

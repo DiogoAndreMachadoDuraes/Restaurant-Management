@@ -99,20 +99,19 @@ class Utilizador_dao extends ConnectionDB
                 where email=:email');
         $statement->bindParam('email', $email);
         $statement->execute();
-        $utilizador=$statement->fetchAll(\PDO::FETCH_ASSOC);
-        $utilizador= new Utilizador();
-        if(count($utilizador)==0){
-            $utilizador->setid_utilizador($utilizador[0]['id_utilizador'])
-                ->setnome($utilizador[0]['nome'])
-                ->settelefone($utilizador[0]['telefone'])
-                ->setemail($utilizador[0]['email'])
-                ->setmorada($utilizador[0]['morada'])
-                ->setpassword($utilizador[0]['password'])
-                ->settipo($utilizador[0]['tipo'])
-                ->setfoto($utilizador[0]['foto'])
-                ->setnif($utilizador[0]['nif']);
+        $utilizadores=$statement->fetchAll(\PDO::FETCH_ASSOC);
+        if(count($utilizadores)!==0)
+            $utilizador= new Utilizador();
+            $utilizador->setid_utilizador($utilizadores[0]['id_utilizador'])
+            ->setnome($utilizadores[0]['nome'])
+            ->settelefone($utilizadores[0]['telefone'])
+            ->setemail($utilizadores[0]['email'])
+            ->setmorada($utilizadores[0]['morada'])
+            ->setpassword($utilizadores[0]['password'])
+            ->settipo($utilizadores[0]['tipo'])
+            ->setfoto($utilizadores[0]['foto'])
+            ->setnif($utilizadores[0]['nif']);
             return $utilizador;
-        }
         return null;
     }
 }

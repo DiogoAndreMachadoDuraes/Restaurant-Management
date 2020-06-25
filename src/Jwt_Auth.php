@@ -4,12 +4,13 @@ namespace src;
 
     use Tuupola\Middleware\JwtAuthentication;
 
-    function Jwt_Auth(): JwtAuthentication
+    final class Jwt_Auth
     {
-        return new JwtAuthentication([
-            'secret' => getenv('JWT_SECRET_KEY'),
+        static function jwtAuth(): JwtAuthentication
+        {
+            return new JwtAuthentication([
+            'secret' => 'hdX2D3M99ZBQBIFy8jdsAwVHpRpupEWtZUh_CpCfPKE',
             'attribute' => 'jwt'
-        ]);
+            ]);
+        }
     }
-
-?>
