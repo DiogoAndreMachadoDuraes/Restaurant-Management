@@ -30,8 +30,7 @@
         //Middleware
     };
     
-    use function src\Jwt_Auth;
-
+    use src\Jwt_Auth;
     
     use Psr\Http\Message\ServerRequestInterface;
     use App\Exceptions\TestException;
@@ -39,6 +38,7 @@
     use Slim\Psr7\Response;
 
     require __DIR__ . '/../vendor/autoload.php';
+    require __DIR__ . '/../src/Jwt_Auth.php';
 
     $app = AppFactory::create();
 
@@ -49,7 +49,6 @@
     $app->addErrorMiddleware(true, true, true);
     $app->addBodyParsingMiddleware();
 
-    // Set the Not Allowed Handler
     $errorMiddleware->setErrorHandler(
         HttpNotFoundException::class,
         function (ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails) {
@@ -83,94 +82,11 @@
         }
     );
 
-/*
     $app->post('/Registar', Utilizador_controller::class . ':Insert');
 
     $app->post('/Login', Auth_controller::class. ':login');
     $app->post('/RefreshToken', Auth_controller::class . ':refreshToken');
-*/
-    $app->get('/Administrador',Administrador_controller::class . ':Select');
-    $app->get('/Alergenio',Alergenio_controller::class . ':Select');
-    $app->get('/Fatura',Fatura_controller::class . ':Select');
-    $app->get('/Funcionario',Funcionario_controller::class . ':Select');
-    $app->get('/Info_nutricional',Info_nutricional_controller::class . ':Select');
-    $app->get('/Menu',Menu_controller::class . ':Select');
-    $app->get('/Produto',Produto_controller::class . ':Select');
-    $app->get('/Restaurante',Restaurante_controller::class . ':Select');
-    $app->get('/Take_away',Take_away_controller::class . ':Select');
-    $app->get('/Utilizador',Utilizador_controller::class . ':Select');
 
-    $app->post('/Administrador',Administrador_controller::class . ':Insert');
-    $app->post('/Alergenio',Alergenio_controller::class . ':Insert');
-    $app->post('/Fatura',Fatura_controller::class . ':Insert');
-    $app->post('/Funcionario',Funcionario_controller::class . ':Insert');
-    $app->post('/Info_nutricional',Info_nutricional_controller::class . ':Insert');
-    $app->post('/Menu',Menu_controller::class . ':Insert');
-    $app->post('/Produto',Produto_controller::class . ':Insert');
-    $app->post('/Restaurante',Restaurante_controller::class . ':Insert');
-    $app->post('/Take_away',Take_away_controller::class . ':Insert');
-    $app->post('/Utilizador',Utilizador_controller::class . ':Insert');
-
-    $app->put('/Administrador',Administrador_controller::class . ':Update');
-    $app->put('/Alergenio',Alergenio_controller::class . ':Update');
-    $app->put('/Fatura',Fatura_controller::class . ':Update');
-    $app->put('/Funcionario',Funcionario_controller::class . ':Update');
-    $app->put('/Info_nutricional',Info_nutricional_controller::class . ':Update');
-    $app->put('/Menu',Menu_controller::class . ':Update');
-    $app->put('/Produto',Produto_controller::class . ':Update');
-    $app->put('/Restaurante',Restaurante_controller::class . ':Update');
-    $app->put('/Take_away',Take_away_controller::class . ':Update');
-    $app->put('/Utilizador',Utilizador_controller::class . ':Update');
-
-    $app->delete('/Administrador',Administrador_controller::class . ':Delete');
-    $app->delete('/Alergenio',Alergenio_controller::class . ':Delete');
-    $app->delete('/Fatura',Fatura_controller::class . ':Delete');
-    $app->delete('/Funcionario',Funcionario_controller::class . ':Delete');
-    $app->delete('/Info_nutricional',Info_nutricional_controller::class . ':Delete');
-    $app->delete('/Menu',Menu_controller::class . ':Delete');
-    $app->delete('/Produto',Produto_controller::class . ':Delete');
-    $app->delete('/Restaurante',Restaurante_controller::class . ':Delete');
-    $app->delete('/Take_away',Take_away_controller::class . ':Delete');
-    $app->delete('/Utilizador',Utilizador_controller::class . ':Delete');
-
-    $app->get('/Reserva', Reserva_controller::class . ':Select');
-    $app->post('/Reserva', Reserva_controller::class . ':Insert');
-    $app->put('/Reserva', Reserva_controller::class . ':Update');
-    $app->delete('/Reserva', Reserva_controller::class . ':Delete');
-    $app->get('/Ementa', Ementa_controller::class . ':Select');
-    $app->post('/Ementa', Ementa_controller::class . ':Insert');
-    $app->put('/Ementa', Ementa_controller::class . ':Update');
-    $app->delete('/Ementa', Ementa_controller::class . ':Delete');
-    $app->get('/Cliente', Cliente_controller::class . ':Select');
-    $app->post('/Cliente', Cliente_controller::class . ':Insert');
-    $app->put('/Cliente', Cliente_controller::class . ':Update');
-    $app->delete('/Cliente', Cliente_controller::class . ':Delete');
-    $app->get('/Compra_produto', Compra_produto_controller::class . ':Select');
-    $app->post('/Compra_produto', Compra_produto_controller::class . ':Insert');
-    $app->put('/Compra_produto', Compra_produto_controller::class . ':Update');
-    $app->delete('/Compra_produto', Compra_produto_controller::class . ':Delete');
-    $app->get('/Compra_menu', Compra_menu_controller::class . ':Select');
-    $app->post('/Compra_menu', Compra_menu_controller::class . ':Insert');
-    $app->put('/Compra_menu', Compra_menu_controller::class . ':Update');
-    $app->delete('/Compra_menu', Compra_menu_controller::class . ':Delete');
-    $app->get('/Produto_extra', Produto_extra_controller::class . ':Select');
-    $app->post('/Produto_extra', Produto_extra_controller::class . ':Insert');
-    $app->put('/Produto_extra', Produto_extra_controller::class . ':Update');
-    $app->delete('/Produto_extra', Produto_extra_controller::class . ':Delete');
-    $app->get('/Extra', Extra_controller::class . ':Select');
-    $app->post('/Extra', Extra_controller::class . ':Insert');
-    $app->put('/Extra', Extra_controller::class . ':Update');
-    $app->delete('/Extra', Extra_controller::class . ':Delete');
-    $app->get('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Select');
-    $app->post('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Insert');
-    $app->put('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Update');
-    $app->delete('/Refeicao_semanal', Refeicao_semanal_controller::class . ':Delete');
-    $app->get('/Token', Token_controller::class . ':Select');
-    $app->post('/Token', Token_controller::class . ':Insert');
-    $app->put('/Token', Token_controller::class . ':Update');
-    $app->delete('/Token', Token_controller::class . ':Delete');
-
-/*
     $app->group('/Clientelogin', function() use($app) {
         $app->put('/Utilizadorchanges', Utilizador_controller::class . ':Update');
         $app->delete('/Utilizadordelete', Utilizador_controller::class . ':Delete');
@@ -196,7 +112,7 @@
         $app->get('/Take_away',Take_away_controller::class . ':Select');
 
     })  ->add(new Auth_middleware())
-        ->add(Jwt_Auth());
+        ->add(Jwt_Auth::jwtAuth());
     
     $app->group('/Administradorlogin', function() use($app) {
         $app->get('/Cliente', Cliente_controller::class . ':Select');
@@ -285,12 +201,13 @@
         $app->delete('/Utilizadordelete', Utilizador_controller::class . ':Delete');
 
     })  ->add(new Auth_middleware())
-        ->add(Jwt_Auth());
-*/
+        ->add(Jwt_Auth::jwtAuth());
+
     try {
-    $app->run();
-        } catch (Throwable $exception) {
-                http_response_code(400);
-                    echo sprintf('Error Message: %s', $exception->getMessage());
-}
+        $app->run();
+    }catch (Throwable $exception) {
+        http_response_code(400);
+        echo sprintf('Error Message: %s', $exception->getMessage());
+    }
+
 ?>
