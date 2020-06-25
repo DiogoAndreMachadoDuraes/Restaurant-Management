@@ -18,7 +18,7 @@ namespace App\Controllers;
             $ementa->set_nome($data['nome'])
                 ->set_descricao($data['descricao']);
             $ementa_dao->Insert($ementa);
-
+            
             $response->getBody()->write("Ementa criada com sucesso!");
             return $response;
         }
@@ -27,7 +27,8 @@ namespace App\Controllers;
         {
             $ementa_dao=new Ementa_dao();
             $ementa=$ementa_dao->Select();
-            $json=json_encode($ementa);
+            $json=json_encode($ementa, JSON_UNESCAPED_UNICODE);
+
             $response->getBody()->write($json);
             return $response;
         }
@@ -50,7 +51,7 @@ namespace App\Controllers;
         public function Delete (Request $request, Response $response, array $arg) : Response 
         {
             $data=$request->getParsedBody();
-            
+
             $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
             $ementa->set_id_ementa($data['id_ementa']);

@@ -20,7 +20,7 @@ namespace App\Controllers;
                 ->set_preco($data['preco'])
                 ->set_foto($data['foto']);
             $extra_dao->Insert($extra);
-
+            
             $response->getBody()->write("Extra criado com sucesso!");
             return $response;
         }
@@ -29,7 +29,8 @@ namespace App\Controllers;
         {
             $extra_dao=new Extra_dao();
             $extra=$extra_dao->Select();
-            $json=json_encode($extra);
+            $json=json_encode($extra, JSON_UNESCAPED_UNICODE);
+
             $response->getBody()->write($json);
             return $response;
         }
