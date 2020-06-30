@@ -15,7 +15,12 @@ namespace App\Controllers;
 
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
-            $reserva->set_estado($data['estado'])
+            $reserva->set_data($data['data'])
+                ->set_hora($data['hora'])
+                ->set_quantidade_pessoas($data['quantidade_pessoas'])
+                ->set_data_marcada($data['data_marcada'])
+                ->set_hora_marcada($data['hora_marcada'])
+                ->set_estado($data['estado'])
                 ->set_id_cliente($data['id_cliente']);
             $reserva_dao->Insert($reserva);
 
@@ -40,8 +45,14 @@ namespace App\Controllers;
             $reserva_dao=new Reserva_dao();
             $reserva=new Reserva();
             $reserva->set_id_reserva($data['id_reserva'])
+                ->set_data($data['data'])
+                ->set_hora($data['hora'])
+                ->set_quantidade_pessoas($data['quantidade_pessoas'])
+                ->set_data_marcada($data['data_marcada'])
+                ->set_hora_marcada($data['hora_marcada'])
                 ->set_estado($data['estado'])
                 ->set_id_cliente($data['id_cliente']);
+            $reserva_dao->Insert($reserva);
             $reserva_dao->Update($reserva);
 
             $response->getBody()->write("Reserva modificada com sucesso!");

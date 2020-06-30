@@ -16,7 +16,10 @@ namespace App\Controllers;
             $ementa_dao=new Ementa_dao();
             $ementa=new Ementa();
             $ementa->set_nome($data['nome'])
-                ->set_descricao($data['descricao']);
+                ->set_descricao($data['descricao'])
+                ->set_tipo($data['tipo'])
+                ->set_foto($data['foto'])
+                ->set_preco($data['preco']);
             $ementa_dao->Insert($ementa);
             
             $response->getBody()->write("Ementa criada com sucesso!");
@@ -41,7 +44,10 @@ namespace App\Controllers;
             $ementa=new Ementa();
             $ementa->set_id_ementa($data['id_ementa']) 
                 ->set_nome($data['nome'])
-                ->set_descricao($data['descricao']);
+                ->set_descricao($data['descricao'])
+                ->set_tipo($data['tipo'])
+                ->set_foto($data['foto'])
+                ->set_preco($data['preco']);
             $ementa_dao->Update($ementa);
 
             $response->getBody()->write("Ementa modificada com sucesso!");

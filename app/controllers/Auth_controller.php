@@ -18,7 +18,7 @@ namespace App\Controllers;
             $email=$data['email'];
             $password=$data['password'];
 
-            $key='hdX2D3M99ZBQBIFy8jdsAwVHpRpupEWtZUh_CpCfPKE';
+            /* $key='hdX2D3M99ZBQBIFy8jdsAwVHpRpupEWtZUh_CpCfPKE'; */
             
             $utilizador_dao= new Utilizador_dao();
             $utilizador=$utilizador_dao->SelectByEmail($email);
@@ -26,14 +26,18 @@ namespace App\Controllers;
             if(is_null($utilizador)){
                 echo 'Utilizador não encontrado!';
                 return $response->withStatus(401);
-            }
+            } 
 
             if($password!=$utilizador->getpassword()){ 
                 echo 'Palavra-passe inválida!';
                 return $response->withStatus(401);
             }
 
-            $expired_date=(new \DateTime('now', new \DateTimeZone('EUROPE/LISBON')))->modify('+7 days')->format('Y-m-d H:i:s');
+            $token_operation=new Token_operation_controller();
+            $token_operation->setUtilizador($utilizador);
+            $token_operation->Token_operation($request, $response, $args);
+
+            /* $expired_date=(new \DateTime('now', new \DateTimeZone('EUROPE/LISBON')))->modify('+7 days')->format('Y-m-d H:i:s');
 
             $tokenInside=[
                 'id_utilizador' => $utilizador->getid_utilizador(),
@@ -68,6 +72,7 @@ namespace App\Controllers;
             $response->getBody()->write("Refresh_token: ");
             $response->getBody()->write($refresh_token);
 
+            return $response; */
             return $response;
         }
 
@@ -101,10 +106,16 @@ namespace App\Controllers;
             $utilizador_dao = new Utilizador_dao();
             $utilizador=$utilizador_dao->SelectByEmail($token_decoded->email);
 
-            if(is_null($utilizador))
+            if(is_null($utilizador)){
+                echo 'Utilizador não encontrado!';
                 return $response->withStatus(401);
+            }
+
+            $token_operation=new Token_operation_controller();
+            $token_operation->setUtilizador($utilizador);
+            $token_operation->Token_operation($request, $response, $args);
             
-            $expired_date=(new \DateTime('now', new \DateTimeZone('EUROPE/LISBON')))->modify('+7 days')->format('Y-m-d H:i:s');
+            /* $expired_date=(new \DateTime('now', new \DateTimeZone('EUROPE/LISBON')))->modify('+7 days')->format('Y-m-d H:i:s');
             
             $tokenInside=[
                 'id_utilizador' => $utilizador->getid_utilizador(),
@@ -114,7 +125,7 @@ namespace App\Controllers;
             ]; 
             
             $token=JWT::encode($tokenInside, $key);
-            var_dump($token);
+            
             $refresh_token=[
                 'email' => $utilizador->getemail(),
                 'active' => "1",
@@ -138,6 +149,8 @@ namespace App\Controllers;
             $response->getBody()->write("<br>");
             $response->getBody()->write("Refresh_token: ");
             $response->getBody()->write($refresh_token);
+
+            return $response; */
 
             return $response;
         }

@@ -16,11 +16,17 @@ namespace App\DAO;
                 ->prepare('INSERT INTO Ementa values (
                     null,
                     :nome,
-                    :descricao
+                    :descricao,
+                    :tipo,
+                    :foto,
+                    :preco
                     );');
             $statement->execute([
                 'nome' => $ementa->get_nome(),
-                'descricao' => $ementa->get_descricao()
+                'descricao' => $ementa->get_descricao(),
+                'tipo' => $ementa->get_tipo(),
+                'foto' => $ementa->get_foto(),
+                'preco' => $ementa->get_preco()
             ]);
         }
 
@@ -35,11 +41,14 @@ namespace App\DAO;
         public function Update(Ementa $ementa) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Ementa set nome=:nome, descricao=:descricao Where id_ementa=:id_ementa');
+                ->prepare('UPDATE Ementa set nome=:nome, descricao=:descricao, tipo=:tipo, foto=:foto, preco=:preco Where id_ementa=:id_ementa');
             $statement->execute([
                 'id_ementa' => $ementa->get_id_ementa(),
                 'nome' => $ementa->get_nome(),
-                'descricao' => $ementa->get_descricao()
+                'descricao' => $ementa->get_descricao(),
+                'tipo' => $ementa->get_tipo(),
+                'foto' => $ementa->get_foto(),
+                'preco' => $ementa->get_preco()
             ]);
         }
 

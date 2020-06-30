@@ -18,14 +18,14 @@ namespace App\DAO;
                     null, 
                     :nome, 
                     :tipo,
-                    :preco,
-                    :foto
+                    :foto,
+                    :preco
                     );');
             $statement->execute([
                 'nome' => $extra->get_nome(),
                 'tipo' => $extra->get_tipo(),
-                'preco' => $extra->get_preco(),
-                'foto' => $extra->get_foto()
+                'foto' => $extra->get_foto(),
+                'preco' => $extra->get_preco()
             ]);
         }
 
@@ -40,13 +40,13 @@ namespace App\DAO;
         public function Update(Extra $extra) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Extra set nome=:nome, tipo=:tipo, preco=:preco, foto=:foto Where id_extra=:id_extra');
+                ->prepare('UPDATE Extra set nome=:nome, tipo=:tipo, foto=:foto, preco=:preco Where id_extra=:id_extra');
             $statement->execute([
                 'id_extra' => $extra->get_id_extra(),
                 'nome' => $extra->get_nome(),
                 'tipo' => $extra->get_tipo(),
-                'preco' => $extra->get_preco(),
-                'foto' => $extra->get_foto()
+                'foto' => $extra->get_foto(),
+                'preco' => $extra->get_preco()
             ]);
         }
 

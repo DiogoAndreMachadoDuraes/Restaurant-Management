@@ -7,6 +7,9 @@ namespace App\Models;
         private int $id_ementa;
         private string $nome;
         private string $descricao;
+        private string $tipo;
+        private string $foto;
+        private float $preco;
 
         public function Ementa(){ }
 
@@ -39,6 +42,36 @@ namespace App\Models;
 
         public function set_descricao(string $descricao): Ementa{
             $this->descricao = $descricao;
+            return $this;
+        }
+
+        public function get_tipo() : string
+        {
+            return $this->tipo;
+        }
+
+        public function set_tipo(string $tipo): Ementa{
+            $this->tipo = $tipo;
+            return $this;
+        }
+
+        public function get_foto() : string
+        {
+            return $this->foto;
+        }
+
+        public function set_foto(string $foto): Ementa{
+            $this->foto = $foto;
+            return $this;
+        }
+
+        public function get_preco() : float
+        {
+            return $this->preco;
+        }
+
+        public function set_preco(float $preco): Ementa{
+            $this->preco = $preco;
             return $this;
         }
     }
