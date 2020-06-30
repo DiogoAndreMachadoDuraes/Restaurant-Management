@@ -6,7 +6,7 @@ namespace App\Models;
     {
         private int $id_cliente;
         private int $numero_cartao;
-        private int $n_compras;
+        private int $numero_compras;
         private int $id_utilizador;
 
         public function Cliente(){ }
@@ -39,18 +39,18 @@ namespace App\Models;
             return $this;
         }
 
-        public function get_n_compras(){
-            return $this->n_compras;
+        public function get_numero_compras(){
+            return $this->numero_compras;
         }
 
-        public function set_n_compras(int $n_compras): Cliente{
-            if (!$n_compras) {
-                throw new \InvalidArgumentException("É preciso o número de compras", $n_compras);
+        public function set_numero_compras(int $numero_compras): Cliente{
+            if (!$numero_compras) {
+                throw new \InvalidArgumentException("É preciso o número de compras", $numero_compras);
             }
-            if (!is_int($n_compras)) {
-                throw new \InvalidArgumentException("Introduziu um valor para o número de compras incorreto", $n_compras);
+            if (!is_int($numero_compras)) {
+                throw new \InvalidArgumentException("Introduziu um valor para o número de compras incorreto", $numero_compras);
             }
-            $this->n_compras = $n_compras;
+            $this->numero_compras = $numero_compras;
             return $this;
         }
 

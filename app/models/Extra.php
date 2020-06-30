@@ -7,8 +7,8 @@ namespace App\Models;
         private int $id_extra;
         private string $nome;
         private string $tipo;
-        private float $preco;
         private string $foto;
+        private float $preco;
 
         public function Extra(){ }
 
@@ -39,21 +39,21 @@ namespace App\Models;
             return $this;
         }
 
-        public function get_preco(){
-            return $this->preco;
-        }
-
-        public function set_preco(float $preco): Extra{
-            $this->preco = $preco;
-            return $this;
-        }
-
         public function get_foto(){
             return $this->foto;
         }
 
         public function set_foto(string $foto): Extra{
             $this->foto = $foto;
+            return $this;
+        }
+
+        public function get_preco(){
+            return $this->preco;
+        }
+
+        public function set_preco(float $preco): Extra{
+            $this->preco = $preco;
             return $this;
         }
     }

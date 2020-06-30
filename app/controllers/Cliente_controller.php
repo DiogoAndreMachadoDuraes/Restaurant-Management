@@ -17,7 +17,7 @@ namespace App\Controllers;
             $cliente_dao=new Cliente_dao();
             $cliente=new Cliente();
             $cliente->set_numero_cartao($data['numero_cartao'])
-                ->set_n_compras($data['n_compras'])
+                ->set_numero_compras($data['numero_compras'])
                 ->set_id_utilizador($data['id_utilizador']);
             $cliente_dao->Insert($cliente);
             
@@ -43,7 +43,7 @@ namespace App\Controllers;
             $cliente=new Cliente();
             $cliente->set_id_cliente($data['id_cliente'])
                 ->set_numero_cartao($data['numero_cartao'])
-                ->set_n_compras($data['n_compras'])
+                ->set_numero_compras($data['numero_compras'])
                 ->set_id_utilizador($data['id_utilizador']);
             $cliente_dao->Update($cliente);
 
@@ -64,7 +64,7 @@ namespace App\Controllers;
             return $response;
         }
         
-       public function Updade_n_compras(Request $request, Response $response, array $arg) : Response 
+       public function Updade_numero_compras(Request $request, Response $response, array $arg) : Response 
         {
             $data=$request->getParsedBody();
 
@@ -72,8 +72,8 @@ namespace App\Controllers;
                 $cliente_dao=new Cliente_dao();
                 $cliente=new Cliente();
                 $cliente->set_id_cliente($data['id_cliente'])
-                    ->set_n_compras($data['n_compras']);
-                $cliente_dao->Update_n_compras($cliente);
+                    ->set_numero_compras($data['numero_compras']);
+                $cliente_dao->Update_numero_compras($cliente);
                 $response->getBody()->write("Cliente fez mais uma compra com sucesso!");
                 return $response;
             /*}catch(Exception_controller $e){
@@ -81,11 +81,11 @@ namespace App\Controllers;
             }*/
         }
 
-        public function Refeicao_gratis($n_compras, $numero_cartao) : void
+        public function Refeicao_gratis($numero_compras, $numero_cartao) : void
         {
             $cliente_dao=new Cliente_dao();
             $cliente_dao->Refeicao_gratis();
-            if($n_compras==10)
+            if($numero_compras==10)
             {
                 echo("O cliente com o numero de cartao ") .$numero_cartao. ("tem uma refeicao gratis");
             }
