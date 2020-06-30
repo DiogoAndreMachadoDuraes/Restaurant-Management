@@ -5,12 +5,11 @@ namespace App\Models;
     final class Take_away
     {
         private int $id_take_away;
-        private float $preco;
-        private string $data;
-        private string $hora;
         private string $tipo_entrega;
-        private int $id_reserva;
+        private float $preco;
+        private string $estado;
         private int $id_funcionario;
+        private int $id_reserva;
 
         public function take_away() {}
 
@@ -25,6 +24,17 @@ namespace App\Models;
             return $this;
         }
 
+        //get e set tipo da entrega
+        public function gettipo_entrega()
+        {
+           return $this->tipo_entrega;
+        }
+        public function settipo_entrega(string $tipo_entrega): Take_away
+        {
+             $this->tipo_entrega = $tipo_entrega;
+             return $this;
+        }        
+
         //get e set preco
         public function getpreco()
         {
@@ -36,36 +46,25 @@ namespace App\Models;
             return $this;
         }
 
-        //get e set dia
-        public function getdata()
+        //get e set do estado do take away
+        public function getestado()
         {
-            return $this->data;
+            return $this->estado;
         }
-        public function setdata(string $data): Take_away
+        public function setestado(string $estado): Take_away
         {
-            $this->data = $data;
+            $this->estado = $estado;
             return $this;
         }
 
-        //get e set hora
-        public function gethora()
+        //get e set id_reserva
+        public function getid_reserva()
         {
-            return $this->hora;
+            return $this->id_reserva;
         }
-        public function sethora(string $hora): Take_away
+        public function setid_reserva(int $id_reserva): Take_away
         {
-            $this->hora = $hora;
-            return $this;
-        }
-
-        //get e set tipo da entrega
-        public function gettipo_entrega()
-        {
-            return $this->tipo_entrega;
-        }
-        public function settipo_entrega(string $tipo_entrega): Take_away
-        {
-            $this->tipo_entrega = $tipo_entrega;
+            $this->id_reserva = $id_reserva;
             return $this;
         }
 
@@ -77,17 +76,6 @@ namespace App\Models;
          public function setid_funcionario(int $id_funcionario): Take_away
          {
              $this->id_funcionario = $id_funcionario;
-             return $this;
-         }
- 
-         //get e set id_reserva
-         public function getid_reserva()
-         {
-             return $this->id_reserva;
-         }
-         public function setid_reserva(int $id_reserva): Take_away
-         {
-             $this->id_reserva = $id_reserva;
              return $this;
          }
     }

@@ -31,14 +31,16 @@ class Fatura_dao extends ConnectionDB
         $statement = $this->pdo
         ->prepare ('INSERT INTO Fatura values(
             null,
-            :taxa,
             :iva,
+            :taxa,
+            :valor_total,
             :nif_cliente,
             :id_reserva
         );');
         $statement->execute([
-            'taxa' => $fatura->gettaxa(),
             'iva' => $fatura->getiva(),
+            'taxa' => $fatura->gettaxa(),
+            'valor_total' => $fatura->getvalor_total(),
             'nif_cliente' => $fatura->getnif_cliente(),
             'id_reserva' => $fatura->getid_reserva()
         ]);
@@ -47,11 +49,12 @@ class Fatura_dao extends ConnectionDB
     public function Update (Fatura $fatura): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Fatura set taxa=:taxa , iva=:iva , nif_cliente=:nif_cliente , id_reserva=:id_reserva Where id_fatura=:id_fatura');
+            ->prepare('UPDATE Fatura set iva=:iva , taxa=:taxa , valor_total=:valor_total nif_cliente=:nif_cliente , id_reserva=:id_reserva Where id_fatura=:id_fatura');
         $statement->execute([
             'id_fatura' => $fatura->getid_fatura(),
-            'taxa' => $fatura->gettaxa(),
             'iva' => $fatura->getiva(),
+            'taxa' => $fatura->gettaxa(),
+            'valor_total' => $fatura->getvalor_total(),
             'nif_cliente' => $fatura->getnif_cliente(),
             'id_reserva' => $fatura->getid_reserva()
         ]);

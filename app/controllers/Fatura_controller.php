@@ -33,8 +33,9 @@ class Fatura_controller
             $fatura_dao=new Fatura_dao();
             $fatura=new Fatura();
             $fatura->setid_fatura($data['id_fatura'])
-               ->settaxa($data['taxa'])
                ->setiva($data['iva'])
+               ->settaxa($data['taxa'])
+               ->setvalor_total($data['valor_total'])
                ->setnif_cliente($data['nif_cliente'])
                ->setid_reserva($data['id_reserva']);
 
@@ -55,8 +56,9 @@ class Fatura_controller
 
             $fatura_dao=new Fatura_dao();
             $fatura=new Fatura();
-            $fatura->settaxa($data['taxa'])
-                  ->setiva($data['iva'])
+            $fatura->setiva($data['iva'])
+                  ->settaxa($data['taxa'])
+                  ->setvalor_total($data['valor_total'])
                   ->setnif_cliente($data['nif_cliente'])
                   ->setid_reserva($data['id_reserva']);
          

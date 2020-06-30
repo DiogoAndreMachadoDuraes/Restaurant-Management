@@ -32,14 +32,16 @@ final class Utilizador_controller
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
       $utilizador->setid_utilizador($data['id_utilizador'])
+         ->setnif($data['nif'])
          ->setnome($data['nome'])
+         ->setdata_nascimento($data['data_nascimento'])
+         ->setsexo($data['sexo'])
          ->settelefone($data['telefone'])
-         ->setemail($data['email'])
          ->setmorada($data['morada'])
-         ->setpassword($data['password'])
-         ->settipo($data['tipo'])
          ->setfoto($data['foto'])
-         ->setnif($data['nif']);
+         ->setemail($data['email'])
+         ->setpassword($data['password'])
+         ->settipo($data['tipo']);
          
       $utilizador_dao->Update($utilizador);
 
@@ -58,14 +60,16 @@ final class Utilizador_controller
 
       $utilizador_dao=new Utilizador_dao();
       $utilizador=new Utilizador();
-      $utilizador->setnome($data['nome'])
-         ->settelefone($data['telefone'])
-         ->setemail($data['email'])
-         ->setmorada($data['morada'])
-         ->setpassword($data['password'])
-         ->settipo($data['tipo'])
-         ->setfoto($data['foto'])
-         ->setnif($data['nif']);
+      $utilizador->setnif($data['nif'])
+      ->setnome($data['nome'])
+      ->setdata_nascimento($data['data_nascimento'])
+      ->setsexo($data['sexo'])
+      ->settelefone($data['telefone'])
+      ->setmorada($data['morada'])
+      ->setfoto($data['foto'])
+      ->setemail($data['email'])
+      ->setpassword($data['password'])
+      ->settipo($data['tipo']);
       $utilizador_dao->Insert($utilizador);
 
       $response -> getBody() -> write("Utilizador inserido!");

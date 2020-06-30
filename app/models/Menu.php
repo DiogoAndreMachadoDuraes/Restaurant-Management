@@ -34,17 +34,6 @@ namespace App\Models;
             $this->nome = $nome;
             return $this;
         }
-        
-        //get e set valor do menu
-        public function getValor()
-        {
-            return $this->valor;
-        }
-        public function setvalor(float $valor): Menu
-        {
-            $this->valor = $valor;
-            return $this;
-        }
 
         //get e set descricao
         public function getdescricao()
@@ -67,6 +56,17 @@ namespace App\Models;
             $this->foto = $foto;
             return $this;
         }
+
+          //get e set preço do menu
+          public function getpreco()
+          {
+              return $this->preco;
+          }
+          public function setpreco(float $preco): Menu
+          {
+              $this->preco = $preco;
+              return $this;
+          }
 
         //get e set id ementa
         public function getid_ementa()

@@ -6,8 +6,8 @@ namespace App\Models;
     {
         private int $id_produto;
         private string $nome;
-        private int $quantidade;
         private string $descricao;
+        private int $quantidade;
         private float $preco;
         private string $foto;
         
@@ -36,6 +36,18 @@ namespace App\Models;
             return $this;
         }
 
+         //get e set descricao
+         public function getdescricao()
+         {
+             return $this->descricao;
+         }
+         public function setdescricao(string $descricao): Produto
+         {
+             $this->descricao = $descricao;
+             return $this;
+         }
+ 
+
         //get e set quantidade
         public function getquantidade()
         {
@@ -44,17 +56,6 @@ namespace App\Models;
         public function setquantidade(int $quantidade): Produto
         {
             $this->quantidade = $quantidade;
-            return $this;
-        }
-
-        //get e set descricao
-        public function getdescricao()
-        {
-            return $this->descricao;
-        }
-        public function setdescricao(string $descricao): Produto
-        {
-            $this->descricao = $descricao;
             return $this;
         }
 

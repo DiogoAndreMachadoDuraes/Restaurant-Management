@@ -15,14 +15,16 @@ class Utilizador_dao extends ConnectionDB
         $utilizador = $this->pdo
         ->query ('SELECT
             id_utilizador,
+            nif,
             nome,
+            data_nascimento,
+            sexo,
             telefone,
-            email,
             morada,
-            password,
-            tipo,
             foto,
-            nif
+            email,
+            password,
+            tipo
         From Utilizador;')
         -> fetchAll(\PDO::FETCH_ASSOC);
 
@@ -34,41 +36,47 @@ class Utilizador_dao extends ConnectionDB
         $statement = $this->pdo
         ->prepare ('INSERT INTO Utilizador values(
             null,
+            :nif,
             :nome,
+            :data_nascimento,
+            :sexo,
             :telefone,
-            :email,
             :morada,
-            :password,
-            :tipo,
             :foto,
-            :nif
+            :email,
+            :password,
+            :tipo
         );');
         $statement->execute([
+            'nif' => $utilizador->getnif(),
             'nome' => $utilizador->getnome(),
+            'data_nascimento' => $utilizador->getdata_nascimento(),
+            'sexo' => $utilizador->getsexo(),
             'telefone' => $utilizador->gettelefone(),
-            'email' => $utilizador->getemail(),
             'morada' => $utilizador->getmorada(),
-            'password' => $utilizador->getpassword(),
-            'tipo' => $utilizador->gettipo(),
             'foto' => $utilizador->getfoto(),
-            'nif' => $utilizador->getnif()
+            'email' => $utilizador->getemail(),
+            'password' => $utilizador->getpassword(),
+            'tipo' => $utilizador->gettipo()
         ]);
     }
 
     public function Update (Utilizador $utilizador): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Utilizador set nome=:nome , telefone=:telefone , email=:email , morada=:morada , password=:password , tipo=:tipo , foto=:foto , nif=:nif Where id_utilizador=:id_utilizador');
+            ->prepare('UPDATE Utilizador set nif=:nif , nome=:nome , data_nascimento=:data_nascimento , sexo=:sexo , telefone=:telefone , morada=:morada , foto=:foto , email=:email , password=:password , tipo=:tipo Where id_utilizador=:id_utilizador');
         $statement->execute([
             'id_utilizador' => $utilizador->getid_utilizador(),
+            'nif' => $utilizador->getnif(),
             'nome' => $utilizador->getnome(),
+            'data_nascimento' => $utilizador->getdata_nascimento(),
+            'sexo' => $utilizador->getsexo(),
             'telefone' => $utilizador->gettelefone(),
-            'email' => $utilizador->getemail(),
             'morada' => $utilizador->getmorada(),
-            'password' => $utilizador->getpassword(),
-            'tipo' => $utilizador->gettipo(),
             'foto' => $utilizador->getfoto(),
-            'nif' => $utilizador->getnif()
+            'email' => $utilizador->getemail(),
+            'password' => $utilizador->getpassword(),
+            'tipo' => $utilizador->gettipo()
             ]);
     }
 
@@ -87,30 +95,34 @@ class Utilizador_dao extends ConnectionDB
         $statement = $this->pdo
             ->prepare ('SELECT
                     id_utilizador,
+                    nif,
                     nome,
+                    data_nascimento,
+                    sexo,
                     telefone,
-                    email,
                     morada,
-                    password,
-                    tipo,
                     foto,
-                    nif
-                From Utilizador
-                where email=:email');
+                    email,
+                    password,
+                    tipo
+                        From Utilizador
+                            where email=:email');
         $statement->bindParam('email', $email);
         $statement->execute();
         $utilizadores=$statement->fetchAll(\PDO::FETCH_ASSOC);
         if(count($utilizadores)!==0)
             $utilizador= new Utilizador();
             $utilizador->setid_utilizador($utilizadores[0]['id_utilizador'])
+            ->setnif($utilizadores[0]['nif'])
             ->setnome($utilizadores[0]['nome'])
+            ->setdata_nascimento($utilizadores[0]['data_nascimento'])
+            ->setsexo($utilizadores[0]['sexo'])
             ->settelefone($utilizadores[0]['telefone'])
-            ->setemail($utilizadores[0]['email'])
             ->setmorada($utilizadores[0]['morada'])
-            ->setpassword($utilizadores[0]['password'])
-            ->settipo($utilizadores[0]['tipo'])
             ->setfoto($utilizadores[0]['foto'])
-            ->setnif($utilizadores[0]['nif']);
+            ->setemail($utilizadores[0]['email'])
+            ->setpassword($utilizadores[0]['password'])
+            ->settipo($utilizadores[0]['tipo']);
             return $utilizador;
         return null;
     }

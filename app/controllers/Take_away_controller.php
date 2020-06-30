@@ -33,12 +33,11 @@ final class Take_away_controller
       $take_away_dao=new Take_away_dao();
       $take_away=new Take_away();
       $take_away->setid_take_away($data['id_take_away'])
-         ->setpreco($data['preco'])
-         ->setdata($data['data'])
-         ->sethora($data['hora'])
          ->settipo_entrega($data['tipo_entrega'])
-         ->setid_reserva($data['id_reserva'])
-         ->setid_funcionario($data['id_funcionario']);
+         ->setpreco($data['preco'])
+         ->setestado($data['estado'])
+         ->setid_funcionario($data['id_funcionario'])
+         ->setid_reserva($data['id_reserva']);
       $take_away_dao->Update($take_away);
 
       $response->getBody()->write("Take away modificado!");
@@ -56,12 +55,11 @@ final class Take_away_controller
 
       $take_away_dao=new Take_away_dao();
       $take_away=new Take_away();
-      $take_away->setpreco($data['preco'])
-         ->setdata($data['data'])
-         ->sethora($data['hora'])
-         ->settipo_entrega($data['tipo_entrega'])
-         ->setid_reserva($data['id_reserva'])
-         ->setid_funcionario($data['id_funcionario']);
+      $take_away->settipo_entrega($data['tipo_entrega'])
+      ->setpreco($data['preco'])
+      ->setestado($data['estado'])
+      ->setid_funcionario($data['id_funcionario'])
+      ->setid_reserva($data['id_reserva']);
       $take_away_dao->Insert($take_away);
 
       $response->getBody()->write("Take away inserido!");

@@ -7,6 +7,7 @@ namespace App\Models;
         private int $id_fatura;
         private float $iva;
         private string $taxa;
+        private float $valor_total;
         private int $nif_cliente;
         private int $id_reserva;
 
@@ -24,26 +25,37 @@ namespace App\Models;
         }
 
         //get e set iva
+        public function getiva()
+        {
+            return $this->iva;
+        }
+        public function setiva(string $iva): Fatura
+        {
+            $this->iva = $iva;
+            return $this;
+        }
+
+        //get e set taxa
         public function gettaxa()
         {
             return $this->taxa;
         }
-        public function settaxa(string $taxa): Fatura
+        public function settaxa(float $taxa): Fatura
         {
             $this->taxa = $taxa;
             return $this;
         }
 
-        //get e set taxa
-        public function getiva()
-        {
-            return $this->iva;
-        }
-        public function setiva(float $iva): Fatura
-        {
-            $this->iva = $iva;
-            return $this;
-        }
+         //get e set valor no total
+         public function getvalor_total()
+         {
+             return $this->valor_total;
+         }
+         public function setvalor_total(float $valor_total): Fatura
+         {
+             $this->valor_total = $valor_total;
+             return $this;
+         }
 
          //get e set nif_cliente
          public function getnif_cliente()

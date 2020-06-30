@@ -5,14 +5,17 @@ namespace App\Models;
     final class Utilizador
     {
         private int $id_utilizador;
+        private int $nif;
         private string $nome;
+        private string $data_nascimento;
+        private string $sexo;
         private string $telefone;
-        private string $email;
         private string $morada;
+        private string $foto;
+        private string $email;
         private string $password;
         private string $tipo;
-        private string $foto;
-        private int $nif;
+        
 
         public function Utilizador() {}
 
@@ -27,6 +30,17 @@ namespace App\Models;
             return $this;
         }
 
+        //get e set nif_utilizador
+        public function getnif()
+        {
+            return $this->nif;
+        }
+        public function setnif(int $nif): Utilizador
+        {
+            $this->nif = $nif;
+            return $this;
+        }
+
         //get e set nome
         public function getnome()
         {
@@ -35,6 +49,28 @@ namespace App\Models;
         public function setnome(string $nome): Utilizador
         {
             $this->nome = $nome;
+            return $this;
+        }
+
+        //get e set data de nascimento
+        public function getdata_nascimento()
+        {
+            return $this->data_nascimento;
+        }
+        public function setdata_nascimento(int $data_nascimento): Utilizador
+        {
+            $this->data_nascimento = $data_nascimento;
+            return $this;
+        }
+
+        //get e set sexo do utilizador
+        public function getsexo()
+        {
+            return $this->sexo;
+        }
+        public function setsexo(int $sexo): Utilizador
+        {
+            $this->sexo = $sexo;
             return $this;
         }
 
@@ -49,6 +85,28 @@ namespace App\Models;
             return $this;
         }
 
+        //get e set morada
+        public function getmorada()
+        {
+            return $this->morada;
+        }
+        public function setmorada(string $morada): Utilizador
+        {
+            $this->morada = $morada;
+            return $this;
+        }
+
+        //get e set foto
+        public function getfoto()
+        {
+            return $this->foto;
+        }
+        public function setfoto(string $foto): Utilizador
+        {
+            $this->foto = $foto;
+            return $this;
+        }
+
         //get e set email
         public function getemail()
         {
@@ -60,16 +118,6 @@ namespace App\Models;
             return $this;
         }
 
-        //get e set morada
-        public function getmorada()
-        {
-            return $this->morada;
-        }
-        public function setmorada(string $morada): Utilizador
-        {
-            $this->morada = $morada;
-            return $this;
-        }
 
         //get e set password
         public function getpassword()
@@ -93,26 +141,5 @@ namespace App\Models;
             return $this;
         }
 
-        //get e set foto
-        public function getfoto()
-        {
-            return $this->foto;
-        }
-        public function setfoto(string $foto): Utilizador
-        {
-            $this->foto = $foto;
-            return $this;
-        }
-
-        //get e set nif_utilizador
-        public function getnif()
-        {
-            return $this->nif;
-        }
-        public function setnif(int $nif): Utilizador
-        {
-            $this->nif = $nif;
-            return $this;
-        }
     }
 ?>
