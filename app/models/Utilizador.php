@@ -57,7 +57,7 @@ namespace App\Models;
         {
             return $this->data_nascimento;
         }
-        public function setdata_nascimento(int $data_nascimento): Utilizador
+        public function setdata_nascimento(string $data_nascimento): Utilizador
         {
             $this->data_nascimento = $data_nascimento;
             return $this;
@@ -68,7 +68,7 @@ namespace App\Models;
         {
             return $this->sexo;
         }
-        public function setsexo(int $sexo): Utilizador
+        public function setsexo(string $sexo): Utilizador
         {
             $this->sexo = $sexo;
             return $this;

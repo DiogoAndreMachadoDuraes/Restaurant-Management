@@ -11,9 +11,10 @@ use Slim\Exception\HttpException;
 
 final class HttpExceptionMiddleware implements MiddlewareInterface
 {
-    
-    @var ResponseFactoryInterface
 
+/**
+    * @var ResponseFactoryInterface
+    */
     private $responseFactory;
 
     public function __construct(ResponseFactoryInterface $responseFactory)
