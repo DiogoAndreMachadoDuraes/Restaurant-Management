@@ -45,7 +45,7 @@ final class Utilizador_controller
          
       $utilizador_dao->Update($utilizador);
 
-      $response -> getBody() -> write("Utilizador modificado!");
+      $response -> getBody() -> write("User modified!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -72,7 +72,7 @@ final class Utilizador_controller
       ->settipo($data['tipo']);
       $utilizador_dao->Insert($utilizador);
 
-      $response -> getBody() -> write("Utilizador inserido!");
+      $response -> getBody() -> write("User inserted!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -90,7 +90,7 @@ final class Utilizador_controller
       $utilizador->setid_utilizador($data['id_utilizador']);
       $utilizador_dao->Delete($utilizador);
 
-      $response -> getBody() -> write("Utilizador eliminado!");
+      $response -> getBody() -> write("User deleted!");
       return $response;
    }
    catch(Exception_controller $e){

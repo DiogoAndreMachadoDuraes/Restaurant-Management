@@ -40,7 +40,7 @@ final class Info_nutricional_controller
          ->setid_extra($data['id_extra']);
          $info_nutricional_dao->Update($info_nutricional);
 
-      $response -> getBody() -> write("Informacao nutricional modificada!");
+      $response -> getBody() -> write("Nutritional Information modified!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -62,7 +62,7 @@ final class Info_nutricional_controller
          ->setid_extra($data['id_extra']);
          $info_nutricional_dao->Insert($info_nutricional);
 
-      $response -> getBody() -> write("Informacao Nutricional inserida!");
+      $response -> getBody() -> write("Nutritional Information inserted!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -80,7 +80,7 @@ final class Info_nutricional_controller
       $info_nutricional->setid_info_nutricional($data['id_info_nutricional']);
       $info_nutricional_dao->Delete($info_nutricional);
 
-      $response -> getBody() -> write("Informacao nutricional eliminada!");
+      $response -> getBody() -> write("Nutritional Information deleted!");
       return $response;
    }
    catch(Exception_controller $e){

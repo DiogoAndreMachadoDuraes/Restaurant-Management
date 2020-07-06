@@ -37,7 +37,7 @@ final class Funcionario_controller
             ->setid_utilizador($data['id_utilizador']);
       $funcionario_dao->Update($funcionario);
 
-      $response -> getBody() -> write("Funcionario modificado!");
+      $response -> getBody() -> write("Employee modified!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -56,7 +56,7 @@ final class Funcionario_controller
             ->setid_utilizador($data['id_utilizador']);
       $funcionario_dao->Insert($funcionario);
 
-      $response -> getBody() -> write("Funcionario inserido!");
+      $response -> getBody() -> write("Employee inserted!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -74,7 +74,7 @@ final class Funcionario_controller
       $funcionario->setid_funcionario($data['id_funcionario']);
       $funcionario_dao->Delete($funcionario);
 
-      $response -> getBody() -> write("Funcionario eliminado!");
+      $response -> getBody() -> write("Employee deleted!");
       return $response;
    }
    catch(Exception_controller $e){

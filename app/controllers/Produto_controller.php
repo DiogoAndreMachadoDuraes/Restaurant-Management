@@ -40,7 +40,7 @@ final class Produto_controller
          ->setfoto($data['foto']);
       $produto_dao->Update($produto);
 
-      $response -> getBody() -> write("Produto modificado!");
+      $response -> getBody() -> write("Product modified!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -62,7 +62,7 @@ final class Produto_controller
          ->setfoto($data['foto']);
       $produto_dao->Insert($produto);
 
-      $response -> getBody() -> write("Produto inserido!");
+      $response -> getBody() -> write("Product inserted!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -80,7 +80,7 @@ final class Produto_controller
       $produto->setid_produto($data['id_produto']);
       $produto_dao->Delete($produto);
 
-      $response -> getBody() -> write("Produto eliminado!");
+      $response -> getBody() -> write("Product deleted!");
       return $response;
    }
    catch(Exception_controller $e){

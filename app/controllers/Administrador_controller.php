@@ -35,7 +35,7 @@ class Administrador_controller
            $administrador->setid_utilizador($data['id_utilizador']);
            $administrador_dao->Insert($administrador);
 
-           $response->getBody()->write("Administrador criado com sucesso!");
+           $response->getBody()->write("Administrator inserted!");
            return $response;
          }
       catch(Exception_controller $e){
@@ -54,7 +54,7 @@ class Administrador_controller
                 ->setid_utilizador($data['id_utilizador']);
             $administrador_dao->Update($administrador);
 
-            $response -> getBody() -> write("Administrador modificado!");
+            $response -> getBody() -> write("Administrator modified!");
             return $response;
          }
       catch(Exception_controller $e){
@@ -72,7 +72,7 @@ class Administrador_controller
             $administrador->setid_administrador($data['id_administrador']);
             $administrador_dao->Delete($administrador);
 
-            $response -> getBody() -> write("Administrador eliminado!");
+            $response -> getBody() -> write("Administrator deleted!");
             return $response;
          }
       catch(Exception_controller $e){

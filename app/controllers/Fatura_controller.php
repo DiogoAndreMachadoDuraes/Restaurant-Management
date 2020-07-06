@@ -41,7 +41,7 @@ class Fatura_controller
 
             $fatura_dao->Update($fatura);
 
-            $response -> getBody() -> write("Fatura modificada!");
+            $response -> getBody() -> write("Bil modified!");
             return $response;
          }
             catch(Exception_controller $e){
@@ -64,7 +64,7 @@ class Fatura_controller
          
             $fatura_dao->Insert($fatura);
 
-            $response -> getBody() -> write("Fatura inserida!");
+            $response -> getBody() -> write("Bill inserted!");
             return $response;
          }
       catch(Exception_controller $e){
@@ -82,7 +82,7 @@ class Fatura_controller
             $fatura->setid_fatura($data['id_fatura']);
             $fatura_dao->Delete($fatura);
 
-            $response -> getBody() -> write("Fatura eliminada!");
+            $response -> getBody() -> write("Bill deleted!");
             return $response;
          }    
          catch(Exception_controller $e){

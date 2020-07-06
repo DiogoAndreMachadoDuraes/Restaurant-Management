@@ -38,7 +38,7 @@ final class Alergenio_controller
                ->setid_produto($data['id_produto']);
             $alergenio_dao->Update($alergenio);
 
-            $response -> getBody() -> write("Alergenio modificado!");
+            $response -> getBody() -> write("Allergen modified!");
             return $response;
       }
       catch(Exception_controller $e){
@@ -59,7 +59,7 @@ final class Alergenio_controller
                ->setid_produto($data['id_produto']);
             $alergenio_dao->Insert($alergenio);
 
-            $response -> getBody() -> write("Alergenio inserido!");
+            $response -> getBody() -> write("Allergen inserted!");
             return $response;
          }
       catch(Exception_controller $e){
@@ -77,7 +77,7 @@ final class Alergenio_controller
             $alergenio->setid_alergenio($data['id_alergenio']);
             $alergenio_dao->Delete($alergenio);
 
-            $response -> getBody() -> write("Alergenio eliminado!");
+            $response -> getBody() -> write("Allergen deleted!");
             return $response;
          }
 

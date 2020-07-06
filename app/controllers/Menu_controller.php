@@ -39,7 +39,7 @@ final class Menu_controller
       ->setid_ementa($data['id_ementa']);
       $menu_dao->Update($menu);
 
-      $response -> getBody() -> write("Menu modificado!");
+      $response -> getBody() -> write("Menu modified!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -61,7 +61,7 @@ final class Menu_controller
          ->setid_ementa($data['id_ementa']);
       $menu_dao->Insert($menu);
 
-      $response -> getBody() -> write("Menu inserido!");
+      $response -> getBody() -> write("Menu inserted!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -79,7 +79,7 @@ final class Menu_controller
       $menu->setid_menu($data['id_menu']);
       $menu_dao->Delete($menu);
 
-      $response -> getBody() -> write("Menu eliminado!");
+      $response -> getBody() -> write("Menu deleted!");
       return $response;
    }
    catch(Exception_controller $e){

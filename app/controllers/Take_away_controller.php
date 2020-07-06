@@ -40,7 +40,7 @@ final class Take_away_controller
          ->setid_reserva($data['id_reserva']);
       $take_away_dao->Update($take_away);
 
-      $response->getBody()->write("Take away modificado!");
+      $response->getBody()->write("Take away modified!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -62,7 +62,7 @@ final class Take_away_controller
       ->setid_reserva($data['id_reserva']);
       $take_away_dao->Insert($take_away);
 
-      $response->getBody()->write("Take away inserido!");
+      $response->getBody()->write("Take away inserted!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -80,7 +80,7 @@ final class Take_away_controller
       $take_away->setid_take_away($data['id_take_away']);
       $take_away_dao->Delete($take_away);
 
-      $response->getBody()->write("Take away eliminado!");
+      $response->getBody()->write("Take away deleted!");
       return $response;
    }
    catch(Exception_controller $e){

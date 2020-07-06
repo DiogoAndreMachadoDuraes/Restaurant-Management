@@ -44,7 +44,7 @@ class Restaurante_controller
       ->setfoto($data['foto']);
       $restaurante_dao->Update($restaurante);
 
-      $response -> getBody() -> write("Restaurante modificado!");
+      $response -> getBody() -> write("Restaurant modified!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -68,7 +68,7 @@ class Restaurante_controller
          ->setfoto($data['foto']);
       $restaurante_dao->Insert($restaurante);
 
-      $response -> getBody() -> write("Restaurante inserido!");
+      $response -> getBody() -> write("Restaurant inserted!");
       return $response;
    }
    catch(Exception_controller $e){
@@ -86,7 +86,7 @@ class Restaurante_controller
       $restaurante->setid_restaurante($data['id_restaurante']);
       $restaurante_dao->Delete($restaurante);
 
-      $response -> getBody() -> write("Restaurante eliminado!");
+      $response -> getBody() -> write("Restaurant deleted!");
       return $response;
    }
    catch(Exception_controller $e){
