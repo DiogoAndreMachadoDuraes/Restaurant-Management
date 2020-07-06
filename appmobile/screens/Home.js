@@ -42,11 +42,9 @@ class Home extends React.Component{
                 </TouchableOpacity>
 
                 <Image source={require('../assets/reserva.jpeg')} style={style.image2} opacity={1}/>
-                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Reserva") }>
+                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Produto") }>
                 <Text style={style.buttonreserved}>Reserva</Text>
                 </TouchableOpacity>
-
-               
                 
                 <View style={style.caixatexto}>
                 <Text style={style.titulo}>Horário de Atendimento</Text>

@@ -36,6 +36,7 @@ import Registar from "./screens/Registar.js";
 import Doce from "./screens/Doce.js";
 import Nata from "./screens/Nata.js";
 import Carrinho from "./screens/Carrinho.js";
+import Produto from "./screens/Produto.js";
 
 import { DrawerContent } from './screens/shared/DrawerContent';
 
@@ -47,6 +48,7 @@ const App = () => {
         <NavigationContainer /*theme={scheme === 'dark' ? DarkTheme : DefaultTheme}*/>
           <Drawer.Navigator initialRouteName="Login" drawerContentOptions={{ activeBackgroundColor: "#556b2f", activeTintColor: "#fff" }} drawerContent={props => <DrawerContent {...props} />}>
             <Drawer.Screen name="Login" component={Login} />
+            <Drawer.Screen name="Produto" component={Produto} options={{ drawerLabel: 'Produto' }}/>            
             <Drawer.Screen name="Espaco" component={Espaco} options={{ drawerLabel: 'Espaco' }}/>
             <Drawer.Screen name="BatataFrita" component={BatataFrita} options={{ drawerLabel: 'BatataFrita' }}/>
             <Drawer.Screen name="BebidasFrias" component={BebidasFrias} options={{ drawerLabel: 'BebidasFrias' }}/>

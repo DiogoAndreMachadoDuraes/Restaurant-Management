@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image, ActivityIndicator, FlatList } from "react-native";
 import { Icon } from "react-native-elements";
 
 import NossoFinal from "./shared/NossoFinal";
@@ -10,36 +10,24 @@ const VinhoTinto = require('../assets/vinhoTinto.jpg');
 const VinhoBranco = require('../assets/vinhoBranco.jpg');
 const Agua = require('../assets/agua.jpg');
 
-const dataFromApi = [
-    {
-      id: 1,
-      name: "Vinho Tinto",
-      subtitle: "Venha beber o melhor vinho tinto do país!",
-      imagem: VinhoTinto
-    },
-    {
-      id: 2,
-      name: "Vinho Branco",
-      subtitle: "Venha beber o melhor vinho branco do país!",
-      imagem: VinhoBranco
-    },
-    {
-      id: 3,
-      name: "Água",
-      subtitle: "O que é essecial é indispensável",
-      imagem: Agua
-    }
-]
-
 class Produto extends React.Component{
     constructor(){
         super();
-        this.state={
-          name:"Batatas Fritas",
+        this.state = {
+          data: [],
+          isLoading: true
         };
       }
       componentDidMount(){ 
         console.log("Montando o ecrã Produto...");
+        fetch('localhost/Ementas-de-Restauracao/index.php/Utilizador').then((response) => response.json())
+        .then((json) => {
+          this.setState({ data: json.movies });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });;
       }
       render(){
        /* const data = [
@@ -76,9 +64,24 @@ class Produto extends React.Component{
 
       const colors = ['#7b4173', '#a55194', '#ce6dbd', '#de9ed6']
       const keys = ['apples', 'bananas', 'cherries', 'dates']
+
 */
+
+const { data, isLoading } = this.state;
         return (
-          <View style={style.container}>
+          <View style={{ flex: 1, padding: 24 }}>
+        {isLoading ? <ActivityIndicator/> : (
+          <FlatList
+            data={data}
+            keyExtractor={({ id }, index) => id}
+            renderItem={({ item }) => (
+              <Text>{item.title}, {item.releaseYear}</Text>
+            )}
+          />
+        )}
+      </View>
+    );
+          /*<View style={style.container}>
             <BarraEstados />
             <ScrollView>
                 <View style={style.arrow}>
@@ -101,11 +104,12 @@ class Produto extends React.Component{
                         <Text style={style.alergenioText}>Não contém alergenios.</Text>
                     );
                   })
-                */}
+                
                 <NossoFinal />
             </ScrollView>
           </View>
-        );
+          */
+        
       }
     }
     
