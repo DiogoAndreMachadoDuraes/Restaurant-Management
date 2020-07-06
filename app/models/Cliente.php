@@ -15,12 +15,10 @@ namespace App\Models;
             return $this->id_cliente;
         }
 
-        public function set_id_cliente(int $id_cliente): Cliente{
-            if (!$id_cliente) {
-                throw new \InvalidArgumentException("É preciso o id de cliente", 400);
-            }
+        public function set_id_cliente($id_cliente): Cliente
+        {
             if (!is_int($id_cliente)) {
-                throw new \InvalidArgumentException("Introduziu um valor para o número de compras incorreto", 400);
+                throw new \InvalidArgumentException("The id_cliente must be an integer", 401);
             }
             $this->id_cliente = $id_cliente;
             return $this;

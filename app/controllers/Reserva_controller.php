@@ -24,7 +24,7 @@ namespace App\Controllers;
                 ->set_id_cliente($data['id_cliente']);
             $reserva_dao->Insert($reserva);
 
-            $response->getBody()->write("Reserva criada com sucesso!");
+            $response->getBody()->write("Reserva created!");
             return $response;
         }
 
@@ -55,7 +55,7 @@ namespace App\Controllers;
             $reserva_dao->Insert($reserva);
             $reserva_dao->Update($reserva);
 
-            $response->getBody()->write("Reserva modificada com sucesso!");
+            $response->getBody()->write("Reserva updated!");
             return $response;
 
         }
@@ -69,7 +69,7 @@ namespace App\Controllers;
             $reserva->set_id_reserva($data['id_reserva']);
             $reserva_dao->Delete($reserva);
 
-            $response->getBody()->write("Reserva eliminada com sucesso!");
+            $response->getBody()->write("Reserva deleted!");
             return $response;
         }
     }

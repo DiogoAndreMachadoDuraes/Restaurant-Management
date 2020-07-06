@@ -22,7 +22,7 @@ namespace App\Controllers;
          ->set_active($data['active']);
          $token_dao->Insert($token);
 
-         $response -> getBody() -> write("Token inserido!");
+         $response->getBody()->write("Token created!");
          return $response;
       }
 
@@ -50,7 +50,7 @@ namespace App\Controllers;
          ->set_active($data['active']);
          $token_dao->Update($token);
 
-         $response -> getBody() -> write("Token modificado!");
+         $response->getBody()->write("Token updated!");
          return $response;
       }
 
@@ -63,9 +63,8 @@ namespace App\Controllers;
          $token->set_id_token($data['id_token']);
          $token_dao->Delete($token);
 
-         $response -> getBody() -> write("Token eliminado!");
+         $response->getBody()->write("Token deleted!");
          return $response;
-
       }
    } 
 ?>

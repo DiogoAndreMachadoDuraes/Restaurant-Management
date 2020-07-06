@@ -52,7 +52,7 @@ namespace App\Controllers;
             $response->getBody()->write("Token: ");
             $response->getBody()->write($token);
             $response->getBody()->write("<br>");
-            $response->getBody()->write("Refresh_token: ");
+            $response->getBody()->write("Refresh Token: ");
             $response->getBody()->write($refresh_token);
 
             return $response;

@@ -20,7 +20,7 @@ namespace App\Controllers;
                 ->set_id_reserva($data['id_reserva']);
             $compra_produto_dao->Insert($compra_produto);
 
-            $response->getBody()->write("Compra produto criada com sucesso!");
+            $response->getBody()->write("Compra produto created!");
             return $response;
         }
 
@@ -46,7 +46,7 @@ namespace App\Controllers;
                 ->set_id_reserva($data['id_reserva']);
             $compra_produto_dao->Update($compra_produto);
 
-            $response->getBody()->write("Compra produto modificada com sucesso!");
+            $response->getBody()->write("Compra produto updated!");
             return $response;
         }
         
@@ -59,7 +59,7 @@ namespace App\Controllers;
             $compra_produto->set_id_compra_produto($data['id_compra_produto']);
             $compra_produto_dao->Delete($compra_produto);
             
-            $response->getBody()->write("Compra produto eliminada com sucesso!");
+            $response->getBody()->write("Compra produto deleted!");
             return $response;
         }
     }
