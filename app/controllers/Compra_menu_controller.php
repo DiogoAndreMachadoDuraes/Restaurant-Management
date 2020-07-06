@@ -20,7 +20,7 @@ namespace App\Controllers;
                 ->set_id_menu($data['id_menu'])
                 ->set_id_reserva($data['id_reserva']);
             $compra_menu_dao->Insert($compra_menu);
-            $response->getBody()->write("Compra menu criada com sucesso!");
+            $response->getBody()->write("Compra menu created!");
 
             return $response;
         }
@@ -48,7 +48,7 @@ namespace App\Controllers;
                 ->set_id_reserva($data['id_reserva']);
             $compra_menu_dao->Update($compra_menu);
 
-            $response->getbody()->write("Compra menu modificada com sucesso!");
+            $response->getbody()->write("Compra menu updated!");
             return $response;
         }
         
@@ -61,7 +61,7 @@ namespace App\Controllers;
             $compra_menu->set_id_compra_menu($data['id_compra_menu']);
             $compra_menu_dao->Delete($compra_menu);
 
-            $response->getBody()->write("Compra menu eliminada com sucesso!");
+            $response->getBody()->write("Compra menu deleted!");
             return $response;
         }
     }

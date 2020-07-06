@@ -21,7 +21,7 @@ namespace App\Controllers;
                 ->set_preco($data['preco']);
             $extra_dao->Insert($extra);
             
-            $response->getBody()->write("Extra criado com sucesso!");
+            $response->getBody()->write("Extra created!");
             return $response;
         }
 
@@ -48,7 +48,7 @@ namespace App\Controllers;
                 ->set_preco($data['preco']);
             $extra_dao->Update($extra);
 
-            $response->getBody()->write("Extra modificado com sucesso!");
+            $response->getBody()->write("Extra updated!");
             return $response;
         }
         
@@ -61,7 +61,7 @@ namespace App\Controllers;
             $extra->set_id_extra($data['id_extra']);
             $extra_dao->Delete($extra);
 
-            $response->getBody()->write("Extra eliminado com sucesso!");
+            $response->getBody()->write("Extra deleted!");
             return $response;
         }
     }

@@ -55,7 +55,7 @@ namespace App\DAO;
             ]);
         }
 
-        public function Update_numero_compras(Cliente $cliente) : void
+        public function Update_purchase(Cliente $cliente) : void
         {
             $statement=$this->pdo
                 ->prepare('UPDATE Cliente SET numero_compras=:numero_compras WHERE id_cliente=:id_cliente');
@@ -65,7 +65,7 @@ namespace App\DAO;
             ]);
         }
 
-        public function Refeicao_gratis() : array
+        public function Free_meal() : array
         {
             $cliente=$this->pdo
                 ->query('SELECT numero_compras, numero_cartao FROM Cliente')

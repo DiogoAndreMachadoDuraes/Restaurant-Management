@@ -22,7 +22,7 @@ namespace App\Controllers;
                 ->set_preco($data['preco']);
             $ementa_dao->Insert($ementa);
             
-            $response->getBody()->write("Ementa criada com sucesso!");
+            $response->getBody()->write("Ementa created!");
             return $response;
         }
 
@@ -50,7 +50,7 @@ namespace App\Controllers;
                 ->set_preco($data['preco']);
             $ementa_dao->Update($ementa);
 
-            $response->getBody()->write("Ementa modificada com sucesso!");
+            $response->getBody()->write("Ementa updated!");
             return $response;
         }
         
@@ -63,7 +63,7 @@ namespace App\Controllers;
             $ementa->set_id_ementa($data['id_ementa']);
             $ementa_dao->Delete($ementa);
 
-            $response->getBody()->write("Ementa eliminada com sucesso!");
+            $response->getBody()->write("Ementa deleted!");
             return $response;
         }
     }
