@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity, ActivityIndicator, FlatList } from "react-native";
 import {Header, Icon} from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NossoFinal from './shared/NossoFinal.js';
@@ -102,7 +102,7 @@ class Menu extends React.Component{
                         renderItem={({ item }) => (
             
                           <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer", {item})}>
-                              <Image style={style.menuExpFoto} source={item.foto} ></Image>
+                              <Image style={style.menuExpFoto} source={{uri:""+item.foto+""}} ></Image>
                               <Text style={style.titleMenu}>{item.nome}</Text>
                               <Text style={style.textMenu}>{item.descricao}</Text>
                             </TouchableOpacity>
