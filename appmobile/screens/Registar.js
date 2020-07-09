@@ -8,12 +8,12 @@ import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
 import NossoFinal from './shared/NossoFinal.js';
 
-import ImagePicker from 'react-native-image-picker';
-import Axios from 'axios';
+//import ImagePicker from 'react-native-image-picker';
+//import Axios from 'axios';
 
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-const imagePickerOptions = {
+/*const imagePickerOptions = {
     title: 'Selecione uma imagem',
     customButtons: [
       {
@@ -25,7 +25,9 @@ const imagePickerOptions = {
         title: 'Selecione uma imagem do instagram',
       },
     ],
-  };
+  };*/
+
+
 
 
 class Registar extends React.Component {
@@ -37,43 +39,42 @@ class Registar extends React.Component {
       }
       componentDidMount(){ 
         console.log("Montando o ecrã Registar...");
+        /*function imagePickerCallback(data) {
+          if (data.didCancel) {
+            return;
+          }
+      
+          if (data.error) {
+            return;
+          }
+      
+          if (data.customButton) {
+            return;
+          }
+      
+          if (!data.uri) {
+            return;
+          }
+      
+          setAvatar(data);
+        }
+      
+        async function uploadImage() {
+          const data = new FormData();
+      
+          data.append('avatar', {
+            fileName: avatar.fileName,
+            uri: avatar.uri,
+            type: avatar.type,
+          });
+      
+          await Axios.post('http://localhost:3333/files', data);*/
       }
+      
     render()
-    {
+    { 
         return (
-              function imagePickerCallback(data) {
-                if (data.didCancel) {
-                  return;
-                }
-            
-                if (data.error) {
-                  return;
-                }
-            
-                if (data.customButton) {
-                  return;
-                }
-            
-                if (!data.uri) {
-                  return;
-                }
-            
-                setAvatar(data);
-              }
-            
-              async function uploadImage() {
-                const data = new FormData();
-            
-                data.append('avatar', {
-                  fileName: avatar.fileName,
-                  uri: avatar.uri,
-                  type: avatar.type,
-                });
-            
-                await Axios.post('http://localhost:3333/files', data);
-              }
-        
-                <View style={style.container}>
+             /*<View style={style.container}>
                   <Image
                     source={{
                       uri: avatar
@@ -92,9 +93,7 @@ class Registar extends React.Component {
                   <TouchableOpacity style={styles.button} onPress={uploadImage}>
                     <Text style={style.buttonText}>Enviar imagem</Text>
                   </TouchableOpacity>
-                </View>
-
-
+                </View>*/
 
             <View style={style.container}>
             <BarraEstados />
@@ -133,9 +132,8 @@ class Registar extends React.Component {
             <NossoFinal></NossoFinal>
             </ScrollView>
             </View>
-        );
-    }
-
+          );
+          }
 }
 
 const style = StyleSheet.create({
