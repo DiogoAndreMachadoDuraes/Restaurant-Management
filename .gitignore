@@ -1,4 +1,5 @@
-
+vendor/*
+mobile/*
 # Created by https://www.gitignore.io/api/react,windows,reactnative,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=react,windows,reactnative,visualstudiocode
 
