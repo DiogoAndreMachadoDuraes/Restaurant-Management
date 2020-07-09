@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity, ActivityIndicator } from "react-native";
 import {Header, Icon} from "react-native-elements";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NossoFinal from './shared/NossoFinal.js';
@@ -57,15 +57,26 @@ const dataFromApi = [
 
 class Menu extends React.Component{
     constructor(){
-        super();
-        this.state={
-          name:"Menu",
-        };
+      super();
+      this.state = {
+        data: [],
+        isLoading: true
+      };
       }
-      componentDidMount(){ 
+      async componentDidMount(){ 
         console.log("Montando o ecrã Menu...");
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Menu',{headers:{Accept:'application/json', 'Content-Type':'application/json'}}).then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          this.setState({ data: json , isLoading: false });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });;
       }
       render(){
+        const {data , isLoading}=this.state;
         return (
           <View style={style.container}>
             <BarraEstados />
@@ -74,7 +85,7 @@ class Menu extends React.Component{
               <ScrollView>
                 <View style={style.menu}>
                   {
-                    dataFromApi.map((item)=>{
+                    /*dataFromApi.map((item)=>{
                       return (
                         <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer", {item})}>
                           <Image style={style.menuExpFoto} source={item.imagem} ></Image>
@@ -82,9 +93,25 @@ class Menu extends React.Component{
                           <Text style={style.textMenu}>{item.subtitle}</Text>
                         </TouchableOpacity>
                       );
-                    })
+                    })*/ 
+                    isLoading ? <ActivityIndicator/> : 
+                    (
+                      <FlatList
+                        data={data}
+                        keyExtractor={({ id }, index) => id}
+                        renderItem={({ item }) => (
+            
+                          <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer", {item})}>
+                              <Image style={style.menuExpFoto} source={item.foto} ></Image>
+                              <Text style={style.titleMenu}>{item.nome}</Text>
+                              <Text style={style.textMenu}>{item.descricao}</Text>
+                            </TouchableOpacity>
+                        )}
+                      />
+                    )
                   }
-                  <NossoFinal />
+
+                <NossoFinal />
                 </View>
               </ScrollView>
             </ImageBackground>
