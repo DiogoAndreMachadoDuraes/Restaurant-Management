@@ -67,6 +67,18 @@ export function DrawerContent(props){
                                 size={size}
                                 />
                             )}
+                            label="Ementas"
+                            onPress={() => {props.navigation.navigate('Ementa')}}
+                            labelStyle={style.title}
+                        />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="food" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
                             label="Menus"
                             onPress={() => {props.navigation.navigate('Menu')}}
                             labelStyle={style.title}
@@ -171,6 +183,7 @@ export function DrawerContent(props){
                     )}
                     label="Sair da conta"
                     labelStyle={{color: 'white'}}
+                    onPress={() => {props.navigation.navigate('Login')}}
                     style={{ backgroundColor: '#556b2f' }}
                 />
             </Drawer.Section>
