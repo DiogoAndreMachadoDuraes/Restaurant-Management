@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TextInput, KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TextInput, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator, FlatList } from "react-native";
 import CalendarPicker from 'react-native-calendar-picker';
 
 import {NossoHeader} from './shared/NossoHeader.js';
@@ -14,11 +14,24 @@ class Reserva extends React.Component{
     this.state={
       name:"Reserva",
       selectedStartDate: null,
+      data: [],
+      isLoading: true,
     };
     this.onDateChange = this.onDateChange.bind(this);
   }
-  componentDidMount(){ 
+  async componentDidMount(){ 
     console.log("Montando o ecrã Reserva...");
+
+    await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      this.setState({ data: json, isLoading:false });
+    })
+    .catch((error) => console.error(error))
+    .finally(() => {
+      this.setState({ isLoading: false });
+    });
   }
   onDateChange(date) {
     this.setState({
@@ -29,7 +42,7 @@ class Reserva extends React.Component{
     const { selectedStartDate } = this.state;
     const startDate = selectedStartDate ? selectedStartDate.toString() : '';
     const minDate = new Date();
-
+    const { data, isLoading } = this.state;
     return (
       <View style={style.container}>
         <BarraEstados />
@@ -54,18 +67,29 @@ class Reserva extends React.Component{
                 <Text style={{ top: -35, marginLeft: 200 }}>{ startDate }</Text>
                 <Text style={style.data}>Quantidade de Pessoas: </Text>
                 <TextInput style={{ height: 40, width: 120, borderColor: 'gray', borderWidth: 1, top: -40, marginLeft: 200 }}/>
-                <Text style={style.data}>Telemóvel associado: </Text>
-                <Text style={{ top: -35, marginLeft: 200 }}>965844022</Text>
-                <Text style={style.data}>Email associado: </Text>
-                <Text style={{ top: -35, marginLeft: 200 }}>diogo.machado.duraes@gmail.com</Text>
+                {
+                  isLoading ? <ActivityIndicator/> : (
+                    <FlatList
+                      data={data}
+                      keyExtractor={({ id }, index) => id}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity activeOpacity={1}>
+                          <Text style={style.data}>Telemóvel associado: </Text>
+                          <Text style={{ top: -35, marginLeft: 200 }}>{item.telefone}</Text>
+                          <Text style={style.data}>Email associado: </Text>
+                          <Text style={{ top: -35, marginLeft: 200 }}>{item.email}</Text>
+                        </TouchableOpacity>
+                      )}
+                    />
+                  )
+                }
               </View>
             </KeyboardAvoidingView>
             <View style={style.butao}>
               <Button
                 style={style.butao}
                 title="Reservar"
-                color="blue"
-                accessibilityLabel="Learn more about this purple button"
+                color="black"
               />
             </View>
             <NossoFinal />

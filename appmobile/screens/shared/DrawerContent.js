@@ -80,7 +80,7 @@ export function DrawerContent(props){
                                 />
                             )}
                             label="Produtos"
-                            onPress={() => {props.navigation.navigate('Extras')}}
+                            onPress={() => {props.navigation.navigate('Produto')}}
                             labelStyle={style.title}
                         />
                         <DrawerItem 

@@ -37,6 +37,8 @@ import Doce from "./screens/Doce.js";
 import Nata from "./screens/Nata.js";
 import Carrinho from "./screens/Carrinho.js";
 import Produto from "./screens/Produto.js";
+import DetalhesProduto from "./screens/DetalhesProduto.js";
+import CategoriaProduto from "./screens/CategoriaProduto.js";
 
 import { DrawerContent } from './screens/shared/DrawerContent';
 
@@ -48,7 +50,9 @@ const App = () => {
         <NavigationContainer /*theme={scheme === 'dark' ? DarkTheme : DefaultTheme}*/>
           <Drawer.Navigator initialRouteName="Login" drawerContentOptions={{ activeBackgroundColor: "#556b2f", activeTintColor: "#fff" }} drawerContent={props => <DrawerContent {...props} />}>
             <Drawer.Screen name="Login" component={Login} />
-            <Drawer.Screen name="Produto" component={Produto} options={{ drawerLabel: 'Produto' }}/>            
+            <Drawer.Screen name="Produto" component={Produto} options={{ drawerLabel: 'Produto' }}/>
+            <Drawer.Screen name="CategoriaProduto" component={CategoriaProduto} options={{ drawerLabel: 'CategoriaProduto' }}/>  
+            <Drawer.Screen name="DetalhesProduto" component={DetalhesProduto} options={{ drawerLabel: 'DetalhesProduto' }}/>           
             <Drawer.Screen name="Espaco" component={Espaco} options={{ drawerLabel: 'Espaco' }}/>
             <Drawer.Screen name="BatataFrita" component={BatataFrita} options={{ drawerLabel: 'BatataFrita' }}/>
             <Drawer.Screen name="BebidasFrias" component={BebidasFrias} options={{ drawerLabel: 'BebidasFrias' }}/>
@@ -82,7 +86,6 @@ const App = () => {
             <Drawer.Screen name="Doce" component={Doce} options={{drawerLabel:'Doce'}}/>
             <Drawer.Screen name="Nata" component={Nata} options={{drawerLabel:'Nata'}}/>
             <Drawer.Screen name="Carrinho" component={Carrinho} options={{drawerLabel:'Carrinho'}}/>
-
           </Drawer.Navigator>
         </NavigationContainer>
       //</AppearanceProvider>
