@@ -5,14 +5,16 @@ import {Header, Icon} from "react-native-elements";
 import { NossoHeader } from './shared/NossoHeader';
 import BarraEstados from './shared/BarraEstados';
 
+//import Swiper from 'react-native-swiper';
+
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const image = {uri: "https://images.trustinnews.pt/uploads/sites/5/2019/12/MB-Rest-JNCquoi-Asia-07.jpg"};
 const image1 = {uri: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.eater.com%2F2015%2F2%2F13%2F8033303%2Fman-sells-valentines-day-reservations-on-craigslist&psig=AOvVaw3bM3uPTqVeBZv2_5D0wDti&ust=1591110238049000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCmwdrx4OkCFQAAAAAdAAAAABAN"}; 
 
-class Home extends React.Component{
+class Ementa extends React.Component{
     constructor(){
         super();
-        this.state={ name:'Sabor da Avó' };
+        this.state={ name:'Ementa' };
     }
     componentDidMount(){ 
         console.log("Montar ecrã Home...");
@@ -27,24 +29,15 @@ class Home extends React.Component{
 
                 <ImageBackground source={imageBackgound} style={style.imagemdefundo} opacity={1}>
 
-                <View style={style.noticia}>
-                    <Text style={style.text}>Sobre nós </Text>
-                </View>
-
+            
+                {/*<Swiper>
+                <Image source={require('../assets/espaco.jpg')} style={style.image}/>
+                </Swiper>*/}
                 <Image source={require('../assets/espaco.jpg')} style={style.image}/>
                 <TouchableOpacity style={style.buttonEspaco} onPress={() => this.props.navigation.navigate("Espaco") }>
                 <Text style={style.buttondesign}>Nosso Espaço</Text>
                 </TouchableOpacity>
-                
-                <Image source={require('../assets/ementa.jpg')} style={style.image1} opacity={1}/>
-                <TouchableOpacity style={style.buttonEmenta} onPress={() => this.props.navigation.navigate("Menu") }>
-                <Text style={style.buttoncardapio}>Menus</Text>
-                </TouchableOpacity>
 
-                <Image source={require('../assets/reserva.jpeg')} style={style.image2} opacity={1}/>
-                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Ementa") }>
-                <Text style={style.buttonreserved}>Reserva</Text>
-                </TouchableOpacity>
                 
                 <View style={style.caixatexto}>
                 <Text style={style.titulo}>Horário de Atendimento</Text>
@@ -322,4 +315,4 @@ const style = StyleSheet.create({
 
   });
 
-  export default Home;
+  export default Ementa;

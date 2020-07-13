@@ -12,6 +12,7 @@ import Restaurantes from "./screens/Restaurantes.js";
 import Home from "./screens/Home.js";
 import Menu from "./screens/Menu.js";
 import Registar from "./screens/Registar.js";
+import Ementa from "./screens/Ementa.js";
 import Carrinho from "./screens/Carrinho.js";
 import Produto from "./screens/Produto.js";
 import DetalhesProduto from "./screens/DetalhesProduto.js";
@@ -40,6 +41,7 @@ const App = () => {
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>
             <Drawer.Screen name="Registar" component={Registar} options={{drawerLabel:'Registar'}}/>
             <Drawer.Screen name="Carrinho" component={Carrinho} options={{drawerLabel:'Carrinho'}}/>
+            <Drawer.Screen name="Ementa" component={Ementa} options={{drawerLabel:'Ementa'}}/>
           </Drawer.Navigator>
         </NavigationContainer>
       //</AppearanceProvider>
