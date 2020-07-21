@@ -179,11 +179,11 @@ export function DrawerContent(props){
                             <DrawerItem 
                                 icon={({size}) => (
                                     <Avatar.Image 
-                                    source={{uri:''+ getFoto +''}}
+                                    source={{uri:''}}
                                     size={size}
                                     />
                                 )}
-                                label={getNome}
+                                label={"Jose"}
                                 onPress={() => {props.navigation.navigate('Conta')}}
                                 labelStyle={style.dark}
                             />
