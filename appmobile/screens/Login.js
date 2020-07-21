@@ -78,7 +78,7 @@ class Login extends React.Component {
                     <TouchableOpacity /*onPress={() => this.props.navigation.navigate("Home")}*/>
                         <Text style={style.esqueceuPass}>Esqueceu-se da palavra-passe?</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.login} onPress={() => this.props.navigation.navigate("Agradecimento")}>
+                    <TouchableOpacity style={style.login} onPress={() => this.props.navigation.navigate("Home")}>
                         <Text style={style.loginText}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.registar} onPress={() => this.props.navigation.navigate("Registar")}>

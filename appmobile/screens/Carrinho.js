@@ -1,17 +1,28 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, Text, Image, TextInput, TouchableOpacity, ImageBackground, StatusBar, KeyboardAvoidingView, ScrollView, FlatList, Button } from 'react-native';
-import NossoFinal from './shared/NossoFinal.js';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-import {Header, Icon, withTheme} from "react-native-elements";
+import { Alert, StyleSheet, View, Text, Image, TextInput, ImageBackground, StatusBar, KeyboardAvoidingView, ScrollView, FlatList, Button, TouchableOpacity } from 'react-native';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
+import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
+import {Icon} from "react-native-elements";
+
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
+
+const Coco = require('../assets/coco.jpg');
+
+const dataFromApi = [
+    {
+      id: 1,
+      imagem: Coco,
+      quantidade:1
+    }
+]
 
 class Carrinho extends React.Component {
     constructor(){
         super();
         this.state={
-          name:"Carrinho de compras",
+          name:"Carrinho de compras"
         };
       }
       componentDidMount(){ 
@@ -31,16 +42,27 @@ class Carrinho extends React.Component {
           { cancelable: true }
         );
       }
+      quantidade = (type) => {
+        let i = dataFromApi.map[a=>a.quantidade];
+        console.log(i);
+        if (type==true) {
+          i = i + 1
+          return i;
+         }
+         else if (type==false){
+          i = i - 1
+          return i;
+         }else if (type==1){
+          return i;
+         }
+      }
+     
     render()
     {
         return (
         <View style={style.container}>
            <BarraEstados />
-           <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>    
-    
-            </ScrollView>
+
             <ScrollView>
             <View>
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
@@ -54,9 +76,31 @@ class Carrinho extends React.Component {
                 <View style={style.button2}>
                     <Button title="Esvaziar Carrinho" color="red" onPress={this.threeOptionAlertHandler}/>
                 </View>
-            
 
-                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Home") }>
+                {
+                    dataFromApi.map((item)=>{
+                      return (
+                        <View style={style.menuExp}>
+                        <Text style={style.title}>Côco do Brasil</Text>
+                        <Text style={style.title1}>Total: €2.39 </Text>
+                          <Image style={style.menuExpFoto} source={item.imagem} ></Image>
+                          <Text style={style.titleMenu}>{item.name}</Text>
+                          <TouchableOpacity style={style.trash}>
+                            <Icon2 name="delete" color={'red'} size={20}/>
+                            <Text style={style.trashtext}>Remover</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={style.plus} onPress={()=>this.quantidade(true)}>
+                            <Icon2 name="plus-box-outline" color={'red'} size={20}/>
+                          </TouchableOpacity>
+                          <Text style={style.i}>{this.quantidade(1)}</Text>
+                          <TouchableOpacity style={style.minus} onPress={()=>this.quantidade(false)}>
+                            <Icon2 name="minus-box-outline" color={'red'} size={20}/>
+                          </TouchableOpacity>
+                        </View>
+                      );
+                    })
+                  }
+                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
                     <Text style={style.btntext}>Voltar</Text>
                 </TouchableOpacity>
 
@@ -75,6 +119,76 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff"
+    },
+
+    i:{
+      top:-119,
+      left:140
+    },
+
+    title:{
+      top: 83,
+      left: 0,
+      color: "green",
+      fontWeight: 'bold',
+      fontSize: 20
+    },
+
+    title1:{
+      top: 120,
+      left: -20,
+      color: "black",
+      fontSize: 15
+    },
+
+    trash: {
+        top: -22,
+        left: 120
+    },
+
+    trashtext: {
+      top:-20,
+      left: 20,
+      color: "red",
+      fontWeight: 'bold',
+      fontSize: 15
+  },
+
+    minus:{
+        top: -140,
+        left: 120
+    },
+      
+    plus:{
+        top:-119,
+        left:160
+    },
+
+    menuExp: {
+        marginTop: 25,
+        top: 95,
+        marginLeft: 0,
+        padding: 20,
+        width: 400,
+        height: 100,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
+
+      menuExpFoto: {
+        width: 100,
+        height: 80,
+        marginTop: 20,
+        top: 20,
+        left: -130
+      },
+
+    img:{
+        width: 130,
+        height: 130,
+        marginTop: 150,
+        left: 30
     },
 
     imageBackgound: {                         //foto por tras do titulo
