@@ -18,6 +18,8 @@ import Carrinho from "./screens/Carrinho.js";
 import Produto from "./screens/Produto.js";
 import DetalhesProduto from "./screens/DetalhesProduto.js";
 import CategoriaProduto from "./screens/CategoriaProduto.js";
+import Fatura from "./screens/Fatura.js";
+import Take_away from "./screens/Take_away.js";
 
 import { DrawerContent } from './screens/shared/DrawerContent';
 
@@ -44,6 +46,8 @@ const App = () => {
             <Drawer.Screen name="Carrinho" component={Carrinho} options={{drawerLabel:'Carrinho'}}/>
             <Drawer.Screen name="Conta" component={Conta} options={{drawerLabel:'Conta'}}/>
             <Drawer.Screen name="Ementa" component={Ementa} options={{drawerLabel:'Ementa'}}/>
+            <Drawer.Screen name="Fatura" component={Fatura} options={{drawerLabel:'Fatura'}}/>
+            <Drawer.Screen name="Take_away" component={Take_away} options={{drawerLabel:'Take_away'}}/>
           </Drawer.Navigator>
         </NavigationContainer>
       //</AppearanceProvider>
