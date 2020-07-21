@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, Text, Image, TextInput, TouchableOpacity, ImageBackground, StatusBar, KeyboardAvoidingView, Keyboard } from 'react-native';
+import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, ImageBackground, StatusBar, KeyboardAvoidingView, Keyboard, AsyncStorage, ActivityIndicator, FlatList } from 'react-native';
 //import Icon1 from 'native-base';
 //import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //import Feather from 'react-native-vector-icons/Feather';
@@ -15,8 +15,13 @@ class Login extends React.Component {
         this.state={
             secureTextEntry: true,
             iconName: "eye-slash",
+            email: '',
+            password: '',
+            isLoading: true,
+            data: []
         }
     }
+
     onIconPress = () => {
         let iconName=(this.state.secureTextEntry) ? "eye" : "eye-slash";
         this.setState({
@@ -24,9 +29,11 @@ class Login extends React.Component {
             iconName : iconName
         });
     }
+
     componentDidMount(){ 
         console.log("Montando o ecrã Login...");
     }
+
     render()
     {
         return (
@@ -50,6 +57,8 @@ class Login extends React.Component {
                         autoCapitalize="none"
                         keyboardType="email-address"
                         returnKeyType="next"
+                        onChangeText={(email)=>this.setState({email})}
+                        values={this.state.email}
                     />
                     <Text style={style.text}>Password:</Text>
                     <Input {...this.props}
@@ -74,11 +83,15 @@ class Login extends React.Component {
                         }
                         onSubmitEditing={Keyboard.dismiss}
                         autoCapitalize="none"
+                        onChangeText={(password)=>this.setState({password})}
+                        values={this.state.password}
                     />
                     <TouchableOpacity /*onPress={() => this.props.navigation.navigate("Home")}*/>
                         <Text style={style.esqueceuPass}>Esqueceu-se da palavra-passe?</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.login} onPress={() => this.props.navigation.navigate("Agradecimento")}>
+                    <TouchableOpacity style={style.login} 
+                        onPress={this._login}
+                    >
                         <Text style={style.loginText}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.registar} onPress={() => this.props.navigation.navigate("Registar")}>
@@ -87,6 +100,75 @@ class Login extends React.Component {
                 </KeyboardAvoidingView>
             </View>
         );
+    }
+
+    _login = async() => {
+        /* try
+        {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            let data = await response.json();
+            return data;
+        } catch(e){
+            console.log(e);
+        } */
+        
+        await fetch(
+            'http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        .then((response) => response.json())
+        .then((json) => {
+        this.setState({ data: json, isLoading:false });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+        this.setState({ isLoading: false });
+        });
+
+        const { data, isLoading } = this.state;
+        
+        const email=data.filter(a=>a.email==this.state.email).map(a=>a.email);
+        const password=data.filter(a=>a.password==this.state.password).map(a=>a.password);
+       
+        const nome=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
+        AsyncStorage.setItem("Nome", nome[0]);
+        const foto=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
+        AsyncStorage.setItem("Foto", foto[0]);
+    
+         
+        console.log(nome[0]);
+        console.log(foto[0]); 
+        
+
+        console.log(email);
+        console.log(password);
+
+        if(email[0]===this.state.email && password[0] === this.state.password){
+            try
+            {
+                await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Login', { 
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "email":this.state.email,
+                        "password":this.state.password
+                    })
+                });
+                //await
+                this.props.navigation.navigate("Home");
+            } catch(e){
+                console.log(e);
+            }
+        }else{
+            alert('Username or password incorrect.');
+        }
     }
 }
 

@@ -41,13 +41,13 @@ class Produto extends React.Component{
           <ScrollView>
             <View style={style.produto}>
               {
-                isLoading ? <ActivityIndicator/> : (
+                isLoading ? <ActivityIndicator style={{justifyContent:"center"}}/> : (
                   <FlatList
                     data={data}
                     keyExtractor={({ id }, index) => id}
                     renderItem={({ item }) => (
                       <TouchableOpacity style={style.produtoExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("CategoriaProduto", {item})}>
-                        <Image style={style.fotoProduto} source={item.foto} ></Image>
+                        <Image style={style.fotoProduto} source={{uri:''+item.foto+''}} ></Image>
                         <Text style={style.titleProduto}>{item.nome}</Text>
                         <Text style={style.textProduto}>{item.descricao}</Text>
                       </TouchableOpacity>

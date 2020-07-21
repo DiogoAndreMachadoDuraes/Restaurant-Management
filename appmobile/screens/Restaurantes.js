@@ -1,14 +1,12 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ScrollView, ImageBackground, Image, FlatList, ActivityIndicator } from "react-native";
 
 import {NossoHeader} from './shared/NossoHeader.js';
 import NossoFinal from "./shared/NossoFinal.js";
 import BarraEstados from "./shared/BarraEstados.js";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-const restaurante1 = { uri: "https://media-cdn.tripadvisor.com/media/photo-s/0e/c5/b5/dc/restaurante-los-galenos.jpg" };
-const restaurante2 = { uri: "https://nit.pt/wp-content/uploads/2018/11/938be5b746b428231a166de642ab8252-754x394.jpg" };
-const restaurante3 = { uri: "https://nit.pt/wp-content/uploads/2020/01/d88769cf5a5c7b24dedda74ceb067407-754x394.jpg" };
 
 class Restaurantes extends React.Component{
   constructor(){
@@ -46,13 +44,13 @@ class Restaurantes extends React.Component{
                     data={data}
                     keyExtractor={({ id }, index) => id}
                     renderItem={({ item }) => (
-                      <TouchableOpacity style={style.restaurantesExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
-                        <Image style={style.restaurantesExpFoto} source={item.foto} ></Image>
+                      <TouchableWithoutFeedback style={style.restaurantesExp}>
+                        <Image style={style.restaurantesExpFoto} source={{uri:''+item.foto+''}} ></Image>
                         <Text style={style.textNome}>{item.nome}</Text>
                         <Text style={style.textrestaurantes}>Morada: {item.rua}, {item.codigo_postal}, {item.localizacao}</Text>
                         <Text style={style.textrestaurantes}>Email: {item.email}</Text>
                         <Text style={style.textrestaurantes}>Telefone: {item.telefone}</Text>
-                      </TouchableOpacity>
+                      </TouchableWithoutFeedback>
                     )}
                   />
                 )

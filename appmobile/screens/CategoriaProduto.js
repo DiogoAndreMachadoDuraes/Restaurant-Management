@@ -54,7 +54,7 @@ class CategoriaProduto extends React.Component{
                     keyExtractor={({ id }, index) => id}
                     renderItem={({ item }) => (
                         <TouchableOpacity style={style.CategoriaProdutoExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("DetalhesProduto", {item})}>
-                        <Image style={style.CategoriaProdutoExpFoto} source={item.foto} ></Image>
+                        <Image style={style.CategoriaProdutoExpFoto} source={{uri:''+item.foto+''}} ></Image>
                         <Text style={style.titleCategoriaProduto}>{item.nome}</Text>
                         <Text style={style.textCategoriaProduto}>{item.descricao}</Text>
                       </TouchableOpacity>

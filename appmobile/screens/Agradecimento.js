@@ -47,7 +47,7 @@ class Agradecimento extends React.Component{
                       <Text style={style.text}> Reserva número: {item.id_reserva} </Text>
                       <Text style={style.text}> Data Marcada: {item.data_marcada} </Text>
                       <Text style={style.text}> Hora Marcada: {item.hora_marcada} </Text>
-                      <Image style={style.image} source={restaurante1}></Image>
+                      <Image style={style.image} source={restaurante1/*{uri:''+item.foto+''}*/}></Image>
                     </TouchableOpacity>
                   )}
                 />
