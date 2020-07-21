@@ -6,6 +6,7 @@ import Login from "./screens/Login.js";
 import Espaco from "./screens/Espaco.js";
 import BebidasQuentes from "./screens/BebidasQuentes.js";
 import Cafe from "./screens/Cafe.js";
+import Conta from "./screens/Conta.js";
 import Agradecimento from "./screens/Agradecimento.js";
 import Reserva from "./screens/Reserva.js";
 import Restaurantes from "./screens/Restaurantes.js";
@@ -41,6 +42,7 @@ const App = () => {
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>
             <Drawer.Screen name="Registar" component={Registar} options={{drawerLabel:'Registar'}}/>
             <Drawer.Screen name="Carrinho" component={Carrinho} options={{drawerLabel:'Carrinho'}}/>
+            <Drawer.Screen name="Conta" component={Conta} options={{drawerLabel:'Conta'}}/>
             <Drawer.Screen name="Ementa" component={Ementa} options={{drawerLabel:'Ementa'}}/>
           </Drawer.Navigator>
         </NavigationContainer>
