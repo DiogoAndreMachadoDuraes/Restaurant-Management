@@ -1,55 +1,72 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TextInput, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator, FlatList } from "react-native";
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  ScrollView, 
+  Button, 
+  ImageBackground, 
+  TextInput, 
+  KeyboardAvoidingView, 
+  TouchableOpacity, 
+  ActivityIndicator, 
+  FlatList ,
+  AsyncStorage
+} from "react-native";
 import CalendarPicker from 'react-native-calendar-picker';
-
 import {NossoHeader} from './shared/NossoHeader.js';
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-
-class Reserva extends React.Component{
+class Reservation extends React.Component{
   constructor(){
     super();
     this.state={
       name:"Reserva",
       selectedStartDate: null,
-      data: [],
-      isLoading: true,
+      user: null
     };
     this.onDateChange = this.onDateChange.bind(this);
   }
-  async componentDidMount(){ 
-    console.log("Montando o ecrã Reserva...");
 
-    await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      this.setState({ data: json, isLoading:false });
-    })
-    .catch((error) => console.error(error))
-    .finally(() => {
-      this.setState({ isLoading: false });
-    });
+  componentDidMount(){ 
+    console.log("Mounting the screen Reservation...");
   }
+
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("User");
+      if (value !== null) {
+        this.setState({ user: JSON.parse(value) });
+        console.log(this.state.user);
+      }
+    } catch (e) {
+        console.log("Error rending user: " + e);
+    }
+  }
+
   onDateChange(date) {
     this.setState({
       selectedStartDate: date,
     });
   }
+
   render(){
+
     const { selectedStartDate } = this.state;
     const startDate = selectedStartDate ? selectedStartDate.toString() : '';
     const minDate = new Date();
-    const { data, isLoading } = this.state;
+
+    {
+      //this.getData();
+    }
     return (
       <View style={style.container}>
         <BarraEstados />
         <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
-        <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={0.7}>
+        <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} opacity={0.7}>
           <ScrollView>
-            <KeyboardAvoidingView behavior="padding" style={style.calendario}>
+            <KeyboardAvoidingView behavior="padding" style={style.calendar}>
               <View style={{backgroundColor:"white", opacity: 0.7}}>
                 <CalendarPicker
                   onDateChange={this.onDateChange}
@@ -62,32 +79,28 @@ class Reserva extends React.Component{
                   todayBackgroundColor={'transparent'}
                 />
               </View>
-              <View style={style.reserva}>
+              <View style={style.reservation}>
                 <Text style={style.data}>Data Selecionada: </Text>
                 <Text style={{ top: -35, marginLeft: 200 }}>{ startDate }</Text>
                 <Text style={style.data}>Quantidade de Pessoas: </Text>
                 <TextInput style={{ height: 40, width: 120, borderColor: 'gray', borderWidth: 1, top: -40, marginLeft: 200 }}/>
-                {
-                  isLoading ? <ActivityIndicator/> : (
-                    <FlatList
-                      data={data}
-                      keyExtractor={({ id }, index) => id}
-                      renderItem={({ item }) => (
-                        <TouchableOpacity activeOpacity={1}>
-                          <Text style={style.data}>Telemóvel associado: </Text>
-                          <Text style={{ top: -35, marginLeft: 200 }}>{item.telefone}</Text>
-                          <Text style={style.data}>Email associado: </Text>
-                          <Text style={{ top: -35, marginLeft: 200 }}>{item.email}</Text>
-                        </TouchableOpacity>
-                      )}
-                    />
-                  )
-                }
+                <FlatList
+                  data={this.state.user}
+                  keyExtractor={({ id }, index) => id}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity activeOpacity={1}>
+                      <Text style={style.data}>Telemóvel associado: </Text>
+                      <Text style={{ top: -35, marginLeft: 200 }}>{item.telefone}</Text>
+                      <Text style={style.data}>Email associado: </Text>
+                      <Text style={{ top: -35, marginLeft: 200 }}>{item.email}</Text>
+                    </TouchableOpacity>
+                  )}
+                />
               </View>
             </KeyboardAvoidingView>
-            <View style={style.butao}>
+            <View style={style.button}>
               <Button
-                style={style.butao}
+                style={style.button}
                 title="Reservar"
                 color="black"
               />
@@ -107,12 +120,12 @@ const style = StyleSheet.create({
   imageBackgound: {
     flex: 1
   },
-  calendario: {
+  calendar: {
     marginTop: 50,
     justifyContent: "center",
     alignItems: "center",
   },
-  reserva: {
+  reservation: {
     height: 300,
     width: 350,
     marginTop: 50,
@@ -124,7 +137,7 @@ const style = StyleSheet.create({
     marginLeft: 20,
     marginVertical: 10
   },
-  butao: {
+  button: {
     width: 100,
     height: 100,
     left: 240,
@@ -132,4 +145,4 @@ const style = StyleSheet.create({
   }
 });
 
-export default Reserva;
+export default Reservation;

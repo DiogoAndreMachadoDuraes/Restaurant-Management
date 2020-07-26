@@ -1,5 +1,10 @@
 import React, { useEffect, useState }  from "react";
-import {StyleSheet, View, ImageBackground, AsyncStorage, FlatList, ActivityIndicator } from "react-native";
+import {
+    StyleSheet, 
+    View, 
+    ImageBackground, 
+    AsyncStorage
+} from "react-native";
 import {
     Avatar,
     Drawer,
@@ -13,63 +18,67 @@ import {
 } from '@react-navigation/drawer';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
+import { useTheme } from "@react-navigation/native";
+import { ToggleTheme } from '../../components/context';
 
 export function DrawerContent(props){
 
-    /* const [ isDark, setTheme]= React.useState(false);
-    const toggleTheme = () => {
-        setTheme(!isDark);
-    } */
+    const theme= useTheme();
 
-    /* const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]); */
-
-    /* useEffect(() => {
-        fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-          .then((response) => response.json())
-          .then((json) => setData(json))
-          .catch((error) => console.error(error))
-          .finally(() => setLoading(false));
-      }, []); */
-
-    const [nome, setNome, foto, setFoto]=useState();
-
-    useEffect(() => {
-        getNome();
-        getFoto();
-    }, []);
+    const { toggle } = React.useContext(ToggleTheme);
     
-    const getNome = async () => {
-        let nome = '';
+    const [name, setName] = useState();
+    const [foto, setFoto] = useState();
+    const [clearAll, setClear] = useState();
+
+    const dataName = async () => {
         try {
-            nome = await AsyncStorage.getItem("Nome") || 'none';
-            if (nome !== null) {
-                console.log(nome);
-                setNome(nome);
+            let name = await AsyncStorage.getItem("Name");
+            if (name !== null) {
+                setName(name);
             }
         } catch (e) {
-            // error reading nome
+            console.log("Error rending name: " + e);
         }
     };
 
-    const getFoto = async () => {
-        let foto = '';
+    const dataFoto = async () => {
         try {
-            foto = await AsyncStorage.getItem("Foto") || 'none';
+            let foto = await AsyncStorage.getItem("Foto");
             if (foto !== null) {
-                console.log(foto);
                 setFoto(foto);
             }
         } catch (e) {
-            // error reading foto
+            console.log("Error rending foto: " + e);
         }
     };
+
+    const clear = async () => {
+        try {
+            let clearAll=await AsyncStorage.clear();
+            setClear(clearAll);
+        } catch (e) {
+            console.log("Error to clear all data: " + e);
+        }
+    };
+
+    useEffect(() =>{
+        dataName();
+    }, [])
+
+    useEffect(() =>{
+        dataFoto();
+    }, [])
+
+    useEffect(() =>{
+        clear();
+    }, [])
 
     return (
         <View style={style.container}>
             <DrawerContentScrollView {...props}>
-                <View style={style.menuIniciar}>
-                    <View style={style.infoEmpresa}>
+                <View style={style.menuHome}>
+                    <View style={style.infoLogo}>
                         <View style={style.logoBack}>
                             <ImageBackground source={require('../../assets/logo.png')} style={style.logo} />
                         </View>
@@ -98,7 +107,7 @@ export function DrawerContent(props){
                                 />
                             )}
                             label="Restaurantes"
-                            onPress={() => {props.navigation.navigate('Restaurantes')}}
+                            onPress={() => {props.navigation.navigate('Restaurant')}}
                             labelStyle={style.dark}
                             activeBackgroundColor= "#556b2f"
                             activeTintColor= "#556b2f"
@@ -136,7 +145,7 @@ export function DrawerContent(props){
                                 />
                             )}
                             label="Produtos"
-                            onPress={() => {props.navigation.navigate('Produto')}}
+                            onPress={() => {props.navigation.navigate('Product')}}
                             labelStyle={style.dark}
                         />
                         <DrawerItem 
@@ -148,7 +157,7 @@ export function DrawerContent(props){
                                 />
                             )}
                             label="Reserva"
-                            onPress={() => {props.navigation.navigate('Reserva')}}
+                            onPress={() => {props.navigation.navigate('Reservation')}}
                             labelStyle={style.dark}
                         />
                         <DrawerItem 
@@ -163,12 +172,12 @@ export function DrawerContent(props){
                             labelStyle={style.dark}
                         />
                     </Drawer.Section>
-                    <Drawer.Section title="Preferencias">
-                        <TouchableRipple onPress={() => {toggleTheme()}}>
-                            <View style={style.preferencias}>
-                                <Text style={style.dark}>Dark Theme</Text>
+                    <Drawer.Section title="Preferências">
+                        <TouchableRipple onPress={() => { toggle() }}>
+                            <View style={style.preferences}>
+                                <Text style={style.dark}>Tema escuro</Text>
                                     <View pointerEvents="none">
-                                        {/*<Switch foto={isDark}/> */}
+                                        <Switch value={theme.dark} color="#556b2f"/> 
                                     </View>
                             </View>
                         </TouchableRipple>
@@ -176,17 +185,18 @@ export function DrawerContent(props){
                     <Drawer.Section title="Conta">
                         <TouchableRipple>
                             <View>
-                            <DrawerItem 
-                                icon={({size}) => (
-                                    <Avatar.Image 
-                                    source={{uri:''}}
-                                    size={size}
-                                    />
-                                )}
-                                label={"Jose"}
-                                onPress={() => {props.navigation.navigate('Conta')}}
-                                labelStyle={style.dark}
-                            />
+                                <DrawerItem 
+                                    icon={({size}) => (
+                                        <Avatar.Image 
+                                        source={{uri:''+foto+''}}
+                                        size={size}
+                                        />
+                                        
+                                    )}
+                                    label={''+name+''}
+                                    onPress={() => {props.navigation.navigate('Conta')}}
+                                    labelStyle={style.dark}
+                                />
                             </View>
                         </TouchableRipple>
                     </Drawer.Section>
@@ -216,7 +226,7 @@ export function DrawerContent(props){
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
-            <Drawer.Section style={{borderTopWidth: 0.5, borderTopColor: "black", top: 10}}>
+            <Drawer.Section style={style.exit}>
                 <DrawerItem 
                     icon={({color, size}) => (
                         <Icon 
@@ -228,10 +238,10 @@ export function DrawerContent(props){
                     label="Sair da conta"
                     labelStyle={{color: 'white'}}
                     onPress={() => {
-                        AsyncStorage.clear();
+                        clear;
                         props.navigation.navigate('Login');
                     }}
-                    style={{ backgroundColor: '#556b2f' }}
+                    style={style.exitButton}
                 />
             </Drawer.Section>
         </View>
@@ -242,10 +252,10 @@ const style = StyleSheet.create({
     container:{
         flex:1
     },
-    menuIniciar: {
+    menuHome: {
         flex: 1
     },
-    infoEmpresa: {
+    infoLogo: {
         top: -30, 
         paddingVertical: 40, 
         backgroundColor: "#556b2f"
@@ -265,9 +275,9 @@ const style = StyleSheet.create({
         height: 230
     },
     menus: {
-        marginTop: -24,
+        marginTop: -29,
     },
-    preferencias: {
+    preferences: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingVertical: 12,
@@ -280,5 +290,18 @@ const style = StyleSheet.create({
     dark:{
         color: 'dimgray',
         fontStyle: "italic",
+    },
+    exit:{
+        marginBottom: 10,
+        borderTopWidth: 4,
+        borderTopColor: "gray", 
+        top: 10, 
+        justifyContent:"center"
+    },
+    exitButton:{ 
+        top: 2,
+        backgroundColor: '#556b2f', 
+        justifyContent:"center", 
+        alignItems:"center" 
     }
-  });
+});

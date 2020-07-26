@@ -1,41 +1,56 @@
 import * as React from "react";
-import { StyleSheet, Text, View, StatusBar, Image, TouchableOpacity, ActivityIndicator, FlatList } from "react-native";
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  StatusBar, 
+  Image, 
+  TouchableOpacity, 
+  ActivityIndicator, 
+  FlatList 
+} from "react-native";
 
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const restaurante1 = { uri: "https://media-cdn.tripadvisor.com/media/photo-s/0e/c5/b5/dc/restaurante-los-galenos.jpg" };
 
-class Agradecimento extends React.Component{
+class AfterShop extends React.Component{
   constructor(){
       super();
       this.state={
         data: [],
         isLoading: true,
-        name:"Obrigado pela sua reserva",
+        name: "Obrigado pela sua reserva",
       };
     }
     async componentDidMount(){ 
-      console.log("Montando o ecrã Agradecimento...");
+      console.log("Mounting the screen AfterShop...");
   
-      await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        this.setState({ data: json, isLoading:false });
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
+      try {
+        let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        let data = await response.json();
+        console.log(data);
+        this.setState({
+          isLoading: false,
+          dataSource: data,
+        });
+      } catch(e){
+        console.log("Error to get data: "+e);
+      }
     }
+
     render(){
       const { data, isLoading } = this.state;
       return (
         <View style={style.container}>
           <StatusBar hidden={false}></StatusBar>
-          <View style={style.parteCima}>
+          <View style={style.uperside}>
             <Image source={require("../assets/logo.png")}></Image>
           </View>
-          <View style={style.parteBaixo}>
+          <View style={style.bottom}>
             <Text style={style.title}>{this.state.name}</Text>
             {
               isLoading ? <ActivityIndicator/> : (
@@ -53,8 +68,8 @@ class Agradecimento extends React.Component{
                 />
               )
             }
-            <TouchableOpacity style={style.avancar} /*onPress={() => this.props.navigation.navigate("Home")}*/>
-                <Text style={style.avancarText}>Guardar reserva</Text>
+            <TouchableOpacity style={style.progress} /*onPress={() => this.props.navigation.navigate("Home")}*/>
+                <Text style={style.progressText}>Guardar reserva</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -67,12 +82,12 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff"
   },
-  parteCima: {
+  uperside: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  parteBaixo:{
+  bottom:{
     flex: 1.5,
     backgroundColor: "grey",
     borderTopLeftRadius: 30,
@@ -106,7 +121,7 @@ const style = StyleSheet.create({
     height: 100,
     top: 20
   },
-  avancar: {
+  progress: {
       width: 100,
       height: 42,
       backgroundColor: 'red',
@@ -116,7 +131,7 @@ const style = StyleSheet.create({
       left: 100,
       top: 60
   },
-  avancarText:{
+  progressText:{
       fontSize: 16,
       fontWeight: 'bold',
       color: 'yellow',
@@ -124,4 +139,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default Agradecimento;
+export default AfterShop;

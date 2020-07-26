@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, ImageBackground, StatusBar, KeyboardAvoidingView, Keyboard, AsyncStorage, ActivityIndicator, FlatList } from 'react-native';
-//import Icon1 from 'native-base';
-//import FontAwesome from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
-
+import { 
+    StyleSheet, 
+    View, 
+    Text, 
+    Image, 
+    TouchableOpacity, 
+    StatusBar, 
+    KeyboardAvoidingView, 
+    Keyboard, 
+    AsyncStorage
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
-
-//const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
 class Login extends React.Component {
     constructor(props){
@@ -31,7 +35,7 @@ class Login extends React.Component {
     }
 
     componentDidMount(){ 
-        console.log("Montando o ecrã Login...");
+        console.log("Mounting the screen Login...");
     }
 
     render()
@@ -39,10 +43,10 @@ class Login extends React.Component {
         return (
             <View style={style.container}>
                 <StatusBar hidden={true}></StatusBar>
-                <View style={style.parteCima}>
+                <View style={style.upside}>
                     <Image source={require("../assets/logo.png")}></Image>
                 </View>
-                <KeyboardAvoidingView behavior="padding" style={style.parteBaixo}>
+                <KeyboardAvoidingView behavior="padding" style={style.bottom}>
                     <Text style={style.text}>Email:</Text>
                     <Input 
                         inputStyle={style.email}
@@ -59,6 +63,7 @@ class Login extends React.Component {
                         returnKeyType="next"
                         onChangeText={(email)=>this.setState({email})}
                         values={this.state.email}
+                        onSubmitEditing={() => this.secondInput.focus()}
                     />
                     <Text style={style.text}>Password:</Text>
                     <Input {...this.props}
@@ -81,19 +86,20 @@ class Login extends React.Component {
                                 onPress={this.onIconPress}
                             />
                         }
-                        onSubmitEditing={Keyboard.dismiss}
+                        onSubmitEditing={() => Keyboard.dismiss}
                         autoCapitalize="none"
                         onChangeText={(password)=>this.setState({password})}
                         values={this.state.password}
+                        ref={ref => {this.secondInput = ref;}}
                     />
                     <TouchableOpacity /*onPress={() => this.props.navigation.navigate("Home")}*/>
-                        <Text style={style.esqueceuPass}>Esqueceu-se da palavra-passe?</Text>
+                        <Text style={style.forgotPass}>Esqueceu-se da palavra-passe?</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={style.login} onPress={this._login}>
                         <Text style={style.loginText}>Login</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.registar} onPress={() => this.props.navigation.navigate("Registar")}>
-                        <Text style={style.registarText}>Registar</Text>
+                    <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate("Registar")}>
+                        <Text style={style.registerText}>Registar</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             </View>
@@ -101,49 +107,35 @@ class Login extends React.Component {
     }
 
     _login = async() => {
-        /* try
-        {
+        try {
             let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                }
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
             });
-            let data = await response.json();
-            return data;
+            let json = await response.json();
+            this.setState({
+              isLoading: false,
+              data: json
+            });
         } catch(e){
-            console.log(e);
-        } */
-        
-        await fetch(
-            'http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-        .then((response) => response.json())
-        .then((json) => {
-        this.setState({ data: json, isLoading:false });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-        this.setState({ isLoading: false });
-        });
+            console.log("Error to get data: " + e);
+        }
 
-        const { data, isLoading } = this.state;
+        const { data } = this.state;
         
         const email=data.filter(a=>a.email==this.state.email).map(a=>a.email);
         const password=data.filter(a=>a.password==this.state.password).map(a=>a.password);
        
         const nome=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
-        AsyncStorage.setItem("Nome", nome[0]);
+        AsyncStorage.setItem("Name", nome[0]);
         const foto=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
         AsyncStorage.setItem("Foto", foto[0]);
-    
-         
-        console.log(nome[0]);
-        console.log(foto[0]); 
-        
+        const user=data.filter(a=>a.email==this.state.email).map(a=>a);
+        AsyncStorage.setItem("User", JSON.stringify(user));
 
-        console.log(email);
-        console.log(password);
+        console.log(user);
 
         if(email[0]===this.state.email && password[0] === this.state.password){
             try
@@ -159,13 +151,12 @@ class Login extends React.Component {
                         "password":this.state.password
                     })
                 });
-                //await
                 this.props.navigation.navigate("Home");
             } catch(e){
                 console.log(e);
             }
-        }else{
-            alert('Username or password incorrect.');
+        } else{
+            alert('O email e/ou a palavra-passe estão incorretos!');
         }
     }
 }
@@ -175,12 +166,12 @@ const style = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff"
     },
-    parteCima: {
+    upside: {
         flex: 2,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    parteBaixo:{
+    bottom:{
         flex: 1.5,
         backgroundColor: "#556b2f",
         borderTopLeftRadius: 30,
@@ -214,7 +205,7 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black'
     },
-    registar:{
+    register:{
         width: 100,
         height: 42,
         backgroundColor: 'white',
@@ -224,91 +215,18 @@ const style = StyleSheet.create({
         left: 225,
         top: -17
     },
-    registarText:{
+    registerText:{
         fontSize: 16,
         fontWeight: 'bold',
         color: 'black'
     },
-    esqueceuPass:{
+    forgotPass:{
         fontSize: 14,
         fontWeight: 'bold',
         color: 'black',
         top: -10,
         left: 15
     }
+});
 
-   /*imagemFundo: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    logo:{
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-        marginTop: -40
-    },
-    email: {
-      marginTop: 80,
-      padding: 10,
-      width: 300,
-      backgroundColor: '#fff',
-      fontSize: 16,
-      fontWeight: 'bold',
-      borderRadius: 5,
-    },
-    user: {
-      marginTop: -80,
-      padding: 10,
-      width: 40,
-      backgroundColor: '#fff',
-      fontSize: 20,
-      fontWeight: 'bold',
-      borderRadius: 5,
-    },
-    password: {
-      marginTop: 12,
-      padding: 10,
-      width: 300,
-      backgroundColor: '#fff',
-      fontSize: 16,
-      fontWeight: 'bold',
-      borderRadius: 5
-    },
-    passIcon: {
-        marginTop: -37,
-        marginRight: -250,
-    },
-    login: {
-        width: 100,
-        height: 42,
-        marginRight: 30,
-        backgroundColor: 'white',
-        marginTop: 40,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    loginText:{
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black'
-    },
-    registar:{
-        marginLeft: 200,
-        width: 100,
-        height: 42,
-        marginTop: -42,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    registarText:{
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black'
-    }*/
-  });
-
-  export default Login;
+export default Login;

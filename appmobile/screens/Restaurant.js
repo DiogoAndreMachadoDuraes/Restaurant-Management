@@ -1,47 +1,61 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, ImageBackground, Image, FlatList, ActivityIndicator } from "react-native";
-
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  ScrollView, 
+  ImageBackground, 
+  Image, 
+  FlatList, 
+  ActivityIndicator
+} from "react-native";
 import {NossoHeader} from './shared/NossoHeader.js';
 import NossoFinal from "./shared/NossoFinal.js";
 import BarraEstados from "./shared/BarraEstados.js";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-
-class Restaurantes extends React.Component{
+class Restaurant extends React.Component{
   constructor(){
-      super();
-      this.state={
-        name:"Restaurantes da Avó",
-      };
-    }
-  async componentDidMount(){ 
-    console.log("Montando o ecrã Restaurante...");
-
-    await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Restaurante', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        this.setState({ data: json, isLoading:false });
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        this.setState({ isLoading: false });
-    });
+    super();
+    this.state={
+      name:"Restaurantes da Avó",
+    };
   }
+
+  async componentDidMount(){ 
+    console.log("Mounting the screen Restaurant...");
+
+    try {
+      let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Restaurante', { 
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      let json = await response.json();
+      console.log(json);
+      this.setState({
+        isLoading: false,
+        dataSource: json,
+      });
+    } catch(e){
+      console.log("Error to get data: " + e);
+    }
+  }
+  
   render(){
-    const { data, isLoading } = this.state;
+    const { isLoading } = this.state;
     return (
       <View style={style.container}>
         <BarraEstados />
         <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
-        <ImageBackground source={imageBackgound} style={style.imageBackgound} >
+        <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} >
           <ScrollView>
             <View style={style.restaurantes}>
               {
                 isLoading ? <ActivityIndicator/> : (
                   <FlatList
-                    data={data}
+                    data={this.state.dataSource}
                     keyExtractor={({ id }, index) => id}
                     renderItem={({ item }) => (
                       <TouchableWithoutFeedback style={style.restaurantesExp}>
@@ -114,4 +128,4 @@ const style = StyleSheet.create({
   }
 });
 
-export default Restaurantes;
+export default Restaurant;
