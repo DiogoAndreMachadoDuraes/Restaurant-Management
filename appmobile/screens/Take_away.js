@@ -1,32 +1,8 @@
 import * as React from 'react';
 import { Alert, StyleSheet, View, Text, CheckBox, Image, TextInput, TouchableOpacity, StatusBar, KeyboardAvoidingView, ScrollView } from 'react-native';
-//import Icon1 from 'native-base';
-//import FontAwesome from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
-import NossoFinal from './shared/NossoFinal.js';
-
-//import ImagePicker from 'react-native-image-picker';
-//import Axios from 'axios';
-
-/*const imagePickerOptions = {
-    title: 'Selecione uma imagem',
-    customButtons: [
-      {
-        name: 'fb',
-        title: 'Selecione uma imagem do facebook',
-      },
-      {
-        name: 'ig',
-        title: 'Selecione uma imagem do instagram',
-      },
-    ],
-  };*/
-
-
-
 
 class Take_away extends React.Component {
     constructor(){
@@ -47,7 +23,7 @@ class Take_away extends React.Component {
         };
       }
       async componentDidMount(){ 
-        console.log("Montando o ecrã Registar...");
+        console.log("Montando o ecrã Take Away...");
 
         await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
           method: 'POST', 

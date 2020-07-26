@@ -92,7 +92,7 @@ class Carrinho extends React.Component {
                           <TouchableOpacity style={style.plus} onPress={()=>this.quantidade(true)}>
                             <Icon2 name="plus-box-outline" color={'red'} size={20}/>
                           </TouchableOpacity>
-                          <Text style={style.i}>{this.quantidade(1)}</Text>
+                          <Text style={style.i}>{1}</Text>
                           <TouchableOpacity style={style.minus} onPress={()=>this.quantidade(false)}>
                             <Icon2 name="minus-box-outline" color={'red'} size={20}/>
                           </TouchableOpacity>
@@ -160,7 +160,7 @@ const style = StyleSheet.create({
     },
       
     plus:{
-        top:-119,
+        top:-100,
         left:160
     },
 
