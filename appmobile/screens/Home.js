@@ -15,7 +15,7 @@ class Home extends React.Component{
         this.state={ name:'Sabor da Avó' };
     }
     componentDidMount(){ 
-        console.log("Montar ecrã Home...");
+        console.log("Mounting the screen Home...");
     }
     render() {
         return (

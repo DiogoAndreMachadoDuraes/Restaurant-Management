@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Alert, StyleSheet, View, Text, Image, TextInput, ImageBackground, StatusBar, KeyboardAvoidingView, ScrollView, FlatList, Button, TouchableOpacity } from 'react-native';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icon} from "react-native-elements";
@@ -18,7 +17,7 @@ const dataFromApi = [
     }
 ]
 
-class Carrinho extends React.Component {
+class Shop extends React.Component {
     constructor(){
         super();
         this.state={
@@ -26,7 +25,7 @@ class Carrinho extends React.Component {
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Carrinho de Compras...");
+        console.log("Mounting the screen Shop...");
       }
 
       threeOptionAlertHandler = () => {
@@ -288,4 +287,4 @@ const style = StyleSheet.create({
 
   });
 
-  export default Carrinho;
+  export default Shop;

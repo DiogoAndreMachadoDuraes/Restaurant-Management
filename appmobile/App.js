@@ -7,21 +7,21 @@ import { NavigationContainer,
 import { StatusBar} from "react-native";
 
 import Login from "./screens/Login.js";
-import Espaco from "./screens/Espaco.js";
-import Conta from "./screens/Conta.js";
+import Space from "./screens/Space.js";
+import Account from "./screens/Account.js";
 import AfterShop from "./screens/AfterShop.js";
 import Reservation from "./screens/Reservation.js";
 import Restaurant from "./screens/Restaurant.js";
 import Home from "./screens/Home.js";
 import Menu from "./screens/Menu.js";
-import Registar from "./screens/Registar.js";
-import Ementa from "./screens/Ementa.js";
-import Carrinho from "./screens/Carrinho.js";
+import EditAccount from "./screens/EditAccount.js";
+import TypeMenu from "./screens/TypeMenu.js";
+import Shop from "./screens/Shop.js";
 import Product from "./screens/Product.js";
 import ProductDetail from "./screens/ProductDetail.js";
 import ProductCategory from "./screens/ProductCategory.js";
-import Fatura from "./screens/Fatura.js";
-import Take_away from "./screens/Take_away.js";
+import Invoice from "./screens/Invoice.js";
+import TakeAway from "./screens/TakeAway.js";
 
 import { DrawerContent } from './screens/shared/DrawerContent';
 
@@ -54,18 +54,18 @@ const App = () => {
             <Drawer.Screen name="Product" component={Product} options={{ drawerLabel: 'Product' }}/>
             <Drawer.Screen name="ProductCategory" component={ProductCategory} options={{ drawerLabel: 'ProductCategory' }}/>  
             <Drawer.Screen name="ProductDetail" component={ProductDetail} options={{ drawerLabel: 'ProductDetail' }}/>           
-            <Drawer.Screen name="Espaco" component={Espaco} options={{ drawerLabel: 'Espaco' }}/>
+            <Drawer.Screen name="Space" component={Space} options={{ drawerLabel: 'Space' }}/>
             <Drawer.Screen name="AfterShop" component={AfterShop} options={{ drawerLabel: 'AfterShop' }}/>
             <Drawer.Screen name="Reservation" component={Reservation} options={{ drawerLabel: 'Reservation' }}/>
             <Drawer.Screen name="Restaurant" component={Restaurant} options={{ drawerLabel: 'Restaurant' }}/>
             <Drawer.Screen name="Home" component={Home} options={{drawerLabel:'Home'}}/>
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>
-            <Drawer.Screen name="Registar" component={Registar} options={{drawerLabel:'Registar'}}/>
-            <Drawer.Screen name="Carrinho" component={Carrinho} options={{drawerLabel:'Carrinho'}}/>
-            <Drawer.Screen name="Conta" component={Conta} options={{drawerLabel:'Conta'}}/>
-            <Drawer.Screen name="Ementa" component={Ementa} options={{drawerLabel:'Ementa'}}/>
-            <Drawer.Screen name="Fatura" component={Fatura} options={{drawerLabel:'Fatura'}}/>
-            <Drawer.Screen name="Take_away" component={Take_away} options={{drawerLabel:'Take_away'}}/>
+            <Drawer.Screen name="EditAccount" component={EditAccount} options={{drawerLabel:'EditAccount'}}/>
+            <Drawer.Screen name="Shop" component={Shop} options={{drawerLabel:'Shop'}}/>
+            <Drawer.Screen name="Account" component={Account} options={{drawerLabel:'Account'}}/>
+            <Drawer.Screen name="TypeMenu" component={TypeMenu} options={{drawerLabel:'TypeMenu'}}/>
+            <Drawer.Screen name="Invoice" component={Invoice} options={{drawerLabel:'Invoice'}}/>
+            <Drawer.Screen name="TakeAway" component={TakeAway} options={{drawerLabel:'TakeAway'}}/>
           </Drawer.Navigator>
         </NavigationContainer>
       </ToggleTheme.Provider>

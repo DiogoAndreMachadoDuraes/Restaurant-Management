@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { Alert, StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
 import { NossoHeader } from './shared/NossoHeader';
 
-class Fatura extends React.Component {
+class Invoice extends React.Component {
     constructor(){
         super();
         this.state={ name:'A minha fatura' };
     }
       async componentDidMount(){ 
-        console.log("Montando o ecrã Fatura...");
+        console.log("Mounting the screen Invoice...");
 
         await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Fatura', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
@@ -119,4 +118,4 @@ const style = StyleSheet.create({
 
   });
 
-  export default Fatura;
+  export default Invoice;

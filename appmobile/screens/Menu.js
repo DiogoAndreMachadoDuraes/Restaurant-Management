@@ -63,7 +63,7 @@ class Menu extends React.Component{
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Menu...");
+        console.log("Mounting the screen Menu...");
       }
       render(){
         return (

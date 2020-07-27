@@ -1,20 +1,12 @@
 import * as React from 'react';
 import { Alert, StyleSheet, View, ActivityIndicator, Text, Image, TextInput, TouchableOpacity, ImageBackground, StatusBar, KeyboardAvoidingView, ScrollView, FlatList} from 'react-native';
-//import Icon1 from 'native-base';
-//import FontAwesome from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
-import NossoFinal from './shared/NossoFinal.js';
-
-//import ImagePicker from 'react-native-image-picker';
-//import Axios from 'axios';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
 
-class Conta extends React.Component {
+class Account extends React.Component {
     constructor(){
         super();
         this.state={
@@ -24,7 +16,7 @@ class Conta extends React.Component {
         };
       }
      async componentDidMount(){ 
-        console.log("Montando o ecrã Conta...");
+        console.log("Mounting the screen Account...");
 
         await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
@@ -232,4 +224,4 @@ const style = StyleSheet.create({
 
   });
 
-  export default Conta;
+  export default Account;

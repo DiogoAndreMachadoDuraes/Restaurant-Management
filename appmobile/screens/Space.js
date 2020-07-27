@@ -10,13 +10,13 @@ const imageBackgound = { uri: "https://media.timeout.com/images/105327913/630/47
 const image = {uri: "https://images.trustinnews.pt/uploads/sites/5/2019/12/MB-Rest-JNCquoi-Asia-07.jpg"};
 const image1 = {uri: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.eater.com%2F2015%2F2%2F13%2F8033303%2Fman-sells-valentines-day-reservations-on-craigslist&psig=AOvVaw3bM3uPTqVeBZv2_5D0wDti&ust=1591110238049000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCmwdrx4OkCFQAAAAAdAAAAABAN"}; 
 
-class Espaco extends React.Component{
+class Space extends React.Component{
     constructor(){
         super();
         this.state={ name:'O Nosso Espaço' };
     }
     componentDidMount(){ 
-        console.log("Montar ecrã Espaço...");
+        console.log("Mounting the screen Space...");
     }
     render() {
         return (
@@ -117,4 +117,4 @@ const style = StyleSheet.create({
     }
   });
 
-  export default Espaco;
+  export default Space;

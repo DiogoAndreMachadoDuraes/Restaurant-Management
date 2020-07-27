@@ -1,34 +1,10 @@
 import * as React from 'react';
 import { Alert, StyleSheet, View, Text, CheckBox, Image, TextInput, TouchableOpacity, StatusBar, KeyboardAvoidingView, ScrollView } from 'react-native';
-//import Icon1 from 'native-base';
-//import FontAwesome from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
-import NossoFinal from './shared/NossoFinal.js';
 
-//import ImagePicker from 'react-native-image-picker';
-//import Axios from 'axios';
-
-/*const imagePickerOptions = {
-    title: 'Selecione uma imagem',
-    customButtons: [
-      {
-        name: 'fb',
-        title: 'Selecione uma imagem do facebook',
-      },
-      {
-        name: 'ig',
-        title: 'Selecione uma imagem do instagram',
-      },
-    ],
-  };*/
-
-
-
-
-class Registar extends React.Component {
+class TakeAway extends React.Component {
     constructor(){
         super();
         this.state={
@@ -47,7 +23,7 @@ class Registar extends React.Component {
         };
       }
       async componentDidMount(){ 
-        console.log("Montando o ecrã Registar...");
+        console.log("Mounting the screen TakeAway...");
 
         await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
           method: 'POST', 
@@ -127,95 +103,95 @@ class Registar extends React.Component {
 
             <View style={style.container}>
             <BarraEstados />
-            <ScrollView style={style.regform}>
-            <View style={style.regform}>
+            <ScrollView style={style.form}>
+            <View style={style.form}>
 
                 <Text style={style.header}>Registar</Text>
 
                 <Text style={style.text}>Nome Completo:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Nome Completo"
                 leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }} value = {this.nome} />
 
                 <Text style={style.text}>Email:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Email"
                 leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} value = {this.email} />
                 
                 <Text style={style.text}>Telefone:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Telefone"
                 leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} value = {this.telefone} />
 
                 <Text style={style.text}>Rua:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Rua"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.rua} />
 
                 <Text style={style.text}>Código Postal:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Código Postal"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.codigo_postal} />
 
                 <Text style={style.text}>Localização:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Localização"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.localizacao} />
 
                 <Text style={style.text}>Nif:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Nif"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.nif} />
 
                 <Text style={style.text}>Foto:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Foto"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.foto} />
 
                 <Text style={style.text}>Sexo:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Sexo"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.sexo} />
 
                 <Text style={style.text}>Password:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Password"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
 
                 <Text style={style.text}>Confirmar Password:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Confirmar Password"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
 
                 <Text style={style.text}>Data Nascimento:</Text>
-                <Input inputStyle={style.inputcolor}
+                <Input inputStyle={style.inputColor}
                 placeholder="Data Nascimento"
                 leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.data_nascimento} />
 
-                <View style={style.checkboxContainer}>
+                <View style={style.checkBoxContainer}>
                   <CheckBox
                     value={this.state.check}
                     onChange={()=>this.checkedbox()}
-                    style={style.checkbox}
+                    style={style.checkBox}
                   />
                 </View>  
 
                 <View style={style.caixatexto}>
-                    <Text style={style.titulo}>Termos e Condições Gerais </Text>
-                    <Text style={style.titulo1}>O Sabor da Avó compromete-se a tratar os dados pessoais de forma confidencial e responsável, assegurando o seu tratamento em estrito cumprimento. Ao assinalar a opção abaixo, declaro que tomei conhecimento e que concordo com os Termos e Condições Gerais da loja online e com a Política de Privacidade e Proteção de Dados adotada pelo Sabor da Avó.</Text>
-                    <Text style={style.titulo2}>Declaro que fui informado/a sobre os Termos e Condições Gerais da App Sabor da Avó e que aceito a criação da conta de cliente nos termos acima expostos. * </Text>
+                    <Text style={style.title}>Termos e Condições Gerais </Text>
+                    <Text style={style.title1}>O Sabor da Avó compromete-se a tratar os dados pessoais de forma confidencial e responsável, assegurando o seu tratamento em estrito cumprimento. Ao assinalar a opção abaixo, declaro que tomei conhecimento e que concordo com os Termos e Condições Gerais da loja online e com a Política de Privacidade e Proteção de Dados adotada pelo Sabor da Avó.</Text>
+                    <Text style={style.title2}>Declaro que fui informado/a sobre os Termos e Condições Gerais da App Sabor da Avó e que aceito a criação da conta de cliente nos termos acima expostos. * </Text>
                 </View>
 
                 <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Login") }>
-                    <Text style={style.btntext}>Criar Conta</Text>
+                    <Text style={style.btnText}>Criar Conta</Text>
                 </TouchableOpacity>
 
                 <View style={style.caixatexto}>
-                    <Text style={style.titulo3}>* Campos Obrigatórios</Text>   
+                    <Text style={style.title3}>* Campos Obrigatórios</Text>   
                 </View>
                 
                 <View style={style.caixatexto}>
-                    <Text style={style.titulo1}>         Se tiver alguma dúvida, não hesite em contactar-nos. Estamos sempre à sua disposição.</Text>   
+                    <Text style={style.title1}>         Se tiver alguma dúvida, não hesite em contactar-nos. Estamos sempre à sua disposição.</Text>   
                 </View>
 
             </View>
@@ -226,13 +202,13 @@ class Registar extends React.Component {
 }
 
 const style = StyleSheet.create({
-    checkbox: {
+    checkBox: {
       alignSelf: "center",
       top: 265,
       left: 20
     },
 
-    checkboxContainer: {
+    checkBoxContainer: {
       flexDirection: "row",
       marginBottom: 20,
     },
@@ -242,7 +218,7 @@ const style = StyleSheet.create({
     backgroundColor: "#556b2f",
    },
 
-    inputcolor:{
+    inputColor:{
         color: "white",
      },
 
@@ -251,13 +227,13 @@ const style = StyleSheet.create({
         height:"100%"
     },
 
-    regform:{
+    form:{
       width: "100%",
-        height:"100%"
+      height:"100%"
 
     },
 
-    titulo:{
+   title:{
       color: "#fff",
       fontSize: 15,
       fontWeight: 'bold',
@@ -268,7 +244,7 @@ const style = StyleSheet.create({
       padding:10,
     },
 
-    titulo2:{
+   title2:{
       color: "#fff",
       fontSize: 15,
       fontStyle: "normal",
@@ -278,7 +254,7 @@ const style = StyleSheet.create({
       padding:10,
     },
     
-    titulo1:{
+   title1:{
       color: "#fff",
       fontSize: 15,
       fontStyle: "normal",
@@ -288,7 +264,7 @@ const style = StyleSheet.create({
       padding:10,
     },
 
-    titulo3:{
+   title3:{
       color: "#fff",
       fontSize: 10,
       fontWeight: 'bold',
@@ -320,13 +296,13 @@ const style = StyleSheet.create({
         marginVertical:20
     },
 
-    btntext:{
+    btnText:{
         color:'red',
         fontWeight:'bold',
         fontSize: 20,
     },
     
-    textinput:{
+    textInput:{
         alignSelf:'stretch',
         height: 40,
         color: 'white',
@@ -339,7 +315,7 @@ const style = StyleSheet.create({
         color: 'white',
     },
 
-   imagemFundo: {
+   imageBackground: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
@@ -354,4 +330,4 @@ const style = StyleSheet.create({
 
   });
 
-  export default Registar;
+  export default TakeAway;

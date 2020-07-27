@@ -45,7 +45,7 @@ const dataFromApi = [
 
 ]
 
-class Ementa extends React.Component{
+class TypeMenu extends React.Component{
     constructor(){
         super();
         this.state={
@@ -53,7 +53,7 @@ class Ementa extends React.Component{
         };
       }
       componentDidMount(){ 
-        console.log("Montando o ecrã Ementa...");
+        console.log("Mounting the screen TypeMenu...");
       }
       render(){
         return (
@@ -159,4 +159,4 @@ class Ementa extends React.Component{
         top: 20
       }
     });
-export default Ementa;
+export default TypeMenu;
