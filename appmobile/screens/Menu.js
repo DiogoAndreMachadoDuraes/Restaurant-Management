@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 import {NossoHeader} from "./shared/NossoHeader.js";

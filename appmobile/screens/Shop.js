@@ -103,7 +103,7 @@ class Shop extends React.Component {
                     <Text style={style.btnText}>Voltar</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={style.button1} onPress={() => this.props.navigation.navigate("Agradecimento") }>
+                <TouchableOpacity style={style.button1} onPress={() => this.props.navigation.navigate("AfterShop") }>
                     <Text style={style.btnText}>Comprar</Text>
                 </TouchableOpacity>
             </ImageBackground>    
