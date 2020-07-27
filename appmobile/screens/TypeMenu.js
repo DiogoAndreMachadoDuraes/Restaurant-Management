@@ -1,7 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
-import {Header, Icon} from "react-native-elements";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 import {NossoHeader} from "./shared/NossoHeader.js";
@@ -49,7 +47,7 @@ class TypeMenu extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Ementa",
+          name:"menu",
         };
       }
       componentDidMount(){ 
@@ -62,7 +60,7 @@ class TypeMenu extends React.Component{
             <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
               <ScrollView>
-                <View style={style.ementa}>
+                <View style={style.menu}>
                   {
                     dataFromApi.map((item)=>{
                       return (
@@ -111,7 +109,7 @@ class TypeMenu extends React.Component{
         height: 320
       },
 
-      ementa: {                           //scrollview
+      menu: {                           //scrollview
         width: "100%",
         height: "100%",
       },
@@ -134,7 +132,7 @@ class TypeMenu extends React.Component{
         marginTop: 30
       },
 
-      caixatexto2:{
+      boxText2:{
         width: 40,
         height: 40,
         backgroundColor: '#000',

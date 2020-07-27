@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Alert, StyleSheet, ScrollView, View, Text, Image, Image1, TextInput, TouchableOpacity, ImageBackground, StatusBar } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {Header, Icon} from "react-native-elements";
+import { StyleSheet, ScrollView, View, Text, Image, ImageBackground } from 'react-native';
 import { NossoHeader } from './shared/NossoHeader';
 import BarraEstados from './shared/BarraEstados';
-import NossoFinal from './shared/NossoFinal.js';
 
 const imageBackgound = { uri: "https://media.timeout.com/images/105327913/630/472/image.jpg" };
 const image = {uri: "https://images.trustinnews.pt/uploads/sites/5/2019/12/MB-Rest-JNCquoi-Asia-07.jpg"};

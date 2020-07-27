@@ -72,8 +72,8 @@ class EditAccount extends React.Component {
     return (
       <View style={style.container}>
       <BarraEstados />
-      <ScrollView style={style.regform}>
-      <View style={style.regform}>
+      <ScrollView style={style.form}>
+      <View style={style.form}>
 
           <Text style={style.header}>Registar</Text>
 
@@ -139,30 +139,30 @@ class EditAccount extends React.Component {
           placeholder="Data Nascimento"
           leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.data_nascimento} />
 
-          <View style={style.checkboxContainer}>
+          <View style={style.checkBoxContainer}>
             <CheckBox
               value={this.state.check}
-              onChange={()=>this.checkedbox()}
-              style={style.checkbox}
+              onChange={()=>this.checkedox()}
+              style={style.checkBox}
             />
           </View>  
 
           <View style={style.caixatexto}>
-              <Text style={style.titulo}>Termos e Condições Gerais </Text>
-              <Text style={style.titulo1}>O Sabor da Avó compromete-se a tratar os dados pessoais de forma confidencial e responsável, assegurando o seu tratamento em estrito cumprimento. Ao assinalar a opção abaixo, declaro que tomei conhecimento e que concordo com os Termos e Condições Gerais da loja online e com a Política de Privacidade e Proteção de Dados adotada pelo Sabor da Avó.</Text>
-              <Text style={style.titulo2}>Declaro que fui informado/a sobre os Termos e Condições Gerais da App Sabor da Avó e que aceito a criação da conta de cliente nos termos acima expostos. * </Text>
+              <Text style={style.title}>Termos e Condições Gerais </Text>
+              <Text style={style.title1}>O Sabor da Avó compromete-se a tratar os dados pessoais de forma confidencial e responsável, assegurando o seu tratamento em estrito cumprimento. Ao assinalar a opção abaixo, declaro que tomei conhecimento e que concordo com os Termos e Condições Gerais da loja online e com a Política de Privacidade e Proteção de Dados adotada pelo Sabor da Avó.</Text>
+              <Text style={style.title2}>Declaro que fui informado/a sobre os Termos e Condições Gerais da App Sabor da Avó e que aceito a criação da conta de cliente nos termos acima expostos. * </Text>
           </View>
 
           <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Login") }>
-              <Text style={style.btntext}>Criar Conta</Text>
+              <Text style={style.btnText}>Criar Conta</Text>
           </TouchableOpacity>
 
           <View style={style.caixatexto}>
-              <Text style={style.titulo3}>* Campos Obrigatórios</Text>   
+              <Text style={style.title3}>* Campos Obrigatórios</Text>   
           </View>
           
           <View style={style.caixatexto}>
-              <Text style={style.titulo1}>         Se tiver alguma dúvida, não hesite em contactar-nos. Estamos sempre à sua disposição.</Text>   
+              <Text style={style.title1}>         Se tiver alguma dúvida, não hesite em contactar-nos. Estamos sempre à sua disposição.</Text>   
           </View>
 
       </View>
@@ -173,13 +173,13 @@ class EditAccount extends React.Component {
 }
 
 const style = StyleSheet.create({
-    checkbox: {
+    checkBox: {
       alignSelf: "center",
       top: 265,
       left: 20
     },
 
-    checkboxContainer: {
+    checkBoxContainer: {
       flexDirection: "row",
       marginBottom: 20,
     },
@@ -198,13 +198,13 @@ const style = StyleSheet.create({
         height:"100%"
     },
 
-    regform:{
+    form:{
       width: "100%",
         height:"100%"
 
     },
 
-    titulo:{
+    title:{
       color: "#fff",
       fontSize: 15,
       fontWeight: 'bold',
@@ -215,7 +215,7 @@ const style = StyleSheet.create({
       padding:10,
     },
 
-    titulo2:{
+    title2:{
       color: "#fff",
       fontSize: 15,
       fontStyle: "normal",
@@ -225,7 +225,7 @@ const style = StyleSheet.create({
       padding:10,
     },
     
-    titulo1:{
+    title1:{
       color: "#fff",
       fontSize: 15,
       fontStyle: "normal",
@@ -235,7 +235,7 @@ const style = StyleSheet.create({
       padding:10,
     },
 
-    titulo3:{
+    title3:{
       color: "#fff",
       fontSize: 10,
       fontWeight: 'bold',
@@ -267,13 +267,13 @@ const style = StyleSheet.create({
         marginVertical:20
     },
 
-    btntext:{
+    btnText:{
         color:'red',
         fontWeight:'bold',
         fontSize: 20,
     },
     
-    textinput:{
+    textInput:{
         alignSelf:'stretch',
         height: 40,
         color: 'white',
@@ -286,7 +286,7 @@ const style = StyleSheet.create({
         color: 'white',
     },
 
-   imagemFundo: {
+    imageBackground: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'

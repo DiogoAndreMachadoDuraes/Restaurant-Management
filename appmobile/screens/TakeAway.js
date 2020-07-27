@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, Text, CheckBox, Image, TextInput, TouchableOpacity, StatusBar, KeyboardAvoidingView, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {StyleSheet, View, Text, CheckBox, TouchableOpacity, ScrollView } from 'react-native';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
 

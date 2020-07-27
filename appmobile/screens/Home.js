@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, Text, Image, Image1, TextInput, TouchableOpacity, ImageBackground, StatusBar } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground,} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {Header, Icon} from "react-native-elements";
 import { NossoHeader } from './shared/NossoHeader';
 import BarraEstados from './shared/BarraEstados';
 
@@ -25,38 +24,38 @@ class Home extends React.Component{
                     
                 <NossoHeader nome={this.state.name} navigation={this.props.navigation}/>
 
-                <ImageBackground source={imageBackgound} style={style.imagemdefundo} opacity={1}>
+                <ImageBackground source={imageBackgound} style={style.imageBackground} opacity={1}>
 
-                <View style={style.noticia}>
+                <View style={style.news}>
                     <Text style={style.text}>Sobre nós </Text>
                 </View>
 
                 <Image source={require('../assets/espaco.jpg')} style={style.image}/>
-                <TouchableOpacity style={style.buttonEspaco} onPress={() => this.props.navigation.navigate("Espaco") }>
-                <Text style={style.buttondesign}>Nosso Espaço</Text>
+                <TouchableOpacity style={style.buttonSpace} onPress={() => this.props.navigation.navigate("Espaco") }>
+                <Text style={style.buttonDesign}>Nosso Espaço</Text>
                 </TouchableOpacity>
                 
                 <Image source={require('../assets/ementa.jpg')} style={style.image1} opacity={1}/>
-                <TouchableOpacity style={style.buttonEmenta} onPress={() => this.props.navigation.navigate("Menu") }>
-                <Text style={style.buttoncardapio}>Menus</Text>
+                <TouchableOpacity style={style.buttonMenu} onPress={() => this.props.navigation.navigate("Menu") }>
+                <Text style={style.buttonMenu1}>Menus</Text>
                 </TouchableOpacity>
 
                 <Image source={require('../assets/reserva.jpeg')} style={style.image2} opacity={1}/>
-                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Fatura") }>
-                <Text style={style.buttonreserved}>Reserva</Text>
+                <TouchableOpacity style={style.buttonReservation} onPress={() => this.props.navigation.navigate("Fatura") }>
+                <Text style={style.buttonReservation1}>Reserva</Text>
                 </TouchableOpacity>
                 
-                <View style={style.caixatexto}>
-                <Text style={style.titulo}>Horário de Atendimento</Text>
-                <Text style={style.subtitulo1}>Segunda a Quinta: 11h - 23h</Text>
-                <Text style={style.subtitulo2}>Sexta e Sábado: 12:30h - 21:30h</Text>
-                <Text style={style.subtitulo3}>Encerra aos Domingos e Feriados.</Text>
+                <View style={style.boxText}>
+                <Text style={style.title}>Horário de Atendimento</Text>
+                <Text style={style.subtitle1}>Segunda a Quinta: 11h - 23h</Text>
+                <Text style={style.subtitle2}>Sexta e Sábado: 12:30h - 21:30h</Text>
+                <Text style={style.subtitle3}>Encerra aos Domingos e Feriados.</Text>
                 </View>
 
-                <View style={style.contacto}>
-                    <Text style={style.telefone}>Contacto</Text>
-                    <Text style={style.telefone1}>E-mail: sabordaavo@gmail.com</Text>
-                    <Text style={style.telefone2}>Telefone:253341134</Text>
+                <View style={style.contact}>
+                    <Text style={style.mobile}>Contact</Text>
+                    <Text style={style.mobile1}>E-mail: sabordaavo@gmail.com</Text>
+                    <Text style={style.mobile2}>mobile:253341134</Text>
                 </View>
 
                 <View style={style.facebook}>
@@ -67,7 +66,7 @@ class Home extends React.Component{
                          <FontAwesome5 name={'instagram'} size={50} color="deeppink" />
                  </View>
 
-                 <Image source={require('../assets/mapa.jpg')} style={style.imagemapa} opacity={1}/>
+                 <Image source={require('../assets/mapa.jpg')} style={style.imageMap} opacity={1}/>
 
                 </ImageBackground>
             </View>
@@ -80,18 +79,18 @@ const style = StyleSheet.create({
       flex: 1
     },
 
-    imagemdefundo: {
+    imageBackground: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
 
-    imageopacity:{
+    imageOpacity:{
         justifyContent: 'center',
         alignItems: 'center',
     },
 
-    noticia:{
+    news:{
         width: 120,
         height: 30,
         backgroundColor: '#ffa07a',
@@ -135,7 +134,7 @@ const style = StyleSheet.create({
         marginLeft: 270,
     },
 
-    contacto:{
+    contact:{
         width: 290,
         height: 70,
         backgroundColor: '#ffa07a',
@@ -145,7 +144,7 @@ const style = StyleSheet.create({
         borderRadius: 20,
     },
 
-    telefone:{
+    mobile:{
         justifyContent: 'center',
         alignItems: 'center',
         color: '#4b0082',
@@ -155,7 +154,7 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    telefone1:{
+    mobile1:{
         color: "black",
         fontSize: 15,
         textAlign:'center',
@@ -166,7 +165,7 @@ const style = StyleSheet.create({
         letterSpacing: 1,
     },
 
-    telefone2:{
+    mobile2:{
         color: "black",
         fontSize: 15,
         textAlign:'center',
@@ -177,7 +176,7 @@ const style = StyleSheet.create({
         letterSpacing: 1,
     },
 
-    imagemapa: {
+    imageMap: {
         width: 290,
         height: 80,
         marginTop: -170,
@@ -186,7 +185,7 @@ const style = StyleSheet.create({
         borderRadius: 20,
     },
 
-    caixatexto:{
+    boxText:{
         width: 290,
         height: 100,
         backgroundColor: '#ffa07a',
@@ -195,7 +194,7 @@ const style = StyleSheet.create({
         marginLeft: 30,
         borderRadius: 20,
     },
-    titulo:{
+    title:{
         color: "#4b0082",
         fontSize: 17,
         fontWeight: 'bold',
@@ -205,7 +204,7 @@ const style = StyleSheet.create({
         padding:10,
     },
 
-    subtitulo1:{
+    subTitle1:{
         color: "black",
         fontSize: 15,
         textAlign:'center',
@@ -216,7 +215,7 @@ const style = StyleSheet.create({
         letterSpacing: 1,
     },
 
-    subtitulo2:{
+    subTitle2:{
         color: "black",
         fontSize: 15,
         textAlign:'center',
@@ -227,7 +226,7 @@ const style = StyleSheet.create({
         letterSpacing: 1,
     },
 
-    subtitulo3:{
+    subTitle3:{
         color: "black",
         fontSize: 15,
         textAlign:'center',
@@ -238,7 +237,7 @@ const style = StyleSheet.create({
         letterSpacing: 1,
     },
 
-    buttonEspaco: {
+    buttonSpace: {
         width: 60,
         height: 42,
         backgroundColor: '#556b2f',
@@ -251,7 +250,7 @@ const style = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    buttonEmenta: {                                                 //menu
+    buttonMenu: {                                                 //menu
         width: 60,
         height: 42,
         backgroundColor: '#556b2f',
@@ -265,7 +264,7 @@ const style = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    buttonReserva: {
+    buttonReservation: {
         width: 60,
         height: 42,
         backgroundColor: '#556b2f',
@@ -301,20 +300,20 @@ const style = StyleSheet.create({
         alignItems:'center',
     },
 
-    buttondesign:{
+    buttonDesign:{
         fontSize: 13,
         fontWeight: 'bold',
         justifyContent: 'center',
         color: '#fff8dc'
     },
 
-    buttoncardapio:{
+    buttonMenu1:{
         fontSize: 13,
         fontWeight: 'bold',
         color: '#fff8dc'
     },
 
-    buttonreserved:{
+    buttonReservation1:{
         fontSize: 13,
         fontWeight: 'bold',
         color: '#fff8dc'

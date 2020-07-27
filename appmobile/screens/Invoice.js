@@ -35,8 +35,8 @@ class Invoice extends React.Component {
 
             <View style={style.container}>
             <BarraEstados />
-            <ScrollView style={style.regform}>
-            <View style={style.regform}>
+            <ScrollView style={style.form}>
+            <View style={style.form}>
 
                 <Text style={style.header}>A minha fatura</Text>
                 <Text style={style.text}>Foto:</Text>
@@ -45,7 +45,7 @@ class Invoice extends React.Component {
                 <Text style={style.text}>Confirmar Password:</Text>
                 <Text style={style.text}>Data Nascimento:</Text>            
                 <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
-                    <Text style={style.btntext}>Voltar</Text>
+                    <Text style={style.btnText}>Voltar</Text>
                 </TouchableOpacity>
 
 
@@ -68,7 +68,7 @@ const style = StyleSheet.create({
         height:"100%"
     },
 
-    regform:{
+    form:{
       width: "100%",
         height:"100%"
 
@@ -96,14 +96,14 @@ const style = StyleSheet.create({
     
     },
 
-    btntext:{
+    btnText:{
         color:'red',
         fontWeight:'bold',
         fontSize: 20,
     },
 
 
-   imagemFundo: {
+   imageBackground: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'

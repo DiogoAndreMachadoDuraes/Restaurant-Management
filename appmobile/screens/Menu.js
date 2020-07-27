@@ -1,7 +1,5 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, Image, TouchableOpacity } from "react-native";
-import {Header, Icon} from "react-native-elements";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 import {NossoHeader} from "./shared/NossoHeader.js";

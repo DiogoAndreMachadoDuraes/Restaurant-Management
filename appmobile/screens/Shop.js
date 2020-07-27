@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, Text, Image, TextInput, ImageBackground, StatusBar, KeyboardAvoidingView, ScrollView, FlatList, Button, TouchableOpacity } from 'react-native';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+import { Alert, StyleSheet, View, Text, Image, ImageBackground, ScrollView, Button, TouchableOpacity } from 'react-native';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 import BarraEstados from "./shared/BarraEstados.js";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icon} from "react-native-elements";
 
 
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
+const imageBackgound = { uri: "https://i.pinimage.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
 const Coco = require('../assets/coco.jpg');
 
@@ -86,7 +86,7 @@ class Shop extends React.Component {
                           <Text style={style.titleMenu}>{item.name}</Text>
                           <TouchableOpacity style={style.trash}>
                             <Icon2 name="delete" color={'red'} size={20}/>
-                            <Text style={style.trashtext}>Remover</Text>
+                            <Text style={style.trashText}>Remover</Text>
                           </TouchableOpacity>
                           <TouchableOpacity style={style.plus} onPress={()=>this.quantidade(true)}>
                             <Icon2 name="plus-box-outline" color={'red'} size={20}/>
@@ -100,11 +100,11 @@ class Shop extends React.Component {
                     })
                   }
                 <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
-                    <Text style={style.btntext}>Voltar</Text>
+                    <Text style={style.btnText}>Voltar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={style.button1} onPress={() => this.props.navigation.navigate("Agradecimento") }>
-                    <Text style={style.btntext}>Comprar</Text>
+                    <Text style={style.btnText}>Comprar</Text>
                 </TouchableOpacity>
             </ImageBackground>    
             </View>
@@ -145,7 +145,7 @@ const style = StyleSheet.create({
         left: 120
     },
 
-    trashtext: {
+    trashText: {
       top:-20,
       left: 20,
       color: "red",
@@ -183,7 +183,7 @@ const style = StyleSheet.create({
         left: -130
       },
 
-    img:{
+    image:{
         width: 130,
         height: 130,
         marginTop: 150,
@@ -247,19 +247,19 @@ const style = StyleSheet.create({
         top: 40,
     },
 
-    btntext:{
+    btnText:{
         color:'red',
         fontWeight:'bold',
         fontSize: 20,
     },
 
-    btntext1:{
+    btnText1:{
         color:'white',
         fontWeight:'bold',
         fontSize: 20,
     },
 
-    textinput:{
+    textInput:{
         alignSelf:'stretch',
         height:40,
         color: 'white',
@@ -272,7 +272,7 @@ const style = StyleSheet.create({
         color: 'white',
     },
 
-   imagemFundo: {
+   imageBackground: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'

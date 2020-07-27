@@ -89,10 +89,10 @@ class Account extends React.Component {
             <View style={style.container}>
             <BarraEstados />
             <ScrollView>
-            <View style={style.regform}>
+            <View style={style.form}>
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
                 <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Login") }>
-                    <Text style={style.btntext}>Save</Text>
+                    <Text style={style.btnText}>Save</Text>
                 </TouchableOpacity>
             </ImageBackground>    
                   <View style={style.CategoriaProduto}>
@@ -166,7 +166,7 @@ const style = StyleSheet.create({
         height: 1000,
     },
 
-    regform:{
+    form:{
        alignSelf:'stretch',
     },
 
@@ -190,13 +190,13 @@ const style = StyleSheet.create({
         left: 150,
     },
 
-    btntext:{
+    btnText:{
         color:'red',
         fontWeight:'bold',
         fontSize: 20,
     },
     
-    textinput:{
+    textInput:{
         alignSelf:'stretch',
         height:40,
         color: 'white',
@@ -209,7 +209,7 @@ const style = StyleSheet.create({
         color: 'white',
     },
 
-   imagemFundo: {
+   image: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
