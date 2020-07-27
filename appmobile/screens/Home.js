@@ -31,7 +31,7 @@ class Home extends React.Component{
                 </View>
 
                 <Image source={require('../assets/espaco.jpg')} style={style.image}/>
-                <TouchableOpacity style={style.buttonSpace} onPress={() => this.props.navigation.navigate("Espaco") }>
+                <TouchableOpacity style={style.buttonSpace} onPress={() => this.props.navigation.navigate("Space") }>
                 <Text style={style.buttonDesign}>Nosso Espaço</Text>
                 </TouchableOpacity>
                 
@@ -41,7 +41,7 @@ class Home extends React.Component{
                 </TouchableOpacity>
 
                 <Image source={require('../assets/reserva.jpeg')} style={style.image2} opacity={1}/>
-                <TouchableOpacity style={style.buttonReservation} onPress={() => this.props.navigation.navigate("Fatura") }>
+                <TouchableOpacity style={style.buttonReservation} onPress={() => this.props.navigation.navigate("Invoice") }>
                 <Text style={style.buttonReservation1}>Reserva</Text>
                 </TouchableOpacity>
                 
