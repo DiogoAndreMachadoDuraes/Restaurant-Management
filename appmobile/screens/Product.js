@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image, ActivityIndicator, FlatList, AsyncStorage} from "react-native";
 import NossoFinal from "./shared/NossoFinal";
-import {NossoHeader} from "./shared/NossoHeader.js";
+import { OwnHeader } from "./shared/OwnHeader.js";
 import BarraEstados from "./shared/BarraEstados.js";
 
 class Product extends React.Component{
@@ -71,7 +71,7 @@ class Product extends React.Component{
     return (
       <View style={style.container}>
         <BarraEstados />
-        <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
+        <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} >
           <ScrollView>
             <View style={style.product}>

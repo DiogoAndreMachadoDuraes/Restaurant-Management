@@ -14,7 +14,7 @@ import {
   AsyncStorage
 } from "react-native";
 import CalendarPicker from 'react-native-calendar-picker';
-import {NossoHeader} from './shared/NossoHeader.js';
+import { OwnHeader } from './shared/OwnHeader.js';
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
 
@@ -63,7 +63,7 @@ class Reservation extends React.Component{
     return (
       <View style={style.container}>
         <BarraEstados />
-        <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
+        <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} opacity={0.7}>
           <ScrollView>
             <KeyboardAvoidingView behavior="padding" style={style.calendar}>

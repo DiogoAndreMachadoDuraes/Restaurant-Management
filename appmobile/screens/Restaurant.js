@@ -9,7 +9,7 @@ import {
   FlatList, 
   ActivityIndicator
 } from "react-native";
-import {NossoHeader} from './shared/NossoHeader.js';
+import { OwnHeader } from './shared/OwnHeader.js';
 import NossoFinal from "./shared/NossoFinal.js";
 import BarraEstados from "./shared/BarraEstados.js";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -48,7 +48,7 @@ class Restaurant extends React.Component{
     return (
       <View style={style.container}>
         <BarraEstados />
-        <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
+        <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} >
           <ScrollView>
             <View style={style.restaurantes}>

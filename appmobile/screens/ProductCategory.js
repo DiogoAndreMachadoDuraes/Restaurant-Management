@@ -12,7 +12,7 @@ import {
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import BarraEstados from "./shared/BarraEstados.js";
-import Categoria from "./shared/Categoria.js";
+import Category from "./shared/Category.js";
 
 class ProductCategory extends React.Component{
   constructor(){

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
-const Categoria = (props)=>(
+const Category = (props)=>(
         <View style={style.container}>
             <View style={style.imageScroll}>
                 <Image source={props.image} style={style.image}/>
@@ -38,4 +38,4 @@ const style = StyleSheet.create({
     }
 });
 
-export default Categoria;
+export default Category;

@@ -93,14 +93,14 @@ class ProductDetail extends React.Component{
                     <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.goBack()} color={"darkgreen"} size={45}/>
                 </View>
                 <View style={style.shop}>
-                    <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Carrinho")} color={"darkgreen"} size={40}/>
+                    <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Shop")} color={"darkgreen"} size={40}/>
                 </View>
                 <View>
                     <Text style={style.title}>{item.nome}</Text>
                     <Image source={{uri:''+item.foto+''}} style={style.image}/>
                     <Text style={style.text}>{item.descricao}</Text>
                 </View>
-                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Carrinho")}>
+                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Shop"), {item}}>
                     <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
                 <Text style={style.infoText}>Informação Nutricional</Text>
