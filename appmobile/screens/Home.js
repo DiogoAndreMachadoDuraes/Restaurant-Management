@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground,} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { NossoHeader } from './shared/NossoHeader';
+import { OwnHeader } from './shared/OwnHeader';
 import BarraEstados from './shared/BarraEstados';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
@@ -22,7 +22,7 @@ class Home extends React.Component{
             <View style={style.container}>
                 <BarraEstados/>
                     
-                <NossoHeader nome={this.state.name} navigation={this.props.navigation}/>
+                <OwnHeader nome={this.state.name} navigation={this.props.navigation}/>
 
                 <ImageBackground source={imageBackgound} style={style.imageBackground} opacity={1}>
 
@@ -31,7 +31,7 @@ class Home extends React.Component{
                 </View>
 
                 <Image source={require('../assets/espaco.jpg')} style={style.image}/>
-                <TouchableOpacity style={style.buttonSpace} onPress={() => this.props.navigation.navigate("Space") }>
+                <TouchableOpacity style={style.buttonSpace} onPress={() => this.props.navigation.navigate("Account") }>
                 <Text style={style.buttonDesign}>Nosso Espaço</Text>
                 </TouchableOpacity>
                 

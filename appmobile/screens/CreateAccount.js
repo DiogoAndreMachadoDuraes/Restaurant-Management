@@ -1,13 +1,11 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, FlatList, ScrollView, AsyncStorage, ActivityIndicato, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, View, Text, CheckBox, Image, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
-import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
-import {Icon} from "react-native-elements";
 //import ImagePicker from 'react-native-image-crop-picker';
 //import ImagePicker from 'react-native-image-picker';
 
-class EditAccount extends React.Component {
+class CreateAccount extends React.Component {
   constructor(){
       super();
       this.state={
@@ -21,12 +19,13 @@ class EditAccount extends React.Component {
         telefone:'',
         morada:'',
         password:'',
-        tipo:''
+        tipo:'',
+        check: false
         //avatarSource: null
       };
     }
   async componentDidMount(){ 
-    console.log("Mounting the screen EditAccount...");
+    console.log("Mounting the screen CreateAccount...");
 
     await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
       method: 'POST', 
@@ -68,98 +67,50 @@ class EditAccount extends React.Component {
       }
     });  
   }*/
-  getUser = async () => {
-    try {
-      const value = await AsyncStorage.getItem("User");
-      if (value !== null) {
-        this.setState({ user: JSON.parse(value) });
-        console.log(this.state.user);
-      }
-    } catch (e) {
-        console.log("Error rending user: " + e);
-    }
-  }
   render()
-    { 
-        const { user, isLoading } = this.state;
-        {
-          this.getUser();
-        }
+  { 
     return (
       <View style={style.container}>
-        <BarraEstados />
-        <ScrollView style={style.form}>
-        <View style={style.form}>
+      <BarraEstados />
+      <ScrollView style={style.form}>
+      <View style={style.form}>
 
-            <Text style={style.header}>Editar conta</Text>
-            {
-                isLoading ? <ActivityIndicator/> : (
-                <FlatList
-                data={user}
-                keyExtractor={({ id }, index) => id}
-                renderItem={({ item }) => (
-            <View>
+          <Text style={style.header}>Registar</Text>
 
-        <Text style={style.text}>Nome Completo:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.nome}
+          <Text style={style.text}>Nome Completo:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Nome Completo"
           leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }} value = {this.nome} />
 
-        <Text style={style.text}>Email:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.email}
+          <Text style={style.text}>Email:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Email"
           leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} value = {this.email} />
           
-        <Text style={style.text}>Telefone:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.telefone}
+          <Text style={style.text}>Telefone:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Telefone"
           leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} value = {this.telefone} />
 
-        <Text style={style.text}>Rua:</Text>
-        <Input inputStyle={style.inputcolor}
-         placeholder={item.rua}
+          <Text style={style.text}>Rua:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Rua"
           leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.rua} />
 
-        <Text style={style.text}>Código Postal:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.codigo_postal}
+          <Text style={style.text}>Código Postal:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Código Postal"
           leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.codigo_postal} />
 
-        <Text style={style.text}>Localização:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.localizacao}
+          <Text style={style.text}>Localização:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Localização"
           leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.localizacao} />
 
-        <Text style={style.text}>Nif:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.nif}
+          <Text style={style.text}>Nif:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Nif"
           leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.nif} />
-
-        <Text style={style.text}>Sexo:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.sexo}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.sexo} />
-
-        <Text style={style.text}>Password:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.password}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
-
-        <Text style={style.text}>Confirmar Password:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.confirmar_password}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
-
-        <Text style={style.text}>Data Nascimento:</Text>
-        <Input inputStyle={style.inputcolor}
-          placeholder={item.data_nascimento}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.data_nascimento} />
-        </View>  
-    
-             )}
-            />
-        )
-        }
 
           {/*<Text style={style.text}>Foto:</Text>
           {
@@ -167,10 +118,52 @@ class EditAccount extends React.Component {
           }
 
           <Button  title="selecionar imagem" onPress={this.selectImage}/> */}
+
+          <Text style={style.text}>Sexo:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Sexo"
+          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.sexo} />
+
+          <Text style={style.text}>Password:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Password"
+          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
+
+          <Text style={style.text}>Confirmar Password:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Confirmar Password"
+          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
+
+          <Text style={style.text}>Data Nascimento:</Text>
+          <Input inputStyle={style.inputcolor}
+          placeholder="Data Nascimento"
+          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.data_nascimento} />
+
+          <View style={style.checkBoxContainer}>
+            <CheckBox
+              value={this.state.check}
+              onChange={()=>this.checkedox()}
+              style={style.checkBox}
+            />
+          </View>  
+
+          <View style={style.caixatexto}>
+              <Text style={style.title}>Termos e Condições Gerais </Text>
+              <Text style={style.title1}>O Sabor da Avó compromete-se a tratar os dados pessoais de forma confidencial e responsável, assegurando o seu tratamento em estrito cumprimento. Ao assinalar a opção abaixo, declaro que tomei conhecimento e que concordo com os Termos e Condições Gerais da loja online e com a Política de Privacidade e Proteção de Dados adotada pelo Sabor da Avó.</Text>
+              <Text style={style.title2}>Declaro que fui informado/a sobre os Termos e Condições Gerais da App Sabor da Avó e que aceito a criação da conta de cliente nos termos acima expostos. * </Text>
+          </View>
+
+          <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Login") }>
+              <Text style={style.btnText}>Criar Conta</Text>
+          </TouchableOpacity>
+
+          <View style={style.caixatexto}>
+              <Text style={style.title3}>* Campos Obrigatórios</Text>   
+          </View>
           
-            <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Account")}>
-                    <Text style={style.btnText}>Guardar alterações</Text>
-                </TouchableOpacity>
+          <View style={style.caixatexto}>
+              <Text style={style.title1}>         Se tiver alguma dúvida, não hesite em contactar-nos. Estamos sempre à sua disposição.</Text>   
+          </View>
 
       </View>
       </ScrollView>
@@ -180,9 +173,20 @@ class EditAccount extends React.Component {
 }
 
 const style = StyleSheet.create({
+    checkBox: {
+      alignSelf: "center",
+      top: 265,
+      left: 20
+    },
+
+    checkBoxContainer: {
+      flexDirection: "row",
+      marginBottom: 20,
+    },
+
     container: {
     flex: 1,
-    backgroundColor: "#556b2f"
+    backgroundColor: "#556b2f",
    },
 
     inputcolor:{
@@ -245,7 +249,7 @@ const style = StyleSheet.create({
     header:{
         fontSize: 25,
         color: '#fff',
-        marginLeft: 130,
+        marginLeft: 150,
         top: 60,
         paddingBottom:60,
         marginBottom:60,
@@ -303,4 +307,4 @@ const style = StyleSheet.create({
 
   });
 
-  export default EditAccount;
+  export default CreateAccount;

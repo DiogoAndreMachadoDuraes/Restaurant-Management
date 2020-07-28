@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, ImageBackground } from 'react-native';
-import { NossoHeader } from './shared/NossoHeader';
+import { OwnHeader } from './shared/OwnHeader';
 import BarraEstados from './shared/BarraEstados';
 
 const imageBackgound = { uri: "https://media.timeout.com/images/105327913/630/472/image.jpg" };
@@ -21,7 +21,7 @@ class Space extends React.Component{
             <View style={style.container}>
                 <BarraEstados/>
                 
-                    <NossoHeader nome={this.state.name} navigation={this.props.navigation}/>
+                    <OwnHeader nome={this.state.name} navigation={this.props.navigation}/>
 
                         <ImageBackground source={imageBackgound} style={style.imagemdefundo} opacity={0.4}>
                             <ScrollView>

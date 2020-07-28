@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, ActivityIndicator, Text, Image, TextInput, TouchableOpacity, ImageBackground, StatusBar, KeyboardAvoidingView, ScrollView, FlatList} from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Text, Image, TouchableOpacity, ImageBackground, ScrollView, FlatList, AsyncStorage} from 'react-native';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -11,7 +12,7 @@ class Account extends React.Component {
         super();
         this.state={
           name:"Editar Conta",
-          data: [],
+          user: [],
           isLoading: true,
         };
       }
@@ -60,10 +61,25 @@ class Account extends React.Component {
       
           await Axios.post('http://localhost:3333/files', data);*/
       }
-      
+      getUser = async () => {
+        try {
+          const value = await AsyncStorage.getItem("User");
+          if (value !== null) {
+            this.setState({ user: JSON.parse(value) });
+            console.log(this.state.user);
+          }
+        } catch (e) {
+            console.log("Error rending user: " + e);
+        }
+      }
+    
+
     render()
     { 
-      const { data, isLoading } = this.state;
+      const { user, isLoading } = this.state;
+      {
+        this.getUser();
+      }
         return (
              /*<View style={style.container}>
                   <Image
@@ -91,15 +107,11 @@ class Account extends React.Component {
             <ScrollView>
             <View style={style.form}>
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
-                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Login") }>
-                    <Text style={style.btnText}>Save</Text>
-                </TouchableOpacity>
-            </ImageBackground>    
                   <View style={style.CategoriaProduto}>
                     {
                       isLoading ? <ActivityIndicator/> : (
                         <FlatList
-                          data={data}
+                          data={user}
                           keyExtractor={({ id }, index) => id}
                           renderItem={({ item }) => (
                               <TouchableOpacity style={style.ContaExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Login", {item})}>
@@ -108,36 +120,32 @@ class Account extends React.Component {
                                 <Text style={style.header}>A minha conta</Text>
 
                                   <Text style={style.text}>Nome Completo:</Text>
-                                  <Input inputStyle={style.inputcolor}
-                                      placeholder={item.nome}
-                                      leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }} />
+                                  <Text style={style.text}>{item.nome}</Text>
 
                                   <Text style={style.text}>Email:</Text>
-                                  <Input inputStyle={style.inputcolor}
-                                      placeholder="Email"
-                                      leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} />
+                                  <Text style={style.text}>{item.email}</Text>
+
                                       
                                   <Text style={style.text}>Telefone:</Text>
-                                  <Input inputStyle={style.inputcolor}
-                                      placeholder="Telefone"
-                                      leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} />
+                                  <Text style={style.text}>{item.telefone}</Text>
+
 
                                   <Text style={style.text}>Morada:</Text>
-                                      <Input inputStyle={style.inputcolor}
-                                      placeholder="Morada"
-                                      leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} />
-                                      
-                                <Text style={style.titleConta}>{item.nome}</Text>
-                                <Text style={style.textConta}>{item.descricao}</Text>
-                                <Text style={style.textConta}>{item.email}</Text>
-                                <Text style={style.textConta}>{item.telefone}</Text>
-                                <Text style={style.textConta}>{item.morada}</Text>
+                                  <Text style={style.text}>{item.morada}</Text>
+   
+          
                               </TouchableOpacity>
                           )}
                           />
                       )
                 }
+                
             </View>
+            <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("EditAccount")}>
+                    <Text style={style.btnText}>Editar Conta</Text>
+                      <Icon style={style.pencil} name="pencil" color={'red'} size={28}/>
+                </TouchableOpacity>
+            </ImageBackground>  
             </View>
             </ScrollView>
             </View>
@@ -156,8 +164,13 @@ const style = StyleSheet.create({
         height: 800,
         opacity: 0.9,
       },
-    
-      inputcolor:{
+
+    pencil: {
+        top: 10,
+        left: 0
+    },
+
+    inputcolor:{
         color: "white",
       },
 
@@ -183,17 +196,20 @@ const style = StyleSheet.create({
     button:{
         alignSelf:'stretch',
         alignItems:'center',
-        padding:10,
+        padding:4,
         backgroundColor:'white',
-        marginTop: 100,
-        width:100,
-        left: 150,
+        marginTop: 130,
+        width:150,
+        left: 130,
+        top: 20,
     },
 
     btnText:{
         color:'red',
         fontWeight:'bold',
         fontSize: 20,
+        top: -3,
+        left: 10
     },
     
     textInput:{

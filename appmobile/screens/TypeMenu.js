@@ -2,7 +2,7 @@ import * as React from "react";
 import {StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
-import {NossoHeader} from "./shared/NossoHeader.js";
+import { OwnHeader } from './shared/OwnHeader';
 
 
 const imageBackgound = { uri: "https://assets.tivolihotels.com/image/upload/q_auto,f_auto/media/minor/tivoli/images/hotels/tmpo/dinning/top-images/tivoli_marina_portimao_restaurants_top_image_1920x1000.jpg" };
@@ -57,7 +57,7 @@ class TypeMenu extends React.Component{
         return (
           <View style={style.container}>
             <BarraEstados />
-            <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
+            <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
               <ScrollView>
                 <View style={style.menu}>

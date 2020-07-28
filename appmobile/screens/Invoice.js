@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Alert, StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import BarraEstados from "./shared/BarraEstados.js";
-import { NossoHeader } from './shared/NossoHeader';
+import { OwnHeader } from './shared/OwnHeader';
 
 class Invoice extends React.Component {
     constructor(){
@@ -31,7 +31,7 @@ class Invoice extends React.Component {
         <View style={style.container}>
             <BarraEstados />
 
-            <NossoHeader nome={this.state.name} navigation={this.props.navigation}/>
+            <OwnHeader nome={this.state.name} navigation={this.props.navigation}/>
 
             <View style={style.container}>
             <BarraEstados />
@@ -39,17 +39,15 @@ class Invoice extends React.Component {
             <View style={style.form}>
 
                 <Text style={style.header}>A minha fatura</Text>
-                <Text style={style.header}>Isabela Martins Fatura 100</Text>
-                <Text style={style.header1}>Rua dos Jerónimos, porta 30</Text>
-                <Text style={style.header2}>4356-777 Portimão</Text>
-                <Text style={style.header3}>Nif: 000000009</Text>
-                <Text style={style.header4}>Data: 23/06/2020</Text>
+                <Text style={style.header0}>Isabela Martins                   Fatura 100</Text>
+                <Text style={style.header1}>Rua dos Jerónimos, porta 30                                                       4356-777 Portimão</Text>
+                <Text style={style.header2}>Nif: 000000009                              Data: 23/06/2020</Text>
                 <Text style={style.text}>Descrição</Text>
-                <Text style={style.text}>Quantidade</Text>
-                <Text style={style.text}>Preço</Text>
-                <Text style={style.text}>Subtotal</Text>
-                <Text style={style.text}>Taxa</Text>            
-                <Text style={style.text}>Total</Text> 
+                <Text style={style.text1}>Quantidade</Text>
+                <Text style={style.text2}>Preço</Text>
+                <Text style={style.text3}>Subtotal</Text>
+                <Text style={style.text3}>Taxa</Text>            
+                <Text style={style.text3}>Total</Text> 
                 <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
                     <Text style={style.btnText}>Voltar</Text>
                 </TouchableOpacity>
@@ -86,8 +84,34 @@ const style = StyleSheet.create({
         marginLeft: 100,
         top: 60,
         paddingBottom:60,
+        marginBottom:60
+    },
+
+    header0:{
+        fontSize: 20,
+        color: 'brown',
+        marginLeft: 30,
+        top: 0,
+        paddingBottom:60,
         marginBottom:60,
-        borderBottomColor: 'black',
+        fontWeight: 'bold'
+    },
+
+    header1:{
+        fontSize: 12,
+        color: 'black',
+        marginLeft: 30,
+        top: -120,
+        paddingBottom:60,
+        marginBottom:60
+    },
+    header2:{
+        fontSize: 15,
+        color: 'black',
+        marginLeft: 30,
+        top: -230,
+        paddingBottom:60,
+        marginBottom:60
     },
 
     button:{

@@ -4,9 +4,6 @@ import BarraEstados from "./shared/BarraEstados.js";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icon} from "react-native-elements";
 
-
-const imageBackgound = { uri: "https://i.pinimage.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-
 const Coco = require('../assets/coco.jpg');
 
 const dataFromApi = [
@@ -64,7 +61,7 @@ class Shop extends React.Component {
 
             <ScrollView>
             <View>
-            <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
+            <ImageBackground source={require("../assets/imageBackground.jpg")}  style={style.imageBackgound} opacity={1}>
                 
                 <Text style={style.header}>Carrinho de compras</Text>
 

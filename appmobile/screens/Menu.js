@@ -2,8 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
 import BarraEstados from "./shared/BarraEstados.js";
-import {NossoHeader} from "./shared/NossoHeader.js";
-
+import { OwnHeader } from './shared/OwnHeader';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -67,7 +66,7 @@ class Menu extends React.Component{
         return (
           <View style={style.container}>
             <BarraEstados />
-            <NossoHeader nome={this.state.name} navigation={this.props.navigation} />
+            <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
               <ScrollView>
                 <View style={style.menu}>
