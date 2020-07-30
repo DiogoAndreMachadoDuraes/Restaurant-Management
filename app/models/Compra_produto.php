@@ -5,6 +5,7 @@ namespace App\Models;
     final class Compra_produto
     {
         private int $id_compra_produto;
+        private int $quantidade;
         private float $preco;
         private int $id_produto;
         private int $id_reserva;
@@ -18,6 +19,15 @@ namespace App\Models;
 
         public function set_id_compra_produto(int $id_compra_produto): Compra_produto{
             $this->id_compra_produto = $id_compra_produto;
+            return $this;
+        }
+
+        public function get_quantidade(){
+            return $this->quantidade;
+        }
+
+        public function set_quantidade(int $quantidade): Compra_produto{
+            $this->quantidade = $quantidade;
             return $this;
         }
 
