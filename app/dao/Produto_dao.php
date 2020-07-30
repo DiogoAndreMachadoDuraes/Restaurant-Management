@@ -17,7 +17,7 @@ class Produto_dao extends ConnectionDB
                 id_produto,
                 nome,
                 descricao,
-                quantidade,
+                tipo,
                 preco,
                 foto
             From Produto;')
@@ -32,7 +32,7 @@ class Produto_dao extends ConnectionDB
             null,
             :nome,
             :descricao,
-            :quantidade,
+            :tipo,
             :preco,
             :foto
 
@@ -41,7 +41,7 @@ class Produto_dao extends ConnectionDB
         $statement->execute([
             'nome' => $produto ->getnome(),
             'descricao' => $produto->getdescricao(),
-            'quantidade' => $produto ->getquantidade(),
+            'tipo' => $produto ->gettipo(),
             'preco' => $produto ->getpreco(),
             'foto' => $produto ->getfoto()
         ]);
@@ -50,12 +50,12 @@ class Produto_dao extends ConnectionDB
     public function Update (Produto $produto): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Produto set nome=:nome , descricao=:descricao , quantidade=:quantidade , preco=:preco , foto=:foto Where id_produto=:id_produto');
+            ->prepare('UPDATE Produto set nome=:nome , descricao=:descricao , tipo=:tipo , preco=:preco , foto=:foto Where id_produto=:id_produto');
         $statement->execute([
             'id_produto' => $produto->getid_produto(),
             'nome' => $produto->getnome(),
             'descricao' => $produto->getdescricao(),
-            'quantidade' => $produto->getquantidade(),
+            'tipo' => $produto->gettipo(),
             'preco' => $produto->getpreco(),
             'foto' => $produto->getfoto()
         ]);

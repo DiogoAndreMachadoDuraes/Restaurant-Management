@@ -35,7 +35,7 @@ final class Produto_controller
       $produto->setid_produto($data['id_produto'])
          ->setnome($data['nome'])
          ->setdescricao($data['descricao'])
-         ->setquantidade($data['quantidade'])
+         ->settipo($data['tipo'])
          ->setpreco($data['preco'])
          ->setfoto($data['foto']);
       $produto_dao->Update($produto);
@@ -57,7 +57,7 @@ final class Produto_controller
       $produto=new Produto();
       $produto->setnome($data['nome'])
       ->setdescricao($data['descricao'])
-         ->setquantidade($data['quantidade'])
+         ->settipo($data['tipo'])
          ->setpreco($data['preco'])
          ->setfoto($data['foto']);
       $produto_dao->Insert($produto);

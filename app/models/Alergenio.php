@@ -7,9 +7,10 @@ namespace App\Models;
         private int $id_alergenio;
         private string $tipo;
         private string $descricao;
+        private string $foto;
         private int $id_extra;
         private int $id_produto;
-
+        
         public function Alergenio(){}
 
         //get e set id alergenio
@@ -42,6 +43,17 @@ namespace App\Models;
         public function setdescricao(string $descricao): Alergenio
         {
             $this->descricao = $descricao;
+            return $this;
+        }
+
+        //get e set foto
+        public function getfoto()
+        {
+            return $this->foto;
+        }
+        public function setfoto(string $foto): Alergenio
+        {
+            $this->foto = $foto;
             return $this;
         }
 

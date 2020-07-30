@@ -10,7 +10,9 @@ namespace App\Models;
         private string $data_nascimento;
         private string $sexo;
         private string $telefone;
-        private string $morada;
+        private string $rua;
+        private string $codigo_postal;
+        private string $localizacao;
         private string $foto;
         private string $email;
         private string $password;
@@ -85,14 +87,36 @@ namespace App\Models;
             return $this;
         }
 
-        //get e set morada
-        public function getmorada()
+        //get e set rua
+        public function getrua()
         {
-            return $this->morada;
+            return $this->rua;
         }
-        public function setmorada(string $morada): Utilizador
+        public function setrua(string $rua): Utilizador
         {
-            $this->morada = $morada;
+            $this->rua = $rua;
+            return $this;
+        }
+
+        //get e set codigo_postal
+        public function getcodigo_postal()
+        {
+            return $this->codigo_postal;
+        }
+        public function setcodigo_postal(string $codigo_postal): Utilizador
+        {
+            $this->codigo_postal = $codigo_postal;
+            return $this;
+        }
+
+        //get e set localizacao
+        public function getlocalizacao()
+        {
+            return $this->localizacao;
+        }
+        public function setlocalizacao(string $localizacao): Utilizador
+        {
+            $this->localizacao = $localizacao;
             return $this;
         }
 

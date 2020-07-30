@@ -7,7 +7,7 @@ namespace App\Models;
         private int $id_produto;
         private string $nome;
         private string $descricao;
-        private int $quantidade;
+        private string $tipo;
         private float $preco;
         private string $foto;
         
@@ -36,27 +36,26 @@ namespace App\Models;
             return $this;
         }
 
-         //get e set descricao
-         public function getdescricao()
-         {
-             return $this->descricao;
-         }
-         public function setdescricao(string $descricao): Produto
-         {
-             $this->descricao = $descricao;
-             return $this;
-         }
- 
-
-        //get e set quantidade
-        public function getquantidade()
+        //get e set descricao
+        public function getdescricao()
         {
-            return $this->quantidade;
+        return $this->descricao;
         }
-        public function setquantidade(int $quantidade): Produto
+        public function setdescricao(string $descricao): Produto
         {
-            $this->quantidade = $quantidade;
-            return $this;
+        $this->descricao = $descricao;
+        return $this;
+        }
+
+        //get e set tipo
+        public function gettipo()
+        {
+        return $this->tipo;
+        }
+        public function settipo(string $tipo): Produto
+        {
+        $this->tipo = $tipo;
+        return $this;
         }
 
         //get e set preco

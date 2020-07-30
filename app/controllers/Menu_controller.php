@@ -35,6 +35,7 @@ final class Menu_controller
       ->setnome($data['nome'])
       ->setdescricao($data['descricao'])
       ->setfoto($data['foto'])
+      ->settipo($data['tipo'])
       ->setpreco($data['preco'])
       ->setid_ementa($data['id_ementa']);
       $menu_dao->Update($menu);
@@ -57,6 +58,7 @@ final class Menu_controller
       $menu->setnome($data['nome'])
          ->setdescricao($data['descricao'])
          ->setfoto($data['foto'])
+         ->settipo($data['tipo'])
          ->setpreco($data['preco'])
          ->setid_ementa($data['id_ementa']);
       $menu_dao->Insert($menu);

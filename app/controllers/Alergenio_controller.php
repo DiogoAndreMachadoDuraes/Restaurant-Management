@@ -34,6 +34,7 @@ final class Alergenio_controller
             $alergenio->setid_alergenio($data['id_alergenio'])
                ->settipo($data['tipo'])
                ->setdescricao($data['descricao'])
+               ->setfoto($data['foto'])
                ->setid_extra($data['id_extra'])
                ->setid_produto($data['id_produto']);
             $alergenio_dao->Update($alergenio);
@@ -55,6 +56,7 @@ final class Alergenio_controller
             $alergenio=new Alergenio();
             $alergenio->settipo($data['tipo'])
                ->setdescricao($data['descricao'])
+               ->setfoto($data['foto'])
                ->setid_extra($data['id_extra'])
                ->setid_produto($data['id_produto']);
             $alergenio_dao->Insert($alergenio);

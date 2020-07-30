@@ -6,9 +6,10 @@ namespace App\Models;
     {
         private int $id_menu;
         private string $nome;
-        private float $valor;
         private string $descricao;
+        private string $tipo;
         private string $foto;
+        private float $preco;
         private int $id_ementa;
 
         public function Menu() {}
@@ -46,6 +47,17 @@ namespace App\Models;
             return $this;
         }
 
+        //get e set tipo
+        public function gettipo()
+        {
+            return $this->tipo;
+        }
+        public function settipo(string $tipo): Menu
+        {
+            $this->tipo = $tipo;
+            return $this;
+        }
+
         //get e set foto
         public function getfoto()
         {
@@ -57,16 +69,16 @@ namespace App\Models;
             return $this;
         }
 
-          //get e set preço do menu
-          public function getpreco()
-          {
-              return $this->preco;
-          }
-          public function setpreco(float $preco): Menu
-          {
-              $this->preco = $preco;
-              return $this;
-          }
+        //get e set preço do menu
+        public function getpreco()
+        {
+            return $this->preco;
+        }
+        public function setpreco(float $preco): Menu
+        {
+            $this->preco = $preco;
+            return $this;
+        }
 
         //get e set id ementa
         public function getid_ementa()
