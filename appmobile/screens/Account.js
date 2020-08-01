@@ -114,27 +114,33 @@ class Account extends React.Component {
                           data={user}
                           keyExtractor={({ id }, index) => id}
                           renderItem={({ item }) => (
-                              <TouchableOpacity style={style.ContaExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Login", {item})}>
+                              <View style={style.ContaExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Account", {item})}>
                                 <Image style={style.ContaExpFoto} source={item.foto} ></Image>
-                                
+                              
                                 <Text style={style.header}>A minha conta</Text>
 
                                   <Text style={style.text}>Nome Completo:</Text>
                                   <Text style={style.text}>{item.nome}</Text>
+                                  <Input inputStyle={style.inputcolor}
+                                  leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }} value = {this.nome} />
 
                                   <Text style={style.text}>Email:</Text>
                                   <Text style={style.text}>{item.email}</Text>
+                                  <Input inputStyle={style.inputcolor}
+                                  leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} value = {this.email} />
 
-                                      
+
                                   <Text style={style.text}>Telefone:</Text>
                                   <Text style={style.text}>{item.telefone}</Text>
-
-
+                                  <Input inputStyle={style.inputcolor}
+                                  leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} value = {this.telefone} />
+                                  
                                   <Text style={style.text}>Morada:</Text>
                                   <Text style={style.text}>{item.morada}</Text>
-   
+                                  <View inputStyle={style.inputcolor}
+                                  leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.localizacao} />
           
-                              </TouchableOpacity>
+                              </View>
                           )}
                           />
                       )
@@ -159,6 +165,10 @@ const style = StyleSheet.create({
         backgroundColor: "#fff"
     },
 
+    inputcolor:{
+      color: "white",
+   },
+
     imageBackgound: {                         //foto por tras do titulo
         width: 420,
         height: 800,
@@ -166,8 +176,8 @@ const style = StyleSheet.create({
       },
 
     pencil: {
-        top: 10,
-        left: 0
+        top: -30,
+        left: -60
     },
 
     inputcolor:{
@@ -201,6 +211,7 @@ const style = StyleSheet.create({
         marginTop: 130,
         width:150,
         left: 130,
+        height: 30,
         top: 20,
     },
 
@@ -216,9 +227,7 @@ const style = StyleSheet.create({
         alignSelf:'stretch',
         height:40,
         color: 'white',
-        marginBottom: 10,
-        borderBottomColor:'white',
-        borderBottomWidth:1,
+        marginBottom: 40,
     },
 
     email:{
@@ -235,7 +244,7 @@ const style = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         fontSize: 20,
-        left: 20,
+        left: 40
     }
 
   });
