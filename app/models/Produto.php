@@ -8,9 +8,9 @@ namespace App\Models;
         private string $nome;
         private string $descricao;
         private string $tipo;
-        private float $preco;
         private string $foto;
-        
+        private float $preco;
+
 
         public function Produto() {}
 
@@ -58,17 +58,6 @@ namespace App\Models;
         return $this;
         }
 
-        //get e set preco
-        public function getpreco()
-        {
-            return $this->preco;
-        }
-        public function setpreco(float $preco): Produto
-        {
-            $this->preco = $preco;
-            return $this;
-        }
-
         //get e set foto
         public function getfoto()
         {
@@ -77,6 +66,17 @@ namespace App\Models;
         public function setfoto(string $foto): Produto
         {
             $this->foto = $foto;
+            return $this;
+        }
+
+        //get e set preco
+        public function getpreco()
+        {
+            return $this->preco;
+        }
+        public function setpreco(float $preco): Produto
+        {
+            $this->preco = $preco;
             return $this;
         }
     }

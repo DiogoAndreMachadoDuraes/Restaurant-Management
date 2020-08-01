@@ -36,8 +36,8 @@ final class Produto_controller
          ->setnome($data['nome'])
          ->setdescricao($data['descricao'])
          ->settipo($data['tipo'])
-         ->setpreco($data['preco'])
-         ->setfoto($data['foto']);
+         ->setfoto($data['foto'])
+         ->setpreco($data['preco']);
       $produto_dao->Update($produto);
 
       $response -> getBody() -> write("Product modified!");
@@ -58,8 +58,8 @@ final class Produto_controller
       $produto->setnome($data['nome'])
       ->setdescricao($data['descricao'])
          ->settipo($data['tipo'])
-         ->setpreco($data['preco'])
-         ->setfoto($data['foto']);
+         ->setfoto($data['foto'])
+         ->setpreco($data['preco']);
       $produto_dao->Insert($produto);
 
       $response -> getBody() -> write("Product inserted!");

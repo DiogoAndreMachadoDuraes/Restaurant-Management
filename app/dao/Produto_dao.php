@@ -18,8 +18,8 @@ class Produto_dao extends ConnectionDB
                 nome,
                 descricao,
                 tipo,
-                preco,
-                foto
+                foto,
+                preco
             From Produto;')
             ->fetchAll(\PDO::FETCH_ASSOC);
         return $produto;
@@ -33,8 +33,8 @@ class Produto_dao extends ConnectionDB
             :nome,
             :descricao,
             :tipo,
-            :preco,
-            :foto
+            :foto,
+            :preco
 
         );');
         
@@ -42,22 +42,22 @@ class Produto_dao extends ConnectionDB
             'nome' => $produto ->getnome(),
             'descricao' => $produto->getdescricao(),
             'tipo' => $produto ->gettipo(),
-            'preco' => $produto ->getpreco(),
-            'foto' => $produto ->getfoto()
+            'foto' => $produto ->getfoto(),
+            'preco' => $produto ->getpreco()
         ]);
     }
 
     public function Update (Produto $produto): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Produto set nome=:nome , descricao=:descricao , tipo=:tipo , preco=:preco , foto=:foto Where id_produto=:id_produto');
+            ->prepare('UPDATE Produto set nome=:nome , descricao=:descricao , tipo=:tipo , foto=:foto , preco=:preco Where id_produto=:id_produto');
         $statement->execute([
             'id_produto' => $produto->getid_produto(),
             'nome' => $produto->getnome(),
             'descricao' => $produto->getdescricao(),
             'tipo' => $produto->gettipo(),
-            'preco' => $produto->getpreco(),
-            'foto' => $produto->getfoto()
+            'foto' => $produto->getfoto(),
+            'preco' => $produto->getpreco()
         ]);
     }
 

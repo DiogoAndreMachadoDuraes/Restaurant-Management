@@ -46,7 +46,7 @@ class Info_nutricional_dao extends ConnectionDB
     public function Update (Info_nutricional $info_nutricional): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Info_nutricional set tipo=:tipo , quantidade_nutrientes=:quantidade_nutrientes , id_produto=:id_produto and id_extra=:id_extra Where id_info_nutricional=:id_info_nutricional');
+            ->prepare('UPDATE Info_nutricional set tipo=:tipo , quantidade_nutrientes=:quantidade_nutrientes , id_produto=:id_produto , id_extra=:id_extra Where id_info_nutricional=:id_info_nutricional');
         $statement->execute([
             'id_info_nutricional' => $info_nutricional->getid_info_nutricional(),
             'tipo' => $info_nutricional->gettipo(),

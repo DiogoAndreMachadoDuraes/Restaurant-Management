@@ -17,8 +17,8 @@ class Menu_dao extends ConnectionDB
                 id_menu,
                 nome,
                 descricao,
-                foto,
                 tipo,
+                foto,
                 preco,
                 id_ementa
                 From Menu;')
@@ -33,16 +33,16 @@ class Menu_dao extends ConnectionDB
             null,
             :nome,
             :descricao,
-            :foto,
             :tipo,
+            :foto,
             :preco,
             :id_ementa
         );');
         $statement->execute([
             'nome' => $menu->getnome(),
             'descricao' => $menu->getdescricao(),
-            'foto' => $menu->getfoto(),
             'tipo' => $menu->gettipo(),
+            'foto' => $menu->getfoto(),
             'preco' => $menu->getpreco(),
             'id_ementa' => $menu->getid_ementa()
         ]);
@@ -51,13 +51,13 @@ class Menu_dao extends ConnectionDB
     public function Update (Menu $menu): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Menu set nome=:nome , descricao=:descricao , foto=:foto , tipo=:tipo ,  preco=:preco , id_ementa=:id_ementa Where id_menu=:id_menu');
+            ->prepare('UPDATE Menu set nome=:nome , descricao=:descricao , tipo=:tipo , foto=:foto ,  preco=:preco , id_ementa=:id_ementa Where id_menu=:id_menu');
         $statement->execute([
             'id_menu' => $menu->getid_menu(),
             'nome' => $menu->getnome(),
             'descricao' => $menu->getdescricao(),
-            'foto' => $menu->getfoto(),
             'tipo' => $menu->gettipo(),
+            'foto' => $menu->getfoto(),
             'preco' => $menu->getpreco(),
             'id_ementa' => $menu->getid_ementa()
         ]);
