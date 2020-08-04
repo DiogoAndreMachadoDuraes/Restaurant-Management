@@ -30,37 +30,6 @@ class Account extends React.Component {
         .finally(() => {
           this.setState({ isLoading: false });
         });
-
-        /*function imagePickerCallback(data) {
-          if (data.didCancel) {
-            return;
-          }
-      
-          if (data.error) {
-            return;
-          }
-      
-          if (data.customButton) {
-            return;
-          }
-      
-          if (!data.uri) {
-            return;
-          }
-      
-          setAvatar(data);
-        }
-      
-        async function uploadImage() {
-          const data = new FormData();
-      
-          data.append('avatar', {
-            fileName: avatar.fileName,
-            uri: avatar.uri,
-            type: avatar.type,
-          });
-      
-          await Axios.post('http://localhost:3333/files', data);*/
       }
       getUser = async () => {
         try {
@@ -82,26 +51,6 @@ class Account extends React.Component {
         this.getUser();
       }
         return (
-             /*<View style={style.container}>
-                  <Image
-                    source={{
-                      uri: avatar
-                        ? avatar.uri
-                        : 'https://mltmpgeox6sf.i.optimole.com/w:761/h:720/q:auto/https://redbanksmilesnj.com/wp-content/uploads/2015/11/man-avatar-placeholder.png',
-                    }}
-                    style={style.avatar}
-                  />
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() =>
-                      ImagePicker.showImagePicker(imagePickerOptions, imagePickerCallback)
-                    }>
-                    <Text style={style.buttonText}>Escolher imagem</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={uploadImage}>
-                    <Text style={style.buttonText}>Enviar imagem</Text>
-                  </TouchableOpacity>
-                </View>*/
 
             <View style={style.container}>
             <BarraEstados />
@@ -118,7 +67,7 @@ class Account extends React.Component {
                           keyExtractor={({ id }, index) => id}
                           renderItem={({ item }) => (
                               <View style={style.ContaExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Account", {item})}>
-                                <Image style={style.ContaExpFoto} source={item.foto} ></Image>
+                                <Image style={style.ContaExpFoto} source={{uri:''+item.foto+''}} ></Image>
                               
                                 <Text style={style.header}>A minha conta</Text>
 

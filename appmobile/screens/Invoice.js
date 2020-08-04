@@ -1,17 +1,22 @@
 import * as React from 'react';
-import { ImageBackground, StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { ImageBackground, StyleSheet, View, Text, FlatList, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
 import BarraEstados from "./shared/BarraEstados.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 
 class Invoice extends React.Component {
     constructor(){
         super();
-        this.state={ name:'A minha fatura' };
+        this.state={ 
+            name:'A minha fatura',
+            isLoading: true,
+            user: [],
+            data:[]
+         }; 
     }
       async componentDidMount(){ 
         console.log("Mounting the screen Invoice...");
 
-        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Fatura', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Fatura', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
@@ -23,10 +28,26 @@ class Invoice extends React.Component {
         });
     }
 
+    getUser = async () => {
+        try {
+          const value = await AsyncStorage.getItem("User");
+          if (value !== null) {
+            this.setState({ user: JSON.parse(value) });
+            console.log(this.state.user);
+          }
+        } catch (e) {
+            console.log("Error rending user: " + e);
+        }
+      }
+
+    
 
     render()
     { 
-        const { data, isLoading } = this.state;
+        const { user, data, isLoading } = this.state;
+      {
+        this.getUser();
+      }
         return (
         <View style={style.container}>
             <BarraEstados />
@@ -38,19 +59,29 @@ class Invoice extends React.Component {
             <ImageBackground source={require("../assets/logo.png")}  style={style.imageBackgound} opacity={0.1}>
             <ScrollView style={style.form}>
             <View style={style.form}>
+                    {
+                    data.filter(item=>item.nif_cliente==user.nif).map((item)=>{
+                      return (
+                        <View>
                 <Text style={style.header}>A minha fatura</Text>
-                <Text style={style.header0}>Isabela Martins                   Fatura 100</Text>
+                <Text style={style.header0}>Isabela Martins                    Fatura {item.id_fatura}</Text>
                 <Text style={style.header1}>Rua dos Jerónimos, porta 30                                                       4356-777 Portimão</Text>
-                <Text style={style.header2}>Nif: 000000009                              Data: 23/06/2020</Text>
+                <Text style={style.header2}>Nif: {item.nif_cliente}                              Data: 23/06/2020</Text>
                 <View style={style.line} />
                 <Text style={style.text}>Descrição</Text>
                 <Text style={style.text1}>Quantidade</Text>
                 <Text style={style.text2}>Preço</Text>
-                <Text style={style.textTax}>Taxa</Text>
-                <Text style={style.textIva}>%Iva</Text> 
+                <Text style={style.textTax}>Taxa </Text>
+                <Text style={style.tax}>{item.taxa}</Text>
+                <Text style={style.textIva}>Iva </Text> 
+                <Text style={style.iva}>{item.iva}</Text> 
                 <View style={style.line1} />
-                <Text style={style.text3}>Total:</Text>
+                <Text style={style.text3}>Total:{item.valor_total}</Text>
                 <Text style={style.textEmployee}>Funcionário : José Leite Machado</Text> 
+                </View>
+                      );
+                    })
+                  }
                 <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
                     <Text style={style.btnText}>Voltar</Text>
                 </TouchableOpacity>
@@ -190,7 +221,23 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 15,
         left: 270,
-        top: -417,
+        top: -438,
+    },
+
+    tax:{
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 15,
+        left: 217,
+        top: -390,
+    },
+
+    iva:{
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 15,
+        left: 270,
+        top: -430,
     },
 
     text2:{
