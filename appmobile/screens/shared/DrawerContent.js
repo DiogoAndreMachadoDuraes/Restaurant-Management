@@ -121,7 +121,7 @@ export function DrawerContent(props){
                                 />
                             )}
                             label="Ementas"
-                            onPress={() => {props.navigation.navigate('TypeMenu')}}
+                            onPress={() => {props.navigation.navigate('SpecialMenu')}}
                             labelStyle={style.dark}
                         />
                         <DrawerItem 
