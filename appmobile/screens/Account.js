@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, View, ActivityIndicator, Text, Image, TouchableOpacity, ImageBackground, ScrollView, FlatList, AsyncStorage} from 'react-native';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
+import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
@@ -104,6 +105,8 @@ class Account extends React.Component {
 
             <View style={style.container}>
             <BarraEstados />
+            <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
+
             <ScrollView>
             <View style={style.form}>
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>

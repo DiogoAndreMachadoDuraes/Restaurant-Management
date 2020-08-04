@@ -43,15 +43,15 @@ const dataFromApi = [
 
 ]
 
-class TypeMenu extends React.Component{
+class SpecialMenu extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"menu",
+          name:"Ementa",
         };
       }
       componentDidMount(){ 
-        console.log("Mounting the screen TypeMenu...");
+        console.log("Mounting the screen SpecialMenu...");
       }
       render(){
         return (
@@ -157,4 +157,4 @@ class TypeMenu extends React.Component{
         top: 20
       }
     });
-export default TypeMenu;
+export default SpecialMenu;

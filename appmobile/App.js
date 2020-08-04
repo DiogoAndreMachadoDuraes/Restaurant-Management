@@ -16,7 +16,7 @@ import Home from "./screens/Home.js";
 import Menu from "./screens/Menu.js";
 import EditAccount from "./screens/EditAccount.js";
 import CreateAccount from "./screens/CreateAccount.js";
-import TypeMenu from "./screens/TypeMenu.js";
+import SpecialMenu from "./screens/SpecialMenu.js";
 import Shop from "./screens/Shop.js";
 import Product from "./screens/Product.js";
 import ProductDetail from "./screens/ProductDetail.js";
@@ -65,7 +65,7 @@ const App = () => {
             <Drawer.Screen name="EditAccount" component={EditAccount} options={{drawerLabel:'EditAccount'}}/>
             <Drawer.Screen name="Shop" component={Shop} options={{drawerLabel:'Shop'}}/>
             <Drawer.Screen name="Account" component={Account} options={{drawerLabel:'Account'}}/>
-            <Drawer.Screen name="TypeMenu" component={TypeMenu} options={{drawerLabel:'TypeMenu'}}/>
+            <Drawer.Screen name="SpecialMenu" component={SpecialMenu} options={{drawerLabel:'SpecialMenu'}}/>
             <Drawer.Screen name="Invoice" component={Invoice} options={{drawerLabel:'Invoice'}}/>
             <Drawer.Screen name="TakeAway" component={TakeAway} options={{drawerLabel:'TakeAway'}}/>
           </Drawer.Navigator>

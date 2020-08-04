@@ -142,15 +142,7 @@ class Menu extends React.Component{
         marginTop: -10
       },
 
-      caixatexto2:{
-        width: 40,
-        height: 40,
-        backgroundColor: '#000',
-        opacity: 1,
-        top: 40,
-        marginLeft: 31,
-        borderRadius: 5,
-    },
+      
 
       menuExpText: {
         width: 180,

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, FlatList, ScrollView, AsyncStorage, ActivityIndicato, TouchableOpacity } from 'react-native';
+import {StyleSheet, View, Text, FlatList, ScrollView, AsyncStorage, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
 import BarraEstados from "./shared/BarraEstados.js";
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
-import {Icon} from "react-native-elements";
+import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 //import ImagePicker from 'react-native-image-crop-picker';
 //import ImagePicker from 'react-native-image-picker';
 
@@ -88,6 +88,8 @@ class EditAccount extends React.Component {
     return (
       <View style={style.container}>
         <BarraEstados />
+        <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
+
         <ScrollView style={style.form}>
         <View style={style.form}>
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Alert, StyleSheet, View, Text, Image, ImageBackground, ScrollView, Button, TouchableOpacity } from 'react-native';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 import BarraEstados from "./shared/BarraEstados.js";
+import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import {Icon} from "react-native-elements";
 
@@ -57,7 +58,8 @@ class Shop extends React.Component {
     {
         return (
         <View style={style.container}>
-           <BarraEstados />
+          <BarraEstados />
+          <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
 
             <ScrollView>
             <View>

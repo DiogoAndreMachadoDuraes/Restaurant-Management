@@ -23,12 +23,12 @@ class Space extends React.Component{
                 
                     <OwnHeader nome={this.state.name} navigation={this.props.navigation}/>
 
-                        <ImageBackground source={imageBackgound} style={style.imagemdefundo} opacity={0.4}>
+                        <ImageBackground source={imageBackgound} style={style.imageOut} opacity={0.4}>
                             <ScrollView>
-                                <View style={style.espaco}>
+                                <View style={style.space}>
                                     <View style={style.caixatexto}>
-                                        <Text style={style.titulo}>Esta nossa imagem carateriza se por ser um cantinho rústico e ao mesmo tempo moderno. Ideal para jantares de negócios e, claro, para um almoço em família. Venha visitar nos! Estamos à sua espera!</Text>
-                                        <Text style={style.titulo1}>O Sabor da Avó é um excelente sabor que nos leva à nossa infância e, à aquele cheirinho caraterístico dos pratos que as nossas avós faziam. Contudo, acompanhamos sempre a inovação e como tal, apresentamos uma selação variada de pratos vegan, pratos sem glúten, uma especialidade de hamburgueria gourmet e muito mais. Venha descobrir todas as nossas novidades!</Text>
+                                        <Text style={style.title}>Esta nossa imagem carateriza se por ser um cantinho rústico e ao mesmo tempo moderno. Ideal para jantares de negócios e, claro, para um almoço em família. Venha visitar nos! Estamos à sua espera!</Text>
+                                        <Text style={style.title1}>O Sabor da Avó é um excelente sabor que nos leva à nossa infância e, à aquele cheirinho caraterístico dos pratos que as nossas avós faziam. Contudo, acompanhamos sempre a inovação e como tal, apresentamos uma selação variada de pratos vegan, pratos sem glúten, uma especialidade de hamburgueria gourmet e muito mais. Venha descobrir todas as nossas novidades!</Text>
                                     </View>
                                             <Image source={require('../assets/space.jpg')} style={style.image}/>
                                             <Image source={require('../assets/space1.jpg')} style={style.image1}/>
@@ -48,12 +48,12 @@ const style = StyleSheet.create({
       flex: 1
     },
 
-    imagemdefundo: {
+    imageOut: {
         flex: 1,
         backgroundColor: '#556b2f',
     },
 
-    espaco: {
+    space: {
         width: '100%',
         height: 1070,
     },
@@ -90,7 +90,7 @@ const style = StyleSheet.create({
         marginLeft: 195,
     },
 
-    titulo:{
+    title:{
         color: "#fff",
         fontSize: 17,
         fontWeight: 'bold',
@@ -101,7 +101,7 @@ const style = StyleSheet.create({
         padding:10,
     },
 
-    titulo1:{
+    title1:{
         color: "#fff",
         fontSize: 17,
         fontWeight: 'bold',
