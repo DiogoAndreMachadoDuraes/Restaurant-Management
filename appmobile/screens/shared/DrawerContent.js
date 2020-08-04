@@ -163,6 +163,18 @@ export function DrawerContent(props){
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
+                                name="book-open-page-variant" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Faturas"
+                            onPress={() => {props.navigation.navigate('Invoice')}}
+                            labelStyle={style.dark}
+                        />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
                                 name="book-outline" 
                                 color={color}
                                 size={size}
