@@ -92,8 +92,6 @@ class EditAccount extends React.Component {
 
         <ScrollView style={style.form}>
         <View style={style.form}>
-
-            <Text style={style.header}>Editar conta</Text>
             {
                 isLoading ? <ActivityIndicator/> : (
                 <FlatList

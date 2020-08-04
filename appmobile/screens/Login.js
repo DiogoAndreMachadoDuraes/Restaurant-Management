@@ -108,7 +108,7 @@ class Login extends React.Component {
 
     _login = async() => {
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
+            let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', { 
               headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
@@ -142,7 +142,7 @@ class Login extends React.Component {
         if(email[0]===this.state.email && password[0] === this.state.password){
             try
             {
-                await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Login', { 
+                await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Login', { 
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',

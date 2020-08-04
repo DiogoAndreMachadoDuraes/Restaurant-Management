@@ -78,8 +78,6 @@ class CreateAccount extends React.Component {
       <ScrollView style={style.form}>
       <View style={style.form}>
 
-          <Text style={style.header}>Registar</Text>
-
           <Text style={style.text}>Nome Completo:</Text>
           <Input inputStyle={style.inputcolor}
           placeholder="Nome Completo"

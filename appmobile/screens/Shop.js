@@ -65,8 +65,6 @@ class Shop extends React.Component {
             <View>
             <ImageBackground source={require("../assets/imageBackground.jpg")}  style={style.imageBackgound} opacity={1}>
                 
-                <Text style={style.header}>Carrinho de compras</Text>
-
                 <View style={style.shop}>
                     <Icon name="local-grocery-store" color={'red'} size={28}/>
                 </View>
