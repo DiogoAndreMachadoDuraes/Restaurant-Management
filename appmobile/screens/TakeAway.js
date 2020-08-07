@@ -7,36 +7,39 @@ import Accordion from 'react-native-collapsible/Accordion';
 import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
 
-
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-
 const SECTIONS = [
   {
     title: 'Data Marcada',
     content: '10/09/2020',
+    icon: 'calendar-month',
   },
   {
     title: 'Hora Maracada',
     content: '12h:30min',
+    icon:'clock'
   },
   {
     title: 'Número de Pessoas',
     content: '7 pessoas',
+    icon:'human',
   },
   {
     title: 'Nome da Resrva',
     content: 'José Leite',
+    icon:'library',
   },
   {
     title: 'Valor Total',
     content: '€21.40',
+    icon:'cash',
   },
   {
     title: 'Estado da encomenda',
     content: 'Em preparação ',
+    icon:'truck',
   },
 ];
-
 class TakeAway extends React.Component{
     constructor(){
         super();
@@ -48,8 +51,8 @@ class TakeAway extends React.Component{
       componentDidMount(){ 
         console.log("Mounting the screen TakeAway...");
       }
+
       
-    
       _renderSectionTitle = section => {
         return (
           <View style={style.content}>
@@ -57,7 +60,6 @@ class TakeAway extends React.Component{
           </View>
         );
       };
-    
       _renderHeader = section => {
         return (
           <View style={style.header}>
@@ -65,30 +67,29 @@ class TakeAway extends React.Component{
           </View>
         );
       };
-    
       _renderContent = section => {
         return (
           <View style={style.content}>
-            <Text>{section.content}</Text>
+            <Icon2
+              name={section.icon} style={style.icon} color={'#cd5c5c'} size={28}
+            ></Icon2>
+             <Text style={style.headerText2}>{section.content}</Text>
           </View>
         );
       };
-    
       _updateSections = activeSections => {
         this.setState({ activeSections });
       };
-
       renderHeader(section, index, isActive, sections) {
         return (
           <Animatable.View
             duration={300}
             transition="backgroundColor"
-            style={{ backgroundColor: (isActive ? 'black' : 'black') }}>
+            style={{ backgroundColor: (isActive ? 'green' : 'green') }}>
             <Text style={style.headerText}>{section.title}</Text>
           </Animatable.View>
         );
       }
-    
       _renderContent(section, i, isActive, sections) {
         return (
           <Animatable.View
@@ -104,37 +105,32 @@ class TakeAway extends React.Component{
           </Animatable.View>
         );
       }
-
       render(){
         return (
           <View style={style.container}>
-          <ImageBackground style={style.imageBackground} opacity={0.4}>
-          <View style={style.containerCollapsible}>
-          <ScrollView>
-          <View style={style.menu}>
-          <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>  
-          <Collapsible collapsed={this.state.collapsed} align="center">
-            <View style={style.content}>
-              <Text>
-                Bacon ipsum dolor amet chuck turducken landjaeger tongue spare
-                ribs
-              </Text>
-            </View>
-          </Collapsible>
-            <Accordion
-              sections={SECTIONS}
-              activeSections={this.state.activeSections}
-              renderSectionTitle={this._renderSectionTitle}
-              renderHeader={this._renderHeader}
-              renderContent={this._renderContent}
-              onChange={this._updateSections}
-            />
-            
-            
-            </View>
-            </ScrollView>
-          </View>
-          </ImageBackground>
+            <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>  
+            <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} opacity={0.6}> 
+              <ImageBackground source={require('../assets/take.jpg')} style={style.imageBackgound} opacity={1}>             
+              </ImageBackground>
+              <ScrollView>
+                <View style={style.menu}>
+                <Collapsible collapsed={this.state.collapsed} align="center">
+                  <View style={style.content}>
+                  </View>
+                </Collapsible>
+                <View style={style.accordion}>
+                  <Accordion
+                    sections={SECTIONS}
+                    activeSections={this.state.activeSections}
+                    renderHeader={this._renderHeader}
+                    renderContent={this._renderContent}
+                    onChange={this._updateSections}
+                    sectionContainerStyle={{paddingVertical: 0.7}}
+                  />
+                </View>
+                </View>
+              </ScrollView> 
+            </ImageBackground>
           </View>
         );
       }
@@ -145,37 +141,39 @@ class TakeAway extends React.Component{
       },
 
       imageBackground: {
-        flex: 1
+        flex: 1,
       },
 
       imageBackgound: {                         //foto por tras do titulo
         width: 395,
         height: 200,
         marginLeft: 0,
-        top: 200,
+        top: 0,
         opacity: 1,
       },
 
       menu: {                           //scrollview
         width: "100%",
-        height: 1690,
+        height: 1000,
       },
-
+      
       containerCollapsible: {
-        flex: 1,
-        backgroundColor: "black"
+        flex: 1
+      },
+      
+      accordion: {
+        top: 0,
       },
 
       title: {
         textAlign: 'center',
-        fontSize: 22,
-        fontWeight: '300',
-        marginBottom: 20,
+        fontSize: 30,
       },
-
+      
       header: {
-        backgroundColor: '#fff',         //boxtext with title
+        backgroundColor: '#f0e68c',         //boxtext with title
         padding: 10,
+        opacity: 0.8
       },
 
       headerText: {                              //titles
@@ -184,10 +182,22 @@ class TakeAway extends React.Component{
         fontWeight: '500',
       },
 
-      content: {                            //o que esta a verde
-        padding: 20,
-        backgroundColor: 'green',
-      }
+      headerText2: {                              //titles
+        textAlign: 'center',
+        fontSize: 20,
+        left: -100,
+        top:-30,
+      },
 
+      content: {                            //o que esta a verde
+        padding: 15,
+        backgroundColor: '#f5fffa',
+        opacity: 0.8,
+      },
+
+      icon:{
+        top:0,
+        left: 0,
+      },
     });
 export default TakeAway;
