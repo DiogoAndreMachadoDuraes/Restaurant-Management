@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ImageBackground, StyleSheet, View, Text, FlatList, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
+import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 

@@ -46,11 +46,38 @@ class TakeAway extends React.Component{
         this.state={
           name:"Take Away",
           activeSections: [],
+          isLoading: true,
+          user: [],
+          data:[]
         };
       }
-      componentDidMount(){ 
-        console.log("Mounting the screen TakeAway...");
+      async componentDidMount(){ 
+        console.log("Mounting the screen Takeaway...");
+
+        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Take_away', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          this.setState({ data: json, isLoading:false });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
+    }
+
+    getUser = async () => {
+        try {
+          const value = await AsyncStorage.getItem("User");
+          if (value !== null) {
+            this.setState({ user: JSON.parse(value) });
+            console.log(this.state.user);
+          }
+        } catch (e) {
+            console.log("Error rending user: " + e);
+        }
       }
+
       _renderHeader = section => {
         return (
           <View style={style.header}>
@@ -79,6 +106,11 @@ class TakeAway extends React.Component{
             <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} opacity={0.6}> 
               <ImageBackground source={require('../assets/take.jpg')} style={style.imageBackgound} opacity={1}/>             
               <ScrollView>
+                <View style={style.form}>
+                    {
+                    data.filter(item=>item.id_funcionario==user.id).map((item)=>{
+                      return (
+                        <View>
                   <Accordion
                     sections={SECTIONS}
                     activeSections={this.state.activeSections}
@@ -87,12 +119,17 @@ class TakeAway extends React.Component{
                     onChange={this._updateSections}
                     sectionContainerStyle={{paddingVertical: 0.7}}
                   />
+                  </View>
+                      );
+                    })
+                  }
                   <NossoFinal />
+                </View>
               </ScrollView> 
             </ImageBackground>
           </View>
         );
-      }
+      };
     }
     const style = StyleSheet.create({
       container: {

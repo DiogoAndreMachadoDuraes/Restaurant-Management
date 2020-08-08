@@ -1,5 +1,5 @@
 import * as React from "react";
-import {StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity } from "react-native";
+import {StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, ImageBackground, Image, TouchableOpacity } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
@@ -16,28 +16,28 @@ const Casamento = require('../assets/casamento.jpg');
 const dataFromApi = [
   {
     id: 1,
-    name: "Prato do Dia",
+    tipo: "Prato do Dia",
     imagem: Dia
   },
   {
     id: 2,
-    name: "Baby Shower",
+    tipo: "Baby Shower",
     imagem: Baby
   },
   {
     id: 3,
-    name: "Batizados",
+    tipo: "Batizados",
     imagem: Batizado
   },
   {
     id: 4,
-    name: "Aniversários",
+    tipo: "Aniversários",
     imagem: Aniversario
   },
 
   {
     id: 5,
-    name: "Casamentos",
+    tipo: "Casamentos",
     imagem: Casamento
   }
 
@@ -47,31 +47,47 @@ class SpecialMenu extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Ementa",
+          tipo:"Ementa",
+          data:[]
         };
       }
-      componentDidMount(){ 
+      async componentDidMount(){ 
         console.log("Mounting the screen SpecialMenu...");
-      }
+
+        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Ementa', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          this.setState({ data: json, isLoading:false });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
+    }
       render(){
         return (
           <View style={style.container}>
             <OwnStatusBar />
-            <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
+            <OwnHeader nome={this.state.tipo} navigation={this.props.navigation} />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
               <ScrollView>
-                <View style={style.menu}>
-                  {
-                    dataFromApi.map((item)=>{
-                      return (
+              <View style={style.menu}>
+              {
+                isLoading ? <ActivityIndicator/> : (
+                  <FlatList
+                    data={this.state.data}
+                    keyExtractor={({ id }, index) => id}
+                    renderItem={({ item }) => (
                         <TouchableOpacity style={style.menuExp} activeOpacity={0.3} onPress={()=>this.props.navigation.navigate("Home", {item})}>
                           <Image style={style.menuExpFoto} source={item.imagem} ></Image>
-                          <Text style={style.titleMenu}>{item.name}</Text>
+                          <Text style={style.titleMenu}>{item.tipo}</Text>
                           <Text style={style.textMenu}>{item.subtitle}</Text>
                         </TouchableOpacity>
-                      );
-                    })
-                  }
+                     )}
+                  />
+                )
+              }
                   <NossoFinal />
                 </View>
               </ScrollView>
