@@ -17,11 +17,11 @@
         Fatura_controller,
         Info_nutricional_controller,
         Menu_controller,
+        Produto_menu_controller,
         Produto_controller,
         Restaurante_controller,
         Take_away_controller,
-        Produto_extra_controller,
-        Produto_menu_controller
+        Produto_extra_controller
     };
     use App\DAO\{
         Token_dao
@@ -113,6 +113,11 @@
             $app->post('/Produto',Produto_controller::class . ':Insert');
             $app->put('/Produto',Produto_controller::class . ':Update');
             $app->delete('/Produto',Produto_controller::class . ':Delete');
+
+            $app->get('/Produto_extra',Produto_controller::class . ':Select');
+            $app->post('/Produto_extra',Produto_controller::class . ':Insert');
+            $app->put('/Produto_extra',Produto_controller::class . ':Update');
+            $app->delete('/Produto_extra',Produto_controller::class . ':Delete');
 
             $app->get('/Produto_menu',Produto_controller::class . ':Select');
             $app->post('/Produto_menu',Produto_controller::class . ':Insert');
