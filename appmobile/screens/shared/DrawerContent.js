@@ -78,7 +78,7 @@ export function DrawerContent(props){
         <View style={style.container}>
             <DrawerContentScrollView {...props}>
                 <View style={style.menuHome}>
-                    <View style={style.infoLogo}>
+                    <View style={theme.dark ? style.infoLogoDark : style.infoLogo}>
                         <View style={style.logoBack}>
                             <ImageBackground source={require('../../assets/logo.png')} style={style.logo} />
                         </View>
@@ -233,7 +233,7 @@ export function DrawerContent(props){
                                         />
                                     )}
                                     label="Definições"
-                                    labelStyle={style.dark}
+                                    labelStyle={theme.dark ? style.dark: style.normal}
                                 />
                     </Drawer.Section>
                 </View>
@@ -250,10 +250,10 @@ export function DrawerContent(props){
                     label="Sair da conta"
                     labelStyle={{color: 'white'}}
                     onPress={() => {
-                        clear;
+                        clearAll;
                         props.navigation.navigate('Login');
                     }}
-                    style={style.exitButton}
+                    style={theme.dark ? style.exitButtonDark : style.exitButton}
                 />
             </Drawer.Section>
         </View>
@@ -271,6 +271,11 @@ const style = StyleSheet.create({
         top: -30, 
         paddingVertical: 40, 
         backgroundColor: "#556b2f"
+    },
+    infoLogoDark: {
+        top: -30, 
+        paddingVertical: 40, 
+        backgroundColor: "#444444"
     },
     logoBack:{
         justifyContent: "center",
@@ -296,23 +301,29 @@ const style = StyleSheet.create({
       paddingHorizontal: 16
     },
     dark:{
-        color: '#556b2f',
+        color: 'gray',
         fontStyle: "italic",
     },
-    dark:{
-        color: 'dimgray',
+    normal:{
+        color: '#444444',
         fontStyle: "italic",
     },
     exit:{
         marginBottom: 10,
         borderTopWidth: 4,
-        borderTopColor: "gray", 
+        borderTopColor: "dimgray", 
         top: 10, 
         justifyContent:"center"
     },
     exitButton:{ 
         top: 2,
         backgroundColor: '#556b2f', 
+        justifyContent:"center", 
+        alignItems:"center" 
+    },
+    exitButtonDark:{ 
+        top: 2,
+        backgroundColor: '#444444', 
         justifyContent:"center", 
         alignItems:"center" 
     }

@@ -11,8 +11,7 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import BarraEstados from "./shared/BarraEstados.js";
-import Category from "./shared/Category.js";
+import OwnStatusBar from "./shared/OwnStatusBar.js";
 
 class ProductCategory extends React.Component{
   constructor(){
@@ -53,7 +52,7 @@ class ProductCategory extends React.Component{
     const { data, isLoading } = this.state;
     return (
       <View style={style.container}>
-        <BarraEstados />
+        <OwnStatusBar />
         <ScrollView>
           <View style={style.productCategoryText}>
             <ImageBackground source={require('../assets/fundodrawer.jpg')} style={style.imageBackgound} opacity={0.8}>

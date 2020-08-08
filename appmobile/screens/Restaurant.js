@@ -80,8 +80,7 @@ class Restaurant extends React.Component{
 
 const style = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "white"
+    flex: 1
   },
   imageBackgound: {
     flex: 1
