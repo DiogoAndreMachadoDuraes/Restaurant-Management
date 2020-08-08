@@ -12,9 +12,10 @@ import {
     FlatList 
 } from "react-native";
 import { Icon, colors } from "react-native-elements";
-import BarraEstados from "./shared/BarraEstados";
+import OwnStatusBar from "./shared/BarraEstados";
 import NossoFinal from "./shared/NossoFinal";
 import { ProgressChart } from "react-native-chart-kit";
+import Category from "./shared/Category.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -86,7 +87,7 @@ class ProductDetail extends React.Component{
 
         return (
             <View style={style.container}>
-            <BarraEstados />
+            <OwnStatusBar />
             <ImageBackground source={imageBackgound} opacity={0.4} style={style.imageBackground}>
             <ScrollView>
                 <View style={style.arrow}>

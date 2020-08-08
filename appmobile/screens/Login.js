@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { 
+import {
+    Alert,
     StyleSheet, 
     View, 
     Text, 
@@ -12,6 +13,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 
 class Login extends React.Component {
     constructor(props){
@@ -22,7 +24,8 @@ class Login extends React.Component {
             email: '',
             password: '',
             isLoading: true,
-            data: []
+            validEmail: true,
+            validPass: true
         }
     }
 
@@ -33,13 +36,42 @@ class Login extends React.Component {
             iconName : iconName
         });
     }
-
+    
     componentDidMount(){ 
         console.log("Mounting the screen Login...");
     }
 
+    handleValidEmail = (val) => {
+        if(val.trim().length >= 5){
+            this.setState({
+                validEmail: true,
+                email: val
+            });
+        } else {
+            this.setState({
+                validEmail: false,
+                email: val
+            });
+        }
+    }
+
+    handleValidPass = (val) => {
+        if(val.trim().length >= 6){
+            this.setState({
+                validPass: true,
+                password: val
+            });
+        } else {
+            this.setState({
+                validPass: false,
+                password: val
+            });
+        }
+    }
+
     render()
     {
+        const { validPass, validEmail } = this.state;
         return (
             <View style={style.container}>
                 <StatusBar hidden={true}></StatusBar>
@@ -61,10 +93,20 @@ class Login extends React.Component {
                         autoCapitalize="none"
                         keyboardType="email-address"
                         returnKeyType="next"
-                        onChangeText={(email)=>this.setState({email})}
+                        onChangeText={(val) => this.handleValidEmail(val)}
                         values={this.state.email}
                         onSubmitEditing={() => this.secondInput.focus()}
+                        onEndEditing={(e)=>this.handleValidEmail(e.nativeEvent.text)}
                     />
+
+                    { 
+                        validEmail ? true : 
+
+                        <Animatable.View animation="fadeInLeft" duration={500}>
+                            <Text style={style.invalidEmail}>O email deve conter pelo menos 5 caráteres.</Text>
+                        </Animatable.View>
+                    }
+
                     <Text style={style.text}>Password:</Text>
                     <Input {...this.props}
                         inputStyle={style.pass}
@@ -88,10 +130,20 @@ class Login extends React.Component {
                         }
                         onSubmitEditing={() => Keyboard.dismiss}
                         autoCapitalize="none"
-                        onChangeText={(password)=>this.setState({password})}
+                        onChangeText={(val) => this.handleValidPass(val)}
                         values={this.state.password}
                         ref={ref => {this.secondInput = ref;}}
+                        onEndEditing={(e)=>this.handleValidPass(e.nativeEvent.text)}
                     />
+
+                    { 
+                        validPass ? true : 
+
+                        <Animatable.View animation="fadeInLeft" duration={500}>
+                            <Text style={style.invalidPass}>A password deve conter pelo menos 6 caráteres.</Text>
+                        </Animatable.View>
+                    }
+
                     <TouchableOpacity /*onPress={() => this.props.navigation.navigate("Home")}*/>
                         <Text style={style.forgotPass}>Esqueceu-se da palavra-passe?</Text>
                     </TouchableOpacity>
@@ -107,6 +159,13 @@ class Login extends React.Component {
     }
 
     _login = async() => {
+        if (this.state.email.trim().length == 0 || this.state.password.trim().length == 0 ) {
+            Alert.alert('Introdução de valores nulos', '   O Email ou a palavra-passe não podem ser nulos.', [
+                {text: 'Voltar a tentar'}
+            ]);
+            return;
+        }
+
         try {
             let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', { 
               headers: {
@@ -158,7 +217,9 @@ class Login extends React.Component {
                 console.log(e);
             }
         } else{
-            alert('O email e/ou a palavra-passe estão incorretos!');
+            Alert.alert('Valores incorretos', '   O Email e/ou a palavra-passe estão incorreto(s).', [
+                {text: 'Voltar a tentar'}
+            ]);
         }
     }
 }
@@ -185,12 +246,25 @@ const style = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         left: 10,
+        marginTop: -12
     },
     email:{
         color: 'white',
     },
+    invalidEmail:{
+        color: '#FF0000',
+        fontSize: 12,
+        top: -20,
+        left: 10
+    },
     pass:{
         color: 'white',
+    },
+    invalidPass:{
+        color: '#FF0000',
+        fontSize: 12,
+        top: -20,
+        left: 10
     },
     login: {
         width: 100,

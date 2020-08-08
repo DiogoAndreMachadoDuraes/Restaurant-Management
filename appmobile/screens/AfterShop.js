@@ -23,27 +23,11 @@ class AfterShop extends React.Component{
     }
     async componentDidMount(){ 
       console.log("Mounting the screen AfterShop...");
-  
-      try {
-        let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          }
-        });
-        let data = await response.json();
-        console.log(data);
-        this.setState({
-          isLoading: false,
-          dataSource: data,
-        });
-      } catch(e){
-        console.log("Error to get data: "+e);
-      }
     }
 
     render(){
-      const { data, isLoading } = this.state;
+      const { navigation, route } = this.props;
+      const { item } = route.params;
       return (
         <View style={style.container}>
           <StatusBar hidden={false}></StatusBar>
@@ -52,23 +36,13 @@ class AfterShop extends React.Component{
           </View>
           <View style={style.bottom}>
             <Text style={style.title}>{this.state.name}</Text>
-            {
-              isLoading ? <ActivityIndicator/> : (
-                <FlatList
-                  data={data}
-                  keyExtractor={({ id }, index) => id}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity activeOpacity={1}>
-                      <Text style={style.text}> Reserva número: {item.id_reserva} </Text>
-                      <Text style={style.text}> Data Marcada: {item.data_marcada} </Text>
-                      <Text style={style.text}> Hora Marcada: {item.hora_marcada} </Text>
-                      <Image style={style.image} source={restaurante1/*{uri:''+item.foto+''}*/}></Image>
-                    </TouchableOpacity>
-                  )}
-                />
-              )
-            }
-            <TouchableOpacity style={style.progress} /*onPress={() => this.props.navigation.navigate("Home")}*/>
+            <TouchableOpacity>
+              <Text style={style.text}>Reserva número: {item.id_reserva}</Text>
+              <Text style={style.text}>Data Marcada: {item.data_marcada}</Text>
+              <Text style={style.text}>Hora Marcada: {item.hora_marcada}</Text>
+              <Image style={style.image} source={restaurante1/*{uri:''+item.foto+''}*/}></Image>
+            </TouchableOpacity>
+            <TouchableOpacity style={style.progress} onPress={() => this.props.navigation.navigate("Home")}>
                 <Text style={style.progressText}>Guardar reserva</Text>
             </TouchableOpacity>
           </View>

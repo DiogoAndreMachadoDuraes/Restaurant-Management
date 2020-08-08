@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image, ActivityIndicator, FlatList, AsyncStorage} from "react-native";
 import NossoFinal from "./shared/NossoFinal";
 import { OwnHeader } from "./shared/OwnHeader.js";
-import BarraEstados from "./shared/BarraEstados.js";
+import OwnStatusBar from "./shared/OwnStatusBar.js";
 
 class Product extends React.Component{
   constructor(){
@@ -70,7 +70,7 @@ class Product extends React.Component{
     
     return (
       <View style={style.container}>
-        <BarraEstados />
+        <OwnStatusBar />
         <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} >
           <ScrollView>
@@ -97,8 +97,7 @@ class Product extends React.Component{
     
 const style = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "white"
+    flex: 1
   },
   imageBackground: {
     flex: 1

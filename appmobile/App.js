@@ -1,10 +1,10 @@
 import React , { useEffect } from "react";
 import { createDrawerNavigator} from "@react-navigation/drawer";
-import { NavigationContainer, 
-  DarkTheme, 
-  DefaultTheme
+import { 
+  NavigationContainer, 
+  DarkTheme as NavigationDarkTheme, 
+  DefaultTheme as NavigationDefaultTheme
 } from "@react-navigation/native";
-import { StatusBar} from "react-native";
 
 import Login from "./screens/Login.js";
 import Space from "./screens/Space.js";
@@ -27,7 +27,6 @@ import TakeAway from "./screens/TakeAway.js";
 import { DrawerContent } from './screens/shared/DrawerContent';
 
 import { ToggleTheme } from './components/context';
-import BarraEstados from "./screens/shared/BarraEstados.js";
 
 const Drawer = createDrawerNavigator();
 
@@ -35,14 +34,29 @@ const App = () => {
 
   const [ isDark, setTheme]= React.useState(false);
 
-  const theme = isDark ? DarkTheme : DefaultTheme;
+  const customDefaultTheme={
+    ... NavigationDefaultTheme,
+    colors:{
+      ... NavigationDefaultTheme.colors,
+      background: '#ffffff',
+      text: '#333333'
+    }
+  }
+
+  const customDarkTheme={
+    ... NavigationDarkTheme,
+    colors:{
+      ... NavigationDarkTheme.colors,
+      background: 'black',
+      text: '#ffffff'
+    }
+  }
+
+  const theme = isDark ? customDarkTheme : customDefaultTheme;
 
   const toggleTheme= React.useMemo(() => ({
     toggle:()=>{
       setTheme(isDark => !isDark);
-      //isDark ? BarraEstados.setBarStyle("default") : <BarraEstados/>;
-      //isDark ? NossoHeader.setBarStyle("default") : <NossoHeader/>;
-      //isDark ? NossoFinal.setBarStyle("default") : <NossoFinal/>;
     }
   }), [])
 
