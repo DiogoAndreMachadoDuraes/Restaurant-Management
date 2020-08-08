@@ -19,11 +19,35 @@ class Shop extends React.Component {
     constructor(){
         super();
         this.state={
-          name:"Carrinho de compras"
+          name:"Carrinho de compras",
+          buyMenu: [],
+          buyProduto: []
         };
       }
-      componentDidMount(){ 
+     async componentDidMount(){ 
         console.log("Mounting the screen Shop...");
+
+        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+          .then((response) => response.json())
+          .then((json) => {
+            console.log(json);
+            this.setState({ buyMenu: json, isLoading:false });
+          })
+          .catch((error) => console.error(error))
+          .finally(() => {
+            this.setState({ isLoading: false });
+          });
+        
+          await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+          .then((response) => response.json())
+          .then((json) => {
+            console.log(json);
+            this.setState({ buyProduto: json, isLoading:false });
+          })
+          .catch((error) => console.error(error))
+          .finally(() => {
+            this.setState({ isLoading: false });
+          });
       }
 
       threeOptionAlertHandler = () => {
@@ -56,60 +80,137 @@ class Shop extends React.Component {
      
     render()
     {
-        return (
-        <View style={style.container}>
-          <OwnStatusBar />
-          <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
+        const { navigation, route } = this.props;
+        const { menu, product } = route.params;
 
-            <ScrollView>
-            <View>
-            <ImageBackground source={require("../assets/imageBackground.jpg")}  style={style.imageBackgound} opacity={1}>
-                
-                <View style={style.shop}>
-                    <Icon name="local-grocery-store" color={'red'} size={28}/>
-                </View>
+          return (
+          <View style={style.container}>
+            <OwnStatusBar />
+            <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
 
-                <View style={style.button2}>
-                    <Button title="Esvaziar Carrinho" color="red" onPress={this.threeOptionAlertHandler}/>
-                </View>
+              <ScrollView>
+              <View>
+              <ImageBackground source={require("../assets/imageBackground.jpg")}  style={style.imageBackgound} opacity={1}>
+                  
+                  <View style={style.shop}>
+                      <Icon name="local-grocery-store" color={'red'} size={28}/>
+                  </View>
 
-                {
-                    dataFromApi.map((item)=>{
-                      return (
-                        <View style={style.menuExp}>
-                        <Text style={style.title}>Côco do Brasil</Text>
-                        <Text style={style.title1}>Total: €2.39 </Text>
-                          <Image style={style.menuExpFoto} source={item.imagem} ></Image>
-                          <Text style={style.titleMenu}>{item.name}</Text>
-                          <TouchableOpacity style={style.trash}>
-                            <Icon2 name="delete" color={'red'} size={20}/>
-                            <Text style={style.trashText}>Remover</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity style={style.plus} onPress={()=>this.quantidade(true)}>
-                            <Icon2 name="plus-box-outline" color={'red'} size={20}/>
-                          </TouchableOpacity>
-                          <Text style={style.i}>{1}</Text>
-                          <TouchableOpacity style={style.minus} onPress={()=>this.quantidade(false)}>
-                            <Icon2 name="minus-box-outline" color={'red'} size={20}/>
-                          </TouchableOpacity>
-                        </View>
-                      );
-                    })
-                  }
-                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
-                    <Text style={style.btnText}>Voltar</Text>
-                </TouchableOpacity>
+                  <View style={style.button2}>
+                      <Button title="Esvaziar Carrinho" color="red" onPress={this.threeOptionAlertHandler}/>
+                  </View>
 
-                <TouchableOpacity style={style.button1} onPress={() => this.props.navigation.navigate("AfterShop") }>
-                    <Text style={style.btnText}>Comprar</Text>
-                </TouchableOpacity>
-            </ImageBackground>    
+                  {
+                      buyMenu.map((item)=>{
+                        return (
+                          <View style={style.menuExp}>
+                          <Text style={style.title}>{menu.nome}</Text>
+                          <Text style={style.title1}>{menu.preco}</Text>
+                            <Image style={style.menuExpFoto} source={item.imagem} ></Image>
+                            <Text style={style.titleMenu}>{item.name}</Text>
+                            <TouchableOpacity style={style.trash}>
+                              <Icon2 name="delete" color={'red'} size={20}/>
+                              <Text style={style.trashText}>Remover</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={style.plus} onPress={()=>this.quantidade(true)}>
+                              <Icon2 name="plus-box-outline" color={'red'} size={20}/>
+                            </TouchableOpacity>
+                            <Text style={style.i}> {item.quantidade}</Text>
+                            <TouchableOpacity style={style.minus} onPress={()=>this.quantidade(false)}>
+                              <Icon2 name="minus-box-outline" color={'red'} size={20}/>
+                            </TouchableOpacity>
+                          </View>
+                        );
+                      })
+                    }
+                    {
+                      buyProduto.map((item)=>{
+                        return (
+                          <View style={style.menuExp}>
+                          <Text style={style.title}>{product.nome}</Text>
+                          <Text style={style.title1}>{product.preco}</Text>
+                            <Image style={style.menuExpFoto} source={item.imagem} ></Image>
+                            <Text style={style.titleMenu}>{item.name}</Text>
+                            <TouchableOpacity style={style.trash}>
+                              <Icon2 name="delete" color={'red'} size={20}/>
+                              <Text style={style.trashText}>Remover</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={style.plus} onPress={()=>this.quantidade(true)}>
+                              <Icon2 name="plus-box-outline" color={'red'} size={20}/>
+                            </TouchableOpacity>
+                            <Text style={style.i}> {item.quantidade}</Text>
+                            <TouchableOpacity style={style.minus} onPress={()=>this.quantidade(false)}>
+                              <Icon2 name="minus-box-outline" color={'red'} size={20}/>
+                            </TouchableOpacity>
+                          </View>
+                        );
+                      })
+                    }
+                  <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
+                      <Text style={style.btnText}>Voltar</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={style.button1} _onPress={() => this._onPress(item) }>
+                      <Text style={style.btnText}>Comprar</Text>
+                  </TouchableOpacity>
+              </ImageBackground>    
+              </View>
+              </ScrollView>
             </View>
-            </ScrollView>
-          </View>
-        );
-    }
+          );
+      }
 }
+_onPress = async() => {
+          try
+          {
+              await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_produto', { 
+                  method: 'POST',
+                  headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                      "email":this.state.email,
+                      "password":this.state.password
+                  })
+              });
+              this.props.navigation.navigate ("Reserva" , {
+                itemId= item.id,
+                name=item.nome,
+                description=item.descricao,
+                foto=item.foto
+              });
+              
+              this.props.navigation.navigate("Reserva");
+          } catch(e){
+              console.log(e);
+          }
+
+          try
+            {
+              await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_menu', { 
+                  method: 'POST',
+                  headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json'
+                    },     
+                  body: JSON.stringify({
+                      "email":this.state.email,
+                      "password":this.state.password
+                  })
+                });
+              this.props.navigation.navigate ("Reserva" , {
+                itemId= item.id,
+                name=item.nome,
+                description=item.descricao,
+                foto=item.foto
+              });
+              this.props.navigation.navigate("Reserva");
+          } catch(e){
+              console.log(e);
+            }      
+}
+
 
 const style = StyleSheet.create({
     container: {
