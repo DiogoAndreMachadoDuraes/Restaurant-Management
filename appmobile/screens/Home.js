@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground,} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { OwnHeader } from './shared/OwnHeader';
-import BarraEstados from './shared/BarraEstados';
+import OwnStatusBar from './shared/OwnStatusBar';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const image = {uri: "https://images.trustinnews.pt/uploads/sites/5/2019/12/MB-Rest-JNCquoi-Asia-07.jpg"};
@@ -20,7 +20,7 @@ class Home extends React.Component{
         return (
 
             <View style={style.container}>
-                <BarraEstados/>
+                <OwnStatusBar/>
                     
                 <OwnHeader nome={this.state.name} navigation={this.props.navigation}/>
 

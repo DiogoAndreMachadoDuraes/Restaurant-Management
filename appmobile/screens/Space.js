@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, ImageBackground } from 'react-native';
 import { OwnHeader } from './shared/OwnHeader';
-import BarraEstados from './shared/BarraEstados';
+import OwnStatusBar from './shared/OwnStatusBar';
 
 const imageBackgound = { uri: "https://media.timeout.com/images/105327913/630/472/image.jpg" };
 const image = {uri: "https://images.trustinnews.pt/uploads/sites/5/2019/12/MB-Rest-JNCquoi-Asia-07.jpg"};
@@ -19,7 +19,7 @@ class Space extends React.Component{
         return (
 
             <View style={style.container}>
-                <BarraEstados/>
+                <OwnStatusBar/>
                 
                     <OwnHeader nome={this.state.name} navigation={this.props.navigation}/>
 

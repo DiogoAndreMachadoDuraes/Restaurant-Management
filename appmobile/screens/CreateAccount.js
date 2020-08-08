@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Alert, StyleSheet, View, Text, CheckBox, Image, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import { Input } from 'react-native-elements';
-import BarraEstados from "./shared/BarraEstados.js";
+import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 //import ImagePicker from 'react-native-image-crop-picker';
 //import ImagePicker from 'react-native-image-picker';
@@ -72,7 +72,7 @@ class CreateAccount extends React.Component {
   { 
     return (
       <View style={style.container}>
-      <BarraEstados />
+      <OwnStatusBar />
       <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
 
       <ScrollView style={style.form}>

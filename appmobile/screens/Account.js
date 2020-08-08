@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View, ActivityIndicator, Text, Image, TouchableOpacity, ImageBackground, ScrollView, FlatList, AsyncStorage} from 'react-native';
 import { Input } from 'react-native-elements';
-import BarraEstados from "./shared/BarraEstados.js";
+import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -53,7 +53,7 @@ class Account extends React.Component {
         return (
 
             <View style={style.container}>
-            <BarraEstados />
+            <OwnStatusBar />
             <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
 
             <ScrollView>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
-import BarraEstados from "./shared/BarraEstados.js";
+import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
 
 
@@ -56,7 +56,7 @@ class SpecialMenu extends React.Component{
       render(){
         return (
           <View style={style.container}>
-            <BarraEstados />
+            <OwnStatusBar />
             <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
               <ScrollView>

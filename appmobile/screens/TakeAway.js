@@ -5,6 +5,7 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import Accordion from 'react-native-collapsible/Accordion';
 import NossoFinal from './shared/NossoFinal.js';
+import OwnStatusBar from "./shared/OwnStatusBar.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const SECTIONS = [
@@ -73,6 +74,7 @@ class TakeAway extends React.Component{
       render(){
         return (
           <View style={style.container}>
+            <OwnStatusBar />
             <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>  
             <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} opacity={0.6}> 
               <ImageBackground source={require('../assets/take.jpg')} style={style.imageBackgound} opacity={1}/>             

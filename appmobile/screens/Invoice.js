@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View, Text, FlatList, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
-import BarraEstados from "./shared/BarraEstados.js";
+import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 
 class Invoice extends React.Component {
@@ -50,12 +50,12 @@ class Invoice extends React.Component {
       }
         return (
         <View style={style.container}>
-            <BarraEstados />
+            <OwnStatusBar />
 
             <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
 
             <View style={style.container}>
-            <BarraEstados />
+            <OwnStatusBar />
             <ImageBackground source={require("../assets/logo.png")}  style={style.imageBackgound} opacity={0.1}>
             <ScrollView style={style.form}>
             <View style={style.form}>
