@@ -9,40 +9,38 @@ namespace App\Models;
         private int $id_extra;
         private int $id_produto;
 
-        public function Produto_extra(){ }
-
-        public function get_id_produto_extra(){
+        public function get_id_produto_extra(): int{
             return $this->id_produto_extra;
         }
 
-        public function set_id_produto_extra($id_produto_extra): Produto_extra{
+        public function set_id_produto_extra(int $id_produto_extra): self{
             $this->id_produto_extra = $id_produto_extra;
             return $this;
         }
 
-        public function get_quantidade(){
+        public function get_quantidade(): int{
             return $this->quantidade;
         }
 
-        public function set_quantidade($quantidade): Produto_extra{
+        public function set_quantidade(int $quantidade): self{
             $this->quantidade = $quantidade;
             return $this;
         }
 
-        public function get_id_extra(){
+        public function get_id_extra(): int{
             return $this->id_extra;
         }
 
-        public function set_id_extra($id_extra): Produto_extra{
+        public function set_id_extra(int $id_extra): self{
             $this->id_extra = $id_extra;
             return $this;
         }
 
-        public function get_id_produto(){
+        public function get_id_produto(): int{
             return $this->id_produto;
         }
 
-        public function set_id_produto($id_produto): Produto_extra{
+        public function set_id_produto(int $id_produto): self{
             $this->id_produto = $id_produto;
             return $this;
         }

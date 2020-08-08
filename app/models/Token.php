@@ -56,7 +56,7 @@ namespace App\Models;
             return $this;
         }
 
-        public function get_active(): int{
+        public function get_active(): bool{
             return $this->active;
         }
 
