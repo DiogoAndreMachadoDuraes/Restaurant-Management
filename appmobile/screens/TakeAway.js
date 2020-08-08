@@ -4,15 +4,14 @@ import {Header, Icon} from "react-native-elements";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import Accordion from 'react-native-collapsible/Accordion';
-import * as Animatable from 'react-native-animatable';
-import Collapsible from 'react-native-collapsible';
+import NossoFinal from './shared/NossoFinal.js';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const SECTIONS = [
   {
     title: 'Data Marcada',
     content: '10/09/2020',
-    icon: 'calendar-month',
+    icon: 'calendar'
   },
   {
     title: 'Hora Maracada',
@@ -22,22 +21,22 @@ const SECTIONS = [
   {
     title: 'Número de Pessoas',
     content: '7 pessoas',
-    icon:'human',
+    icon:'human'
   },
   {
     title: 'Nome da Resrva',
     content: 'José Leite',
-    icon:'library',
+    icon:'library'
   },
   {
     title: 'Valor Total',
     content: '€21.40',
-    icon:'cash',
+    icon:'cash'
   },
   {
     title: 'Estado da encomenda',
-    content: 'Em preparação ',
-    icon:'truck',
+    content: 'Em preparação',
+    icon:'truck'
   },
 ];
 class TakeAway extends React.Component{
@@ -51,15 +50,6 @@ class TakeAway extends React.Component{
       componentDidMount(){ 
         console.log("Mounting the screen TakeAway...");
       }
-
-      
-      _renderSectionTitle = section => {
-        return (
-          <View style={style.content}>
-            <Text>{section.content}</Text>
-          </View>
-        );
-      };
       _renderHeader = section => {
         return (
           <View style={style.header}>
@@ -71,54 +61,22 @@ class TakeAway extends React.Component{
         return (
           <View style={style.content}>
             <Icon2
-              name={section.icon} style={style.icon} color={'#cd5c5c'} size={28}
+              name={section.icon} style={style.icon} color={'green'} size={25}
             ></Icon2>
-             <Text style={style.headerText2}>{section.content}</Text>
+            <Text style={style.headerText2}>{section.content}</Text>
           </View>
         );
       };
       _updateSections = activeSections => {
         this.setState({ activeSections });
       };
-      renderHeader(section, index, isActive, sections) {
-        return (
-          <Animatable.View
-            duration={300}
-            transition="backgroundColor"
-            style={{ backgroundColor: (isActive ? 'green' : 'green') }}>
-            <Text style={style.headerText}>{section.title}</Text>
-          </Animatable.View>
-        );
-      }
-      _renderContent(section, i, isActive, sections) {
-        return (
-          <Animatable.View
-            duration={300}
-            transition="backgroundColor"
-            style={{ backgroundColor: (isActive ? 'black' : 'black') }}>
-            <Animatable.Text
-              duration={300}
-              easing="ease-out"
-              animation={isActive ? 'zoomIn' : false}>
-              {section.content}
-            </Animatable.Text>
-          </Animatable.View>
-        );
-      }
       render(){
         return (
           <View style={style.container}>
             <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>  
             <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} opacity={0.6}> 
-              <ImageBackground source={require('../assets/take.jpg')} style={style.imageBackgound} opacity={1}>             
-              </ImageBackground>
+              <ImageBackground source={require('../assets/take.jpg')} style={style.imageBackgound} opacity={1}/>             
               <ScrollView>
-                <View style={style.menu}>
-                <Collapsible collapsed={this.state.collapsed} align="center">
-                  <View style={style.content}>
-                  </View>
-                </Collapsible>
-                <View style={style.accordion}>
                   <Accordion
                     sections={SECTIONS}
                     activeSections={this.state.activeSections}
@@ -127,8 +85,7 @@ class TakeAway extends React.Component{
                     onChange={this._updateSections}
                     sectionContainerStyle={{paddingVertical: 0.7}}
                   />
-                </View>
-                </View>
+                  <NossoFinal />
               </ScrollView> 
             </ImageBackground>
           </View>
@@ -156,11 +113,11 @@ class TakeAway extends React.Component{
         width: "100%",
         height: 1000,
       },
-      
+
       containerCollapsible: {
         flex: 1
       },
-      
+
       accordion: {
         top: 0,
       },
@@ -169,7 +126,7 @@ class TakeAway extends React.Component{
         textAlign: 'center',
         fontSize: 30,
       },
-      
+
       header: {
         backgroundColor: '#f0e68c',         //boxtext with title
         padding: 10,
@@ -179,18 +136,16 @@ class TakeAway extends React.Component{
       headerText: {                              //titles
         textAlign: 'center',
         fontSize: 20,
-        fontWeight: '500',
       },
 
       headerText2: {                              //titles
-        textAlign: 'center',
         fontSize: 20,
-        left: -100,
+        left: 50,
         top:-30,
       },
 
       content: {                            //o que esta a verde
-        padding: 15,
+        padding: 10,
         backgroundColor: '#f5fffa',
         opacity: 0.8,
       },
