@@ -18,7 +18,6 @@ namespace App\Models;
         private string $password;
         private string $tipo;
         
-
         public function Utilizador() {}
 
         //get e set id_utilizador
@@ -164,6 +163,5 @@ namespace App\Models;
             $this->tipo = $tipo;
             return $this;
         }
-
     }
 ?>

@@ -11,7 +11,6 @@ namespace App\Models;
         private string $foto;
         private float $preco;
 
-
         public function Produto() {}
 
         //get e set id

@@ -29,7 +29,7 @@ namespace App\Models;
         {
             return $this->iva;
         }
-        public function setiva(string $iva): Fatura
+        public function setiva(float $iva): Fatura
         {
             $this->iva = $iva;
             return $this;
@@ -40,43 +40,43 @@ namespace App\Models;
         {
             return $this->taxa;
         }
-        public function settaxa(float $taxa): Fatura
+        public function settaxa(string $taxa): Fatura
         {
             $this->taxa = $taxa;
             return $this;
         }
 
          //get e set valor no total
-         public function getvalor_total()
-         {
-             return $this->valor_total;
-         }
-         public function setvalor_total(float $valor_total): Fatura
-         {
-             $this->valor_total = $valor_total;
-             return $this;
-         }
+        public function getvalor_total()
+        {
+            return $this->valor_total;
+        }
+        public function setvalor_total(float $valor_total): Fatura
+        {
+            $this->valor_total = $valor_total;
+            return $this;
+        }
 
-         //get e set nif_cliente
-         public function getnif_cliente()
-         {
-             return $this->nif_cliente;
-         }
-         public function setnif_cliente(int $nif_cliente): Fatura
-         {
-             $this->nif_cliente = $nif_cliente;
-             return $this;
-         }
+        //get e set nif_cliente
+        public function getnif_cliente()
+        {
+            return $this->nif_cliente;
+        }
+        public function setnif_cliente(int $nif_cliente): Fatura
+        {
+            $this->nif_cliente = $nif_cliente;
+            return $this;
+        }
 
-         //get e set id_reserva
-         public function getid_reserva()
-         {
-             return $this->id_reserva;
-         }
-         public function setid_reserva(int $id_reserva): Fatura
-         {
-             $this->id_reserva = $id_reserva;
-             return $this;
-         }
+        //get e set id_reserva
+        public function getid_reserva()
+        {
+            return $this->id_reserva;
+        }
+        public function setid_reserva(int $id_reserva): Fatura
+        {
+            $this->id_reserva = $id_reserva;
+            return $this;
+        }
     }
 ?>

@@ -21,7 +21,7 @@
         Produto_controller,
         Restaurante_controller,
         Take_away_controller,
-        Produto_extra_controller
+        Produto_extra_controller,
     };
     use App\DAO\{
         Token_dao
@@ -117,6 +117,11 @@
         $app->post('/Produto_menu',Produto_menu_controller::class . ':Insert');
         $app->put('/Produto_menu',Produto_menu_controller::class . ':Update');
         $app->delete('/Produto_menu',Produto_menu_controller::class . ':Delete');
+
+        $app->get('/Produto_extra',Produto_extra_controller::class . ':Select');
+        $app->post('/Produto_extra',Produto_extra_controller::class . ':Insert');
+        $app->put('/Produto_extra',Produto_extra_controller::class . ':Update');
+        $app->delete('/Produto_extra',Produto_extra_controller::class . ':Delete');
 
         $app->get('/Restaurante',Restaurante_controller::class . ':Select');
         $app->post('/Restaurante',Restaurante_controller::class . ':Insert');
