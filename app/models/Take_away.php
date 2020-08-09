@@ -11,69 +11,67 @@ namespace App\Models;
         private int $id_funcionario;
         private int $id_reserva;
 
-        public function take_away() {}
-
         //get e set id
-        public function getid_take_away()
+        public function getid_take_away(): int
         {
             return $this->id_take_away;
         }
-        public function setid_take_away(int $id_take_away): Take_away
+        public function setid_take_away(int $id_take_away): self
         {
             $this->id_take_away = $id_take_away;
             return $this;
         }
 
         //get e set tipo da entrega
-        public function gettipo_entrega()
+        public function gettipo_entrega(): string
         {
            return $this->tipo_entrega;
         }
-        public function settipo_entrega(string $tipo_entrega): Take_away
+        public function settipo_entrega(string $tipo_entrega): self
         {
              $this->tipo_entrega = $tipo_entrega;
              return $this;
         }        
 
         //get e set preco
-        public function getpreco()
+        public function getpreco(): float
         {
             return $this->preco;
         }
-        public function setpreco(float $preco): Take_away
+        public function setpreco(float $preco): self
         {
             $this->preco = $preco;
             return $this;
         }
 
         //get e set do estado do take away
-        public function getestado()
+        public function getestado(): string
         {
             return $this->estado;
         }
-        public function setestado(string $estado): Take_away
+        public function setestado(string $estado): self
         {
             $this->estado = $estado;
             return $this;
         }
 
         //get e set id_reserva
-        public function getid_reserva()
+        public function getid_reserva(): int
         {
             return $this->id_reserva;
         }
-        public function setid_reserva(int $id_reserva): Take_away
+        public function setid_reserva(int $id_reserva): self
         {
             $this->id_reserva = $id_reserva;
             return $this;
         }
 
          //get e set id_funcionario
-         public function getid_funcionario()
+         public function getid_funcionario(): int
          {
              return $this->id_funcionario;
          }
-         public function setid_funcionario(int $id_funcionario): Take_away
+         public function setid_funcionario(int $id_funcionario): self
          {
              $this->id_funcionario = $id_funcionario;
              return $this;

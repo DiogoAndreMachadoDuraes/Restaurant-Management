@@ -12,80 +12,78 @@ namespace App\Models;
         private float $preco;
         private int $id_ementa;
 
-        public function Menu() {}
-
         //get e set id
-        public function getid_menu()
+        public function getid_menu(): int
         {
             return $this->id_menu;
         }
-        public function setid_menu(int $id_menu): Menu
+        public function setid_menu(int $id_menu): self
         {
             $this->id_menu = $id_menu;
             return $this;
         }
     
         //get e set nome
-        public function getnome()
+        public function getnome(): string
         {
             return $this->nome;
         }
-        public function setnome(string $nome): Menu
+        public function setnome(string $nome): self
         {
             $this->nome = $nome;
             return $this;
         }
 
         //get e set descricao
-        public function getdescricao()
+        public function getdescricao(): string
         {
             return $this->descricao;
         }
-        public function setdescricao(string $descricao): Menu
+        public function setdescricao(string $descricao): self
         {
             $this->descricao = $descricao;
             return $this;
         }
 
         //get e set tipo
-        public function gettipo()
+        public function gettipo(): string
         {
             return $this->tipo;
         }
-        public function settipo(string $tipo): Menu
+        public function settipo(string $tipo): self
         {
             $this->tipo = $tipo;
             return $this;
         }
 
         //get e set foto
-        public function getfoto()
+        public function getfoto(): string
         {
             return $this->foto;
         }
-        public function setfoto(string $foto): Menu
+        public function setfoto(string $foto): self
         {
             $this->foto = $foto;
             return $this;
         }
 
         //get e set preço do menu
-        public function getpreco()
+        public function getpreco(): float
         {
             return $this->preco;
         }
-        public function setpreco(float $preco): Menu
+        public function setpreco(float $preco): self
         {
             $this->preco = $preco;
             return $this;
         }
 
         //get e set id ementa
-        public function getid_ementa()
+        public function getid_ementa(): int
         {
             return $this->id_ementa;
         }
-        public function setid_ementa(int $id_ementa): Menu
+        public function setid_ementa(int $id_ementa): self
         {
             $this->id_ementa = $id_ementa;
             return $this;
