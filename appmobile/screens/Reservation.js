@@ -27,6 +27,7 @@ class Reservation extends React.Component{
       name:"Reserva",
       user: [],
       isVisible: false,
+      quantity: 0,
       pontos: 10
     };
   }
@@ -63,7 +64,78 @@ class Reservation extends React.Component{
     this.setState({ isVisible: false });
   }
 
-  _onPress(user) {
+  _onPress = async(user) => {
+    /*if (this.state.quantity.trim().length == 0) {
+      Alert.alert('Introdução de valores nulos', '   A quantidade de pessoas não pode ser nula.', [
+          {text: 'Voltar a tentar'}
+      ]);
+      return;
+    }
+
+    try {
+      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Cliente', { 
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      let json = await response.json();
+      this.setState({
+        isLoading: false,
+        data: json
+      });
+    } catch(e){
+        console.log("Error to get data: " + e);
+    }
+
+    const { data } = this.state;
+
+    console.log(data);
+    
+    const cliente=data.filter(a=>a.id_utilizador==user.id_utilizador).map(a=>a.id_cliente);
+
+    try
+    {
+      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', { 
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "data": moment(datetime).format('YYYY/MM/DD'),
+          "hora": moment(datetime).format('HH:mm:ss'),
+          "quantidade_pessoas": this.state.quantity,
+          "data_marcada": this.state.chosenDate,
+          "hora_marcada": this.state.chosenDate,
+          "estado": "Em análise",
+          "id_cliente": cliente[0]
+        })
+      });
+    } catch(e){
+      console.log(e);
+    }
+
+    try
+    {
+      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Take_away', { 
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "tipo": moment(datetime).format('YYYY/MM/DD'),
+          "preco": moment(datetime).format('HH:mm:ss'),
+          "estado": "Em análise",
+          "id_funcionario": null,
+          "id_reserva": null,
+        })
+      });
+    } catch(e){
+      console.log(e);
+    }
+*/
     this.props.navigation.navigate("AfterShop", {
       user
     });
@@ -73,6 +145,10 @@ class Reservation extends React.Component{
     {
       //this.getData();
     }
+
+    const { navigation, route } = this.props;
+    const { item } = route.params;
+    
     return (
       <View style={style.container}>
         <OwnStatusBar />
