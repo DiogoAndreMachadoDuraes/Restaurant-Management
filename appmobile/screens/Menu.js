@@ -57,11 +57,23 @@ class Menu extends React.Component{
         super();
         this.state={
           name:"Menu",
+          data:[]
         };
       }
-      componentDidMount(){ 
-        console.log("Mounting the screen Menu...");
-      }
+      async componentDidMount(){ 
+        console.log("Mounting the screen SpecialMenu...");
+
+        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Ementa', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          this.setState({ data: json, isLoading:false });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
+    }
       render(){
         return (
           <View style={style.container}>
@@ -69,18 +81,22 @@ class Menu extends React.Component{
             <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
               <ScrollView>
-                <View style={style.menu}>
-                  {
-                    dataFromApi.map((item)=>{
-                      return (
+              <View style={style.menu}>
+              {
+                isLoading ? <ActivityIndicator/> : (
+                  <FlatList
+                    data={this.state.data}
+                    keyExtractor={({ id }, index) => id}
+                    renderItem={({ item }) => (
                         <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer", {item})}>
                           <Image style={style.menuExpFoto} source={item.imagem} ></Image>
                           <Text style={style.titleMenu}>{item.name}</Text>
                           <Text style={style.textMenu}>{item.subtitle}</Text>
                         </TouchableOpacity>
-                      );
-                    })
-                  }
+                      )}
+                  />
+                )
+              }
                   <NossoFinal />
                 </View>
               </ScrollView>

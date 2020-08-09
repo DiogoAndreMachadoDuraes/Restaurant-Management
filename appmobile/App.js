@@ -23,10 +23,12 @@ import ProductDetail from "./screens/ProductDetail.js";
 import ProductCategory from "./screens/ProductCategory.js";
 import Invoice from "./screens/Invoice.js";
 import TakeAway from "./screens/TakeAway.js";
+import WishList from "./screens/WishList.js";
 
 import { DrawerContent } from './screens/shared/DrawerContent';
 
 import { ToggleTheme } from './components/context';
+import WishList from "./screens/WishList.js";
 
 const Drawer = createDrawerNavigator();
 
@@ -82,6 +84,7 @@ const App = () => {
             <Drawer.Screen name="SpecialMenu" component={SpecialMenu} options={{drawerLabel:'SpecialMenu'}}/>
             <Drawer.Screen name="Invoice" component={Invoice} options={{drawerLabel:'Invoice'}}/>
             <Drawer.Screen name="TakeAway" component={TakeAway} options={{drawerLabel:'TakeAway'}}/>
+            <Drawer.Screen name="WishList" component={WishList} options={{drawerLabel:'WishList'}}/>
           </Drawer.Navigator>
         </NavigationContainer>
       </ToggleTheme.Provider>
