@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, ImageBackground } from 'react-native';
-import { OwnHeader } from './shared/OwnHeader';
+import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import OwnStatusBar from './shared/OwnStatusBar';
 
 const imageBackgound = { uri: "https://media.timeout.com/images/105327913/630/472/image.jpg" };
@@ -20,8 +20,7 @@ class Space extends React.Component{
 
             <View style={style.container}>
                 <OwnStatusBar/>
-                
-                    <OwnHeader nome={this.state.name} navigation={this.props.navigation}/>
+                <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
 
                         <ImageBackground source={imageBackgound} style={style.imageOut} opacity={0.4}>
                             <ScrollView>

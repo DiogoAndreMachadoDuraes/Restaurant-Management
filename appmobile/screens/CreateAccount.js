@@ -3,8 +3,7 @@ import { Alert, StyleSheet, View, Text, CheckBox, Image, TouchableOpacity, Scrol
 import { Input } from 'react-native-elements';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
-//import ImagePicker from 'react-native-image-crop-picker';
-//import ImagePicker from 'react-native-image-picker';
+import {useTheme, Avatar} from 'react-native-paper';
 
 class CreateAccount extends React.Component {
   constructor(){

@@ -4,6 +4,7 @@ import { Input } from 'react-native-elements';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import {useTheme, Avatar} from 'react-native-paper';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
