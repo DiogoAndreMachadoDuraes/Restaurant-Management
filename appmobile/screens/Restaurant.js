@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
 import NossoFinal from "./shared/NossoFinal.js";
-import BarraEstados from "./shared/BarraEstados.js";
+import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 class Restaurant extends React.Component{
@@ -47,7 +47,7 @@ class Restaurant extends React.Component{
     const { isLoading } = this.state;
     return (
       <View style={style.container}>
-        <BarraEstados />
+        <OwnStatusBar />
         <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} >
           <ScrollView>
