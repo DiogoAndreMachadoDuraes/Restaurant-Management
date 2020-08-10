@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
+import { HeaderWihoutShop } from './shared/HeaderWihoutShop';
 import OwnStatusBar from './shared/OwnStatusBar';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'; 
 import Swiper from 'react-native-swiper';
