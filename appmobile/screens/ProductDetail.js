@@ -12,7 +12,7 @@ import {
     FlatList 
 } from "react-native";
 import { Icon, colors } from "react-native-elements";
-import OwnStatusBar from "./shared/BarraEstados";
+import OwnStatusBar from "./shared/OwnStatusBar";
 import NossoFinal from "./shared/NossoFinal";
 import { ProgressChart } from "react-native-chart-kit";
 import Category from "./shared/Category.js";
