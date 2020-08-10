@@ -161,7 +161,7 @@ class Shop extends React.Component {
       }
 }
 _onPress = async() => {
-          try
+  /*        try
           {
               await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_produto', { 
                   method: 'POST',
@@ -200,17 +200,12 @@ _onPress = async() => {
                   })
                 });
               this.props.navigation.navigate ("Reserva" , {
-                itemId= item.id,
-                name=item.nome,
-                description=item.descricao,
-                foto=item.foto
+               item
               });
-              this.props.navigation.navigate("Reserva");
           } catch(e){
               console.log(e);
-            }      
+            } */    
 }
-
 
 const style = StyleSheet.create({
     container: {

@@ -25,25 +25,8 @@ class CreateAccount extends React.Component {
         //avatarSource: null
       };
     }
-  async componentDidMount(){ 
+  componentDidMount(){ 
     console.log("Mounting the screen CreateAccount...");
-
-    await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
-      method: 'POST', 
-      headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        nif: this.nif,
-        nome: this.nome,
-        data_nascimento: this.data_nascimento,
-        sexo: this.sexo,
-        telefone: this.telefone,
-        morada: this.morada,
-        foto: this.foto,
-        email: this.email,
-        password: this.password,
-        tipo:'Cliente'
-      })
-    });
   }
   checkedbox(){
     this.setState({
@@ -154,7 +137,7 @@ class CreateAccount extends React.Component {
               <Text style={style.title2}>Declaro que fui informado/a sobre os Termos e Condições Gerais da App Sabor da Avó e que aceito a criação da conta de cliente nos termos acima expostos. * </Text>
           </View>
 
-          <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Login") }>
+          <TouchableOpacity style={style.button} onPress={this._onPress}>
               <Text style={style.btnText}>Criar Conta</Text>
           </TouchableOpacity>
 
@@ -172,6 +155,32 @@ class CreateAccount extends React.Component {
     );
   }
 }
+
+_onPress = async() => {
+  try
+    {
+      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
+      method: 'POST', 
+      headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        nif: this.nif,
+        nome: this.nome,
+        data_nascimento: this.data_nascimento,
+        sexo: this.sexo,
+        telefone: this.telefone,
+        morada: this.morada,
+        foto: this.foto,
+        email: this.email,
+        password: this.password,
+        tipo:'Cliente'
+      })
+    });
+      this.props.navigation.navigate("Login");
+  } catch(e){
+      console.log(e);
+    }      
+}
+
 
 const style = StyleSheet.create({
     checkBox: {

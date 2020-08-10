@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground,} from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { OwnHeader } from './shared/OwnHeader';
 import OwnStatusBar from './shared/OwnStatusBar';
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'; 
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 const image = {uri: "https://images.trustinnews.pt/uploads/sites/5/2019/12/MB-Rest-JNCquoi-Asia-07.jpg"};
@@ -20,17 +21,9 @@ class Home extends React.Component{
         return (
 
             <View style={style.container}>
-                <OwnStatusBar/>
-                    
+             <OwnStatusBar/>
                 <OwnHeader nome={this.state.name} navigation={this.props.navigation}/>
-
-                <ImageBackground source={imageBackgound} style={style.imageBackground} opacity={1}>
-
-                <View style={style.news}>
-                    <Text style={style.text}>Sobre nós </Text>
-                </View>
-
-                <Image source={require('../assets/espaco.jpg')} style={style.image}/>
+                
                 <TouchableOpacity style={style.buttonSpace} onPress={() => this.props.navigation.navigate("TakeAway") }>
                 <Text style={style.buttonDesign}>Nosso Espaço</Text>
                 </TouchableOpacity>
@@ -44,31 +37,62 @@ class Home extends React.Component{
                 <TouchableOpacity style={style.buttonReservation} onPress={() => this.props.navigation.navigate("Reservation") }>
                 <Text style={style.buttonReservation1}>Reserva</Text>
                 </TouchableOpacity>
+                <MapView
+                    provider={PROVIDER_GOOGLE}
+                    style={style.map}
+                    region={{
+                        latitude: 41.69323,
+                        longitude: -8.83287,
+                        latitudeDelta: 0.1,
+                        longitudeDelta: 2,
+                    },{
+                        latitude: 41.8071182,
+                        longitude: -6.7589839,
+                        latitudeDelta: 0.1,
+                        longitudeDelta: 2,
+                    }}
+                >
+                    <Marker
+                    coordinate={{
+                        latitude: 41.69323,
+                        longitude: -8.83287,
+                }}
+                    title="Sabor da Avó"
+                    description="Restaurante em Viana do Castelo">
+                    <Marker
+                    coordinate={{
+                        latitude: 41.8071182,
+                        longitude: -6.7589839,
+                }}
+                    title="Sabor da Avó"
+                    description="Restaurante em Bragança"></Marker>
+                    <Marker
+                    coordinate={{
+                        latitude: 41.3527285,
+                        longitude: -8.20451531,
+                }}
+                    title="Sabor da Avó"
+                    description="Restaurante em Felgueiras"></Marker>
+                    
+                        <View>
+                            <Image style={style.marker} source={require ("../assets/marker.png")}/>
+                        </View>
+                        <Callout tooltip>
+                            <View>
+                                <View style={style.bubble}>
+                                   <Text style= {style.name}>Restaurante Favorito</Text>
+                                   <Image
+                                       style={style.imageRestaurant}
+                                       source={require('../assets/marker.png')}
+                                   />
+                                </View>
+                                    <View style={style.arrowBorder} />
+                                    <View style={style.arrow} />
+                            </View>
+                        </Callout>
+                    </Marker>
+                </MapView>
                 
-                <View style={style.boxText}>
-                <Text style={style.title}>Horário de Atendimento</Text>
-                <Text style={style.subtitle1}>Segunda a Quinta: 11h - 23h</Text>
-                <Text style={style.subtitle2}>Sexta e Sábado: 12:30h - 21:30h</Text>
-                <Text style={style.subtitle3}>Encerra aos Domingos e Feriados.</Text>
-                </View>
-
-                <View style={style.contact}>
-                    <Text style={style.mobile}>Contact</Text>
-                    <Text style={style.mobile1}>E-mail: sabordaavo@gmail.com</Text>
-                    <Text style={style.mobile2}>mobile:253341134</Text>
-                </View>
-
-                <View style={style.facebook}>
-                        <FontAwesome5 name={'facebook'} size={50} color="#0000cd"/>
-                </View>
-                
-                <View style={style.instagram}>
-                         <FontAwesome5 name={'instagram'} size={50} color="deeppink" />
-                 </View>
-
-                 <Image source={require('../assets/mapa.jpg')} style={style.imageMap} opacity={1}/>
-
-                </ImageBackground>
             </View>
         );
         }   
@@ -78,6 +102,60 @@ const style = StyleSheet.create({
     container: {
       flex: 1
     },
+
+    menu: {                           //scrollview
+        width: "100%",
+        height: 1000,
+    },
+
+    imageRestaurant:{
+        width: 50,
+        height: 50,
+    },
+
+    name: {
+        fontSize: 16,
+        marginBottom: 5,
+      },
+
+    bubble:{
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        backgroundColor: 'white',
+        borderRadius: 6,
+        borderColor: '#ccc',
+        borderWidth: 0.5,
+        padding: 15,
+        width: 200,
+    },
+
+    arrow:{
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
+        borderTopColor: '#fff',
+        borderWidth: 16,
+        alignSelf: 'center',
+        marginTop: -32,
+    },
+
+    arrowBorder:{
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
+        borderTopColor: '#007a87',
+        borderWidth: 16,
+        alignSelf: 'center',
+        marginTop: -0.5,
+    },
+
+    marker:{
+        height: 50,
+        width:50,
+    },
+
+    map: {
+        height: '30%',
+        top: 300
+      },
 
     imageBackground: {
         flex: 1,
@@ -241,8 +319,8 @@ const style = StyleSheet.create({
         width: 60,
         height: 42,
         backgroundColor: '#556b2f',
-        top: -55,
-        marginLeft: -270,
+        top: 0,
+        marginLeft: 0,
         borderRadius: 0,
         borderWidth: 3,
         borderColor: '#dc143c',
@@ -255,7 +333,7 @@ const style = StyleSheet.create({
         height: 42,
         backgroundColor: '#556b2f',
         marginTop: 20,
-        top: 8,
+        top: 100,
         marginLeft: 0,
         borderRadius: 0,
         borderWidth: 3,
@@ -269,7 +347,7 @@ const style = StyleSheet.create({
         height: 42,
         backgroundColor: '#556b2f',
         marginTop: 23,
-        top: 13,
+        top: 100,
         marginLeft: 270,
         borderRadius: 0,
         borderWidth: 3,

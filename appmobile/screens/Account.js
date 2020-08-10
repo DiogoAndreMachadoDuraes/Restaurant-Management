@@ -17,19 +17,9 @@ class Account extends React.Component {
           isLoading: true,
         };
       }
-     async componentDidMount(){ 
+    componentDidMount(){ 
         console.log("Mounting the screen Account...");
 
-        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-        .then((response) => response.json())
-        .then((json) => {
-          console.log(json);
-          this.setState({ data: json, isLoading:false });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
       }
       getUser = async () => {
         try {

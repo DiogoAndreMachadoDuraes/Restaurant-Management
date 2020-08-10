@@ -25,25 +25,8 @@ class EditAccount extends React.Component {
         //avatarSource: null
       };
     }
-  async componentDidMount(){ 
+  componentDidMount(){ 
     console.log("Mounting the screen EditAccount...");
-
-    await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
-      method: 'POST', 
-      headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        nif: this.nif,
-        nome: this.nome,
-        data_nascimento: this.data_nascimento,
-        sexo: this.sexo,
-        telefone: this.telefone,
-        morada: this.morada,
-        foto: this.foto,
-        email: this.email,
-        password: this.password,
-        tipo:'Cliente'
-      })
-    });
   }
   checkedbox(){
     this.setState({
@@ -168,7 +151,7 @@ class EditAccount extends React.Component {
 
           <Button  title="selecionar imagem" onPress={this.selectImage}/> */}
           
-            <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Account")}>
+            <TouchableOpacity style={style.button} onPress={this._onPress}>
                     <Text style={style.btnText}>Guardar alterações</Text>
                 </TouchableOpacity>
 
@@ -177,6 +160,31 @@ class EditAccount extends React.Component {
       </View>
     );
   }
+}
+
+_onPress = async() => {
+  try
+    {
+      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
+        method: 'POST', 
+        headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          nif: this.nif,
+          nome: this.nome,
+          data_nascimento: this.data_nascimento,
+          sexo: this.sexo,
+          telefone: this.telefone,
+          morada: this.morada,
+          foto: this.foto,
+          email: this.email,
+          password: this.password,
+          tipo:'Cliente'
+        })
+    });
+      this.props.navigation.navigate("Account");
+  } catch(e){
+      console.log(e);
+    }      
 }
 
 const style = StyleSheet.create({
