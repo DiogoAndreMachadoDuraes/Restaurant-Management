@@ -30,14 +30,6 @@ use App\Models\Token;
             ]);
         }
 
-        public function Select(): array
-        {
-            $token = $this->pdo
-                ->query ('SELECT * From Token;')
-                -> fetchAll(\PDO::FETCH_ASSOC);
-            return $token;
-        }
-
         public function Update_active(Token $token): void
         {
             $statement=$this->pdo
@@ -51,9 +43,9 @@ use App\Models\Token;
         public function Delete(Token $token): void
         {
             $statement=$this->pdo
-                ->prepare('DELETE FROM Token WHERE id_token = :id_token');
+                ->prepare('DELETE FROM Token WHERE active = :active');
             $statement->execute([
-                'id_token' => $token->get_id_token(),
+                'active' => $token->get_active(),
             ]);
         }
 

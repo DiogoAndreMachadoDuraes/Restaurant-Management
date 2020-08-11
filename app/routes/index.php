@@ -23,12 +23,8 @@
         Take_away_controller,
         Produto_extra_controller
     };
-    use App\DAO\{
-        Token_dao
-    };
     use App\Middleware\{
         Auth_middleware
-        //Middleware
     };
     
     use src\Jwt_Auth;
@@ -40,13 +36,14 @@
         $app->post('/Registar', Utilizador_controller::class . ':Insert');
     
         $app->post('/Login', Auth_controller::class. ':Login');
-        $app->post('/RefreshToken', Auth_controller::class . ':Refresh_token');
+        $app->post('/Refresh_token', Auth_controller::class . ':Refresh_token');
 
         $app->group('/v1', function() use($app){
             
             $app->get('/Cliente', Cliente_controller::class . ':Select');
             $app->post('/Cliente', Cliente_controller::class . ':Insert');
             $app->put('/Cliente', Cliente_controller::class . ':Update');
+            $app->put('/Cliente_purchase', Cliente_controller::class . ':Update_purchase');
             $app->delete('/Cliente', Cliente_controller::class . ':Delete');
 
             $app->get('/Compra_produto', Compra_produto_controller::class . ':Select');
@@ -133,8 +130,6 @@
             $app->post('/Take_away',Take_away_controller::class . ':Insert');
             $app->put('/Take_away',Take_away_controller::class . ':Update');
             $app->delete('/Take_away',Take_away_controller::class . ':Delete');
-
-            $app->post('/Token',Token_dao::class . 'Insert');
 
             $app->get('/Utilizador',Utilizador_controller::class . ':Select');
             $app->post('/Utilizador',Utilizador_controller::class . ':Insert');

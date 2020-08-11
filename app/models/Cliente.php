@@ -14,9 +14,6 @@ namespace App\Models;
         }
 
         public function set_id_cliente(int $id_cliente): self{
-            if (!is_int($id_cliente)) {
-                throw new \InvalidArgumentException("The id_cliente must be an integer", 401);
-            }
             $this->id_cliente = $id_cliente;
             return $this;
         }
@@ -26,9 +23,6 @@ namespace App\Models;
         }
         
         public function set_numero_cartao(int $numero_cartao): self{
-            if (!$numero_cartao && !is_int($numero_cartao) && $numero_cartao==null) {
-                throw new \InvalidArgumentException("É preciso o número do cartão", 400);
-            }
             $this->numero_cartao = $numero_cartao;
             return $this;
         }
@@ -38,12 +32,6 @@ namespace App\Models;
         }
 
         public function set_numero_compras(int $numero_compras): self{
-            if (!$numero_compras) {
-                throw new \InvalidArgumentException("É preciso o número de compras", $numero_compras);
-            }
-            if (!is_int($numero_compras)) {
-                throw new \InvalidArgumentException("Introduziu um valor para o número de compras incorreto", $numero_compras);
-            }
             $this->numero_compras = $numero_compras;
             return $this;
         }
@@ -53,12 +41,6 @@ namespace App\Models;
         }
 
         public function set_id_utilizador(int $id_utilizador): self{
-            if (is_null($id_utilizador)) {
-                throw new \InvalidArgumentException("É preciso o id de utilizador correspondente", 400);
-            }
-            if (!is_int($id_utilizador)) {
-                throw new \InvalidArgumentException("Introduziu um valor para o id utilizador incorreto", $id_utilizador);
-            }
             $this->id_utilizador = $id_utilizador;
             return $this;
         }

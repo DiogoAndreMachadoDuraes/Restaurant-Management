@@ -64,6 +64,7 @@ namespace App\Controllers;
             $token_model->set_refresh_token($refresh_token)
                 ->set_active(0);
             $token_dao->Update_active($token_model);
+            $token_dao->Delete($token_model);
 
             $utilizador_dao = new Utilizador_dao();
             $utilizador=$utilizador_dao->SelectByEmail($token_decoded->email);

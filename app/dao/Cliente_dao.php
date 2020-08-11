@@ -58,19 +58,11 @@ namespace App\DAO;
         public function Update_purchase(Cliente $cliente) : void
         {
             $statement=$this->pdo
-                ->prepare('UPDATE Cliente SET numero_compras=:numero_compras WHERE id_cliente=:id_cliente');
+                ->prepare('UPDATE Cliente SET numero_compras=:numero_compras WHERE numero_cartao=:numero_cartao');
             $statement->execute([
-                'id_cliente' => $cliente->get_id_cliente(),
+                'numero_cartao' => $cliente->get_numero_cartao(),
                 'numero_compras' => $cliente->get_numero_compras(),
             ]);
-        }
-
-        public function Free_meal() : array
-        {
-            $cliente=$this->pdo
-                ->query('SELECT numero_compras, numero_cartao FROM Cliente')
-                ->fetchAll(\PDO::FETCH_ASSOC);
-            return $cliente;
         }
     }
 ?>

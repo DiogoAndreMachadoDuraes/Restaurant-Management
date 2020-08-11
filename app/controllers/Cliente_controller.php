@@ -70,21 +70,11 @@ class Cliente_controller
 
             $cliente_dao=new Cliente_dao();
             $cliente=new Cliente();
-            $cliente->set_id_cliente($data['id_cliente'])
+            $cliente->set_id_cliente($data['numero_cartao'])
                 ->set_numero_compras($data['numero_compras']);
             $cliente_dao->Update_purchase($cliente);
             $response->getBody()->write("Cliente made a purchase!");
             return $response;
-        }
-
-        public function Free_meal($numero_compras, $numero_cartao) : void
-        {
-            $cliente_dao=new Cliente_dao();
-            $cliente_dao->Free_meal();
-            if($numero_compras===10)
-            {
-                echo("The cliente with number of card ") .$numero_cartao. ("have a free meal");
-            }
         }
     }
 ?>
