@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+/* import {translate, setI18nConfig} from "../src/locales/index"; */
 
 class Login extends React.Component {
     constructor(props){
@@ -27,6 +28,7 @@ class Login extends React.Component {
             validEmail: true,
             validPass: true
         }
+        /* setI18nConfig(); */
     }
 
     onIconPress = () => {
@@ -39,7 +41,17 @@ class Login extends React.Component {
     
     componentDidMount(){ 
         console.log("Mounting the screen Login...");
+        /* RNLocalize.addEventListener("change", this.handleLocalizationChange); */
     }
+
+    /* componentWillUnmount() {
+        RNLocalize.removeEventListener("change", this.handleLocalizationChange);
+    } */
+
+    handleLocalizationChange = () => {
+        setI18nConfig();
+        this.forceUpdate();
+    };
 
     handleValidEmail = (val) => {
         if(val.trim().length >= 5){
@@ -107,7 +119,7 @@ class Login extends React.Component {
                         </Animatable.View>
                     }
 
-                    <Text style={style.text}>Password:</Text>
+                    <Text style={style.text}>{/* {translate("Password")} */}Password:</Text>
                     <Input {...this.props}
                         inputStyle={style.pass}
                         placeholder='Introduza a sua palavra-passe'

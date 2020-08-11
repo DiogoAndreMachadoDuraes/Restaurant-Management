@@ -146,8 +146,8 @@ class Reservation extends React.Component{
       //this.getData();
     }
 
-    const { navigation, route } = this.props;
-    const { item } = route.params;
+    /* const { navigation, route } = this.props;
+    const { item } = route.params; */
     
     return (
       <View style={style.container}>
