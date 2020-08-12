@@ -24,14 +24,38 @@ class ProductDetail extends React.Component{
         super();
         this.state={
             name:"Café",
-            alergenio: [],
+            ingredient: [],
+            product_extra: [],
+            aller: [],
             info: [],
             isLoading: true,
         };
     }
 
     async componentDidMount(){ 
-        console.log("Mounting the screen Product...");
+        console.log("Mounting the screen ProductDetail...");
+
+        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Extra', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                this.setState({ ingredient: json, isLoading:false });
+            })
+            .catch((error) => console.error(error))
+            .finally(() => {
+                this.setState({ isLoading: false });
+        });
+
+        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto_extra', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                this.setState({ product_extra: json, isLoading:false });
+            })
+            .catch((error) => console.error(error))
+            .finally(() => {
+                this.setState({ isLoading: false });
+        });
 
         await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Info_nutricional', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
             .then((response) => response.json())
@@ -48,7 +72,7 @@ class ProductDetail extends React.Component{
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
-                this.setState({ alergenio: json, isLoading:false });
+                this.setState({ aller: json, isLoading:false });
             })
             .catch((error) => console.error(error))
             .finally(() => {
@@ -57,15 +81,19 @@ class ProductDetail extends React.Component{
     }
 
     render(){
-        const { alergenio, info, isLoading } = this.state;
+        const { ingredient, product_extra, aller, info, isLoading } = this.state;
 
         const { navigation, route } = this.props;
         const { item } = route.params;
 
+        const products_extra = product_extra.filter(a=>a.id_produto==item.id_produto).map(a=>a.id_extra);
+        const ingredients = ingredient.filter(a=>a.id_extra==products_extra).map(a=>a);
         const type = info.filter(a=>a.id_produto==item.id_produto).map(a=>a.tipo);
         const quantity = info.filter(a=>a.id_produto==item.id_produto).map(a=>a.quantidade_nutrientes);
-        const allergenio= alergenio.filter(a=>a.id_produto==item.id_produto).map(a=>a);
+        const allergenio= aller.filter(a=>a.id_produto==item.id_produto).map(a=>a);
 
+        console.log(product_extra);
+        console.log(ingredients);
         console.log(type);
         console.log(quantity);
 

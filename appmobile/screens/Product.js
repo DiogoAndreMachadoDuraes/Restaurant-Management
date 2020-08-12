@@ -4,6 +4,54 @@ import NossoFinal from "./shared/NossoFinal";
 import { OwnHeader } from "./shared/OwnHeader.js";
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 
+const product = [
+  {
+    type: "Pratos de peixe",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/salmao.jpg')
+  },
+  {
+    type: "Pratos sem glúten",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/estrogonofe.jpg')
+  },
+  {
+    type: "Pratos Vegan",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/legumesAssados.jpg')
+  },
+  {
+    type: "Batata Frita",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/batataFrita.jpg')
+  },
+  {
+    type: "Saladas",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/saladaTropical.jpg')
+  },
+  {
+    type: "Sopas",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/caldoVerde.jpg')
+  },
+  {
+    type: "Bebidas",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/agua.jpg')
+  },
+  {
+    type: "Sobremesas",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/geladoMorango.jpg')
+  },
+  {
+    type: "Bebidas Quentes",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/cafe.jpg')
+  }
+]
+
 class Product extends React.Component{
   constructor(){
     super();
@@ -11,63 +59,21 @@ class Product extends React.Component{
       isLoading: true,
       name: "Produtos"
     };
-    {
-      this.storeData();
-    }
   }
 
-  async componentDidMount(){ 
+  componentDidMount(){ 
     console.log("Mounting the screen Product...");
-
-    try {
-      let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto', { 
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      let json = await response.json();
-      console.log(json);
-      this.setState({
-        isLoading: false,
-        dataSource: json,
-      });
-    } catch(e){
-      console.log("Error to get data: " + e);
-    }
   }
-
-  storeData = async () => {
-    try {
-      AsyncStorage.setItem("Product", this.state.dataSource);
-    } catch (e) {
-      console.log("Error to do AsyncStorage: " + e);
-    }
-  };
 
   _onPress(item) {
     this.props.navigation.navigate("ProductCategory", {
-      itemId: item.id,
-      name: item.nome,
-      description: item.descricao,
-      foto: item.foto
+      type: item.type,
+      foto: item.foto,
+      subtitle: item.subtitle
     });
   }
 
   render(){
-    const { isLoading } = this.state;
-
-    if (isLoading) {
-      return (
-        <View style={style.container}>
-          <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} >
-            <ActivityIndicator size="large" color="#556b2f" style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 80 }}/>
-            <Text>Carregando a informação...</Text>
-          </ImageBackground>
-        </View>
-      );
-    }
-    
     return (
       <View style={style.container}>
         <OwnStatusBar />
@@ -75,17 +81,17 @@ class Product extends React.Component{
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} >
           <ScrollView>
             <View style={style.product}>
-              <FlatList
-                data={this.state.dataSource}
-                keyExtractor={({ id }, index) => id}
-                renderItem={({ item }) => (
-                  <TouchableOpacity style={style.productExp} activeOpacity={0.5} onPress={()=>this._onPress(item)}>
-                    <Image style={style.fotoProduct} source={{uri:''+item.foto+''}} ></Image>
-                    <Text style={style.titleProduct}>{item.nome}</Text>
-                    <Text style={style.textProduct}>{item.descricao}</Text>
-                  </TouchableOpacity>
-                )}
-              />
+              {
+                product.map((item)=>{
+                  return (
+                    <TouchableOpacity style={style.productExp} activeOpacity={0.5} onPress={()=>this._onPress(item)}>
+                      <Image style={style.fotoProduct} source={item.foto} ></Image>
+                      <Text style={style.titleProduct}>{item.type}</Text>
+                      <Text style={style.textProduct}>{item.subtitle}</Text>
+                    </TouchableOpacity>
+                  );
+                })
+              }
               <NossoFinal />
             </View>
           </ScrollView>

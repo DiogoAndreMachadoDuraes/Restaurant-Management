@@ -17,9 +17,9 @@ class ProductCategory extends React.Component{
   constructor(){
     super();
     this.state={
-        name:"Bebidas Quentes",
-        data: [],
-        isLoading: true,
+      name:"",
+      data: [],
+      isLoading: true,
     };
   }
 
@@ -50,24 +50,27 @@ class ProductCategory extends React.Component{
   
   render(){
     const { data, isLoading } = this.state;
+    const { navigation, route } = this.props;
+    const { type, foto, subtitle } = route.params;
+    const typeData=data.filter(a=>a.tipo==type).map(a=>a);
     return (
       <View style={style.container}>
         <OwnStatusBar />
         <ScrollView>
           <View style={style.productCategoryText}>
-            <ImageBackground source={require('../assets/fundodrawer.jpg')} style={style.imageBackgound} opacity={0.8}>
+            <ImageBackground source={foto} style={style.imageBackgound} opacity={0.8}>
               <View style={style.arrow}>
                 <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Product")} size={45} color={"#fff"}></Icon>
               </View>
-              <Text style={style.title}>{this.state.name}</Text>
-              <Text style={style.text}>Venha tomar algo quente connosco!</Text>
+              <Text style={style.title}>{type}</Text>
+              <Text style={style.text}>{subtitle}</Text>
             </ImageBackground>
           </View>
           <View style={style.productCategory}>
           {
             isLoading ? <ActivityIndicator/> : (
               <FlatList
-                data={data}
+                data={typeData}
                 keyExtractor={({ id }, index) => id}
                 renderItem={({ item }) => (
                   <TouchableOpacity style={style.productCategoryExp} activeOpacity={0.5} onPress={() => this._onPress(item)}>

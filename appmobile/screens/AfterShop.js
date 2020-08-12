@@ -5,23 +5,18 @@ import {
   View, 
   StatusBar, 
   Image, 
-  TouchableOpacity, 
-  ActivityIndicator, 
-  FlatList 
+  TouchableOpacity
 } from "react-native";
-
-const restaurante1 = { uri: "https://media-cdn.tripadvisor.com/media/photo-s/0e/c5/b5/dc/restaurante-los-galenos.jpg" };
 
 class AfterShop extends React.Component{
   constructor(){
       super();
       this.state={
-        data: [],
-        isLoading: true,
         name: "Obrigado pela sua reserva",
       };
     }
-    async componentDidMount(){ 
+    
+    componentDidMount(){ 
       console.log("Mounting the screen AfterShop...");
     }
 
@@ -40,7 +35,7 @@ class AfterShop extends React.Component{
               <Text style={style.text}>Reserva número: {item.id_reserva}</Text>
               <Text style={style.text}>Data Marcada: {item.data_marcada}</Text>
               <Text style={style.text}>Hora Marcada: {item.hora_marcada}</Text>
-              <Image style={style.image} source={restaurante1/*{uri:''+item.foto+''}*/}></Image>
+              <Image style={style.image} source={{uri:''+item.foto+''}}></Image>
             </TouchableOpacity>
             <TouchableOpacity style={style.progress} onPress={() => this.props.navigation.navigate("Home")}>
                 <Text style={style.progressText}>Guardar reserva</Text>
