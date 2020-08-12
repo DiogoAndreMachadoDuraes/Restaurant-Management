@@ -49,7 +49,7 @@ const style = StyleSheet.create({
 
     imageOut: {
         flex: 1,
-        backgroundColor: '#556b2f',
+        backgroundColor: '#de4f35',
     },
 
     space: {
