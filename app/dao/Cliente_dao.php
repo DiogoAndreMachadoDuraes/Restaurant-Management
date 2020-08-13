@@ -64,5 +64,25 @@ namespace App\DAO;
                 'numero_compras' => $cliente->get_numero_compras(),
             ]);
         }
+
+        public function Verify_free_meal(int $numero_cartao): bool
+        {
+            $statement=$this->pdo
+                ->prepare('SELECT id_cliente FROM Cliente WHERE numero_cartao = :numero_cartao AND numero_compras>=10');
+            $statement->bindParam('numero_cartao', $numero_cartao);
+            $statement->execute();
+            $count=$statement->fetchAll(\PDO::FETCH_ASSOC);
+            return count($count)===0 ? false:true ;
+        }
+
+        public function Buy_free_meal(Cliente $cliente) : void
+        {
+            $statement=$this->pdo
+                ->prepare('UPDATE Cliente SET numero_compras=:numero_compras WHERE numero_cartao=:numero_cartao');
+            $statement->execute([
+                'numero_cartao' => $cliente->get_numero_cartao(),
+                'numero_compras' => $cliente->get_numero_compras(),
+            ]);
+        }
     }
 ?>

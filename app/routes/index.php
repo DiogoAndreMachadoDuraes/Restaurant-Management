@@ -38,12 +38,11 @@
         $app->post('/Login', Auth_controller::class. ':Login');
         $app->post('/Refresh_token', Auth_controller::class . ':Refresh_token');
 
-        $app->group('/v1', function() use($app){
-            
+        $app->group('', function() use($app){
             $app->get('/Cliente', Cliente_controller::class . ':Select');
             $app->post('/Cliente', Cliente_controller::class . ':Insert');
             $app->put('/Cliente', Cliente_controller::class . ':Update');
-            $app->put('/Cliente_purchase', Cliente_controller::class . ':Update_purchase');
+            $app->put('/Cliente_free_meal', Cliente_controller::class . ':Purchase_free_meal');
             $app->delete('/Cliente', Cliente_controller::class . ':Delete');
 
             $app->get('/Compra_produto', Compra_produto_controller::class . ':Select');

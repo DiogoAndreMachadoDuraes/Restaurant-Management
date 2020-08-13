@@ -76,5 +76,26 @@ class Cliente_controller
             $response->getBody()->write("Cliente made a purchase!");
             return $response;
         }
+
+        public function Purchase_free_meal(Request $request, Response $response, array $arg) : Response 
+        {
+            $data=$request->getParsedBody();
+            $numero_cartao=$data['numero_cartao'];
+
+            $cliente_dao=new Cliente_dao();
+            $exists=$cliente_dao->Verify_free_meal($numero_cartao);
+
+            if(!$exists){
+                echo 'The cliente dont have a free meal!';
+                return $response->withStatus(401);
+            }
+            
+            $cliente=new Cliente();
+            $cliente->set_numero_cartao($numero_cartao)
+                ->set_numero_compras(0);
+            $cliente_dao->Buy_free_meal($cliente);
+            $response->getBody()->write("Cliente made a purchase by free meal!");
+            return $response;
+        }
     }
 ?>
