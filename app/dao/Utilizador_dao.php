@@ -20,7 +20,9 @@ class Utilizador_dao extends ConnectionDB
             data_nascimento,
             sexo,
             telefone,
-            morada,
+            rua,
+            codigo_postal,
+            localizacao,
             foto,
             email,
             password,
@@ -41,7 +43,9 @@ class Utilizador_dao extends ConnectionDB
             :data_nascimento,
             :sexo,
             :telefone,
-            :morada,
+            :rua,
+            :codigo_postal,
+            :localizacao,
             :foto,
             :email,
             :password,
@@ -53,7 +57,9 @@ class Utilizador_dao extends ConnectionDB
             'data_nascimento' => $utilizador->getdata_nascimento(),
             'sexo' => $utilizador->getsexo(),
             'telefone' => $utilizador->gettelefone(),
-            'morada' => $utilizador->getmorada(),
+            'rua' => $utilizador->getrua(),
+            'codigo_postal' => $utilizador->getcodigo_postal(),
+            'localizacao' => $utilizador->getlocalizacao(),
             'foto' => $utilizador->getfoto(),
             'email' => $utilizador->getemail(),
             'password' => $utilizador->getpassword(),
@@ -64,7 +70,7 @@ class Utilizador_dao extends ConnectionDB
     public function Update (Utilizador $utilizador): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Utilizador set nif=:nif , nome=:nome , data_nascimento=:data_nascimento , sexo=:sexo , telefone=:telefone , morada=:morada , foto=:foto , email=:email , password=:password , tipo=:tipo Where id_utilizador=:id_utilizador');
+            ->prepare('UPDATE Utilizador set nif=:nif , nome=:nome , data_nascimento=:data_nascimento , sexo=:sexo , telefone=:telefone , rua=:rua , codigo_postal=:codigo_postal , localizacao=:localizacao , foto=:foto , email=:email , password=:password , tipo=:tipo Where id_utilizador=:id_utilizador');
         $statement->execute([
             'id_utilizador' => $utilizador->getid_utilizador(),
             'nif' => $utilizador->getnif(),
@@ -72,7 +78,9 @@ class Utilizador_dao extends ConnectionDB
             'data_nascimento' => $utilizador->getdata_nascimento(),
             'sexo' => $utilizador->getsexo(),
             'telefone' => $utilizador->gettelefone(),
-            'morada' => $utilizador->getmorada(),
+            'rua' => $utilizador->getrua(),
+            'codigo_postal' => $utilizador->getcodigo_postal(),
+            'localizacao' => $utilizador->getlocalizacao(),
             'foto' => $utilizador->getfoto(),
             'email' => $utilizador->getemail(),
             'password' => $utilizador->getpassword(),
@@ -100,7 +108,9 @@ class Utilizador_dao extends ConnectionDB
                     data_nascimento,
                     sexo,
                     telefone,
-                    morada,
+                    rua,
+                    codigo_postal,
+                    localizacao,
                     foto,
                     email,
                     password,
@@ -118,7 +128,9 @@ class Utilizador_dao extends ConnectionDB
             ->setdata_nascimento($utilizadores[0]['data_nascimento'])
             ->setsexo($utilizadores[0]['sexo'])
             ->settelefone($utilizadores[0]['telefone'])
-            ->setmorada($utilizadores[0]['morada'])
+            ->setrua($utilizadores[0]['rua'])
+            ->setcodigo_postal($utilizadores[0]['codigo_postal'])
+            ->setlocalizacao($utilizadores[0]['localizacao'])
             ->setfoto($utilizadores[0]['foto'])
             ->setemail($utilizadores[0]['email'])
             ->setpassword($utilizadores[0]['password'])
