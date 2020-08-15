@@ -1,325 +1,272 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, Text, Image, Image1, TextInput, TouchableOpacity, ImageBackground, StatusBar } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {Header, Icon} from "react-native-elements";
-import { NossoHeader } from './shared/NossoHeader';
-import BarraEstados from './shared/BarraEstados';
-
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-const image = {uri: "https://images.trustinnews.pt/uploads/sites/5/2019/12/MB-Rest-JNCquoi-Asia-07.jpg"};
-const image1 = {uri: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.eater.com%2F2015%2F2%2F13%2F8033303%2Fman-sells-valentines-day-reservations-on-craigslist&psig=AOvVaw3bM3uPTqVeBZv2_5D0wDti&ust=1591110238049000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCmwdrx4OkCFQAAAAAdAAAAABAN"}; 
-
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput} from 'react-native';
+import { HeaderWihoutShop } from './shared/HeaderWihoutShop';
+import OwnStatusBar from './shared/OwnStatusBar';
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'; 
+import Swiper from 'react-native-swiper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useTheme, Avatar} from 'react-native-paper';
 class Home extends React.Component{
     constructor(){
         super();
         this.state={ name:'Sabor da Avó' };
     }
     componentDidMount(){ 
-        console.log("Montar ecrã Home...");
+        console.log("Mounting the screen Home...");
     }
     render() {
         return (
-
             <View style={style.container}>
-                <BarraEstados/>
+            <OwnStatusBar/>
+            <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
+                <TouchableOpacity
+                    style={{left: 330, marginTop: -55}}
+                    onPress={() => { navigation.navigate('Account'); }}>
+                        <Avatar.Image
+                        source={{
+                            uri:'https://www.hiper.fm/wp-content/uploads/2019/12/isabela-valadeiro.jpg',}}
+                            size={40}
+                />
+                </TouchableOpacity>
+                <ScrollView style={style.container}>
+                <View style ={style.container1}>
+                    <Text style={style.textUser}> Olá José Leite, </Text>
+                    <Text style={style.textWelcome}> Encontre as nossas novidades e visite-nos! </Text>
+                </View>
+                <Swiper autoplay vertical={false} height={200} activeDotColor="#FF6347">
+                    <View style={style.slide}>
+                        <Image source={require('../assets/space1.jpg')} resizeMode="cover" style={style.sliderImage} />
+                    </View>
+                    <View style={style.slide}>
+                        <Image source={require('../assets/cartao.jpg')} resizeMode="cover" style={style.sliderImage} />
+                    </View>
+                    <View style={style.slide}>
+                        <Image source={require('../assets/portuguesa.jpg')} resizeMode="cover" style={style.sliderImage} />
+                    </View>
+                </Swiper> 
+                <View style={style.categoryContainer}>
+                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("Space") }>
+                    <View style={style.categoryIcon}>
+                        <Fontisto name="home" size={35} color="#556b2f" />
+                    </View>
+                        <Text style={style.categoryBtnTxt}>Espaço</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("Restaurant")}>
+                        <View style={style.categoryIcon}>
+                            <Ionicons name="ios-map" size={35} color="#556b2f" />
+                    </View>
+                        <Text style={style.categoryBtnTxt}>Restaurantes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("")}>
+                        <View style={style.categoryIcon}>
+                        <Ionicons name="ios-card" size={35} color="#556b2f" />
+                    </View>
+                        <Text style={style.categoryBtnTxt}>Cartão Fidelidade</Text>
+                    </TouchableOpacity>
+                    </View>
+                    <View style={[style.categoryContainer, {marginTop: 10}]}>
+                    <TouchableOpacity style={style.categoryBtn} onPress={() =>this.props.navigation.navigate("Menu") }>
+                    <View style={style.categoryIcon}>
+                        <MaterialIcons name="restaurant" size={35} color="#556b2f" />
+                    </View>
+                        <Text style={style.categoryBtnTxt}>Menus</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("SpecialMenu") }>
+                    <View style={style.categoryIcon}>
+                        <MaterialCommunityIcons name="book-open-page-variant" size={35} color="#556b2f" />
+                    </View>
+                        <Text style={style.categoryBtnTxt}> Ementas</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("Product")}>
+                        <View style={style.categoryIcon}>
+                        <MaterialCommunityIcons name="food-variant" size={35} color="#556b2f" />
+                    </View>
+                        <Text style={style.categoryBtnTxt}> Produtos </Text>
+                    </TouchableOpacity>
+                    </View>
+                    <View style={style.searchBox}>
+                            <TextInput placeholder="Procurar..." placeholderTextColor="#556b2f" autoCapitalize="none" fontWeight={'bold'} style={{flex:1,padding:5}} />
+                            <Ionicons name="ios-search" size={30} />
+                    </View>
+            
+                    <Text style={style.textFound}>Encontre o seu restaurante aqui! E veja todas as sugestões que temos para si! </Text>
                     
-                <NossoHeader nome={this.state.name} navigation={this.props.navigation}/>
-
-                <ImageBackground source={imageBackgound} style={style.imagemdefundo} opacity={1}>
-
-                <View style={style.noticia}>
-                    <Text style={style.text}>Sobre nós </Text>
-                </View>
-
-                <Image source={require('../assets/espaco.jpg')} style={style.image}/>
-                <TouchableOpacity style={style.buttonEspaco} onPress={() => this.props.navigation.navigate("Espaco") }>
-                <Text style={style.buttondesign}>Nosso Espaço</Text>
-                </TouchableOpacity>
-                
-                <Image source={require('../assets/ementa.jpg')} style={style.image1} opacity={1}/>
-                <TouchableOpacity style={style.buttonEmenta} onPress={() => this.props.navigation.navigate("Menu") }>
-                <Text style={style.buttoncardapio}>Menus</Text>
-                </TouchableOpacity>
-
-                <Image source={require('../assets/reserva.jpeg')} style={style.image2} opacity={1}/>
-                <TouchableOpacity style={style.buttonReserva} onPress={() => this.props.navigation.navigate("Produto") }>
-                <Text style={style.buttonreserved}>Reserva</Text>
-                </TouchableOpacity>
-                
-                <View style={style.caixatexto}>
-                <Text style={style.titulo}>Horário de Atendimento</Text>
-                <Text style={style.subtitulo1}>Segunda a Quinta: 11h - 23h</Text>
-                <Text style={style.subtitulo2}>Sexta e Sábado: 12:30h - 21:30h</Text>
-                <Text style={style.subtitulo3}>Encerra aos Domingos e Feriados.</Text>
-                </View>
-
-                <View style={style.contacto}>
-                    <Text style={style.telefone}>Contacto</Text>
-                    <Text style={style.telefone1}>E-mail: sabordaavo@gmail.com</Text>
-                    <Text style={style.telefone2}>Telefone:253341134</Text>
-                </View>
-
-                <View style={style.facebook}>
-                        <FontAwesome5 name={'facebook'} size={50} color="#0000cd"/>
-                </View>
-                
-                <View style={style.instagram}>
-                         <FontAwesome5 name={'instagram'} size={50} color="deeppink" />
-                 </View>
-
-                 <Image source={require('../assets/mapa.jpg')} style={style.imagemapa} opacity={1}/>
-
-                </ImageBackground>
+                    <View>
+                        <MapView
+                            provider={PROVIDER_GOOGLE}
+                            style={style.map}
+                            region={{
+                                latitude: 41.69323,
+                                longitude: -8.83287,
+                                latitudeDelta: 0.1,
+                                longitudeDelta: 2,
+                            }}
+                        >
+                            <Marker
+                            coordinate={{
+                                latitude: 41.69323,
+                                longitude: -8.83287,
+                            }}
+                            title="Sabor da Avó"
+                            description="Restaurante em Viana do Castelo">
+                        <View>  
+                            <Image style={style.marker} source={require ("../assets/marker.png")}/>
+                        </View>
+                        <Callout tooltip>
+                            <View>
+                                <View style={style.bubble}>
+                                    <Text style= {style.name}>Restaurante Favorito</Text>
+                                    <Image
+                                        style={style.imageRestaurant}
+                                        source={require('../assets/marker.png')}
+                                    />
+                                </View>
+                                    <View style={style.arrowBorder} />
+                                    <View style={style.arrow} />
+                            </View>
+                        </Callout>
+                        </Marker>
+                        </MapView>
+                    </View>
+                </ScrollView>   
             </View>
         );
-        }   
+    }   
 }
-
 const style = StyleSheet.create({
     container: {
       flex: 1
     },
 
-    imagemdefundo: {
+    container1:{
+        paddingTop: 30,
+        paddingLeft:16,
+        alignItems: 'center',
+    },
+
+    searchBox: {
+        position:'absolute', 
+        marginTop: Platform.OS === 'ios' ? 40 : 20, 
+        flexDirection:"row",
+        backgroundColor: '#fff',
+        opacity: 0.5,
+        width: '97%',
+        alignSelf:'center',
+        borderRadius: 5,
+        padding: 10,
+        shadowRadius: 5,
+        top: 250,
+        elevation: 3,
+    },
+
+    imageRestaurant:{
+        width: 50,
+        height: 50,
+    },
+
+    name: {
+        fontSize: 16,
+        marginBottom: 5,
+    },
+
+    bubble:{
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        backgroundColor: 'white',
+        borderRadius: 6,
+        borderColor: '#ccc',
+        borderWidth: 0.5,
+        padding: 15,
+        width: 200,
+    },
+
+    marker:{
+        height: 50,
+        width:50,
+    },
+
+    map: {
+        width: "100%",
+        height: 300,
+        paddingVertical:20,
+        marginTop: 80,
+    },
+
+    slide: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    imageopacity:{
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    noticia:{
-        width: 120,
-        height: 30,
-        backgroundColor: '#ffa07a',
-        opacity: 0.9,
-        marginTop: -120,
-        top:20,
-        marginLeft: 250,
-        borderRadius: 20,
-    },
-
-    text:{
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'white',
-        marginTop: 0,
-        marginLeft: 10,
-        fontSize: 20,
-        fontWeight: 'bold',
-        textDecorationLine:'line-through',
-    },
-
-    image: {
-        width: 120,
-        height: 150,
-        marginTop: 120,
-        top:-80,
-        marginLeft: -270,
-    },
-    image1: {
-        width: 120,
-        height: 150,
-        marginTop: -275,
-        top: 2,
-        marginLeft: 0,
-    },
-    image2: {
-        width: 120,
-        height: 150,
-        marginTop: -220,
         top: 10,
-        marginLeft: 270,
     },
 
-    contacto:{
-        width: 290,
+    sliderImage: {
+        height: 145,
+        width: 400,
+        alignSelf: 'stretch',
+        borderBottomRightRadius: 65,
+        left: 0,
+        top:-40,
+    },
+
+    categoryContainer: {
+        flexDirection: 'row',
+        width: '95%',
+        alignSelf: 'center',
+        marginTop: 65,
+        marginBottom: 10,
+    },
+
+    categoryBtn: {
+        flex: 1,
+        width: '30%',
+        marginHorizontal: 0,
+        alignSelf: 'center',
+    },
+
+    categoryIcon: {
+        borderWidth: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        width: 70,
         height: 70,
-        backgroundColor: '#ffa07a',
-        opacity: 0.8,
-        marginTop: 20,
-        marginLeft: 30,
-        borderRadius: 20,
+        backgroundColor: '#fdeae7' ,
+        borderRadius: 50,
     },
 
-    telefone:{
+    categoryBtnTxt: {
+        alignSelf: 'center',
+        marginTop: 5,
+        color: '#de4f35',
+    },
+
+    textUser:{
         justifyContent: 'center',
         alignItems: 'center',
-        color: '#4b0082',
-        marginTop: 0,
-        marginLeft: 90,
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: 'bold',
+        color: '#de4f35',
+        top: -10,
     },
 
-    telefone1:{
-        color: "black",
-        fontSize: 15,
-        textAlign:'center',
-        fontWeight: 'normal',
-        fontStyle: "normal",
-        top: -5,
-        marginLeft: -20,
-        letterSpacing: 1,
-    },
-
-    telefone2:{
-        color: "black",
-        fontSize: 15,
-        textAlign:'center',
-        fontWeight: 'normal',
-        fontStyle: "normal",
-        top: -5,
-        marginLeft: -110,
-        letterSpacing: 1,
-    },
-
-    imagemapa: {
-        width: 290,
-        height: 80,
-        marginTop: -170,
-        top:30,
-        marginLeft: 30,
-        borderRadius: 20,
-    },
-
-    caixatexto:{
-        width: 290,
-        height: 100,
-        backgroundColor: '#ffa07a',
-        opacity: 0.8,
-        marginTop: 40,
-        marginLeft: 30,
-        borderRadius: 20,
-    },
-    titulo:{
-        color: "#4b0082",
-        fontSize: 17,
-        fontWeight: 'bold',
-        fontStyle: "normal",
-        marginLeft: 30,
-        marginTop: -10,
-        padding:10,
-    },
-
-    subtitulo1:{
-        color: "black",
-        fontSize: 15,
-        textAlign:'center',
-        fontWeight: 'normal',
-        fontStyle: "normal",
-        top: -5,
-        marginLeft: -50,
-        letterSpacing: 1,
-    },
-
-    subtitulo2:{
-        color: "black",
-        fontSize: 15,
-        textAlign:'center',
-        fontWeight: 'normal',
-        fontStyle: "normal",
-        top: -5,
-        marginLeft: -20,
-        letterSpacing: 1,
-    },
-
-    subtitulo3:{
-        color: "black",
-        fontSize: 15,
-        textAlign:'center',
-        fontWeight: 'normal',
-        fontStyle: "normal",
-        top: -5,
-        marginLeft: -5,
-        letterSpacing: 1,
-    },
-
-    buttonEspaco: {
-        width: 60,
-        height: 42,
-        backgroundColor: '#556b2f',
-        top: -55,
-        marginLeft: -270,
-        borderRadius: 0,
-        borderWidth: 3,
-        borderColor: '#dc143c',
+    textWelcome:{
+        justifyContent:'center',
         alignItems: 'center',
-        justifyContent: 'center',
+        fontSize: 16,
+        fontWeight: 'normal',
+        color: '#de4f35',
+        top:-10,
     },
 
-    buttonEmenta: {                                                 //menu
-        width: 60,
-        height: 42,
-        backgroundColor: '#556b2f',
-        marginTop: 20,
-        top: 8,
-        marginLeft: 0,
-        borderRadius: 0,
-        borderWidth: 3,
-        borderColor: '#dc143c',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    buttonReserva: {
-        width: 60,
-        height: 42,
-        backgroundColor: '#556b2f',
-        marginTop: 23,
-        top: 13,
-        marginLeft: 270,
-        borderRadius: 0,
-        borderWidth: 3,
-        borderColor: '#dc143c',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    facebook: {
-        marginTop: 100,
-        marginLeft: -40,
-        width: 50,
-        height: 50,
-        backgroundColor: 'white',
-        borderRadius: 4,
-        justifyContent: 'center',
-        alignItems:'center',
-    },
     
-    instagram:{
-        marginTop: -50,
-        marginLeft: 80,
-        width: 50,
-        height: 50,
-        backgroundColor: 'white',
-        borderRadius: 15,
-        justifyContent: 'center',
-        alignItems:'center',
-    },
-
-    buttondesign:{
-        fontSize: 13,
-        fontWeight: 'bold',
-        justifyContent: 'center',
-        color: '#fff8dc'
-    },
-
-    buttoncardapio:{
-        fontSize: 13,
-        fontWeight: 'bold',
-        color: '#fff8dc'
-    },
-
-    buttonreserved:{
-        fontSize: 13,
-        fontWeight: 'bold',
-        color: '#fff8dc'
-    },
-
+    textFound:{
+        fontSize: 20,
+        fontWeight: 'normal',
+        color: '#de4f35',
+        top: 30,
+        left: 20,
+    }
   });
-
   export default Home;

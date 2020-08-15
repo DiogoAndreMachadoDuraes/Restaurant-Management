@@ -1,62 +1,53 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity, ActivityIndicator } from "react-native";
+import {StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, ImageBackground, Image, TouchableOpacity } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
 
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
-const Hamburguer = require('../assets/gourmet.jpg');
-const Francesinha = require('../assets/french.jpg');
-const Carne = require('../assets/variedade.jpg');
-const Peixe = require('../assets/peixe.jpg');
-const Pizza = require('../assets/pizzamenu.jpg');
-const Doce = require('../assets/doces.jpg');
+const imageBackgound = { uri: "https://assets.tivolihotels.com/image/upload/q_auto,f_auto/media/minor/tivoli/images/hotels/tmpo/dinning/top-images/tivoli_marina_portimao_restaurants_top_image_1920x1000.jpg" };
+
+const Dia = require('../assets/dia.jpg');
+const Aniversario = require('../assets/aniversario.jpg');
+const Batizado = require('../assets/batizado.jpg');
+const Baby = require('../assets/baby.jpg');
+const Casamento = require('../assets/casamento.jpg');
 
 const dataFromApi = [
   {
     id: 1,
-    name: "Menus de Hambúrgueres",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Hamburguer
+    tipo: "Prato do Dia",
+    imagem: Dia
   },
   {
     id: 2,
-    name: "Menus de Francesinhas",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Francesinha
+    tipo: "Baby Shower",
+    imagem: Baby
   },
   {
     id: 3,
-    name: "Pratos de Carne",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Carne
+    tipo: "Batizados",
+    imagem: Batizado
   },
   {
     id: 4,
-    name: "Pratos de Peixe",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Peixe
+    tipo: "Aniversários",
+    imagem: Aniversario
   },
+
   {
     id: 5,
-    name: "Menus de Pizzas",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Pizza
-  },
-  {
-    id: 6,
-    name: "Menus de Cafés",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Doce
+    tipo: "Casamentos",
+    imagem: Casamento
   }
+
 ]
 
-class Menu extends React.Component{
+class SpecialMenu extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Menu",
+          tipo:"Ementa",
           data:[],
           isLoading: true
         };
@@ -75,13 +66,12 @@ class Menu extends React.Component{
           this.setState({ isLoading: false });
         });
     }
-
       render(){
         const { isLoading } = this.state;
         return (
           <View style={style.container}>
             <OwnStatusBar />
-            <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
+            <OwnHeader nome={this.state.tipo} navigation={this.props.navigation} />
             <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
               <ScrollView>
               <View style={style.menu}>
@@ -91,12 +81,12 @@ class Menu extends React.Component{
                     data={this.state.data}
                     keyExtractor={({ id }, index) => id}
                     renderItem={({ item }) => (
-                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
+                        <TouchableOpacity style={style.menuExp} activeOpacity={0.3} onPress={()=>this.props.navigation.navigate("Home", {item})}>
                           <Image style={style.menuExpFoto} source={item.imagem} ></Image>
-                          <Text style={style.titleMenu}>{item.name}</Text>
+                          <Text style={style.titleMenu}>{item.tipo}</Text>
                           <Text style={style.textMenu}>{item.subtitle}</Text>
                         </TouchableOpacity>
-                      )}
+                     )}
                   />
                 )
               }
@@ -139,16 +129,15 @@ class Menu extends React.Component{
 
       menu: {                           //scrollview
         width: "100%",
-        height: 1690,
+        height: "100%",
       },
 
       menuExp: {
         marginTop: 25,
-        top: 40,
-        marginLeft: 55,
-        padding: 20,
-        width: 290,
-        height: 200,
+        top: 20,
+        marginLeft: 80,
+        width: 260,
+        height: 160,
         backgroundColor: '#fff',
         borderRadius: 5,
         justifyContent: 'center',
@@ -156,25 +145,26 @@ class Menu extends React.Component{
       },
 
       menuExpFoto: {
-        width: 100,
-        height: 100,
-        marginTop: -10
+        width: 240,
+        height: 130,
+        marginTop: 30
       },
 
-      
-
-      menuExpText: {
-        width: 180,
-        height: 180,
-        marginTop: -150,
-      },
-
+      boxText2:{
+        width: 40,
+        height: 40,
+        backgroundColor: '#000',
+        opacity: 1,
+        top: 40,
+        marginLeft: 31,
+        borderRadius: 5,
+    },
       titleMenu: {
-        color: "#000",
-        fontSize: 20,
+        color: "#556b2f",
+        fontSize: 18,
         fontWeight: 'bold',
         fontStyle: "normal",
-        top: 12
+        top: -3
       },
 
       textMenu: {
@@ -185,4 +175,4 @@ class Menu extends React.Component{
         top: 20
       }
     });
-export default Menu;
+export default SpecialMenu;

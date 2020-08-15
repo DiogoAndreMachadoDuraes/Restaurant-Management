@@ -1,92 +1,94 @@
-import * as React from "react";
+import React , { useEffect } from "react";
 import { createDrawerNavigator} from "@react-navigation/drawer";
-import { NavigationContainer, DarkTheme, DefaultTheme } from "@react-navigation/native";
+import { 
+  NavigationContainer, 
+  DarkTheme as NavigationDarkTheme, 
+  DefaultTheme as NavigationDefaultTheme
+} from "@react-navigation/native";
 
 import Login from "./screens/Login.js";
-import Espaco from "./screens/Espaco.js";
-import BatataFrita from "./screens/BatataFrita.js";
-import BebidasFrias from "./screens/BebidasFrias.js";
-import BebidasQuentes from "./screens/BebidasQuentes.js";
-import Cafe from "./screens/Cafe.js";
-import Agradecimento from "./screens/Agradecimento.js";
-import Estrogonofe from "./screens/Estrogonofe.js"
-import Extras from "./screens/Extras.js";
-import Legumes from "./screens/Legumes.js";
-import Pudim from "./screens/Pudim.js";
-import Reserva from "./screens/Reserva.js";
-import Restaurantes from "./screens/Restaurantes.js";
-import Saladas from "./screens/Saladas.js";
-import SaladaTropical from "./screens/SaladaTropical.js";
-import Salmao from "./screens/Salmao.js";
-import Sobremesas from "./screens/Sobremesas.js";
-import CaldoVerde from "./screens/CaldoVerde.js";
-import VinhoTinto from "./screens/VinhoTinto.js";
+import Space from "./screens/Space.js";
+import Account from "./screens/Account.js";
+import AfterShop from "./screens/AfterShop.js";
+import Reservation from "./screens/Reservation.js";
+import Restaurant from "./screens/Restaurant.js";
 import Home from "./screens/Home.js";
 import Menu from "./screens/Menu.js";
-import Hamburguer from "./screens/Hamburguer.js";
-import HamburguerVitela from "./screens/HamburguerVitela.js";
-import Vitela from "./screens/Vitela.js";
-import Francesinha from "./screens/Francesinha.js";
-import FrancesinhaEspecial from "./screens/FrancesinhaEspecial.js";
-import Carne from "./screens/Carne.js";
-import Peixe from "./screens/Peixe.js";
-import Pizza from "./screens/Pizza.js";
-import PizzaPortuguesa from "./screens/PizzaPortuguesa.js";
-import Registar from "./screens/Registar.js";
-import Doce from "./screens/Doce.js";
-import Nata from "./screens/Nata.js";
-import Carrinho from "./screens/Carrinho.js";
-import Produto from "./screens/Produto.js";
+import EditAccount from "./screens/EditAccount.js";
+import CreateAccount from "./screens/CreateAccount.js";
+import SpecialMenu from "./screens/SpecialMenu.js";
+import Shop from "./screens/Shop.js";
+import Product from "./screens/Product.js";
+import ProductDetail from "./screens/ProductDetail.js";
+import ProductCategory from "./screens/ProductCategory.js";
+import Invoice from "./screens/Invoice.js";
+import TakeAway from "./screens/TakeAway.js";
+//import WishList from "./screens/WishList.js";
 
 import { DrawerContent } from './screens/shared/DrawerContent';
+
+import { ToggleTheme } from './components/context';
+import WishList from "./screens/WishList.js";
 
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-    return (
-      //<AppearanceProvider>
-        <NavigationContainer /*theme={scheme === 'dark' ? DarkTheme : DefaultTheme}*/>
+
+  const [ isDark, setTheme]= React.useState(false);
+
+  const customDefaultTheme={
+    ... NavigationDefaultTheme,
+    colors:{
+      ... NavigationDefaultTheme.colors,
+      background: '#ffffff',
+      text: '#333333'
+    }
+  }
+
+  const customDarkTheme={
+    ... NavigationDarkTheme,
+    colors:{
+      ... NavigationDarkTheme.colors,
+      background: 'black',
+      text: '#ffffff'
+    }
+  }
+
+  const theme = isDark ? customDarkTheme : customDefaultTheme;
+
+  const toggleTheme= React.useMemo(() => ({
+    toggle:()=>{
+      setTheme(isDark => !isDark);
+    }
+  }), [])
+
+  return (
+    //<AppearanceProvider>
+      <ToggleTheme.Provider value={toggleTheme}>
+        <NavigationContainer theme={theme}>
           <Drawer.Navigator initialRouteName="Login" drawerContentOptions={{ activeBackgroundColor: "#556b2f", activeTintColor: "#fff" }} drawerContent={props => <DrawerContent {...props} />}>
             <Drawer.Screen name="Login" component={Login} />
-            <Drawer.Screen name="Produto" component={Produto} options={{ drawerLabel: 'Produto' }}/>            
-            <Drawer.Screen name="Espaco" component={Espaco} options={{ drawerLabel: 'Espaco' }}/>
-            <Drawer.Screen name="BatataFrita" component={BatataFrita} options={{ drawerLabel: 'BatataFrita' }}/>
-            <Drawer.Screen name="BebidasFrias" component={BebidasFrias} options={{ drawerLabel: 'BebidasFrias' }}/>
-            <Drawer.Screen name="BebidasQuentes" component={BebidasQuentes} options={{ drawerLabel: 'BebidasQuentes' }}/>
-            <Drawer.Screen name="Cafe" component={Cafe} options={{ drawerLabel: 'Cafe' }}/>
-            <Drawer.Screen name="Agradecimento" component={Agradecimento} options={{ drawerLabel: 'Agradecimento' }}/>
-            <Drawer.Screen name="Estrogonofe" component={Estrogonofe} options={{ drawerLabel: 'Estrogonofe' }}/>
-            <Drawer.Screen name="Extras" component={Extras} options={{ drawerLabel: 'Extras' }}/>
-            <Drawer.Screen name="Legumes" component={Legumes} options={{ drawerLabel: 'Legumes' }}/>
-            <Drawer.Screen name="Pudim" component={Pudim} options={{ drawerLabel: 'Pudim' }}/>
-            <Drawer.Screen name="Reserva" component={Reserva} options={{ drawerLabel: 'Reserva' }}/>
-            <Drawer.Screen name="Restaurantes" component={Restaurantes} options={{ drawerLabel: 'Restaurantes' }}/>
-            <Drawer.Screen name="Saladas" component={Saladas} options={{ drawerLabel: 'Saladas' }}/>
-            <Drawer.Screen name="SaladaTropical" component={SaladaTropical} options={{ drawerLabel: 'SaladaTropical' }}/>
-            <Drawer.Screen name="Salmao" component={Salmao} options={{ drawerLabel: 'Salmao' }}/>
-            <Drawer.Screen name="Sobremesas" component={Sobremesas} options={{ drawerLabel: 'Sobremesas' }}/>
-            <Drawer.Screen name="CaldoVerde" component={CaldoVerde} options={{ drawerLabel: 'CaldoVerde' }}/>
-            <Drawer.Screen name="VinhoTinto" component={VinhoTinto} options={{ drawerLabel: 'VinhoTinto' }}/>
+            <Drawer.Screen name="Product" component={Product} options={{ drawerLabel: 'Product' }}/>
+            <Drawer.Screen name="ProductCategory" component={ProductCategory} options={{ drawerLabel: 'ProductCategory' }}/>  
+            <Drawer.Screen name="ProductDetail" component={ProductDetail} options={{ drawerLabel: 'ProductDetail' }}/>           
+            <Drawer.Screen name="Space" component={Space} options={{ drawerLabel: 'Space' }}/>
+            <Drawer.Screen name="AfterShop" component={AfterShop} options={{ drawerLabel: 'AfterShop' }}/>
+            <Drawer.Screen name="Reservation" component={Reservation} options={{ drawerLabel: 'Reservation' }}/>
+            <Drawer.Screen name="Restaurant" component={Restaurant} options={{ drawerLabel: 'Restaurant' }}/>
             <Drawer.Screen name="Home" component={Home} options={{drawerLabel:'Home'}}/>
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>
-            <Drawer.Screen name="Hamburguer" component={Hamburguer} options={{drawerLabel:'Hamburguer'}}/>
-            <Drawer.Screen name="HamburguerVitela" component={HamburguerVitela} options={{drawerLabel:'HamburguerVitela'}}/>
-            <Drawer.Screen name="Registar" component={Registar} options={{drawerLabel:'Registar'}}/>
-            <Drawer.Screen name="Carne" component={Carne} options={{drawerLabel:'Carne'}}/>
-            <Drawer.Screen name="Peixe" component={Peixe} options={{drawerLabel:'Peixe'}}/>
-            <Drawer.Screen name="Francesinha" component={Francesinha} options={{drawerLabel:'Francesinha'}}/>
-            <Drawer.Screen name="FrancesinhaEspecial" component={FrancesinhaEspecial} options={{drawerLabel:'FrancesinhaEspecial'}}/>
-            <Drawer.Screen name="Pizza" component={Pizza} options={{drawerLabel:'Pizza'}}/>
-            <Drawer.Screen name="Vitela" component={Vitela} options={{drawerLabel:'Vitela'}}/>
-            <Drawer.Screen name="PizzaPortuguesa" component={PizzaPortuguesa} options={{drawerLabel:'PizzaPortuguesa'}}/>
-            <Drawer.Screen name="Doce" component={Doce} options={{drawerLabel:'Doce'}}/>
-            <Drawer.Screen name="Nata" component={Nata} options={{drawerLabel:'Nata'}}/>
-            <Drawer.Screen name="Carrinho" component={Carrinho} options={{drawerLabel:'Carrinho'}}/>
-
+            <Drawer.Screen name="CreateAccount" component={CreateAccount} options={{drawerLabel:'CreateAccount'}}/>
+            <Drawer.Screen name="EditAccount" component={EditAccount} options={{drawerLabel:'EditAccount'}}/>
+            <Drawer.Screen name="Shop" component={Shop} options={{drawerLabel:'Shop'}}/>
+            <Drawer.Screen name="Account" component={Account} options={{drawerLabel:'Account'}}/>
+            <Drawer.Screen name="SpecialMenu" component={SpecialMenu} options={{drawerLabel:'SpecialMenu'}}/>
+            <Drawer.Screen name="Invoice" component={Invoice} options={{drawerLabel:'Invoice'}}/>
+            <Drawer.Screen name="TakeAway" component={TakeAway} options={{drawerLabel:'TakeAway'}}/>
           </Drawer.Navigator>
         </NavigationContainer>
-      //</AppearanceProvider>
-    );
+      </ToggleTheme.Provider>
+    //</AppearanceProvider>
+  );
 }
 
 export default App;
