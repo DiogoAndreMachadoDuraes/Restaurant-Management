@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity, ActivityIndicator } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
@@ -57,7 +57,8 @@ class Menu extends React.Component{
         super();
         this.state={
           name:"Menu",
-          data:[]
+          data:[],
+          isLoading: true
         };
       }
       async componentDidMount(){ 
@@ -75,6 +76,7 @@ class Menu extends React.Component{
         });
     }
       render(){
+        const { isLoading } = this.state;
         return (
           <View style={style.container}>
             <OwnStatusBar />
@@ -88,7 +90,7 @@ class Menu extends React.Component{
                     data={this.state.data}
                     keyExtractor={({ id }, index) => id}
                     renderItem={({ item }) => (
-                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Hamburguer", {item})}>
+                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
                           <Image style={style.menuExpFoto} source={item.imagem} ></Image>
                           <Text style={style.titleMenu}>{item.name}</Text>
                           <Text style={style.textMenu}>{item.subtitle}</Text>
