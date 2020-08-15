@@ -48,7 +48,8 @@ class SpecialMenu extends React.Component{
         super();
         this.state={
           tipo:"Ementa",
-          data:[]
+          data:[],
+          isLoading: true
         };
       }
       async componentDidMount(){ 
@@ -66,6 +67,7 @@ class SpecialMenu extends React.Component{
         });
     }
       render(){
+        const { isLoading } = this.state;
         return (
           <View style={style.container}>
             <OwnStatusBar />

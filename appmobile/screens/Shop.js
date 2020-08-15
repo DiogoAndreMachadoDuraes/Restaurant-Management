@@ -21,11 +21,34 @@ class Shop extends React.Component {
         this.state={
           name:"Carrinho de compras",
           buyMenu: [],
-          buyProduto: []
+          buyProduct: [],
+          menu: [],
+          product: []
         };
       }
      async componentDidMount(){ 
         console.log("Mounting the screen Shop...");
+        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          this.setState({ menu: json, isLoading:false });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
+
+        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Produto', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          this.setState({ product: json, isLoading:false });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
 
         await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
           .then((response) => response.json())
@@ -42,7 +65,7 @@ class Shop extends React.Component {
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
-            this.setState({ buyProduto: json, isLoading:false });
+            this.setState({ buyProduct: json, isLoading:false });
           })
           .catch((error) => console.error(error))
           .finally(() => {
@@ -80,10 +103,16 @@ class Shop extends React.Component {
      
     render()
     {
-        const { navigation, route } = this.props;
-        const { menu, product } = route.params;
-
-          return (
+      const {
+        menu, product, buyMenu , buyProduct 
+      } = this.state;
+      const dataMenu=menu.map (a=>a.id_menu);
+      const dataProduct=product.map (a=>a.id_produto);
+      const dataBuyMenu=buyMenu.filter (a=>a.id_menu==dataMenu);
+      const dataBuyProduct=buyProduct.filter (a=>a.id_produto==dataProduct);
+      console.log (dataBuyMenu);
+      console.log (dataBuyProduct);
+      return (
           <View style={style.container}>
             <OwnStatusBar />
             <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
@@ -124,7 +153,7 @@ class Shop extends React.Component {
                       })
                     }
                     {
-                      buyProduto.map((item)=>{
+                      buyProduct.map((item)=>{
                         return (
                           <View style={style.menuExp}>
                           <Text style={style.title}>{product.nome}</Text>

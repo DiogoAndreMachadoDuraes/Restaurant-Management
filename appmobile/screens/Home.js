@@ -26,12 +26,10 @@ class Home extends React.Component{
                     style={{left: 330, marginTop: -55}}
                     onPress={() => { navigation.navigate('Account'); }}>
                         <Avatar.Image
-                            source={{
-                                uri:
-                                'https://www.hiper.fm/wp-content/uploads/2019/12/isabela-valadeiro.jpg',
-                                }}
-                                size={40}
-                        />
+                        source={{
+                            uri:'https://www.hiper.fm/wp-content/uploads/2019/12/isabela-valadeiro.jpg',}}
+                            size={40}
+                />
                 </TouchableOpacity>
                 <ScrollView style={style.container}>
                 <View style ={style.container1}>
@@ -94,7 +92,7 @@ class Home extends React.Component{
                             <Ionicons name="ios-search" size={30} />
                     </View>
             
-                        <Text style={style.textFound}>Encontre o seu restaurante aqui! E veja todas as sugestões que temos para si! </Text>
+                    <Text style={style.textFound}>Encontre o seu restaurante aqui! E veja todas as sugestões que temos para si! </Text>
                     
                     <View>
                         <MapView

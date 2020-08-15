@@ -108,7 +108,7 @@ class TakeAway extends React.Component{
               <ScrollView>
                 <View style={style.form}>
                     {
-                    data.filter(item=>item.id_funcionario==user.id).map((item)=>{
+                    this.state.data.filter(item=>item.id_funcionario==user.id).map((item)=>{
                       return (
                         <View>
                   <Accordion
