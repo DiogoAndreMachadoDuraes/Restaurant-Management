@@ -5,14 +5,20 @@ import {
   View, 
   ScrollView, 
   ImageBackground, 
-  Image, 
   FlatList, 
-  ActivityIndicator
+  ActivityIndicator,
+  Linking,
+  Share,
+  Alert,
+  TouchableOpacity
 } from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
 import NossoFinal from "./shared/NossoFinal.js";
 import OwnStatusBar from "./shared/OwnStatusBar.js";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/Foundation";
+import Email from "react-native-vector-icons/Fontisto";
+import Address from "react-native-vector-icons/Entypo";
+import ShareIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 class Restaurant extends React.Component{
   constructor(){
@@ -42,33 +48,71 @@ class Restaurant extends React.Component{
       console.log("Error to get data: " + e);
     }
   }
+
+  share = async(rua, codigo_postal, localizacao) => {
+    let shareOptions = {
+      title: "Partilhar Restaurante",
+      message: 'Já experimentei e adorei o Restaurante da Avó na '+ rua + ', ' + codigo_postal +', ' + localizacao +'. Venha nos visitar! http://sabordaavo.pt'
+    }
+
+    try {
+      let ShareResponse = await Share.share(shareOptions);
+      console.log(JSON.stringify(ShareResponse));
+    } catch(error) {
+      Alert.alert('Partilha não concluída', 'Existiu um erro ao tentar partilhar o restaurante', [
+        {text: 'Voltar a tentar'}
+      ]);
+    }
+  }
   
   render(){
     const { isLoading } = this.state;
+    if (isLoading) {
+      return (
+        <View style={style.container}>
+          <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} >
+            <ActivityIndicator size="large" color="#556b2f" style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 80 }}/>
+            <Text>Carregando a informação...</Text>
+          </ImageBackground>
+        </View>
+      );
+    }
     return (
       <View style={style.container}>
         <OwnStatusBar />
         <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} >
           <ScrollView>
-            <View style={style.restaurantes}>
-              {
-                isLoading ? <ActivityIndicator/> : (
-                  <FlatList
-                    data={this.state.dataSource}
-                    keyExtractor={({ id }, index) => id}
-                    renderItem={({ item }) => (
-                      <TouchableWithoutFeedback style={style.restaurantesExp}>
-                        <Image style={style.restaurantesExpFoto} source={{uri:''+item.foto+''}} ></Image>
-                        <Text style={style.textNome}>{item.nome}</Text>
-                        <Text style={style.textrestaurantes}>Morada: {item.rua}, {item.codigo_postal}, {item.localizacao}</Text>
-                        <Text style={style.textrestaurantes}>Email: {item.email}</Text>
-                        <Text style={style.textrestaurantes}>Telefone: {item.telefone}</Text>
-                      </TouchableWithoutFeedback>
-                    )}
-                  />
-                )
-              }
+            <View style={style.restaurant}>
+              <FlatList
+                data={this.state.dataSource}
+                keyExtractor={({ id }, index) => id}
+                renderItem={({ item }) => (
+                  <View style={style.restaurantData}>
+                    <ImageBackground style={style.restaurantFoto} source={{uri:''+item.foto+''}} >
+                      <View style={style.restaurantName}>
+                        <Text style={style.title}>{item.nome}</Text>
+                      </View>
+                      <TouchableOpacity style={style.share} onPress={()=>this.share(item.rua, item.codigo_postal, item.localizacao)}>
+                        <ShareIcon name="share-outline" color="dodgerblue" size={30}/>
+                      </TouchableOpacity>
+                    </ImageBackground>
+                    <Address name="address" size={25} style={style.text}>
+                      <Text style={style.text}> : {item.rua}, {item.codigo_postal}, {item.localizacao}</Text>
+                    </Address>
+                    <TouchableOpacity style={style.text} onPress={()=>{Linking.openURL('mailto:'+item.email+'');}}>
+                      <Email name="email" size={25} style={style.text}>
+                        <Text style={style.text}> : {item.email}</Text>
+                      </Email>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={style.text} onPress={()=>{ Linking.openURL('tel:'+item.telefone+'');} }>
+                      <Icon name="telephone" size={25} style={style.text}>
+                        <Text> : {item.telefone}</Text>
+                      </Icon>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              />
               <NossoFinal />
             </View>
           </ScrollView>
@@ -83,47 +127,57 @@ const style = StyleSheet.create({
     flex: 1
   },
   imageBackgound: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "azure"
   },
-  restaurantes: {
+  restaurant: {
     width: "100%",
     height: "100%",
   },
-  restaurantesExp: {
+  restaurantData: {
     marginTop: 40,
-    marginLeft: 40,
-    padding: 30,
-    width: 320,
-    backgroundColor: '#fff',
-    borderRadius: 5,
+    marginLeft: 20,
+    width: 360,
+    height:440,
+    backgroundColor: 'white',
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15
+  },
+  restaurantFoto: {
+    top:-10,
+    width: 360,
+    height: 350
+  },
+  restaurantName: {
+    backgroundColor:"white",
+    width:180,
+    height:40,
+    top: 30,
+    left:10,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 40
   },
-  restaurantesExpFoto: {
-    width: 250,
-    height: 250,
-    marginTop: 0
+  share: {
+    marginLeft: 310,
+    marginTop: -10,
+    width:30,
+    height:32,
+    backgroundColor:"white",
+    borderRadius: 8
   },
-  restaurantesExpText: {
-    width: 180,
-    height: 180,
-    marginTop: -150,
-  },
-  textNome: {
-    color: "#000",
-    fontSize: 28,
-    fontStyle: "italic",
-    textAlign: 'center',
-    top: 17,
-    marginVertical: 8
-  },
-  textrestaurantes: {
-    color: "#000",
+  title: {
+    color: "dodgerblue",
     fontSize: 15,
     fontStyle: "italic",
     textAlign: 'center',
-    top: 17,
-    marginVertical: 3
+    marginVertical: 8
+  },
+  text: {
+    color: "dodgerblue",
+    fontSize: 14,
+    textAlign: 'center',
+    marginVertical: 3,
   }
 });
 
