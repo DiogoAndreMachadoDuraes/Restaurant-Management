@@ -10,12 +10,6 @@ namespace App\DAO;
 
       public function __construct()
       {
-         /*$host=getenv('ementarestauracao_HOST=');
-         $user=getenv('ementarestauracao_USER=');
-         $pass=getenv('ementarestauracao_PASSWORD=');
-         $dbname=getenv('ementarestauracao_DBNAME=');
-         $port=getenv('ementarestauracao_PORT=');*/
-
          $host='178.62.212.71';
          $user='rh_user';
          $pass='rFrH2016';

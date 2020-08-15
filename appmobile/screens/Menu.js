@@ -74,7 +74,9 @@ class Menu extends React.Component{
           this.setState({ isLoading: false });
         });
     }
+
       render(){
+        const {data , isLoading}=this.state;
         return (
           <View style={style.container}>
             <OwnStatusBar />

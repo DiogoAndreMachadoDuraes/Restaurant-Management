@@ -18,6 +18,7 @@ class Alergenio_dao extends ConnectionDB
                 id_alergenio,
                 tipo,
                 descricao,
+                foto,
                 id_extra,
                 id_produto
             From Alergenio;')
@@ -33,12 +34,14 @@ class Alergenio_dao extends ConnectionDB
                 null,
                 :tipo,
                 :descricao,
+                :foto,
                 :id_extra,
                 :id_produto
             );');
         $statement->execute([
             'tipo' => $alergenio->gettipo(),
             'descricao' => $alergenio->getdescricao(),
+            'foto' => $alergenio->getfoto(),
             'id_extra'=>$alergenio->getid_extra(),
             'id_produto'=>$alergenio->getid_produto()
         ]);
@@ -47,11 +50,12 @@ class Alergenio_dao extends ConnectionDB
     public function Update (Alergenio $alergenio): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Alergenio set tipo=:tipo , descricao=:descricao , id_extra=:id_extra and id_produto=:id_produto Where id_alergenio=:id_alergenio');
+            ->prepare('UPDATE Alergenio set tipo=:tipo , descricao=:descricao , foto=:foto , id_extra=:id_extra , id_produto=:id_produto Where id_alergenio=:id_alergenio');
         $statement->execute([
             'id_alergenio' => $alergenio->getid_alergenio(),
             'tipo' => $alergenio->gettipo(),
             'descricao' => $alergenio->getdescricao(),
+            'foto' => $alergenio->getfoto(),
             'id_extra'=>$alergenio->getid_extra(),
             'id_produto'=>$alergenio->getid_produto()
         ]);
