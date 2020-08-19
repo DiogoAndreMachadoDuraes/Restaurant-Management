@@ -20,6 +20,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import * as Animatable from 'react-native-animatable';
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 class Reservation extends React.Component{
   constructor(){
@@ -50,7 +51,6 @@ class Reservation extends React.Component{
       const value = await AsyncStorage.getItem("User");
       if (value !== null) {
         this.setState({ user: JSON.parse(value) });
-        console.log(this.state.user);
       }
     } catch (e) {
       console.log("Error rending user: " + e);
@@ -113,6 +113,17 @@ class Reservation extends React.Component{
     if(this.state.take=="sim"){
       return(
         <View>
+          <FlatList
+            data={this.state.user}
+            keyExtractor={({ id }, index) => id}
+            renderItem={({ item }) => (
+              <TouchableWithoutFeedback>
+                <Text style={style.data}>Telemóvel associado:  {item.telefone}</Text>
+                <Text style={style.data}>Morada: {item.rua}, {item.codigo_postal}, {item.localizacao}</Text>
+                <Text style={style.data}>Email: {item.email}</Text>
+              </TouchableWithoutFeedback>
+            )}
+          />
           <Text style={style.data}>Tipo de entrega: </Text>
           <Picker
             style={{ height: 50, width: 190, top: -45, left: 140}}
@@ -150,11 +161,9 @@ class Reservation extends React.Component{
 
   render(){
     {
-      //this.getData();
+      this.getData();
     }
 
-    /* const { navigation, route } = this.props;
-    const { item } = route.params; */
     const { validCode, validQuantity, number} = this.state;
     return (
       <View style={style.container}>
@@ -182,7 +191,7 @@ class Reservation extends React.Component{
                   onSubmitEditing={(val) => this.validQuantity(val)}
                   onEndEditing={(e)=>this.validQuantity(e.nativeEvent.text)}
                 />
-                <Text style={style.validCode}>* Se desejar take_away marcar a Quantidade de Pessoas como 0.</Text>
+                <Text style={style.validCode}>* Se desejar Take Away marcar a Quantidade de Pessoas como 0.</Text>
                 { 
                   number ? true : 
                     <Animatable.View animation="fadeInLeft" duration={500}>
@@ -195,18 +204,6 @@ class Reservation extends React.Component{
                         <Text style={style.invalidQuantity}>A quantidade tem de ser menor do que 1000!</Text>
                     </Animatable.View>
                 }
-                <FlatList
-                  data={this.state.user}
-                  keyExtractor={({ id }, index) => id}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity>
-                      <Text style={style.data}>Telemóvel associado: </Text>
-                      <Text style={{ top: -35, marginLeft: 200 }}>{item.telefone}</Text>
-                      <Text style={style.data}>Code associado: </Text>
-                      <Text style={{ top: -35, marginLeft: 200 }}>{item.Code}</Text>
-                    </TouchableOpacity>
-                  )}
-                />
                 <Text style={style.data}>Restaurante: </Text>
                 <Picker
                   style={{ height: 50, width: 190, top: -45, left: 120}}
@@ -231,24 +228,7 @@ class Reservation extends React.Component{
                 { 
                   this.setTake()
                 }
-                <Text style={style.data}>Código de desconto: </Text>
-                <TextInput style={{ height: 40, width: 120, borderColor: 'gray', borderWidth: 1, top: -40, marginLeft: 180 }}
-                  onChangeText={(val) => this.validCode(val)}
-                  values={this.state.code}
-                  onSubmitEditing={(val) => this.validCode(val)}
-                  onEndEditing={(e)=>this.validCode(e.nativeEvent.text)}
-                />
-                { 
-                  validCode ? 
-                    <Animatable.View animation="fadeInLeft" duration={500}>
-                      <Text style={style.validCode}>Você obteve um desconto de 10% sobre a compra</Text>
-                    </Animatable.View>
-                    : 
-                    <Animatable.View animation="fadeInLeft" duration={500}>
-                        <Text style={style.invalidCode}>Introduza um código de desconto correto</Text>
-                    </Animatable.View>
-                }
-                <Text style={style.win}>Com esta reserva estas a ganhar {this.state.pontos} pontos em cartão de cliente!</Text>
+                
               </View>
             </KeyboardAvoidingView>
             <View style={style.button}>
@@ -256,7 +236,7 @@ class Reservation extends React.Component{
                 style={style.button}
                 title="Reservar"
                 color="black"
-                onPress={()=>this._onPress(this.state.user)}
+                onPress={this._onPress}
               />
             </View>
             <NossoFinal />
@@ -265,91 +245,91 @@ class Reservation extends React.Component{
       </View>
     );
   }
-}
 
-_onPress = async(user) => {
-  /*
-  try {
-    let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Cliente', { 
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    });
-    let json = await response.json();
-    this.setState({
-      isLoading: false,
-      data: json
-    });
-  } catch(e){
-      console.log("Error to get data: " + e);
-  }
+  _onPress = async() => {
+    /*
+    try {
+      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Cliente', { 
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      let json = await response.json();
+      this.setState({
+        isLoading: false,
+        data: json
+      });
+    } catch(e){
+        console.log("Error to get data: " + e);
+    }
 
-  const { data } = this.state;
+    const { data } = this.state;
 
-  console.log(data);
-  
-  const cliente=data.filter(a=>a.id_utilizador==user.id_utilizador).map(a=>a.id_cliente);
+    console.log(data);
+    
+    const cliente=data.filter(a=>a.id_utilizador==user.id_utilizador).map(a=>a.id_cliente);
 
-  try
-  {
-    await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', { 
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "data": moment(datetime).format('YYYY/MM/DD'),
-        "hora": moment(datetime).format('HH:mm:ss'),
-        "quantidade_pessoas": this.state.quantity,
-        "data_marcada": this.state.chosenDate.format('YYYY/MM/DD'),
-        "hora_marcada": this.state.chosenDate.format('HH:mm:ss'),
-        "estado": "Em análise",
-        "id_cliente": cliente[0]
-      })
-    });
-  } catch(e){
-    console.log(e);
-  }
-
-  if (this.state.take == "sim") {
     try
     {
-      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Take_away', { 
+      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', { 
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          "tipo": this.state.type,
-          "preco": this.state.price,
+          "data": moment(datetime).format('YYYY/MM/DD'),
+          "hora": moment(datetime).format('HH:mm:ss'),
+          "quantidade_pessoas": this.state.quantity,
+          "data_marcada": this.state.chosenDate.format('YYYY/MM/DD'),
+          "hora_marcada": this.state.chosenDate.format('HH:mm:ss'),
           "estado": "Em análise",
-          "id_funcionario": null,
-          "id_reserva": null,
+          "id_cliente": cliente[0]
         })
       });
     } catch(e){
       console.log(e);
     }
-    this.props.navigation.navigate("AfterShop", {
-      id_reserva: ,
-      data_marcada: this.state.chosenDate.format('YYYY/MM/DD'),
-      hora_marcada: this.state.chosenDate.format('HH:mm:ss'),
-      foto: ,
-    });
-  }
-  else{
-    this.props.navigation.navigate("AfterShop", {
-      id_reserva: ,
-      data_marcada: this.state.chosenDate.format('YYYY/MM/DD'),
-      hora_marcada: this.state.chosenDate.format('HH:mm:ss'),
-      foto: ,
-    });
-  }
-*/
 
+    if (this.state.take == "sim") {
+      try
+      {
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Take_away', { 
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "tipo": this.state.type,
+            "preco": this.state.price,
+            "estado": "Em análise",
+            "id_funcionario": null,
+            "id_reserva": null,
+          })
+        });
+      } catch(e){
+        console.log(e);
+      }
+      this.props.navigation.navigate("AfterShop", {
+        id_reserva: ,
+        data_marcada: this.state.chosenDate.format('YYYY/MM/DD'),
+        hora_marcada: this.state.chosenDate.format('HH:mm:ss'),
+        foto: ,
+      });
+    }
+    else{
+      this.props.navigation.navigate("AfterShop", {
+        id_reserva: ,
+        data_marcada: this.state.chosenDate.format('YYYY/MM/DD'),
+        hora_marcada: this.state.chosenDate.format('HH:mm:ss'),
+        foto: ,
+      });
+    }
+    */
+    //this.props.navigation.navigate("AfterShop");
+  }
 }
 
 const style = StyleSheet.create({
@@ -365,7 +345,7 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   reservation: {
-    height: 600,
+    height: 800,
     width: 360,
     marginTop: 10,
     backgroundColor: "lightgray"

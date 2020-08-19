@@ -10,38 +10,38 @@ import {
 
 class AfterShop extends React.Component{
   constructor(){
-      super();
-      this.state={
-        name: "Obrigado pela sua reserva",
-      };
-    }
-    
-    componentDidMount(){ 
-      console.log("Mounting the screen AfterShop...");
-    }
+    super();
+    this.state={
+      name: "Obrigado pela sua reserva",
+    };
+  }
+  
+  componentDidMount(){ 
+    console.log("Mounting the screen AfterShop...");
+  }
 
-    render(){
-      const { navigation, route } = this.props;
-      const { item } = route.params;
-      return (
-        <View style={style.container}>
-          <StatusBar hidden={false}></StatusBar>
-          <View style={style.uperside}>
-            <Image source={require("../assets/logo.png")}></Image>
-          </View>
-          <View style={style.bottom}>
-            <Text style={style.title}>{this.state.name}</Text>
-            <TouchableOpacity>
-              <Text style={style.text}>Reserva número: {item.id_reserva}</Text>
-              <Text style={style.text}>Data Marcada: {item.data_marcada}</Text>
-              <Text style={style.text}>Hora Marcada: {item.hora_marcada}</Text>
-              <Image style={style.image} source={{uri:''+item.foto+''}}></Image>
-            </TouchableOpacity>
-            <TouchableOpacity style={style.progress} onPress={() => this.props.navigation.navigate("Home")}>
-                <Text style={style.progressText}>Guardar reserva</Text>
-            </TouchableOpacity>
-          </View>
+  render(){
+    const { navigation, route } = this.props;
+    const { item } = route.params;
+    return (
+      <View style={style.container}>
+        <StatusBar hidden={false}></StatusBar>
+        <View style={style.uperside}>
+          <Image source={require("../assets/logo.png")}></Image>
         </View>
+        <View style={style.bottom}>
+          <Text style={style.title}>{this.state.name}</Text>
+          <TouchableOpacity>
+            <Text style={style.text}>Reserva número: {item.id_reserva}</Text>
+            <Text style={style.text}>Data Marcada: {item.data_marcada}</Text>
+            <Text style={style.text}>Hora Marcada: {item.hora_marcada}</Text>
+            <Image style={style.image} source={{uri:''+item.foto+''}}></Image>
+          </TouchableOpacity>
+          <TouchableOpacity style={style.progress} onPress={() => this.props.navigation.navigate("Home")}>
+              <Text style={style.progressText}>Guardar reserva</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }

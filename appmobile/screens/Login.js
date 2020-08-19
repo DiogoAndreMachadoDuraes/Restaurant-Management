@@ -90,71 +90,73 @@ class Login extends React.Component {
                 <View style={style.upside}>
                     <Image source={require("../assets/logo.png")}></Image>
                 </View>
-                <KeyboardAvoidingView behavior="padding" style={style.bottom}>
-                    <Text style={style.text}>Email:</Text>
-                    <Input 
-                        inputStyle={style.email}
-                        placeholder='Introduza o seu email'
-                        leftIcon={
-                            <Icon
-                                name='user'
-                                size={24}
-                                color='white'
-                            />
+                <View style={style.bottom}>
+                    <KeyboardAvoidingView behavior="padding">
+                        <Text style={style.text}>Email:</Text>
+                        <Input 
+                            inputStyle={style.email}
+                            placeholder='Introduza o seu email'
+                            leftIcon={
+                                <Icon
+                                    name='user'
+                                    size={24}
+                                    color='white'
+                                />
+                            }
+                            autoCapitalize="none"
+                            keyboardType="email-address"
+                            returnKeyType="next"
+                            onChangeText={(val) => this.handleValidEmail(val)}
+                            values={this.state.email}
+                            onSubmitEditing={() => this.secondInput.focus()}
+                            onEndEditing={(e)=>this.handleValidEmail(e.nativeEvent.text)}
+                        />
+
+                        { 
+                            validEmail ? true : 
+
+                            <Animatable.View animation="fadeInLeft" duration={500}>
+                                <Text style={style.invalidEmail}>O email deve conter pelo menos 5 caráteres.</Text>
+                            </Animatable.View>
                         }
-                        autoCapitalize="none"
-                        keyboardType="email-address"
-                        returnKeyType="next"
-                        onChangeText={(val) => this.handleValidEmail(val)}
-                        values={this.state.email}
-                        onSubmitEditing={() => this.secondInput.focus()}
-                        onEndEditing={(e)=>this.handleValidEmail(e.nativeEvent.text)}
-                    />
 
-                    { 
-                        validEmail ? true : 
+                        <Text style={style.text}>{/* {translate("Password")} */}Password:</Text>
+                        <Input {...this.props}
+                            inputStyle={style.pass}
+                            placeholder='Introduza a sua palavra-passe'
+                            secureTextEntry={this.state.secureTextEntry}
+                            autoCapitalize="none"
+                            leftIcon={
+                                <Icon
+                                    name='lock'
+                                    size={24}
+                                    color='white'
+                                />
+                            }
+                            rightIcon={
+                                <Icon
+                                    name={this.state.iconName}
+                                    size={24}
+                                    color='white'
+                                    onPress={this.onIconPress}
+                                />
+                            }
+                            onSubmitEditing={() => Keyboard.dismiss}
+                            autoCapitalize="none"
+                            onChangeText={(val) => this.handleValidPass(val)}
+                            values={this.state.password}
+                            ref={ref => {this.secondInput = ref;}}
+                            onEndEditing={(e)=>this.handleValidPass(e.nativeEvent.text)}
+                        />
 
-                        <Animatable.View animation="fadeInLeft" duration={500}>
-                            <Text style={style.invalidEmail}>O email deve conter pelo menos 5 caráteres.</Text>
-                        </Animatable.View>
-                    }
+                        { 
+                            validPass ? true : 
 
-                    <Text style={style.text}>{/* {translate("Password")} */}Password:</Text>
-                    <Input {...this.props}
-                        inputStyle={style.pass}
-                        placeholder='Introduza a sua palavra-passe'
-                        secureTextEntry={this.state.secureTextEntry}
-                        autoCapitalize="none"
-                        leftIcon={
-                            <Icon
-                                name='lock'
-                                size={24}
-                                color='white'
-                            />
+                            <Animatable.View animation="fadeInLeft" duration={500}>
+                                <Text style={style.invalidPass}>A password deve conter pelo menos 6 caráteres.</Text>
+                            </Animatable.View>
                         }
-                        rightIcon={
-                            <Icon
-                                name={this.state.iconName}
-                                size={24}
-                                color='white'
-                                onPress={this.onIconPress}
-                            />
-                        }
-                        onSubmitEditing={() => Keyboard.dismiss}
-                        autoCapitalize="none"
-                        onChangeText={(val) => this.handleValidPass(val)}
-                        values={this.state.password}
-                        ref={ref => {this.secondInput = ref;}}
-                        onEndEditing={(e)=>this.handleValidPass(e.nativeEvent.text)}
-                    />
-
-                    { 
-                        validPass ? true : 
-
-                        <Animatable.View animation="fadeInLeft" duration={500}>
-                            <Text style={style.invalidPass}>A password deve conter pelo menos 6 caráteres.</Text>
-                        </Animatable.View>
-                    }
+                    </KeyboardAvoidingView>
 
                     <TouchableOpacity /*onPress={() => this.props.navigation.navigate("Home")}*/>
                         <Text style={style.forgotPass}>Esqueceu-se da palavra-passe?</Text>
@@ -165,7 +167,7 @@ class Login extends React.Component {
                     <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate("CreateAccount")}>
                         <Text style={style.registerText}>Registar</Text>
                     </TouchableOpacity>
-                </KeyboardAvoidingView>
+                </View>
             </View>
         );
     }
@@ -178,42 +180,10 @@ class Login extends React.Component {
             return;
         }
 
-        try {
-            let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', { 
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-              }
-            });
-            let json = await response.json();
-            this.setState({
-              isLoading: false,
-              data: json
-            });
-        } catch(e){
-            console.log("Error to get data: " + e);
-        }
-
-        const { data } = this.state;
-
-        console.log(data);
-        
-        const email=data.filter(a=>a.email==this.state.email).map(a=>a.email);
-        const password=data.filter(a=>a.password==this.state.password).map(a=>a.password);
-       
-        const nome=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
-        AsyncStorage.setItem("Name", nome[0]);
-        const foto=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
-        AsyncStorage.setItem("Foto", foto[0]);
-        const user=data.filter(a=>a.email==this.state.email).map(a=>a);
-        AsyncStorage.setItem("User", JSON.stringify(user));
-
-        console.log(user);
-
-        if(email[0]===this.state.email && password[0] === this.state.password){
+        if(this.state.validEmail==true && this.state.validPass==true){
             try
             {
-                await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Login', { 
+                let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Login', { 
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
@@ -224,9 +194,48 @@ class Login extends React.Component {
                         "password":this.state.password
                     })
                 });
+
+                let token = await response.text();
+
+                try {
+                    await AsyncStorage.setItem("token", token);
+                } catch (error) {
+                    console.log('Error to AsyncStorage Token: ' + error.message);
+                }
+
+                try {
+                    let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
+                      headers: {
+                        Authorization: 'Bearer ' + token,
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json; charset=utf-8'
+                      }
+                    });
+                    let json = await response.json();
+                    this.setState({
+                      isLoading: false,
+                      data: json
+                    });
+                } catch(e){
+                    console.log("Error to get data: " + e);
+                }
+        
+                const { data } = this.state;
+               
+                const nome=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
+                AsyncStorage.setItem("Name", nome[0]);
+                const foto=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
+                AsyncStorage.setItem("Foto", foto[0]);
+                const user=data.filter(a=>a.email==this.state.email).map(a=>a);
+                AsyncStorage.setItem("User", JSON.stringify(user));
+
                 this.props.navigation.navigate("Home");
+
             } catch(e){
-                console.log(e);
+                console.log("Error to get User: " + e);
+                Alert.alert('Valores inválidos', '   O Email e/ou a palavra-passe não são válidos.', [
+                    {text: 'Introduzir novamente'}
+                ]);
             }
         } else{
             Alert.alert('Valores incorretos', '   O Email e/ou a palavra-passe estão incorreto(s).', [
@@ -247,7 +256,7 @@ const style = StyleSheet.create({
         alignItems: 'center'
     },
     bottom:{
-        flex: 1.5,
+        flex: 1.2,
         backgroundColor: "#556b2f",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -258,14 +267,15 @@ const style = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         left: 10,
-        marginTop: -12
+        marginTop: -12,
+        fontSize: 16
     },
     email:{
         color: 'white',
     },
     invalidEmail:{
         color: '#FF0000',
-        fontSize: 12,
+        fontSize: 10,
         top: -20,
         left: 10
     },
@@ -274,7 +284,7 @@ const style = StyleSheet.create({
     },
     invalidPass:{
         color: '#FF0000',
-        fontSize: 12,
+        fontSize: 10,
         top: -20,
         left: 10
     },

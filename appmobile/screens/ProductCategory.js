@@ -7,7 +7,8 @@ import {
   ImageBackground, 
   Image, 
   ActivityIndicator, 
-  FlatList 
+  FlatList ,
+  AsyncStorage
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -26,26 +27,33 @@ class ProductCategory extends React.Component{
   async componentDidMount(){ 
     console.log("Mounting the screen ProductCategory...");
 
+    let token = await AsyncStorage.getItem("token");
     try {
       let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto', { 
         headers: {
+          Authorization: 'Bearer ' + token,
           Accept: 'application/json',
           'Content-Type': 'application/json'
         }
       });
       let json = await response.json();
-      console.log(json);
       this.setState({
         isLoading: false,
         data: json,
       });
     } catch(e){
-      console.log("Error to get data: " + e);
+      console.log("Error to get product: " + e);
     }
   }
 
   _onPress(item) {
-    this.props.navigation.navigate("ProductDetail", {item});
+    this.props.navigation.navigate("ProductDetail", {
+      id_produto: item.id_produto,
+      name: item.nome,
+      foto: item.foto,
+      description: item.descricao,
+      price: item.preco
+    });
   }
   
   render(){

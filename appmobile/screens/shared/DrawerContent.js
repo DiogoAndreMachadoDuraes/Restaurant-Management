@@ -55,8 +55,8 @@ export function DrawerContent(props){
 
     const clear = async () => {
         try {
-            let clearAll=await AsyncStorage.clear();
-            setClear(clearAll);
+            await AsyncStorage.clear();
+            props.navigation.navigate('Login');
         } catch (e) {
             console.log("Error to clear all data: " + e);
         }
@@ -249,10 +249,7 @@ export function DrawerContent(props){
                     )}
                     label="Sair da conta"
                     labelStyle={{color: 'white'}}
-                    onPress={() => {
-                        clearAll;
-                        props.navigation.navigate('Login');
-                    }}
+                    onPress={()=>clear}
                     style={theme.dark ? style.exitButtonDark : style.exitButton}
                 />
             </Drawer.Section>

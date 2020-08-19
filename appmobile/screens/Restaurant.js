@@ -10,7 +10,8 @@ import {
   Linking,
   Share,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
 import NossoFinal from "./shared/NossoFinal.js";
@@ -31,9 +32,11 @@ class Restaurant extends React.Component{
   async componentDidMount(){ 
     console.log("Mounting the screen Restaurant...");
 
+    let token = await AsyncStorage.getItem("token");
     try {
       let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Restaurante', { 
         headers: {
+          Authorization: 'Bearer ' + token,
           Accept: 'application/json',
           'Content-Type': 'application/json'
         }
