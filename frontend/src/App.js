@@ -9,9 +9,7 @@ import Choose from './components/login-choose/login-choose';
 function App() {
   return (
     <div className="App">
-      
       <Choose></Choose>
-
     </div>
   );
 }
