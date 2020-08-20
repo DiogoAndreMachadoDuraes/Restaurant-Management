@@ -17,9 +17,9 @@ class Produto_dao extends ConnectionDB
                 id_produto,
                 nome,
                 descricao,
-                quantidade,
-                preco,
-                foto
+                tipo,
+                foto,
+                preco
             From Produto;')
             ->fetchAll(\PDO::FETCH_ASSOC);
         return $produto;
@@ -32,32 +32,32 @@ class Produto_dao extends ConnectionDB
             null,
             :nome,
             :descricao,
-            :quantidade,
-            :preco,
-            :foto
+            :tipo,
+            :foto,
+            :preco
 
         );');
         
         $statement->execute([
             'nome' => $produto ->getnome(),
             'descricao' => $produto->getdescricao(),
-            'quantidade' => $produto ->getquantidade(),
-            'preco' => $produto ->getpreco(),
-            'foto' => $produto ->getfoto()
+            'tipo' => $produto ->gettipo(),
+            'foto' => $produto ->getfoto(),
+            'preco' => $produto ->getpreco()
         ]);
     }
 
     public function Update (Produto $produto): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Produto set nome=:nome , descricao=:descricao , quantidade=:quantidade , preco=:preco , foto=:foto Where id_produto=:id_produto');
+            ->prepare('UPDATE Produto set nome=:nome , descricao=:descricao , tipo=:tipo , foto=:foto , preco=:preco Where id_produto=:id_produto');
         $statement->execute([
             'id_produto' => $produto->getid_produto(),
             'nome' => $produto->getnome(),
             'descricao' => $produto->getdescricao(),
-            'quantidade' => $produto->getquantidade(),
-            'preco' => $produto->getpreco(),
-            'foto' => $produto->getfoto()
+            'tipo' => $produto->gettipo(),
+            'foto' => $produto->getfoto(),
+            'preco' => $produto->getpreco()
         ]);
     }
 

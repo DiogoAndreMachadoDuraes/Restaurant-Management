@@ -75,6 +75,7 @@ class Menu extends React.Component{
           this.setState({ isLoading: false });
         });
     }
+
       render(){
         const { isLoading } = this.state;
         return (

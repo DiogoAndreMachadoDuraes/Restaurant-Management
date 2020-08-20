@@ -7,10 +7,9 @@ namespace App\Models;
         private int $id_produto;
         private string $nome;
         private string $descricao;
-        private int $quantidade;
-        private float $preco;
+        private string $tipo;
         private string $foto;
-        
+        private float $preco;
 
         public function Produto() {}
 
@@ -36,26 +35,36 @@ namespace App\Models;
             return $this;
         }
 
-         //get e set descricao
-         public function getdescricao()
-         {
-             return $this->descricao;
-         }
-         public function setdescricao(string $descricao): Produto
-         {
-             $this->descricao = $descricao;
-             return $this;
-         }
- 
-
-        //get e set quantidade
-        public function getquantidade()
+        //get e set descricao
+        public function getdescricao()
         {
-            return $this->quantidade;
+        return $this->descricao;
         }
-        public function setquantidade(int $quantidade): Produto
+        public function setdescricao(string $descricao): Produto
         {
-            $this->quantidade = $quantidade;
+        $this->descricao = $descricao;
+        return $this;
+        }
+
+        //get e set tipo
+        public function gettipo()
+        {
+        return $this->tipo;
+        }
+        public function settipo(string $tipo): Produto
+        {
+        $this->tipo = $tipo;
+        return $this;
+        }
+
+        //get e set foto
+        public function getfoto()
+        {
+            return $this->foto;
+        }
+        public function setfoto(string $foto): Produto
+        {
+            $this->foto = $foto;
             return $this;
         }
 
@@ -67,17 +76,6 @@ namespace App\Models;
         public function setpreco(float $preco): Produto
         {
             $this->preco = $preco;
-            return $this;
-        }
-
-        //get e set foto
-        public function getfoto()
-        {
-            return $this->foto;
-        }
-        public function setfoto(string $foto): Produto
-        {
-            $this->foto = $foto;
             return $this;
         }
     }

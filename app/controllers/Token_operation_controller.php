@@ -49,11 +49,11 @@ namespace App\Controllers;
             $token_dao= new Token_dao();
             $token_dao->Insert($token_model);
 
-            $response->getBody()->write("Token: ");
+            //$response->getBody()->write("Token: ");
             $response->getBody()->write($token);
-            $response->getBody()->write("<br>");
-            $response->getBody()->write("Refresh Token: ");
-            $response->getBody()->write($refresh_token);
+            //$response->getBody()->write("<br>");
+            //$response->getBody()->write("Refresh Token: ");
+            //$response->getBody()->write($refresh_token);
 
             return $response;
         }

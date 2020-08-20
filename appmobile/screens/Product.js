@@ -6,6 +6,26 @@ import OwnStatusBar from "./shared/OwnStatusBar.js";
 
 const product = [
   {
+    type: "Hambúrgueres",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/hamburguer.jpg')
+  },
+  {
+    type: "Francesinhas",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/francesinha.jpg')
+  },
+  {
+    type: "Pizzas",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/pizza.jpg')
+  },
+  {
+    type: "Pratos de carne",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/pratoFrango.jpg')
+  },
+  {
     type: "Pratos de peixe",
     subtitle: "À moda da Avó",
     foto: require('../assets/salmao.jpg')
