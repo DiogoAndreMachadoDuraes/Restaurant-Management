@@ -1,6 +1,13 @@
 import React from 'react';
 import './style.css';
 import Home from "../home/home";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect
+  } from "react-router-dom";
 
 class Login extends React.Component {
     constructor(props){
@@ -42,8 +49,8 @@ class Login extends React.Component {
         }
     }
 
-    _login = async () => {
-        if (this.state.email.length == 0 || this.state.password.length == 0 ) {
+    _login = () => {
+        /*if (this.state.email.length == 0 || this.state.password.length == 0 ) {
             alert('Introdução de valores nulos', '   O Email ou a palavra-passe não podem ser nulos.');
             return;
         }
@@ -91,7 +98,8 @@ class Login extends React.Component {
             }
         } else{
             alert('Valores incorretos', '   O Email e/ou a palavra-passe estão incorreto(s).');
-        }
+        } */
+        return <Redirect to="/home" />;
     }
 
     render(){
