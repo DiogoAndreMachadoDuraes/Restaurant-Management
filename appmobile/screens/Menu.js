@@ -63,17 +63,23 @@ class Menu extends React.Component{
       }
       async componentDidMount(){ 
         console.log("Mounting the screen SpecialMenu...");
-
-        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Ementa', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-        .then((response) => response.json())
-        .then((json) => {
-          console.log(json);
-          this.setState({ data: json, isLoading:false });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
+        let token = await AsyncStorage.getItem("token");
+        try {
+          let response = await fetch('http://192.168.1.155/Ementas-de-Restauracao/index.php/Menu', { 
+            headers: {
+              Authorization: 'Bearer ' + token,
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            }
+          });
+          let json = await response.json();
+          this.setState({
+            isLoading: false,
+            data: json,
+          });
+        } catch(e){
+          console.log("Error to get product: " + e);
+        }
     }
 
       render(){

@@ -126,19 +126,6 @@ class Home extends React.Component{
                             </View>
                         </Callout>
                         </Marker>
-                        </MapView>
-                    </View>
-                    <View>
-                        <MapView
-                            provider={PROVIDER_GOOGLE}
-                            style={style.map}
-                            region={{
-                                latitude: 41.69323,
-                                longitude: -8.83287,
-                                latitudeDelta: 0.1,
-                                longitudeDelta: 2,
-                            }}
-                        >
                             <Marker
                             coordinate={{
                                 latitude: 41.5084468,
@@ -153,26 +140,15 @@ class Home extends React.Component{
                             <View>
                                 <View style={style.bubble}>
                                     <Text style= {style.name}>Restaurante Favorito</Text>
-                                    <Image source={require('../assets/space3.jpg')} style={style.imageRestaurant1} />
+                                    <View style={style.imageRestaurant1}>
+                                    <Image source={require('../assets/space3.jpg')} /> 
+                                    </View>                                    
                                 </View>
                                     <View style={style.arrowBorder} />
                                     <View style={style.arrow} />
                             </View>
                         </Callout>
                         </Marker>
-                        </MapView>
-                    </View>
-                    <View>
-                        <MapView
-                            provider={PROVIDER_GOOGLE}
-                            style={style.map}
-                            region={{
-                                latitude: 41.3527285,
-                                longitude: -8.20451531,
-                                latitudeDelta: 0.1,
-                                longitudeDelta: 2,
-                            }}
-                        >
                             <Marker
                             coordinate={{
                                 latitude: 41.3527285,
