@@ -48,11 +48,11 @@ export function ListPages (){
   }
 
   function goWeeklyMeal() {
-    history.push("/weeklymeal");
+    history.push("/weeklyMeal");
   }
 
   function goSpecialMenu() {
-    history.push("/specialmenu");
+    history.push("/specialMenu");
   }
 
   function goMenu() {
@@ -64,11 +64,11 @@ export function ListPages (){
   }
 
   function goBuyMenu() {
-    history.push("/buymenu");
+    history.push("/buyMenu");
   }
 
   function goBuyProduct() {
-    history.push("/buyproduct");
+    history.push("/buyProduct");
   }
 
   function goInvoice() {
@@ -92,15 +92,15 @@ export function ListPages (){
   }
 
   function goMenuProduct() {
-    history.push("/menuproduct");
+    history.push("/menuProduct");
   }
 
   function goNutricionalInformation() {
-    history.push("/nutricionalinformation");
+    history.push("/nutricionalInformation");
   }
 
   function goTakeAway() {
-    history.push("/takeaway");
+    history.push("/takeAway");
   }
 
   return( 
