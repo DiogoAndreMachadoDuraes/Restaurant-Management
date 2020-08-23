@@ -33,7 +33,7 @@ const styles = theme => ({
     },
 });
 
-class Menu extends React.Component {
+class Admin extends React.Component {
     constructor(props){
         super(props);
         this.goCreate = this.goCreate.bind(this);
@@ -44,11 +44,11 @@ class Menu extends React.Component {
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen Menu...");
+        console.log("Mounting the screen Admin...");
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Menu', { 
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Administrador', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -79,11 +79,11 @@ class Menu extends React.Component {
     }
 
     goCreate() {
-        this.props.history.push("/menuCreate");
+        this.props.history.push("/adminCreate");
     }
 
     goEdit() {
-        this.props.history.push("/menuEdit");
+        this.props.history.push("/adminEdit");
     }
 
     render(){
@@ -108,16 +108,11 @@ class Menu extends React.Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                             <Paper elevation={3} className={"paper"}>
-                                <label htmlFor="email">Menu:</label>
+                                <label htmlFor="email">Administrador</label>
                                 <Table size="small">
                                     <TableHead>
                                     <TableRow>
-                                        <TableCell>Nome</TableCell>
-                                        <TableCell>Descricao</TableCell>
-                                        <TableCell>Tipo</TableCell>
-                                        <TableCell>Foto</TableCell>
-                                        <TableCell>Preco</TableCell>
-                                        <TableCell>Id_Ementa</TableCell>
+                                        <TableCell>Id Utilizador</TableCell>
                                         <TableCell></TableCell>
                                         <TableCell>
                                             <ListItem button style={{whidth: 10}}>
@@ -133,13 +128,8 @@ class Menu extends React.Component {
                                     {
                                         data.map((item) => {
                                             return(
-                                            <TableRow key={item.id_menu}>
-                                                <TableCell>{item.nome}</TableCell>
-                                                <TableCell>{item.descricao}</TableCell>
-                                                <TableCell>{item.tipo}</TableCell>
-                                                <TableCell>{item.foto}</TableCell>
-                                                <TableCell align="right">{item.preco}</TableCell>
-                                                <TableCell>{item.id_ementa}</TableCell>
+                                            <TableRow key={item.id_administrador}>
+                                                <TableCell>{item.id_utilizador}</TableCell>
                                             </TableRow>
                                             );
                                         })
@@ -158,8 +148,8 @@ class Menu extends React.Component {
         )
     }
 }
-Menu.propTypes = {
+Admin.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withRouter(withStyles(styles)(Menu));
+export default withRouter(withStyles(styles)(Admin));

@@ -38,7 +38,7 @@ const styles = theme => ({
     },
 });
 
-class Create extends React.Component {
+class Edit extends React.Component {
     constructor(props){
         super(props);
         this.save = this.save.bind(this);
@@ -49,11 +49,11 @@ class Create extends React.Component {
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen Create User...");
+        console.log("Mounting the screen Edit Menu...");
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Menu', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -72,11 +72,58 @@ class Create extends React.Component {
 
     save = async () => {
         //guardar dados
-        this.props.history.push("/user");
+        this.props.history.push("/menu");
+    }
+
+    validName = (val) => {
+        if( val.trim().length >= 0 ) {
+            if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛàèìòùÀÈÌÒÙçÇ]*$/.test(val)) {
+                this.setState({
+                    isValidName: true,
+                    isNullName: false,
+                    name: val
+                });
+            }else {
+                this.setState({
+                    isValidName: true,
+                    isNullName: false,
+                    name: val
+                });
+            }
+        } else {
+          this.setState({
+                isNullName: true,
+                name:val
+            });
+        }
+    }
+
+    validPrice = (val) => {
+        if( val.trim().length >= 0 ) {
+            if(/^[0-9],.*$/.test(val)) {
+                this.setState({
+                    isValidPrice: true,
+                    isNullPrice: false,
+                    price: val
+                });
+            }else {
+            this.setState({
+                    isValidPrice: false,
+                    isNullPrice: false,
+                    price: val
+                });
+            }
+        }
+        else {
+            this.setState({
+                isNullPrice: true,
+                price: val
+            });
+        }
     }
 
     render(){
-        const { data } = this.state;
+        const { data, type } = this.state;
         const {classes} = this.props;
         return (
             <div className="root">
@@ -94,7 +141,7 @@ class Create extends React.Component {
                 <main className={"content"}>
                     <Container maxWidth="lg" style={{marginTop: 100}}>
                         <Grid>
-                            <h1 style={{fontSize:35}}>Criar Utilizador</h1>
+                            <h1 style={{fontSize:35}}>Editar Menu</h1>
                             <Paper elevation={24} className={"paper"}>
                                 <a href="#pablo" onClick={e => e.preventDefault()}>
                                     <img src={avatar} alt="..." width="400" height="400" />
@@ -114,8 +161,20 @@ class Create extends React.Component {
                                             onChange={(value, index) => this.setState({ type : value})}
                                             style={{inlineSize: 200}}
                                         >
-                                            <MenuItem value={10}></MenuItem>
-                                           
+                                            <MenuItem value={10}>Pratos de peixe</MenuItem>
+                                            <MenuItem value={20}>Pratos de carne</MenuItem>
+                                            <MenuItem value={30}>Pizzas</MenuItem>
+                                            <MenuItem value={40}>Hamburgueres</MenuItem>
+                                            <MenuItem value={50}>Pratos sem glúten</MenuItem>
+                                            <MenuItem value={60}>Pratos Vegan</MenuItem>
+                                            <MenuItem value={70}>Batata Frita</MenuItem>
+                                            <MenuItem value={80}>Saladas</MenuItem>
+                                            <MenuItem value={90}>Sopas</MenuItem>
+                                            <MenuItem value={100}>Bebidas</MenuItem>
+                                            <MenuItem value={110}>Sobremesas</MenuItem>
+                                            <MenuItem value={120}>Bebidas Quentes</MenuItem>
+                                            <MenuItem value={130}>Menu Café</MenuItem>
+                                            
                                         </Select>
                                     </FormControl>
                                     <TextField className={"outlineBasic"} label="Preço (€)" variant="outlined"/>
@@ -134,8 +193,8 @@ class Create extends React.Component {
     }
 }
 
-Create.propTypes = {
+Edit.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withRouter(withStyles(styles)(Create));
+export default withRouter(withStyles(styles)(Edit));

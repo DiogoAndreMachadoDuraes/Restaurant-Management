@@ -33,7 +33,7 @@ const styles = theme => ({
     },
 });
 
-class SpecialMenu extends React.Component {
+class Account extends React.Component {
     constructor(props){
         super(props);
         this.goCreate = this.goCreate.bind(this);
@@ -44,11 +44,11 @@ class SpecialMenu extends React.Component {
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen Special Menu...");
+        console.log("Mounting the screen Account...");
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Ementa', { 
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -79,11 +79,11 @@ class SpecialMenu extends React.Component {
     }
 
     goCreate() {
-        this.props.history.push("/specialMenuCreate");
+        this.props.history.push("/accountCreate");
     }
 
     goEdit() {
-        this.props.history.push("/specialMenuEdit");
+        this.props.history.push("/accountEdit");
     }
 
     render(){
@@ -108,18 +108,25 @@ class SpecialMenu extends React.Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                             <Paper elevation={3} className={"paper"}>
-                                <label htmlFor="email">Ementa:</label>
+                                <label htmlFor="email">Conta</label>
                                 <Table size="small">
                                     <TableHead>
                                     <TableRow>
+                                        <TableCell>Nif</TableCell>
                                         <TableCell>Nome</TableCell>
-                                        <TableCell>Descricao</TableCell>
-                                        <TableCell>Tipo</TableCell>
+                                        <TableCell>Data Nascimento</TableCell>
+                                        <TableCell>Sexo</TableCell>
+                                        <TableCell>Telefone</TableCell>
+                                        <TableCell>Rua</TableCell>
+                                        <TableCell>Codigo Postal</TableCell>
+                                        <TableCell>Localizacao</TableCell>
                                         <TableCell>Foto</TableCell>
-                                        <TableCell>Preco</TableCell>
+                                        <TableCell>Email</TableCell>
+                                        <TableCell>Password</TableCell>
+                                        <TableCell>Tipo</TableCell>
                                         <TableCell></TableCell>
                                         <TableCell>
-                                            <ListItem button style={{whidth: 10}}>
+                                            <ListItem button style={{whidth: 12}}>
                                                 <ListItemIcon>
                                                     <EditIcon />
                                                 </ListItemIcon>
@@ -132,12 +139,19 @@ class SpecialMenu extends React.Component {
                                     {
                                         data.map((item) => {
                                             return(
-                                            <TableRow key={item.id_ementa}>
+                                            <TableRow key={item.id_utilizador}>
+                                                <TableCell>{item.nif}</TableCell>
                                                 <TableCell>{item.nome}</TableCell>
-                                                <TableCell>{item.descricao}</TableCell>
-                                                <TableCell>{item.tipo}</TableCell>
+                                                <TableCell>{item.data_nascimento}</TableCell>
+                                                <TableCell>{item.sexo}</TableCell>
+                                                <TableCell>{item.telefone}</TableCell>
+                                                <TableCell>{item.rua}</TableCell>
+                                                <TableCell>{item.codigo_postal}</TableCell>
+                                                <TableCell>{item.localizacao}</TableCell>
                                                 <TableCell>{item.foto}</TableCell>
-                                                <TableCell align="right">{item.preco}</TableCell>
+                                                <TableCell>{item.email}</TableCell>
+                                                <TableCell>{item.password}</TableCell>
+                                                <TableCell>{item.tipo}</TableCell>
                                             </TableRow>
                                             );
                                         })
@@ -156,8 +170,8 @@ class SpecialMenu extends React.Component {
         )
     }
 }
-SpecialMenu.propTypes = {
+Account.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withRouter(withStyles(styles)(SpecialMenu));
+export default withRouter(withStyles(styles)(Account));

@@ -33,7 +33,7 @@ const styles = theme => ({
     },
 });
 
-class User extends React.Component {
+class Employee extends React.Component {
     constructor(props){
         super(props);
         this.goCreate = this.goCreate.bind(this);
@@ -44,11 +44,11 @@ class User extends React.Component {
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen User...");
+        console.log("Mounting the screen Employee...");
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Funcionario', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -79,11 +79,11 @@ class User extends React.Component {
     }
 
     goCreate() {
-        this.props.history.push("/userCreate");
+        this.props.history.push("/employeeCreate");
     }
 
     goEdit() {
-        this.props.history.push("/userEdit");
+        this.props.history.push("/employeeEdit");
     }
 
     render(){
@@ -108,25 +108,15 @@ class User extends React.Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                             <Paper elevation={3} className={"paper"}>
-                                <label htmlFor="email">Utilizador</label>
+                                <label htmlFor="email">Funcionário</label>
                                 <Table size="small">
                                     <TableHead>
                                     <TableRow>
-                                        <TableCell>Nif</TableCell>
-                                        <TableCell>Nome</TableCell>
-                                        <TableCell>Data Nascimento</TableCell>
-                                        <TableCell>Sexo</TableCell>
-                                        <TableCell>Telefone</TableCell>
-                                        <TableCell>Rua</TableCell>
-                                        <TableCell>Codigo Postal</TableCell>
-                                        <TableCell>Localizacao</TableCell>
-                                        <TableCell>Foto</TableCell>
-                                        <TableCell>Email</TableCell>
-                                        <TableCell>Password</TableCell>
-                                        <TableCell>Tipo</TableCell>
+                                        <TableCell>Id Restaurante</TableCell>
+                                        <TableCell>Id Utilizador</TableCell>
                                         <TableCell></TableCell>
                                         <TableCell>
-                                            <ListItem button style={{whidth: 12}}>
+                                            <ListItem button style={{whidth: 10}}>
                                                 <ListItemIcon>
                                                     <EditIcon />
                                                 </ListItemIcon>
@@ -139,19 +129,9 @@ class User extends React.Component {
                                     {
                                         data.map((item) => {
                                             return(
-                                            <TableRow key={item.id_utilizador}>
-                                                <TableCell>{item.nif}</TableCell>
-                                                <TableCell>{item.nome}</TableCell>
-                                                <TableCell>{item.data_nascimento}</TableCell>
-                                                <TableCell>{item.sexo}</TableCell>
-                                                <TableCell>{item.telefone}</TableCell>
-                                                <TableCell>{item.rua}</TableCell>
-                                                <TableCell>{item.codigo_postal}</TableCell>
-                                                <TableCell>{item.localizacao}</TableCell>
-                                                <TableCell>{item.foto}</TableCell>
-                                                <TableCell>{item.email}</TableCell>
-                                                <TableCell>{item.password}</TableCell>
-                                                <TableCell>{item.tipo}</TableCell>
+                                            <TableRow key={item.id_funcionario}>
+                                                <TableCell>{item.id_restaurante}</TableCell>
+                                                <TableCell>{item.id_utilizador}</TableCell>
                                             </TableRow>
                                             );
                                         })
@@ -170,8 +150,8 @@ class User extends React.Component {
         )
     }
 }
-User.propTypes = {
+Employee.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withRouter(withStyles(styles)(User));
+export default withRouter(withStyles(styles)(Employee));

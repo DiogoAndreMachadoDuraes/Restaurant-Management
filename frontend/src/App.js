@@ -19,11 +19,16 @@ import Allergen from './components/screens/allergen/index';
 import Employee from './components/screens/employee/index';
 import Invoice from './components/screens/invoice/index';
 import Menu from './components/screens/menu/index';
+import CreateMenu from './components/screens/menu/create';
+import EditMenu from './components/screens/menu/edit';
 import MenuProduct from './components/screens/menuProduct/index';
 import NutritionalInformation from './components/screens/nutritionalInformation/index';
 import SpecialMenu from './components/screens/specialMenu/index';
+import CreateSpecialMenu from './components/screens/specialMenu/create';
+import EditSpecialMenu from './components/screens/specialMenu/edit';
 import TakeAway from './components/screens/takeAway/index';
 import User from './components/screens/user/index';
+
 
 function App() {
   return (
@@ -68,6 +73,12 @@ function App() {
         <Route path="/menu">
           <Menu />
         </Route>
+        <Route path="/menuCreate">
+          <CreateMenu />
+        </Route>
+        <Route path="/menuEdit">
+          <EditMenu />
+        </Route>
         <Route path="/menuProduct">
           <MenuProduct />
         </Route>
@@ -79,6 +90,12 @@ function App() {
         </Route>
         <Route path="/specialMenu">
           <SpecialMenu />
+        </Route>
+        <Route path="/specialMenuCreate">
+          <CreateSpecialMenu />
+        </Route>
+        <Route path="/specialMenuEdit">
+          <EditSpecialMenu />
         </Route>
         <Route path="/takeAway">
           <TakeAway />
