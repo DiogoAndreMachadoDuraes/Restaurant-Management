@@ -142,22 +142,22 @@ class Create extends React.Component {
                                 <form>
                                     <TextField className={"outlineBasic"} label="Quantidade" variant="outlined"/>
                                     {
-                                        isNullQuantity?
+                                        this.state.isNullQuantity?
                                             <span style={{color: "red"}}>A quantidade não pode ser nulo.</span>
                                         : false
                                     }
                                     {
-                                        isValidQuantity? true :
+                                        this.state.isValidQuantity? true :
                                             <span style={{color: "red"}}>A quantidade só pode conter números inteiros.</span>
                                     }
                                     <TextField className={"outlineBasic"} label="Preço" variant="outlined"/>
                                     {
-                                        isNullPrice?
+                                        this.state.isNullPrice?
                                             <span style={{color: "red"}}>O preço não pode ser nulo.</span>
                                         : false
                                     }
                                     {
-                                        isValidPrice? true :
+                                        this.state.isValidPrice? true :
                                             <span style={{color: "red"}}>O preço só pode conter números.</span>
                                     }
                                     <FormControl className={""} variant="outlined">

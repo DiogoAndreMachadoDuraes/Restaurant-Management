@@ -31,20 +31,18 @@ class Create extends React.Component {
         super(props);
         this.save = this.save.bind(this);
         this.state={
-            data:[],
-            isNullQuantity: false,
-            isValidQuantity: true
+            data:[]
         }
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen Account...");
+        console.log("Mounting the screen Create Reserve...");
     }
 
     onPress = async () => {
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto_extra', { 
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -63,33 +61,8 @@ class Create extends React.Component {
 
     save = async () => {
         //guardar dados
-        this.props.history.push("/productExtra");
+        this.props.history.push("/reserve");
     }
-
-    validQuantity = (val) => {
-        if( val.trim().length >= 0 ) {
-            if(/^[0-9]*$/.test(val)) {
-                this.setState({
-                    isValidQuantity: true,
-                    isNullQuantity: false,
-                    quantity: val
-                });
-            }else {
-            this.setState({
-                    isValidQuantity: false,
-                    isNullQuantity: false,
-                    quantity: val
-                });
-            }
-        }
-        else {
-            this.setState({
-                isNullQuantity: true,
-                quantity: val
-            });
-        }
-    }
-
 
     render(){
         const { data } = this.state;
@@ -110,53 +83,38 @@ class Create extends React.Component {
                 <main className={"content"}>
                     <Container maxWidth="lg" style={{marginTop: 100}}>
                         <Grid>
-                            <h1 style={{fontSize:35}}>Novo produto extra</h1>
+                            <h1 style={{fontSize:35}}>Novo produto</h1>
                             <Paper elevation={24} className={"paper"}>
-                                <form>
-                                    <TextField className={"outlineBasic"} label="Quantidade" variant="outlined"/>
-                                    {
-                                        this.state.isNullQuantity?
-                                            <span style={{color: "red"}}>A quantidade não pode ser nulo.</span>
-                                        : false
-                                    }
-                                    {
-                                        this.state.isValidQuantity? true :
-                                            <span style={{color: "red"}}>A quantidade só pode conter números inteiros.</span>
-                                    }
-                                    <FormControl className={""} variant="outlined">
-                                        <InputLabel htmlFor="idProduto">Produto Correspondente</InputLabel>
+                                <a href="#pablo" onClick={e => e.preventDefault()}>
+                                    <img src={avatar} alt="..." width="400" height="400"/>
+                                </a>
+                                <form style={{marginTop: 70}}>
+                                    <TextField label="Nome" variant="outlined"/>
+                                    <TextField className={"description"} label="Breve descrição" variant="outlined"/>
+                                    <FormControl className={"type"} variant="outlined">
+                                        <InputLabel htmlFor="type">Tipo</InputLabel>
                                         <Select
-                                            label="Produto Correspondente"
+                                            label="Tipo"
                                             inputProps={{
-                                                name: 'Id Produto',
-                                                id: 'idProduto',
+                                                name: 'tipo',
+                                                id: 'type',
                                             }}
-                                            value={this.props.day}
-                                            onChange={(value, index) => this.setState({ day : value})}
+                                            value={this.props.type}
+                                            onChange={(value, index) => this.setState({ type : value})}
                                             style={{inlineSize: 200}}
                                         >
-                                            <MenuItem value={1}>Pudim</MenuItem>
-                                            <MenuItem value={2}>Café</MenuItem>
-                                            <MenuItem value={3}>Água</MenuItem>
+                                            <MenuItem value={10}>Pratos de peixe</MenuItem>
+                                            <MenuItem value={20}>Pratos sem glúten</MenuItem>
+                                            <MenuItem value={30}>Pratos Vegan</MenuItem>
+                                            <MenuItem value={40}>Batata Frita</MenuItem>
+                                            <MenuItem value={50}>Saladas</MenuItem>
+                                            <MenuItem value={60}>Sopas</MenuItem>
+                                            <MenuItem value={70}>Bebidas</MenuItem>
+                                            <MenuItem value={80}>Sobremesas</MenuItem>
+                                            <MenuItem value={90}>Bebidas Quentes</MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <FormControl className={""} variant="outlined">
-                                        <InputLabel htmlFor="idExtra">Extra Correspondente</InputLabel>
-                                        <Select
-                                            label="Extra Correspondente"
-                                            inputProps={{
-                                                name: 'Id Extra',
-                                                id: 'idExtra',
-                                            }}
-                                            value={this.props.day}
-                                            onChange={(value, index) => this.setState({ day : value})}
-                                            style={{inlineSize: 200}}
-                                        >
-                                            <MenuItem value={1}>Pudim</MenuItem>
-                                            <MenuItem value={2}>Café</MenuItem>
-                                            <MenuItem value={3}>Água</MenuItem>
-                                        </Select>
-                                    </FormControl>
+                                    <TextField className={"outlineBasic"} label="Preço (€)" variant="outlined"/>
                                 </form>
                             </Paper>
                             <Paper elevation={5} className={"button"}>

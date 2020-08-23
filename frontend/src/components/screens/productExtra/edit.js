@@ -127,12 +127,12 @@ class Edit extends React.Component {
                             <form>
                                     <TextField className={"outlineBasic"} label="Quantidade" variant="outlined"/>
                                     {
-                                        isNullQuantity?
+                                        this.state.isNullQuantity?
                                             <span style={{color: "red"}}>A quantidade não pode ser nulo.</span>
                                         : false
                                     }
                                     {
-                                        isValidQuantity? true :
+                                        this.state.isValidQuantity? true :
                                             <span style={{color: "red"}}>A quantidade só pode conter números inteiros.</span>
                                     }
                                     <FormControl className={""} variant="outlined">

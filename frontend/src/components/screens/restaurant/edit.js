@@ -43,13 +43,19 @@ class Edit extends React.Component {
         super(props);
         this.save = this.save.bind(this);
         this.state={
-            data:[],
-            quantity:[],
-            price:[],
-            isNullQuantity: false,
+            description:[],
+            type: [],
+            name: [],
+            price: [],
+            validName: true,
+            validDescription: true,
+            validPrice: true,
+            isNullName: false,
+            isNullDescription: false,
             isNullPrice: false,
-            isValidQuantity: true,
-            isValidPrice: true
+            isValidPrice: true,
+            isValidDescription: true,
+            isValidName: true,
         }
     }
 
@@ -58,7 +64,7 @@ class Edit extends React.Component {
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Compra_menu', { 
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Restaurante', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -77,29 +83,28 @@ class Edit extends React.Component {
 
     save = async () => {
         //guardar dados
-        this.props.history.push("/product");
+        this.props.history.push("/restaurant");
     }
 
-    validQuantity = (val) => {
+    validName = (val) => {
         if( val.trim().length >= 0 ) {
-            if(/^[0-9]*$/.test(val)) {
+            if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛàèìòùÀÈÌÒÙçÇ]*$/.test(val)) {
                 this.setState({
-                    isValidQuantity: true,
-                    isNullQuantity: false,
-                    quantity: val
+                    isValidName: true,
+                    isNullName: false,
+                    name: val
                 });
             }else {
-            this.setState({
-                    isValidQuantity: false,
-                    isNullQuantity: false,
-                    quantity: val
+                this.setState({
+                    isValidName: true,
+                    isNullName: false,
+                    name: val
                 });
             }
-        }
-        else {
-            this.setState({
-                isNullQuantity: true,
-                quantity: val
+        } else {
+          this.setState({
+                isNullName: true,
+                name:val
             });
         }
     }
@@ -149,61 +154,63 @@ class Edit extends React.Component {
                         <Grid>
                             <h1 style={{fontSize:35}}>Editar produto</h1>
                             <Paper elevation={24} className={"paper"}>
-                            <form>
-                                    <TextField className={"outlineBasic"} label="Quantidade" variant="outlined"/>
+                                <a href="#pablo" onClick={e => e.preventDefault()}>
+                                    <img src={avatar} alt="..." width="400" height="400" />
+                                </a>
+                                <form style={{marginTop: 70}}>
+                                    <TextField label="Nome" variant="outlined" values={this.state.name} onChangeCapture={(val)=>this.validName(val)} onEndedCapture={(e)=>this.validName(e.nativeEvent.text)}/>
                                     {
-                                        this.state.isNullQuantity?
-                                            <span style={{color: "red"}}>A quantidade não pode ser nulo.</span>
+                                        this.state.isNullName ? 
+                                            <span style={{color: "red"}}>O nome não pode ser nulo.</span>
                                         : false
                                     }
                                     {
-                                        this.state.isValidQuantity? true :
-                                            <span style={{color: "red"}}>A quantidade só pode conter números inteiros.</span>
+                                        this.state.isValidName ? true :
+                                            <span style={{color: "red"}}>O nome não pode conter números nem certos caráteres especiais.</span> 
                                     }
-                                    <TextField className={"outlineBasic"} label="Preço" variant="outlined"/>
+                                    <TextField className={"description"} label="Breve descrição" variant="outlined"/>
                                     {
-                                        this.state.isNullPrice?
-                                            <span style={{color: "red"}}>O preço não pode ser nulo.</span>
+                                        this.state.isNullDescription ? 
+                                            <span style={{color: "red"}}>A descrição não pode ser nula.</span> 
                                         : false
                                     }
                                     {
-                                        this.state.isValidPrice? true :
+                                        this.state.isValidDescription ? true :
+                                            <span style={{color: "red"}}>A descrição não pode conter números nem certos caráteres especiais.</span> 
+                                    }
+                                    <FormControl className={"type"} variant="outlined">
+                                        <InputLabel htmlFor="type">Tipo</InputLabel>
+                                        <Select
+                                            label="Tipo"
+                                            inputProps={{
+                                                name: 'tipo',
+                                                id: 'type',
+                                            }}
+                                            value={this.props.type}
+                                            onChange={(value, index) => this.setState({ type : value})}
+                                            style={{inlineSize: 200}}
+                                        >
+                                            <MenuItem value={10}>Pratos de peixe</MenuItem>
+                                            <MenuItem value={20}>Pratos sem glúten</MenuItem>
+                                            <MenuItem value={30}>Pratos Vegan</MenuItem>
+                                            <MenuItem value={40}>Batata Frita</MenuItem>
+                                            <MenuItem value={50}>Saladas</MenuItem>
+                                            <MenuItem value={60}>Sopas</MenuItem>
+                                            <MenuItem value={70}>Bebidas</MenuItem>
+                                            <MenuItem value={80}>Sobremesas</MenuItem>
+                                            <MenuItem value={90}>Bebidas Quentes</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <TextField className={"outlineBasic"} label="Preço (€)" variant="outlined"/>
+                                    {
+                                        this.state.isNullPrice ? 
+                                            <span style={{color: "red"}}>O preço não pode ser nulo.</span> 
+                                        : false
+                                    }
+                                    {
+                                        this.state.isValidPrice ? true :
                                             <span style={{color: "red"}}>O preço só pode conter números.</span>
                                     }
-                                    <FormControl className={""} variant="outlined">
-                                        <InputLabel htmlFor="idMenu">Menu Correspondente</InputLabel>
-                                        <Select
-                                            label="Menu Correspondente"
-                                            inputProps={{
-                                                name: 'Id Menu',
-                                                id: 'idMenu',
-                                            }}
-                                            value={this.props.product}
-                                            onChange={(value, index) => this.setState({ produt : value})}
-                                            style={{inlineSize: 200}}
-                                        >
-                                            <MenuItem value={1}>Bacalhau à moda da Avó</MenuItem>
-                                            <MenuItem value={2}>Vitela no forno com Legumes salteados</MenuItem>
-                                            <MenuItem value={3}>Bacalhau à Gomes de Sá</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <FormControl className={""} variant="outlined">
-                                        <InputLabel htmlFor="idReserva">Reserva Correspondente</InputLabel>
-                                        <Select
-                                            label="Reserva Correspondente"
-                                            inputProps={{
-                                                name: 'Reserva Correspondente',
-                                                id: 'idReserva',
-                                            }}
-                                            value={this.props.reserve}
-                                            onChange={(value, index) => this.setState({ reserve : value})}
-                                            style={{inlineSize: 200}}
-                                        >
-                                            <MenuItem value={1}>Pudim</MenuItem>
-                                            <MenuItem value={2}>Café</MenuItem>
-                                            <MenuItem value={3}>Água</MenuItem>
-                                        </Select>
-                                    </FormControl>
                                 </form>
                             </Paper>
                             <Paper elevation={5} className={"button"}>
