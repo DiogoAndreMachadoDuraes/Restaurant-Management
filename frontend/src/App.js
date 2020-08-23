@@ -1,16 +1,46 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Header from "./components/header/header";
-import Home from "./components/home/home";
-import Footer from "./components/footer/footer";
-import Choose from './components/login-choose/login-choose';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Home from "./components/screens/home/index";
+import Choose from './components/screens/loginChoose/index';
+import Product from './components/screens/product/index';
+import Create from './components/screens/product/create';
+import Edit from './components/screens/product/edit';
+import Reservation from './components/screens/reservation/index';
+import Restaurant from './components/screens/restaurant/index';
 
 function App() {
   return (
-    <div className="App">
-      <Choose></Choose>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <Choose />
+        </Route>
+        <Route path="/home">
+          <Home />
+        </Route>
+        <Route path="/product">
+          <Product />
+        </Route>
+        <Route path="/productCreate">
+          <Create />
+        </Route>
+        <Route path="/productEdit">
+          <Edit />
+        </Route>
+        <Route path="/reservation">
+          <Reservation />
+        </Route>
+        <Route path="/restaurant">
+          <Restaurant />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

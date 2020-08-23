@@ -1,17 +1,20 @@
 import React from 'react';
 import './style.css';
-import Home from "../home/home";
+import Home from "../home/index";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link,
-    Redirect
-  } from "react-router-dom";
+    Redirect,
+    withRouter,
+    useHistory
+} from "react-router-dom";
 
 class Login extends React.Component {
     constructor(props){
         super(props);
+        this.login = this.login.bind(this);
         this.state={
             email: "",
             password: "",
@@ -20,7 +23,6 @@ class Login extends React.Component {
             validPass: true
         }
     }
-
     validEmail = (val) => {
         if(val.trim().length >= 5){
             this.setState({
@@ -48,8 +50,8 @@ class Login extends React.Component {
             });
         }
     }
-
-    _login = () => {
+ 
+    login (){
         /*if (this.state.email.length == 0 || this.state.password.length == 0 ) {
             alert('Introdução de valores nulos', '   O Email ou a palavra-passe não podem ser nulos.');
             return;
@@ -99,7 +101,7 @@ class Login extends React.Component {
         } else{
             alert('Valores incorretos', '   O Email e/ou a palavra-passe estão incorreto(s).');
         } */
-        return <Redirect to="/home" />;
+        this.props.history.push("/home");
     }
 
     render(){
@@ -150,11 +152,11 @@ class Login extends React.Component {
                         }
                     </div>
 
-                    <button type="button" className="login-btn" onClick={this._login()}>Login</button>
+                    <button type="button" className="login-btn" onClick={this.login}>Login</button>
                 </div>
             </div>
         );
     }
 };
 
-export default Login;
+export default withRouter(Login);

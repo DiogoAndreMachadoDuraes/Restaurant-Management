@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.css';
-import Login from "../login/login";
-import space from '../../fotos/space2.jpg';
-import logo from '../../fotos/logo.png';
+import Login from "../login/index";
+import space from '../../../assets/space2.jpg';
+import logo from '../../../assets/logo.png';
 
 class Choose extends React.Component {
   constructor(props){
@@ -28,16 +28,12 @@ class Choose extends React.Component {
                 <img src={logo}/>
             </div>
             <div className="box-controller">
-                <div className={"" + (this.state.isLogin ? "selected-controller" : "controller")} onClick={this.showLogin.bind(this)}>
-                    <text style={{color:this.state.isLogin ? "blue" : "black"}}>Login</text>
-                </div>
-                <div className={""+(this.state.isRegister ? "selected-controller" : "controller")}  onClick={this.showRegister.bind(this)}>
-                    <text style={{color:this.state.isRegister ? "blue" : "black"}}>Register</text>
-                </div>
+              <div className={"selected-controller"} onClick={this.showLogin.bind(this)}>
+                  <text style={{color:"blue"}}>Login</text>
+              </div>
             </div>
             <div className="box-container">
-                { this.state.isLogin && <Login/>}
-                {/* { this.state.isRegister && <Register/>} */}
+              { this.state.isLogin && <Login/>}
             </div>
         </div>
     );
