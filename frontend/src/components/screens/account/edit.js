@@ -38,7 +38,7 @@ const styles = theme => ({
     },
 });
 
-class EditAccount extends React.Component {
+class Edit extends React.Component {
     constructor(props){
         super(props);
         this.save = this.save.bind(this);
@@ -134,8 +134,8 @@ class EditAccount extends React.Component {
     }
 }
 
-EditAccount.propTypes = {
+Edit.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withRouter(withStyles(styles)(EditAccount));
+export default withRouter(withStyles(styles)(Edit));

@@ -114,11 +114,11 @@ class Account extends React.Component {
                                     <TableRow>
                                         <TableCell>Nif</TableCell>
                                         <TableCell>Nome</TableCell>
-                                        <TableCell>Data_nascimento</TableCell>
+                                        <TableCell>Data Nascimento</TableCell>
                                         <TableCell>Sexo</TableCell>
                                         <TableCell>Telefone</TableCell>
                                         <TableCell>Rua</TableCell>
-                                        <TableCell>Codigo_Postal</TableCell>
+                                        <TableCell>Codigo Postal</TableCell>
                                         <TableCell>Localizacao</TableCell>
                                         <TableCell>Foto</TableCell>
                                         <TableCell>Email</TableCell>
@@ -126,7 +126,7 @@ class Account extends React.Component {
                                         <TableCell>Tipo</TableCell>
                                         <TableCell></TableCell>
                                         <TableCell>
-                                            <ListItem button style={{whidth: 10}}>
+                                            <ListItem button style={{whidth: 12}}>
                                                 <ListItemIcon>
                                                     <EditIcon />
                                                 </ListItemIcon>
