@@ -119,10 +119,51 @@ class Home extends React.Component{
                             <View>
                                 <View style={style.bubble}>
                                     <Text style= {style.name}>Restaurante Favorito</Text>
-                                    <Image
-                                        style={style.imageRestaurant}
-                                        source={require('../assets/marker.png')}
-                                    />
+                                    <Image source={require('../assets/space1.jpg')} style={style.imageRestaurant} />
+                                </View>
+                                    <View style={style.arrowBorder} />
+                                    <View style={style.arrow} />
+                            </View>
+                        </Callout>
+                        </Marker>
+                            <Marker
+                            coordinate={{
+                                latitude: 41.5084468,
+                                longitude: -6.77330236,
+                            }}
+                            title="Sabor da Avó"
+                            description="Restaurante em Bragança">
+                        <View>  
+                            <Image style={style.marker} source={require ("../assets/marker.png")}/>
+                        </View>
+                        <Callout tooltip>
+                            <View>
+                                <View style={style.bubble}>
+                                    <Text style= {style.name}>Restaurante Favorito</Text>
+                                    <View style={style.imageRestaurant1}>
+                                    <Image source={require('../assets/space3.jpg')} /> 
+                                    </View>                                    
+                                </View>
+                                    <View style={style.arrowBorder} />
+                                    <View style={style.arrow} />
+                            </View>
+                        </Callout>
+                        </Marker>
+                            <Marker
+                            coordinate={{
+                                latitude: 41.3527285,
+                                longitude: -8.20451531,
+                            }}
+                            title="Sabor da Avó"
+                            description="Restaurante em Felgeuiras">
+                        <View>  
+                            <Image style={style.marker} source={require ("../assets/marker.png")}/>
+                        </View>
+                        <Callout tooltip>
+                            <View>
+                                <View style={style.bubble}>
+                                    <Text style= {style.name}>Restaurante Favorito</Text>
+                                    <Image source={require('../assets/space2.jpg')} style={style.imageRestaurant2} size={18} />
                                 </View>
                                     <View style={style.arrowBorder} />
                                     <View style={style.arrow} />
@@ -160,11 +201,6 @@ const style = StyleSheet.create({
         shadowRadius: 5,
         top: 250,
         elevation: 3,
-    },
-
-    imageRestaurant:{
-        width: 50,
-        height: 50,
     },
 
     name: {
