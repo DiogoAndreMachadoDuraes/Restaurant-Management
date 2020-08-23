@@ -233,12 +233,15 @@ class Login extends React.Component {
 
             } catch(e){
                 console.log("Error to get User: " + e);
-                Alert.alert('Valores inválidos', '   O Email e/ou a palavra-passe não são válidos.', [
-                    {text: 'Introduzir novamente'}
+                /* Alert.alert('Erro', '   Não está a ser possível o acesso à sua conta...', [
+                    {text: 'Por favor, tente mais tarde'}
+                ]); */
+                Alert.alert('Valores incorretos', '    O Email e/ou a palavra-passe estão incorreto(s).', [
+                    {text: 'Voltar a tentar'}
                 ]);
             }
         } else{
-            Alert.alert('Valores incorretos', '   O Email e/ou a palavra-passe estão incorreto(s).', [
+            Alert.alert('Valores inválidos', '    Os valores inseridos não são válidos.', [
                 {text: 'Voltar a tentar'}
             ]);
         }
