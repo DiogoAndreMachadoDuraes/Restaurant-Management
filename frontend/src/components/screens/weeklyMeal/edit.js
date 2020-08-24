@@ -24,6 +24,7 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 
 const styles = theme => ({
@@ -137,7 +138,7 @@ class Edit extends React.Component {
                                                 id="date-picker-dialog"
                                                 label="Date picker dialog"
                                                 format="MM/dd/yyyy"
-                                                value={date}
+                                                value={this.state.date}
                                                 onChange={this.handleDate}
                                                 KeyboardButtonProps={{
                                                     'aria-label': 'change date',
@@ -147,7 +148,7 @@ class Edit extends React.Component {
                                                 margin="normal"
                                                 id="time-picker"
                                                 label="Time picker"
-                                                value={time}
+                                                value={this.state.time}
                                                 onChange={this.handleTime}
                                                 KeyboardButtonProps={{
                                                     'aria-label': 'change time',

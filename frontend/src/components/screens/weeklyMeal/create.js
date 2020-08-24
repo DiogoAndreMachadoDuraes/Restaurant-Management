@@ -24,6 +24,7 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 
 const styles = theme => ({
