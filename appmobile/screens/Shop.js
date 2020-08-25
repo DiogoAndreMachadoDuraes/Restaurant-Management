@@ -28,7 +28,7 @@ class Shop extends React.Component {
       }
      async componentDidMount(){ 
         console.log("Mounting the screen Shop...");
-        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
@@ -39,7 +39,7 @@ class Shop extends React.Component {
           this.setState({ isLoading: false });
         });
 
-        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Produto', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Produto', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
@@ -50,7 +50,7 @@ class Shop extends React.Component {
           this.setState({ isLoading: false });
         });
 
-        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -61,7 +61,7 @@ class Shop extends React.Component {
             this.setState({ isLoading: false });
           });
         
-          await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+          await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_produto', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
           .then((response) => response.json())
           .then((json) => {
             console.log(json);

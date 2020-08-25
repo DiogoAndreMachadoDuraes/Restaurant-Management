@@ -16,7 +16,7 @@ class Invoice extends React.Component {
       async componentDidMount(){ 
         console.log("Mounting the screen Invoice...");
 
-        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Fatura', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Fatura', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);

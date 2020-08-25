@@ -54,7 +54,7 @@ class TakeAway extends React.Component{
       async componentDidMount(){ 
         console.log("Mounting the screen Takeaway...");
 
-        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Take_away', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Take_away', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);

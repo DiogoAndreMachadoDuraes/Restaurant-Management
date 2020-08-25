@@ -56,7 +56,7 @@ class SpecialMenu extends React.Component{
         console.log("Mounting the screen SpecialMenu...");
         let token = await AsyncStorage.getItem("token");
         try {
-          let response = await fetch('http://192.168.1.155/Ementas-de-Restauracao/index.php/Ementa', { 
+          let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Ementa', { 
             headers: {
               Authorization: 'Bearer ' + token,
               Accept: 'application/json',
@@ -82,20 +82,15 @@ class SpecialMenu extends React.Component{
               <ScrollView>
               <View style={style.menu}>
               {
-                isLoading ? <ActivityIndicator/> : (
-                  <FlatList
-                    data={this.state.data}
-                    keyExtractor={({ id }, index) => id}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={style.menuExp} activeOpacity={0.3} onPress={()=>this.props.navigation.navigate("Home", {item})}>
+                dataFromApi.map((item)=>{
+                        return(<TouchableOpacity style={style.menuExp} activeOpacity={0.3} onPress={()=>this.props.navigation.navigate("CallTypeSpecialMenu", {tipo:item.tipo})}>
                           <Image style={style.menuExpFoto} source={item.imagem} ></Image>
                           <Text style={style.titleMenu}>{item.tipo}</Text>
-                          <Text style={style.textMenu}>{item.subtitle}</Text>
-                        </TouchableOpacity>
-                     )}
-                  />
-                )
-              }
+                          <Text style={style.textMenu}></Text>
+                        </TouchableOpacity>);
+                      })
+                       
+                      }
                   <NossoFinal />
                 </View>
               </ScrollView>

@@ -1,75 +1,22 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity, ActivityIndicator, AsyncStorage } from "react-native";
 import NossoFinal from './shared/NossoFinal.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
-const Hamburguer = require('../assets/gourmet.jpg');
-const Francesinha = require('../assets/french.jpg');
-const Carne = require('../assets/variedade.jpg');
-const Peixe = require('../assets/peixe.jpg');
-const Pizza = require('../assets/pizzamenu.jpg');
-const Vegan = require('../assets/vegan.jpg');
-const Doce = require('../assets/doces.jpg');
-
-const dataFromApi = [
-  {
-    id: 1,
-    name: "Menus de Hambúrgueres",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Hamburguer
-  },
-  {
-    id: 2,
-    name: "Menus de Francesinhas",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Francesinha
-  },
-  {
-    id: 3,
-    name: "Pratos de Carne",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Carne
-  },
-  {
-    id: 4,
-    name: "Pratos de Peixe",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Peixe
-  },
-  {
-    id: 5,
-    name: "Menus de Pizzas",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Pizza
-  },
-  {
-    id: 6,
-    name: "Pratos Vegan",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Vegan
-  },
-  {
-    id: 7,
-    name: "Menus de Cafés",
-    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Doce
-  }
-]
-
-class Menu extends React.Component{
+class CallTypeMenu extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Menu",
+          name:"Tipo de Menu",
           data:[],
           isLoading: true
         };
       }
       async componentDidMount(){ 
-        console.log("Mounting the screen Menu...");
+        console.log("Mounting the screen Call Type Menu...");
         let token = await AsyncStorage.getItem("token");
         try {
           let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Menu', { 
@@ -88,14 +35,13 @@ class Menu extends React.Component{
           console.log("Error to get product: " + e);
         }
     }
-    _onPress (item){
-      this.props.navigation.navigate("CallTypeMenu", {
-        name: item.name
-      });
-    }
 
       render(){
-        const { isLoading } = this.state;
+        const { isLoading, data } = this.state;
+        const { navigation, route } = this.props;
+        const { name } = route.params;
+        const typeMenu = data.filter(a=>a.tipo==name).map(a=>a);
+
         return (
           <View style={style.container}>
             <OwnStatusBar />
@@ -104,11 +50,11 @@ class Menu extends React.Component{
               <ScrollView>
               <View style={style.menu}>
               {
-                dataFromApi.map((item)=>{
+                typeMenu.map((item)=>{
                   return ( <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this._onPress(item)}>
-                          <Image style={style.menuExpFoto} source={item.imagem} ></Image>
-                          <Text style={style.titleMenu}>{item.name}</Text>
-                          <Text style={style.textMenu}>{item.subtitle}</Text>
+                          <Image style={style.menuExpFoto} source={item.foto} ></Image>
+                          <Text style={style.titleMenu}>{item.nome}</Text>
+                          <Text style={style.textMenu}>{item.descricao}</Text>
                         </TouchableOpacity>);
                 })
                        
@@ -198,4 +144,4 @@ class Menu extends React.Component{
         top: 20
       }
     });
-export default Menu;
+export default CallTypeMenu;
