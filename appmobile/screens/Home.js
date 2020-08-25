@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput} from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput, AsyncStorage} from 'react-native';
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop';
 import OwnStatusBar from './shared/OwnStatusBar';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'; 
@@ -12,28 +12,55 @@ import {useTheme, Avatar} from 'react-native-paper';
 class Home extends React.Component{
     constructor(){
         super();
-        this.state={ name:'Sabor da Avó' };
+        this.state={ name:'Sabor da Avó', avatarName:[], photo:[] };
     }
     componentDidMount(){ 
         console.log("Mounting the screen Home...");
     }
+    async getName(){
+        try {
+            let json=await AsyncStorage.getItem("Name");
+            if (json!=null){
+                this.setState({
+                    avatarName: json
+                });
+            }
+        }
+        catch(e){
+            console.log("error to get asyncstorage name: " + e);
+        }
+    }
+    async getPhoto(){
+        try {
+            let json=await AsyncStorage.getItem("Foto");
+            if (json!=null){
+                this.setState({
+                    photo: json
+                });
+            }
+        }
+        catch(e){
+            console.log("error to get asyncstorage photo: " + e);
+        }
+    }
     render() {
+        {this.getName()}
+        {this.getPhoto()}
         return (
             <View style={style.container}>
             <OwnStatusBar/>
             <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
                 <TouchableOpacity
-                    style={{left: 330, marginTop: -55}}
-                    onPress={() => { navigation.navigate('Account'); }}>
+                    style={{left: 330, marginTop: -55}} onPress={() => this.props.navigation.navigate("Account")}>
                         <Avatar.Image
                         source={{
-                            uri:'https://www.hiper.fm/wp-content/uploads/2019/12/isabela-valadeiro.jpg',}}
+                            uri:''+this.state.photo+''}}
                             size={40}
                 />
                 </TouchableOpacity>
                 <ScrollView style={style.container}>
                 <View style ={style.container1}>
-                    <Text style={style.textUser}> Olá José Leite, </Text>
+                    <Text style={style.textUser}> Olá {this.state.avatarName}, </Text>
                     <Text style={style.textWelcome}> Encontre as nossas novidades e visite-nos! </Text>
                 </View>
                 <Swiper autoplay vertical={false} height={200} activeDotColor="#FF6347">
@@ -60,11 +87,11 @@ class Home extends React.Component{
                     </View>
                         <Text style={style.categoryBtnTxt}>Restaurantes</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("")}>
+                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("TakeAway")}>
                         <View style={style.categoryIcon}>
                         <Ionicons name="ios-card" size={35} color="#556b2f" />
                     </View>
-                        <Text style={style.categoryBtnTxt}>Cartão Fidelidade</Text>
+                        <Text style={style.categoryBtnTxt}>Take Away</Text>
                     </TouchableOpacity>
                     </View>
                     <View style={[style.categoryContainer, {marginTop: 10}]}>

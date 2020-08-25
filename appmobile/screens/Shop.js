@@ -28,7 +28,8 @@ class Shop extends React.Component {
       }
      async componentDidMount(){ 
         console.log("Mounting the screen Shop...");
-        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        let token = await AsyncStorage.getItem("token");
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
@@ -39,7 +40,7 @@ class Shop extends React.Component {
           this.setState({ isLoading: false });
         });
 
-        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Produto', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Produto', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
@@ -50,7 +51,7 @@ class Shop extends React.Component {
           this.setState({ isLoading: false });
         });
 
-        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_menu', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -61,7 +62,7 @@ class Shop extends React.Component {
             this.setState({ isLoading: false });
           });
         
-          await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_produto', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+          await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_produto', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -103,13 +104,15 @@ class Shop extends React.Component {
      
     render()
     {
+      const { navigation, route } = this.props;
+      const { name, foto, description } = route.params;
       const {
         menu, product, buyMenu , buyProduct 
       } = this.state;
       const dataMenu=menu.map (a=>a.id_menu);
       const dataProduct=product.map (a=>a.id_produto);
       const dataBuyMenu=buyMenu.filter (a=>a.id_menu==dataMenu);
-      const dataBuyProduct=buyProduct.filter (a=>a.id_produto==dataProduct);
+      const dataBuyProduct=buyProduct.filter (a=>a.nome==name).map (a=>a.id_produto);
       console.log (dataBuyMenu);
       console.log (dataBuyProduct);
       return (

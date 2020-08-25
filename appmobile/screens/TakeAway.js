@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, FlatList, Text, View, ScrollView, ImageBackground, TouchableOpacity } from "react-native";
+import { StyleSheet, FlatList, Text, View, ScrollView, ImageBackground, TouchableOpacity, AsyncStorage } from "react-native";
 import {Header, Icon} from "react-native-elements";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
@@ -48,13 +48,15 @@ class TakeAway extends React.Component{
           activeSections: [],
           isLoading: true,
           user: [],
-          data:[]
+          data:[],
+          reservation:[],
+          client:[]
         };
       }
       async componentDidMount(){ 
         console.log("Mounting the screen Takeaway...");
-
-        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Take_away', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        let token = await AsyncStorage.getItem("token");
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Take_away', { Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
@@ -64,13 +66,45 @@ class TakeAway extends React.Component{
         .finally(() => {
           this.setState({ isLoading: false });
         });
+        try {
+          let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', { 
+            headers: {
+              Authorization: 'Bearer ' + token,
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            }
+          });
+          let json = await response.json();
+          this.setState({
+            isLoading: false,
+            reservation: json,
+          });
+        } catch(e){
+          console.log("Error to get product: " + e);
+        }
+        try {
+          let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Cliente', { 
+            headers: {
+              Authorization: 'Bearer ' + token,
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            }
+          });
+          let json = await response.json();
+          this.setState({
+            isLoading: false,
+            client: json,
+          });
+        } catch(e){
+          console.log("Error to get product: " + e);
+        }
     }
 
     getUser = async () => {
         try {
           const value = await AsyncStorage.getItem("User");
           if (value !== null) {
-            this.setState({ user: JSON.parse(value) });
+            this.setState({ user: value});
             console.log(this.state.user);
           }
         } catch (e) {
@@ -91,7 +125,7 @@ class TakeAway extends React.Component{
             <Icon2
               name={section.icon} style={style.icon} color={'green'} size={25}
             ></Icon2>
-            <Text style={style.headerText2}>{section.content}</Text>
+            <Text style={style.headerText2}>{section.tipo_entrega}</Text>
           </View>
         );
       };
@@ -99,6 +133,10 @@ class TakeAway extends React.Component{
         this.setState({ activeSections });
       };
       render(){
+        const clientId=this.state.client.filter(a=>a.id_utilizador==user.id_utilizador).map(a=>a.id_cliente);
+        const allReservation=this.state.reservation.filter(a=>a.id_cliente==clientId).map(a=>a);
+        const allTakeAway=this.state.data.filter(a=>a.id_reserva==allReservation.id_reserva).map(a=>a);
+        console.log(allTakeAway);
         return (
           <View style={style.container}>
             <OwnStatusBar />
@@ -108,11 +146,11 @@ class TakeAway extends React.Component{
               <ScrollView>
                 <View style={style.form}>
                     {
-                    this.state.data.filter(item=>item.id_funcionario==user.id).map((item)=>{
+                    allTakeAway.map((item)=>{
                       return (
                         <View>
                   <Accordion
-                    sections={SECTIONS}
+                    sections={item}
                     activeSections={this.state.activeSections}
                     renderHeader={this._renderHeader}
                     renderContent={this._renderContent}
