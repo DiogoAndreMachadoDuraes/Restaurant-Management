@@ -11,6 +11,7 @@ import Space from "./screens/Space.js";
 import Account from "./screens/Account.js";
 import AfterShop from "./screens/AfterShop.js";
 import Reservation from "./screens/Reservation.js";
+import ShowReservation from "./screens/ShowReservation.js";
 import Restaurant from "./screens/Restaurant.js";
 import Home from "./screens/Home.js";
 import Menu from "./screens/Menu.js";
@@ -76,6 +77,7 @@ const App = () => {
             <Drawer.Screen name="Space" component={Space} options={{ drawerLabel: 'Space' }}/>
             <Drawer.Screen name="AfterShop" component={AfterShop} options={{ drawerLabel: 'AfterShop' }}/>
             <Drawer.Screen name="Reservation" component={Reservation} options={{ drawerLabel: 'Reservation' }}/>
+            <Drawer.Screen name="ShowReservation" component={ShowReservation} options={{ drawerLabel: 'ShowReservation' }}/>
             <Drawer.Screen name="Restaurant" component={Restaurant} options={{ drawerLabel: 'Restaurant' }}/>
             <Drawer.Screen name="Home" component={Home} options={{drawerLabel:'Home'}}/>
             <Drawer.Screen name="Menu" component={Menu} options={{drawerLabel:'Menu'}}/>

@@ -26,7 +26,7 @@ class Reservation extends React.Component{
   constructor(){
     super();
     this.state={
-      name:"Reserva",
+      name:"Fazer Reserva",
       user: [],
       isVisible: false,
       validCode: false,

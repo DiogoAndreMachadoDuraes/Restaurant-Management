@@ -156,7 +156,7 @@ export function DrawerContent(props){
                                 size={size}
                                 />
                             )}
-                            label="Reserva"
+                            label="Reservar"
                             onPress={() => {props.navigation.navigate('Reservation')}}
                             labelStyle={style.dark}
                         />
@@ -207,6 +207,18 @@ export function DrawerContent(props){
                                     )}
                                     label={''+name+''}
                                     onPress={() => {props.navigation.navigate('Account')}}
+                                    labelStyle={style.dark}
+                                />
+                                <DrawerItem 
+                                    icon={({color, size}) => (
+                                        <Icon 
+                                        name="ballot-outline" 
+                                        color={color}
+                                        size={size}
+                                        />
+                                    )}
+                                    label="Ver Reservas"
+                                    onPress={() => {props.navigation.navigate('ShowReservation')}}
                                     labelStyle={style.dark}
                                 />
                             </View>

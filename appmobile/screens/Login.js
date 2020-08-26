@@ -183,7 +183,7 @@ class Login extends React.Component {
         if(this.state.validEmail==true && this.state.validPass==true){
             try
             {
-                let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Login', { 
+                let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Login', { 
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
@@ -202,9 +202,9 @@ class Login extends React.Component {
                 } catch (error) {
                     console.log('Error to AsyncStorage Token: ' + error.message);
                 }
-                console.log (token);
+                
                 try {
-                    let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', { 
+                    let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
                       headers: {
                         Authorization: 'Bearer ' + token,
                         Accept: 'application/json',
