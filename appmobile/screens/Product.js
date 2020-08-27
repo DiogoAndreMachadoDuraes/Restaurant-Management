@@ -88,7 +88,7 @@ class Product extends React.Component{
   _onPress(item) {
     this.props.navigation.navigate("ProductCategory", {
       type: item.type,
-      foto: item.foto,
+      photo: item.foto,
       subtitle: item.subtitle
     });
   }

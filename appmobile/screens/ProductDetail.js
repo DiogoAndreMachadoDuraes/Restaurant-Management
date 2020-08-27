@@ -26,7 +26,7 @@ class ProductDetail extends React.Component{
         this.state={
             name:"Café",
             ingredient: [],
-            product_extra: [],
+            productExtra: [],
             aller: [],
             info: [],
             isLoadingExtra: true,
@@ -40,60 +40,86 @@ class ProductDetail extends React.Component{
         console.log("Mounting the screen ProductDetail...");
 
         let token = await AsyncStorage.getItem("token");
-        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Extra', { headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
-            .then((response) => response.json())
-            .then((json) => {
-                this.setState({ ingredient: json, isLoadingExtra:false });
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                this.setState({ isLoading: false });
-        });
+        try {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Extra', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoadingExtra: false,
+              ingredient: json
+            });
+        } catch(e){
+            console.log("Error to get Extra: " + e);
+        }
 
-        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto_extra', { headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
-            .then((response) => response.json())
-            .then((json) => {
-                this.setState({ product_extra: json, isLoadingProduct:false });
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                this.setState({ isLoading: false });
-        });
+        try {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto_extra', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoadingProduct: false,
+              productExtra: json
+            });
+        } catch(e){
+            console.log("Error to get Product Extra: " + e);
+        }
 
-        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Info_nutricional', { headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
-            .then((response) => response.json())
-            .then((json) => {
-                this.setState({ info: json, isLoadingInfo:false });
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                this.setState({ isLoading: false });
-        });
+        try {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Info_nutricional', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoadingInfo: false,
+              info: json
+            });
+        } catch(e){
+            console.log("Error to get Info Nutricional: " + e);
+        }
 
-        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Alergenio', { headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
-            .then((response) => response.json())
-            .then((json) => {
-                this.setState({ aller: json, isLoadingAller:false });
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                this.setState({ isLoading: false });
-        });
+        try {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Alergenio', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoadingAller: false,
+              aller: json
+            });
+        } catch(e){
+            console.log("Error to get Info Nutricional: " + e);
+        }
     }
 
     render(){
-        const { ingredient, product_extra, aller, info, isLoadingInfo, isLoadingAller, isLoadingExtra, isLoadingProduct } = this.state;
+        const { ingredient, productExtra, aller, info, isLoadingInfo, isLoadingAller, isLoadingExtra, isLoadingProduct } = this.state;
 
         const { navigation, route } = this.props;
-        const { id_produto, name, foto, description, price } = route.params;
+        const { idProduct, name, photo, description, price } = route.params;
 
-        const products_extra = product_extra.filter(a=>a.id_produto==id_produto).map(a=>a.id_extra);
-        const ingredients = ingredient.filter(a=>a.id_extra==products_extra).map(a=>a);
-        const type = info.filter(a=>a.id_produto==id_produto).map(a=>a.tipo);
-        const quantity = info.filter(a=>a.id_produto==id_produto).map(a=>a.quantidade_nutrientes);
-        const allergenio= aller.filter(a=>a.id_produto==id_produto).map(a=>a);
-
-        console.log(allergenio);
+        const productsExtra = productExtra.filter(a=>a.id_produto==idProduct).map(a=>a.id_extra);
+        const ingredients = ingredient.filter(a=>a.id_extra==productsExtra).map(a=>a);
+        const type = info.filter(a=>a.id_produto==idProduct).map(a=>a.tipo);
+        const quantity = info.filter(a=>a.id_produto==idProduct).map(a=>a.quantidade_nutrientes);
+        const allergenio= aller.filter(a=>a.id_produto==idProduct).map(a=>a);
 
         const data = {
             labels: [type[0], type[1], type[2], type[3]],
@@ -122,7 +148,7 @@ class ProductDetail extends React.Component{
                 </View>
                 <View>
                     <Text style={style.title}>{name}</Text>
-                    <Image source={{uri:''+foto+''}} style={style.image}/>
+                    <Image source={{uri:''+photo+''}} style={style.image}/>
                     <Text style={style.text}>{description}</Text>
                 </View>
                 <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Shop")}>
