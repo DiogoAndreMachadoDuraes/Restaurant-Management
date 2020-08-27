@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 
@@ -10,13 +10,15 @@ class Invoice extends React.Component {
             name:'A minha fatura',
             isLoading: true,
             user: [],
-            data:[]
+            data:[],
+            invoiceData:[],
+            reserveId:[]
          }; 
     }
       async componentDidMount(){ 
         console.log("Mounting the screen Invoice...");
-
-        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Fatura', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
+        let token = await AsyncStorage.getItem("token");
+        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Fatura', { Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'})
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
@@ -26,8 +28,24 @@ class Invoice extends React.Component {
         .finally(() => {
           this.setState({ isLoading: false });
         });
-    }
-
+        try {
+            let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoading: false,
+              reservation: json,
+            });
+          } catch(e){
+            console.log("Error to get product: " + e);
+          }
+        }
+    
     getUser = async () => {
         try {
           const value = await AsyncStorage.getItem("User");
@@ -48,6 +66,8 @@ class Invoice extends React.Component {
       {
         this.getUser();
       }
+      const reserveId=this.state.invoiceData.filter(a=>a.id_cliente==user.id_cliente).map(a=>a.id_reserva);
+
         return (
         <View style={style.container}>
             <OwnStatusBar />

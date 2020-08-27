@@ -89,7 +89,7 @@ class Home extends React.Component{
                     </TouchableOpacity>
                     <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("TakeAway")}>
                         <View style={style.categoryIcon}>
-                        <Ionicons name="ios-card" size={35} color="#556b2f" />
+                        <Fontisto name="shopping-bag-1" size={35} color="#556b2f" />
                     </View>
                         <Text style={style.categoryBtnTxt}>Take Away</Text>
                     </TouchableOpacity>
