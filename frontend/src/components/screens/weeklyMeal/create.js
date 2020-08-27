@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Header from "../../shared/header/index";
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Propdays from 'prop-days';
+/* import Propdays from 'prop-days'; */
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import avatar from "../../../assets/logo.png";
@@ -19,13 +19,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import {
+/* import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from '@date-io/date-fns'; */
 
 const styles = theme => ({
     appBar: {
@@ -131,7 +131,7 @@ class Create extends React.Component {
                                             <MenuItem value={70}>Domingo</MenuItem>
                                         </Select>
                                     </FormControl>
-                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <Grid container justify="space-around">
                                             <KeyboardDatePicker
                                                 margin="normal"
@@ -155,7 +155,7 @@ class Create extends React.Component {
                                                 }}
                                             />
                                         </Grid>
-                                    </MuiPickersUtilsProvider>
+                                    </MuiPickersUtilsProvider> */}
                                     <FormControl className={""} variant="outlined">
                                         <InputLabel htmlFor="idRestaurante">Restaurante Correspondente</InputLabel>
                                         <Select
@@ -203,8 +203,8 @@ class Create extends React.Component {
         )
     }
 }
-Create.propdays = {
+/* Create.propdays = {
     classes: Propdays.object.isRequired,
 };
-  
+   */
 export default withRouter(withStyles(styles)(Create));

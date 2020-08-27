@@ -53,15 +53,16 @@ class Reservation extends React.Component {
     async componentDidMount (){ 
         console.log("Mounting the screen Account...");
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
+            let response = await fetch('http://localhost/Ementas-de-Restauracao/index.php/Reserva', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 }
             });
+            console.log(response);
             let json = await response.json();
             this.setState({ 
                 data: json
