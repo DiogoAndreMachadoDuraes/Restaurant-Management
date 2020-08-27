@@ -29,7 +29,7 @@ class Choose extends React.Component {
             </div>
             <div className="box-controller">
               <div className={"selected-controller"} onClick={this.showLogin.bind(this)}>
-                  <text style={{color:"blue"}}>Login</text>
+                <text style={{color:"blue"}}>Login</text>
               </div>
             </div>
             <div className="box-container">
