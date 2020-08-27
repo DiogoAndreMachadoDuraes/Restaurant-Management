@@ -10,7 +10,7 @@ import {
   FlatList ,
   AsyncStorage
 } from "react-native";
-import { Icon } from "react-native-elements";
+import { Icon, PricingCard } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 
@@ -42,15 +42,15 @@ class ProductCategory extends React.Component{
         data: json,
       });
     } catch(e){
-      console.log("Error to get product: " + e);
+      console.log("Error to get Product: " + e);
     }
   }
 
   _onPress(item) {
     this.props.navigation.navigate("ProductDetail", {
-      id_produto: item.id_produto,
+      idProduct: item.id_produto,
       name: item.nome,
-      foto: item.foto,
+      photo: item.foto,
       description: item.descricao,
       price: item.preco
     });
@@ -59,14 +59,14 @@ class ProductCategory extends React.Component{
   render(){
     const { data, isLoading } = this.state;
     const { navigation, route } = this.props;
-    const { type, foto, subtitle } = route.params;
+    const { type, photo, subtitle } = route.params;
     const typeData=data.filter(a=>a.tipo==type).map(a=>a);
     return (
       <View style={style.container}>
         <OwnStatusBar />
         <ScrollView>
           <View style={style.productCategoryText}>
-            <ImageBackground source={foto} style={style.imageBackgound} opacity={0.8}>
+            <ImageBackground source={photo} style={style.imageBackgound} opacity={0.8}>
               <View style={style.arrow}>
                 <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Product")} size={45} color={"#fff"}></Icon>
               </View>
@@ -85,6 +85,7 @@ class ProductCategory extends React.Component{
                     <Image style={style.productCategoryExpFoto} source={{ uri: '' + item.foto + '' }} ></Image>
                     <Text style={style.titleProductCategory}>{item.nome}</Text>
                     <Text style={style.textProductCategory}>{item.descricao}</Text>
+                    <Text style={style.textProductCategory}>{item.preco}€</Text>
                   </TouchableOpacity>
                 )}
               />
