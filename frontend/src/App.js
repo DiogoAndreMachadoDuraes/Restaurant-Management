@@ -37,6 +37,8 @@ import WeeklyMealCreate from './components/screens/weeklyMeal/create';
 import WeeklyMealEdit from './components/screens/weeklyMeal/edit';
 import Account from './components/screens/account/index';
 import Admin from './components/screens/admin/index';
+import CreateAdmin from './components/screens/admin/create';
+import EditAdmin from './components/screens/admin/edit';
 import Allergen from './components/screens/allergen/index';
 import Employee from './components/screens/employee/index';
 import Invoice from './components/screens/invoice/index';
@@ -50,6 +52,8 @@ import CreateSpecialMenu from './components/screens/specialMenu/create';
 import EditSpecialMenu from './components/screens/specialMenu/edit';
 import TakeAway from './components/screens/takeAway/index';
 import User from './components/screens/user/index';
+import CreateUser from './components/screens/user/create';
+import EditUser from './components/screens/user/edit';
 
 
 function App() {
@@ -148,6 +152,12 @@ function App() {
         </Route>
         <Route path="/admin">
           <Admin />
+          <Route path="/adminCreate">
+          <CreateAdmin />
+        </Route>
+        <Route path="/adminEdit">
+          <EditAdmin />
+        </Route>
         </Route>
         <Route path="/allergen">
           <Allergen />
@@ -187,6 +197,12 @@ function App() {
         </Route>
         <Route path="/user">
           <User />
+        </Route>
+        <Route path="/userCreate">
+          <CreateUser />
+        </Route>
+        <Route path="/userEdit">
+          <EditUser />
         </Route>
       </Switch>
     </Router>

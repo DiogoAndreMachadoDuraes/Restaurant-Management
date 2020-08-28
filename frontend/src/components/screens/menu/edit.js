@@ -161,20 +161,12 @@ class Edit extends React.Component {
                                             onChange={(value, index) => this.setState({ type : value})}
                                             style={{inlineSize: 200}}
                                         >
-                                            <MenuItem value={10}>Pratos de peixe</MenuItem>
-                                            <MenuItem value={20}>Pratos de carne</MenuItem>
-                                            <MenuItem value={30}>Pizzas</MenuItem>
-                                            <MenuItem value={40}>Hamburgueres</MenuItem>
-                                            <MenuItem value={50}>Pratos sem glúten</MenuItem>
-                                            <MenuItem value={60}>Pratos Vegan</MenuItem>
-                                            <MenuItem value={70}>Batata Frita</MenuItem>
-                                            <MenuItem value={80}>Saladas</MenuItem>
-                                            <MenuItem value={90}>Sopas</MenuItem>
-                                            <MenuItem value={100}>Bebidas</MenuItem>
-                                            <MenuItem value={110}>Sobremesas</MenuItem>
-                                            <MenuItem value={120}>Bebidas Quentes</MenuItem>
-                                            <MenuItem value={130}>Menu Café</MenuItem>
-                                            
+                                            <MenuItem value={10}>Menus de Hambúrgues</MenuItem>
+                                            <MenuItem value={20}>Menus de Francesinhas</MenuItem>
+                                            <MenuItem value={30}>Pratos de Carne</MenuItem>
+                                            <MenuItem value={40}>Pratos de Peixe</MenuItem>
+                                            <MenuItem value={50}>Menus de Pizza</MenuItem>
+                                            <MenuItem value={60}>Menus de Cafés</MenuItem>        
                                         </Select>
                                     </FormControl>
                                     <TextField className={"outlineBasic"} label="Preço (€)" variant="outlined"/>
