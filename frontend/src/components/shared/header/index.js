@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
+import Avatar from '@material-ui/core/Avatar';
 
 class Header extends Component{
     render(){
@@ -11,13 +12,12 @@ class Header extends Component{
                 <nav>
                     <ul>
                         <li>
-                            <a className="first">Home</a>
+                            <a className={"first"} >José Leite Machado</a>
                         </li>
+                    </ul>
+                    <ul>
                         <li>
-                            <a href="#">Products</a>
-                        </li>
-                        <li>
-                            <a className="last">Contact</a>
+                            <Avatar src="https://www.karacteragency.pt/wp-content/uploads/2016/03/jose-leite-board-1.jpg" className={"last"} />
                         </li>
                     </ul>
                 </nav>

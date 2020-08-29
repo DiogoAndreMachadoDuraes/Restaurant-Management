@@ -11,21 +11,11 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import MaterialTable from 'material-table';
 import Header from "../../shared/header/index";
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import PropTypes from 'prop-types';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
     appBar: {
@@ -36,19 +26,18 @@ const styles = theme => ({
 class WeeklyMeal extends React.Component {
     constructor(props){
         super(props);
-        this.goCreate = this.goCreate.bind(this);
-        this.goEdit = this.goEdit.bind(this);
         this.state={
-            data:[]
+            weeklyMeal:[],
+            newData:[]
         }
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen Account...");
+        console.log("Mounting the screen Weekly Meal...");
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Refeicao_semanal', { 
+            let response = await fetch('/Refeicao_semanal', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -57,11 +46,11 @@ class WeeklyMeal extends React.Component {
             });
             let json = await response.json();
             this.setState({ 
-                data: json
+                weeklyMeal: json
             });
             console.log(json);
         } catch(e){
-            console.log("Error to get data: " + e);
+            console.log("Error to Get Weekly Meal: " + e);
         }
     }
 
@@ -78,17 +67,96 @@ class WeeklyMeal extends React.Component {
         );
     }
 
-    goCreate() {
-        this.props.history.push("/weeklyMealCreate");
+    add = async () => {
+        const { newData } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Refeicao_semanal', { 
+                method: 'POST',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'dia_semana': newData.weekDay,
+                    'data': newData.date,
+                    'hora': newData.hour,
+                    'id_restaurante': newData.restaurantId,
+                    'id_ementa': newData.specialMenuId 
+                })
+            });
+            alert("Coluna inserida com sucesso!");
+        } catch(e){
+            console.log("Error to Post Weekly Meal: " + e);
+        }
     }
 
-    goEdit() {
-        this.props.history.push("/weeklyMealEdit");
+    update = async (weeklyMealID) => {
+        const { newData } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Refeicao_semanal', { 
+                method: 'PUT',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_refeicao_semanal': weeklyMealID,
+                    'dia_semana': newData.weekDay,
+                    'data': newData.date,
+                    'hora': newData.hour,
+                    'id_restaurante': newData.restaurantId,
+                    'id_ementa': newData.specialMenuId 
+                })
+            });
+            alert("Coluna modificada com sucesso!");
+        } catch(e){
+            console.log("Error to Put Weekly Meal: " + e);
+        }
+    }
+
+    delete = async (weeklyMealID) => {
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Refeicao_semanal', { 
+                method: 'DELETE',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_refeicao_semanal': weeklyMealID,
+                })
+            });
+            alert("Coluna eliminada com sucesso!");
+        } catch(e){
+            console.log("Error to Delete Weekly Meal: " + e);
+        }
     }
 
     render(){
-        const { data } = this.state;
+        const { weeklyMeal } = this.state;
         const {classes} = this.props;
+        const columns= [
+            { title: 'Dia da semana', field: 'weekDay', validate: rowData => rowData.weekDay === '' ? 'O Nome não pode ser nulo' : '', align:"center" },
+            { title: 'Data', field: 'data', type: 'date', align:"center"},
+            { title: 'Hora', field: 'hour', type: 'time', align:"center"},
+            { title: 'Id do Restaurante', field: 'restaurantId', type: 'numeric', align:"center" },
+            { title: 'Id da Ementa', field: 'specialMenuId', type: 'numeric', align:"center" },
+        ];
+        const data = weeklyMeal.map((item) => {
+            return { weeklyMealId: item.id_refeicao_semanal, weekDay: item.dia_semana, data: item.data, hour: item.hora, restaurantId: item.id_restaurante, specialMenuId: item.id_ementa};
+        });;
+        const tableRef = React.createRef();
         return (
             <div className="root">
                 <AppBar position="absolute" className={classes.appBar}>
@@ -107,44 +175,114 @@ class WeeklyMeal extends React.Component {
                     <Container maxWidth="lg" className={"container"} style={{marginTop: 100}}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
-                            <Paper elevation={3} className={"paper"}>
-                                <label htmlFor="refeicaoSemanal">Refeição Semanal:</label>
-                                <Table size="small">
-                                    <TableHead>
-                                    <TableRow>
-                                        <TableCell>Dia da Semana</TableCell>
-                                        <TableCell>Data</TableCell>
-                                        <TableCell>Hora</TableCell>
-                                        <TableCell>Restaurante Correspondente</TableCell>
-                                        <TableCell>Ementa Correspondente</TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell>
-                                            <ListItem button style={{whidth: 10}}>
-                                                <ListItemIcon>
-                                                    <EditIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Novo" onClick={this.goEdit} />
-                                            </ListItem>
-                                        </TableCell>
-                                    </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                    {
-                                        data.map((item) => {
-                                            return(
-                                            <TableRow key={item.id_refeicao_semanal}>
-                                                <TableCell>{item.dia_semana}</TableCell>
-                                                <TableCell>{item.data}</TableCell>
-                                                <TableCell>{item.hora}</TableCell>
-                                                <TableCell>{item.id_restaurante}</TableCell>
-                                                <TableCell align="right">{item.id_ementa}</TableCell>
-                                            </TableRow>
-                                            );
-                                        })
-                                    }
-                                    </TableBody>
-                                </Table>
-                            </Paper>
+                                <Paper elevation={3} className={"paper"}>
+                                    <MaterialTable
+                                        title="Tabela das Refeições Semanais"
+                                        tableRef={tableRef}
+                                        columns={columns}
+                                        data={data}
+                                        actions={[
+                                            {
+                                                icon: 'refresh',
+                                                tooltip: 'Recarregar',
+                                                isFreeAction: true,
+                                                onClick: () => tableRef.current && tableRef.current.componentDidMount()
+                                            }
+                                        ]}
+                                        options={{
+                                            actionsColumnIndex: -1,
+                                            search: true
+                                        }}
+                                        localization={
+                                            { 
+                                                header: { actions: ""},
+                                                body:{
+                                                    emptyDataSourceMessage: 'Não existe dados para mostar',
+                                                    addTooltip: "Novo",
+                                                    editTooltip: "Editar",
+                                                    deleteTooltip: "Eliminar",
+                                                    editRow: { deleteText: 'Tem a certeza que deseja eliminar?', cancelTooltip: 'Cancelar', saveTooltip: 'Guardar' }
+                                                },
+                                                toolbar: { searchTooltip: "Pesquisar", searchPlaceholder: "Procurar"},
+                                                pagination: { labelDisplayedRows: "{from}-{to} de {count}", firstTooltip: "Primeira Página", previousTooltip: "Página Anterior", nextTooltip: "Próxima Página", lastTooltip: "Última Página", labelRowsSelect:"registos"}
+                                            }
+                                        }
+                                        editable={{
+                                            onRowAdd: newData =>
+                                                new Promise((resolve, reject) => {
+                                                    if(newData.weekDay==null || newData.date==null || newData.hour==null || newData.restaurantId==null || newData.specialMenuId==null) {
+                                                        alert('Nenhum dos valores inseridos pode ser nulo!');
+                                                        reject();
+                                                    }else{
+                                                        if(newData.weekDay.lenght<0 || newData.restaurantId<0 || newData.specialMenuId<0 ) {
+                                                            alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                                                            reject();
+                                                        }else{
+                                                            if(Number.isInteger(newData.restaurantId)==false){
+                                                                alert('A identificação do restaurante tem de ser do tipo inteiro!');
+                                                                reject();
+                                                            }else{
+                                                                if(Number.isInteger(newData.specialMenuId)==false){
+                                                                    alert('A identificação da ementa tem de ser do tipo inteiro!');
+                                                                    reject();
+                                                                }else{
+                                                                    setTimeout(() => {
+                                                                        this.setState({
+                                                                            newData: newData
+                                                                        });
+                                                                        resolve();
+                                                                        this.add();
+                                                                    }, 1000)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                            }),
+                                            onRowUpdate: (newData, oldData) =>
+                                                new Promise((resolve, reject) => {
+                                                    if(newData.weekDay==null || newData.date==null || newData.hour==null || newData.restaurantId==null || newData.specialMenuId==null) {
+                                                        alert('Nenhum dos valores inseridos pode ser nulo!');
+                                                        reject();
+                                                    }else{
+                                                        if(newData.weekDay.lenght<0 || newData.restaurantId<0 || newData.specialMenuId<0 ) {
+                                                            alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                                                            reject();
+                                                        }else{
+                                                            if(Number.isInteger(newData.restaurantId)==false){
+                                                                alert('A identificação do restaurante tem de ser do tipo inteiro!');
+                                                                reject();
+                                                            }else{
+                                                                if(Number.isInteger(newData.specialMenuId)==false){
+                                                                    alert('A identificação da ementa tem de ser do tipo inteiro!');
+                                                                    reject();
+                                                                }else{
+                                                                    setTimeout(() => {
+                                                                        const dataUpdate = [...data];
+                                                                        const index = oldData.tableData.id;
+                                                                        dataUpdate[index] = newData;
+                                                                        this.setState({
+                                                                            newData: newData
+                                                                        });
+                                                                        const reservationID=newData.reservationId;
+                                                                        resolve();
+                                                                        this.update(reservationID);
+                                                                    }, 1000)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                            }),
+                                            onRowDelete: oldData =>
+                                                new Promise((resolve, reject) => {
+                                                    setTimeout(() => {
+                                                        const reservationID = oldData.reservationId;
+                                                        resolve();
+                                                        this.delete(reservationID);
+                                                    }, 1000)
+                                                }),
+                                        }}
+                                    />
+                                </Paper>
                             </Grid>
                         </Grid>
                         <Box pt={4}>

@@ -20,6 +20,7 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
 import InfoIcon from '@material-ui/icons/Info';
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 import { useHistory } from "react-router-dom";
@@ -61,6 +62,10 @@ export function ListPages (){
 
   function goExtra() {
     history.push("/extra");
+  }
+
+  function goProductExtra() {
+    history.push("/productExtra");
   }
 
   function goBuyMenu() {
@@ -146,6 +151,12 @@ export function ListPages (){
           <FastfoodIcon />
         </ListItemIcon>
         <ListItemText primary="Extras" onClick={goExtra}/>
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <AddShoppingCartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Produtos Extras" onClick={goProductExtra}/>
       </ListItem>
       <ListItem button>
         <ListItemIcon>
