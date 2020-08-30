@@ -26,6 +26,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styles = theme => ({
     appBar: {
@@ -44,24 +45,25 @@ class Product extends React.Component {
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen Account...");
+        console.log("Mounting the screen Product...");
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMyAxOTowNDoyNSJ9.FTaTpwBNG-VIoO9IyaA-kZ_Xb1OKTgof0_gxmF6IZt8";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto', { 
-                headers: {
-                    Autentication: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                }
+            let response = await fetch('/Produto', 
+            { 
+                    headers: {
+                        Autentication: 'Bearer ' + token,
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    }
             });
             let json = await response.json();
+            console.log(json);
             this.setState({ 
                 data: json
             });
-            console.log(json);
         } catch(e){
-            console.log("Error to get data: " + e);
+            console.log("Error to get product: " + e);
         }
     }
 
@@ -121,7 +123,7 @@ class Product extends React.Component {
                                         <TableCell>
                                             <ListItem button style={{whidth: 10}}>
                                                 <ListItemIcon>
-                                                    <EditIcon />
+                                                    <NoteAddIcon />
                                                 </ListItemIcon>
                                                 <ListItemText primary="Novo" onClick={this.goEdit} />
                                             </ListItem>
@@ -137,7 +139,23 @@ class Product extends React.Component {
                                                 <TableCell>{item.descricao}</TableCell>
                                                 <TableCell>{item.tipo}</TableCell>
                                                 <TableCell>{item.foto}</TableCell>
-                                                <TableCell align="right">{item.preco}</TableCell>
+                                                <TableCell>{item.preco}</TableCell>
+                                                <TableCell>
+                                                    <ListItem button>
+                                                        <ListItemIcon>
+                                                            <EditIcon />
+                                                        </ListItemIcon>
+                                                        <ListItemText primary="Editar" />
+                                                    </ListItem>
+                                                </TableCell>
+                                                <TableCell align="right">
+                                                    <ListItem button>
+                                                        <ListItemIcon>
+                                                            <DeleteIcon />
+                                                        </ListItemIcon>
+                                                        <ListItemText primary="Eliminar" />
+                                                    </ListItem>
+                                                </TableCell>
                                             </TableRow>
                                             );
                                         })
