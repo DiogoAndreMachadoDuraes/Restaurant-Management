@@ -10,21 +10,11 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Header from "../../shared/header/index";
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import PropTypes from 'prop-types';
+import MaterialTable from 'material-table';
 import {
     BrowserRouter as Router,
     Switch,
@@ -33,7 +23,6 @@ import {
     withRouter,
     useHistory
 } from "react-router-dom";
-
 
 const styles = theme => ({
     appBar: {
@@ -44,18 +33,18 @@ const styles = theme => ({
 class Reservation extends React.Component {
     constructor(props){
         super(props);
-        this.goRestaurant = this.goRestaurant.bind(this);
         this.state={
-            data:[]
+            reservation:[],
+            newData: []
         }
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen Account...");
+        console.log("Mounting the screen Reservation...");
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try {
-            let response = await fetch('http://localhost/Ementas-de-Restauracao/index.php/Reserva', { 
+            let response = await fetch('/Reserva', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -65,11 +54,10 @@ class Reservation extends React.Component {
             console.log(response);
             let json = await response.json();
             this.setState({ 
-                data: json
+                reservation: json
             });
-            console.log(json);
         } catch(e){
-            console.log("Error to get data: " + e);
+            console.log("Error to Get Reservation: " + e);
         }
     }
 
@@ -86,13 +74,102 @@ class Reservation extends React.Component {
         );
     }
 
-    goRestaurant() {
-        this.props.history.push("/restaurant");
+    add = async () => {
+        const { newData } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Cliente', { 
+                method: 'POST',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'data': newData.date,
+                    'hora': newData.hour,
+                    'quantidade_pessoas': newData.quantity,
+                    'data_marcada': newData.pointDate,
+                    'hora_marcada': newData.pointHour,
+                    'estado': newData.state,
+                    'id_cliente': newData.clientId 
+                })
+            });
+            alert("Coluna inserida com sucesso!");
+        } catch(e){
+            console.log("Error to Post Reservation: " + e);
+        }
+    }
+
+    update = async (reservationID) => {
+        const { newData } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Reserva', { 
+                method: 'PUT',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_reserva': reservationID,
+                    'data': newData.date,
+                    'hora': newData.hour,
+                    'quantidade_pessoas': newData.quantity,
+                    'data_marcada': newData.pointDate,
+                    'hora_marcada': newData.pointHour,
+                    'estado': newData.state,
+                    'id_cliente': newData.clientId 
+                })
+            });
+            alert("Coluna modificada com sucesso!");
+        } catch(e){
+            console.log("Error to Put Reserva: " + e);
+        }
+    }
+
+    delete = async (reservationID) => {
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Reserva', { 
+                method: 'DELETE',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_reserva': reservationID,
+                })
+            });
+            alert("Coluna eliminada com sucesso!");
+        } catch(e){
+            console.log("Error to Delete Reservation: " + e);
+        }
     }
 
     render(){
-        const { data } = this.state;
+        const { reservation} = this.state;
         const {classes} = this.props;
+        const columns= [
+            { title: 'Data da Reserva', field: 'data', type: 'date', align:"center"},
+            { title: 'Hora da Reserva', field: 'hour', type: 'time', align:"center"},
+            { title: 'Quantidade de Pessoas', field: 'quantity', type: 'numeric', align:"center" },
+            { title: 'Data Marcada', field: 'pointData', type: 'date', align:"center"},
+            { title: 'Hora Marcada', field: 'pointHour', type: 'time', align:"center"},
+            { title: 'Estado', field: 'state', /* lookup: rowData => [rowData.type], defaultFilter: rowData => [rowData.type], */ align:"center"},
+            { title: 'Id do Cliente', field: 'clientId', type: 'numeric', align:"center" },
+        ];
+        const data = reservation.map((item) => {
+            return { reservationtId: item.id_reserva, data: item.data, hour: item.hora, quantity: item.quantidade_pessoas, pointData: item.data_marcada, pointHour: item.hora_marcada, state: item.estado, clientId: item.id_cliente};
+        });;
+        const tableRef = React.createRef();
         return (
             <div className="root">
                 <AppBar position="absolute" className={classes.appBar}>
@@ -112,67 +189,113 @@ class Reservation extends React.Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Paper className={"paper"}>
-                                    <label htmlFor="email">Reservas:</label>
+                                    <MaterialTable
+                                        title="Tabela de Reservas"
+                                        tableRef={tableRef}
+                                        columns={columns}
+                                        data={data}
+                                        actions={[
+                                            {
+                                                icon: 'refresh',
+                                                tooltip: 'Recarregar',
+                                                isFreeAction: true,
+                                                onClick: () => tableRef.current && tableRef.current.componentDidMount()
+                                            }
+                                        ]}
+                                        options={{
+                                            actionsColumnIndex: -1,
+                                            search: true
+                                        }}
+                                        localization={
+                                            { 
+                                                header: { actions: ""},
+                                                body:{
+                                                    emptyDataSourceMessage: 'Não existe dados para mostar',
+                                                    addTooltip: "Novo",
+                                                    editTooltip: "Editar",
+                                                    deleteTooltip: "Eliminar",
+                                                    editRow: { deleteText: 'Tem a certeza que deseja eliminar?', cancelTooltip: 'Cancelar', saveTooltip: 'Guardar' }
+                                                },
+                                                toolbar: { searchTooltip: "Pesquisar", searchPlaceholder: "Procurar"},
+                                                pagination: { labelDisplayedRows: "{from}-{to} de {count}", firstTooltip: "Primeira Página", previousTooltip: "Página Anterior", nextTooltip: "Próxima Página", lastTooltip: "Última Página", labelRowsSelect:"registos"}
+                                            }
+                                        }
+                                        editable={{
+                                            onRowAdd: newData =>
+                                                new Promise((resolve, reject) => {
+                                                    if(newData.date==null || newData.hour==null || newData.quantity==null || newData.pointData==null || newData.pointHour==null || newData.estado==null || newData.clientId==null) {
+                                                        alert('Nenhum dos valores inseridos pode ser nulo!');
+                                                        reject();
+                                                    }else{
+                                                        if(newData.quantity<0 || newData.estado<0 || newData.clientId<0 ) {
+                                                            alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                                                            reject();
+                                                        }else{
+                                                            if(Number.isInteger(newData.quantidade)==false){
+                                                                alert('A quantidade tem de ser do tipo inteiro!');
+                                                                reject();
+                                                            }else{
+                                                                if(Number.isInteger(newData.clientId)==false){
+                                                                    alert('A identificação do cliente tem de ser do tipo inteiro!');
+                                                                    reject();
+                                                                }else{
+                                                                    setTimeout(() => {
+                                                                        this.setState({
+                                                                            newData: newData
+                                                                        });
+                                                                        resolve();
+                                                                        this.add();
+                                                                    }, 1000)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                            }),
+                                            onRowUpdate: (newData, oldData) =>
+                                                new Promise((resolve, reject) => {
+                                                    if(newData.date==null || newData.hour==null || newData.quantity==null || newData.pointData==null || newData.pointHour==null || newData.estado==null || newData.clientId==null) {
+                                                        alert('Nenhum dos valores inseridos pode ser nulo!');
+                                                        reject();
+                                                    }else{
+                                                        if(newData.quantity<0 || newData.estado<0 || newData.clientId<0 ) {
+                                                            alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                                                            reject();
+                                                        }else{
+                                                            if(Number.isInteger(newData.quantidade)==false){
+                                                                alert('A quantidade tem de ser do tipo inteiro!');
+                                                                reject();
+                                                            }else{
+                                                                if(Number.isInteger(newData.clientId)==false){
+                                                                    alert('A identificação do cliente tem de ser do tipo inteiro!');
+                                                                    reject();
+                                                                }else{
+                                                                    setTimeout(() => {
+                                                                        const dataUpdate = [...data];
+                                                                        const index = oldData.tableData.id;
+                                                                        dataUpdate[index] = newData;
+                                                                        this.setState({
+                                                                            newData: newData
+                                                                        });
+                                                                        const reservationID=newData.reservationId;
+                                                                        resolve();
+                                                                        this.update(reservationID);
+                                                                    }, 1000)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                            }),
+                                            onRowDelete: oldData =>
+                                                new Promise((resolve, reject) => {
+                                                    setTimeout(() => {
+                                                        const reservationID = oldData.reservationId;
+                                                        resolve();
+                                                        this.delete(reservationID);
+                                                    }, 1000)
+                                                }),
+                                        }}
+                                    />
                                 </Paper>
-                            </Grid>
-                            <Grid item xs={12}>
-                            <Paper className={"paper"}>
-                                <Table size="small">
-                                    <TableHead>
-                                    <TableRow>
-                                        <TableCell>Data de criação</TableCell>
-                                        <TableCell>Hora de criação</TableCell>
-                                        <TableCell>Quantidade de Pessoas</TableCell>
-                                        <TableCell>Data Marcada</TableCell>
-                                        <TableCell>Hora Marcada</TableCell>
-                                        <TableCell>Estado</TableCell>
-                                        <TableCell>Id cliente</TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell align="right">
-                                            <ListItem button>
-                                                <ListItemIcon>
-                                                    <NoteAddIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Nova" onClick={this.goRestaurant}/>
-                                            </ListItem>
-                                        </TableCell>
-                                    </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                    {
-                                        data.map((item) => {
-                                            return(
-                                            <TableRow key={item.id_reserva}>
-                                                <TableCell>{item.data}</TableCell>
-                                                <TableCell>{item.hora}</TableCell>
-                                                <TableCell>{item.quantidade_pessoas}</TableCell>
-                                                <TableCell>{item.data_marcada}</TableCell>
-                                                <TableCell>{item.hora_marcada}</TableCell>
-                                                <TableCell>{item.estado}</TableCell>
-                                                <TableCell>{item.id_cliente}</TableCell>
-                                                <TableCell>
-                                                    <ListItem button>
-                                                        <ListItemIcon>
-                                                            <EditIcon />
-                                                        </ListItemIcon>
-                                                        <ListItemText primary="Editar" />
-                                                    </ListItem>
-                                                </TableCell>
-                                                <TableCell align="right">
-                                                    <ListItem button>
-                                                        <ListItemIcon>
-                                                            <DeleteIcon />
-                                                        </ListItemIcon>
-                                                        <ListItemText primary="Eliminar" />
-                                                    </ListItem>
-                                                </TableCell>
-                                            </TableRow>
-                                            );
-                                        })
-                                    }
-                                    </TableBody>
-                                </Table>
-                            </Paper>
                             </Grid>
                         </Grid>
                         <Box pt={4}>

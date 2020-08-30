@@ -11,21 +11,11 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import MaterialTable from 'material-table';
 import Header from "../../shared/header/index";
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import PropTypes from 'prop-types';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
     appBar: {
@@ -36,32 +26,103 @@ const styles = theme => ({
 class Client extends React.Component {
     constructor(props){
         super(props);
-        this.goCreate = this.goCreate.bind(this);
-        this.goEdit = this.goEdit.bind(this);
         this.state={
-            data:[]
+            client:[],
+            newData:[]
         }
     }
 
     async componentDidMount (){ 
         console.log("Mounting the screen Account...");
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Cliente', { 
+            let response = await fetch('/Cliente', { 
                 headers: {
                     Autentication: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 }
             });
+            console.log(response);
             let json = await response.json();
             this.setState({ 
-                data: json
+                client: json
             });
-            console.log(json);
         } catch(e){
-            console.log("Error to get data: " + e);
+            console.log("Error to get client: " + e);
+        }
+    }
+
+    add = async () => {
+        const { newData } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Cliente', { 
+                method: 'POST',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'numero_cartao': newData.cartNumber,
+                    'numero_compras': newData.shopNumber,
+                    'id_utilizador': newData.userId 
+                })
+            });
+            alert("Coluna inserida com sucesso!");
+        } catch(e){
+            console.log("Error to Post Client: " + e);
+        }
+    }
+
+    update = async (clientID) => {
+        const { newData } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Cliente', { 
+                method: 'PUT',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_cliente': clientID,
+                    'numero_cartao': newData.cartNumber,
+                    'numero_compras': newData.shopNumber,
+                    'id_utilizador': newData.userId 
+                })
+            });
+            alert("Coluna modificada com sucesso!");
+        } catch(e){
+            console.log("Error to Put Client: " + e);
+        }
+    }
+
+    delete = async (clientID) => {
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Cliente', { 
+                method: 'DELETE',
+                headers: {
+                    Autentication: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_cliente': clientID,
+                })
+            });
+            alert("Coluna eliminada com sucesso!");
+        } catch(e){
+            console.log("Error to Delete Client: " + e);
         }
     }
 
@@ -78,17 +139,18 @@ class Client extends React.Component {
         );
     }
 
-    goCreate() {
-        this.props.history.push("/clientCreate");
-    }
-
-    goEdit() {
-        this.props.history.push("/clientEdit");
-    }
-
     render(){
-        const { data } = this.state;
+        const { client } = this.state;
         const {classes} = this.props;
+        const columns= [
+            { title: 'Numero Cartao', field: 'cartNumber', type: 'numeric', validate: rowData=>rowData.cartNumber === 0 ? {isValid: false, helperText: 'O número de cartão pode ser 0'} : true, align:"center"},
+            { title: 'Número de compras', field: 'shopNumber', type: 'numeric', align:"center" },
+            { title: 'Id de utilizador', field: 'userId', type: 'numeric', validate: rowData=>rowData.userId === 0 ? {isValid: false, helperText: 'A identificação do utilizador não pode ser 0'} : true, align:"center" }
+        ];
+        const data = client.map((item) => {
+            return { clientId: item.id_cliente, cartNumber: item.numero_cartao, shopNumber: item.numero_compras, userId: item.id_utilizador};
+        });;
+        const tableRef = React.createRef();
         return (
             <div className="root">
                 <AppBar position="absolute" className={classes.appBar}>
@@ -108,38 +170,122 @@ class Client extends React.Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                             <Paper elevation={3} className={"paper"}>
-                                <label htmlFor="email">Clientes:</label>
-                                <Table size="small">
-                                    <TableHead>
-                                    <TableRow>
-                                        <TableCell>Número cartão</TableCell>
-                                        <TableCell>Número Compras</TableCell>
-                                        <TableCell>Id Utilizador</TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell>
-                                            <ListItem button style={{whidth: 10}}>
-                                                <ListItemIcon>
-                                                    <EditIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Novo" onClick={this.goEdit} />
-                                            </ListItem>
-                                        </TableCell>
-                                    </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                    {
-                                        data.map((item) => {
-                                            return(
-                                            <TableRow key={item.id_cliente}>
-                                                <TableCell>{item.numero_cartao}</TableCell>
-                                                <TableCell>{item.numero_compras}</TableCell>
-                                                <TableCell align="right">{item.id_utilizador}</TableCell>
-                                            </TableRow>
-                                            );
-                                        })
+                                <MaterialTable
+                                    title="Tabela de Clientes"
+                                    tableRef={tableRef}
+                                    columns={columns}
+                                    data={data}
+                                    actions={[
+                                        {
+                                            icon: 'refresh',
+                                            tooltip: 'Recarregar',
+                                            isFreeAction: true,
+                                            onClick: () => tableRef.current && tableRef.current.componentDidMount()
+                                        }
+                                    ]}
+                                    options={{
+                                        actionsColumnIndex: -1,
+                                        search: true
+                                    }}
+                                    localization={
+                                        { 
+                                            header: { actions: ""},
+                                            body:{
+                                                emptyDataSourceMessage: 'Não existe dados para mostar',
+                                                addTooltip: "Novo",
+                                                editTooltip: "Editar",
+                                                deleteTooltip: "Eliminar",
+                                                editRow: { deleteText: 'Tem a certeza que deseja eliminar?', cancelTooltip: 'Cancelar', saveTooltip: 'Guardar' }
+                                            },
+                                            toolbar: { searchTooltip: "Pesquisar", searchPlaceholder: "Procurar"},
+                                            pagination: { labelDisplayedRows: "{from}-{to} de {count}", firstTooltip: "Primeira Página", previousTooltip: "Página Anterior", nextTooltip: "Próxima Página", lastTooltip: "Última Página", labelRowsSelect:"registos"}
+                                        }
                                     }
-                                    </TableBody>
-                                </Table>
+                                    editable={{
+                                        onRowAdd: newData =>
+                                            new Promise((resolve, reject) => {
+                                                if(newData.cartNumber==null || newData.shopNumber==null || newData.userId==null) {
+                                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                                    reject();
+                                                }else{
+                                                    if(newData.cartNumber<0 || newData.shopNumber<0 || newData.userId<0) {
+                                                        alert('Nenhum dos valores inseridos pode ser negativo!');
+                                                        reject();
+                                                    }else{
+                                                        if(Number.isInteger(newData.cartNumber)==false){
+                                                            alert('O cartão tem de ser do tipo inteiro!');
+                                                            reject();
+                                                        }else{
+                                                            if(Number.isInteger(newData.shopNumber)==false){
+                                                                alert('O número de compras tem de ser do tipo inteiro!');
+                                                                reject();
+                                                            }else{
+                                                                if(Number.isInteger(newData.userId)==false){
+                                                                    alert('A identificação do utilizador tem de ser do tipo inteiro!');
+                                                                    reject();
+                                                                }else{
+                                                                    setTimeout(() => {
+                                                                        this.setState({
+                                                                            newData: newData
+                                                                        });
+                                                                        resolve();
+                                                                        this.add();
+                                                                    }, 1000)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }),
+                                        onRowUpdate: (newData, oldData) =>
+                                            new Promise((resolve, reject) => {
+                                                if(newData.cartNumber==null || newData.shopNumber==null || newData.userId==null) {
+                                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                                    reject();
+                                                }else{
+                                                    if(newData.cartNumber<0 || newData.shopNumber<0 || newData.userId<0) {
+                                                        alert('Nenhum dos valores inseridos pode ser negativo!');
+                                                        reject();
+                                                    }else{
+                                                        if(Number.isInteger(newData.cartNumber)==false){
+                                                            alert('O cartão tem de ser do tipo inteiro!');
+                                                            reject();
+                                                        }else{
+                                                            if(Number.isInteger(newData.shopNumber)==false){
+                                                                alert('O número de compras tem de ser do tipo inteiro!');
+                                                                reject();
+                                                            }else{
+                                                                if(Number.isInteger(newData.userId)==false){
+                                                                    alert('A identificação do utilizador tem de ser do tipo inteiro!');
+                                                                    reject();
+                                                                }else{
+                                                                    setTimeout(() => {
+                                                                        const dataUpdate = [...data];
+                                                                        const index = oldData.tableData.id;
+                                                                        dataUpdate[index] = newData;
+                                                                        this.setState({
+                                                                            newData: newData
+                                                                        });
+                                                                        const clientID=newData.clientId;
+                                                                        resolve();
+                                                                        this.update(clientID);
+                                                                    }, 1000)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                        }),
+                                        onRowDelete: oldData =>
+                                            new Promise((resolve, reject) => {
+                                                setTimeout(() => {
+                                                    const clientID = oldData.clientId;
+                                                    resolve();
+                                                    this.delete(clientID);
+                                                }, 1000)
+                                        }),
+                                    }}
+                                />
                             </Paper>
                             </Grid>
                         </Grid>
