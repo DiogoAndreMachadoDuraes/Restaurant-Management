@@ -100,8 +100,8 @@ export function ListPages (){
     history.push("/menuProduct");
   }
 
-  function goNutricionalInformation() {
-    history.push("/nutricionalInformation");
+  function goNutritionalInformation() {
+    history.push("/nutritionalInformation");
   }
 
   function goTakeAway() {
@@ -186,7 +186,7 @@ export function ListPages (){
         <ListItemIcon>
           <InfoIcon />
         </ListItemIcon>
-        <ListItemText primary="Informação Nutricional" onClick={goNutricionalInformation}/>
+        <ListItemText primary="Informação Nutricional" onClick={goNutritionalInformation}/>
       </ListItem>
       <ListItem button>
         <ListItemIcon>
