@@ -40,6 +40,8 @@ import Admin from './components/screens/admin/index';
 import CreateAdmin from './components/screens/admin/create';
 import EditAdmin from './components/screens/admin/edit';
 import Allergen from './components/screens/allergen/index';
+import CreateAllergen from './components/screens/allergen/create';
+import EditAllergen from './components/screens/allergen/edit';
 import Employee from './components/screens/employee/index';
 import Invoice from './components/screens/invoice/index';
 import Menu from './components/screens/menu/index';
@@ -47,6 +49,8 @@ import CreateMenu from './components/screens/menu/create';
 import EditMenu from './components/screens/menu/edit';
 import MenuProduct from './components/screens/menuProduct/index';
 import NutritionalInformation from './components/screens/nutritionalInformation/index';
+import CreateNutritionalInformation from './components/screens/nutritionalInformation/create';
+import EditNutritionalInformation from './components/screens/nutritionalInformation/edit';
 import SpecialMenu from './components/screens/specialMenu/index';
 import CreateSpecialMenu from './components/screens/specialMenu/create';
 import EditSpecialMenu from './components/screens/specialMenu/edit';
@@ -162,6 +166,12 @@ function App() {
         <Route path="/allergen">
           <Allergen />
         </Route>
+        <Route path="/allergenCreate">
+          <CreateAllergen />
+        </Route>
+        <Route path="/allergenEdit">
+          <EditAllergen />
+        </Route>
         <Route path="/employee">
           <Employee />
         </Route>
@@ -182,6 +192,12 @@ function App() {
         </Route>
         <Route path="/nutritionalInformation">
           <NutritionalInformation />
+        </Route>
+        <Route path="/nutritionalInformationCreate">
+          <CreateNutritionalInformation />
+        </Route>
+        <Route path="/nutritionalInformationEdit">
+          <EditNutritionalInformation />
         </Route>
         <Route path="/specialMenu">
           <SpecialMenu />
