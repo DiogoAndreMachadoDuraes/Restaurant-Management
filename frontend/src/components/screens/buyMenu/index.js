@@ -50,7 +50,7 @@ class BuyMenu extends React.Component {
             });
             console.log(json);
         } catch(e){
-            console.log("Error to get data: " + e);
+            console.log("Error to get Buy Menu: " + e);
         }
     }
 
@@ -71,7 +71,7 @@ class BuyMenu extends React.Component {
                     'quantidade': newData.quantity,
                     'preco': newData.price,
                     'id_menu': newData.menuId,
-                    'id_reserva': newData.reservationId 
+                    'id_reserva': newData.reservationId
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -98,7 +98,7 @@ class BuyMenu extends React.Component {
                     'quantidade': newData.quantity,
                     'preco': newData.price,
                     'id_menu': newData.menuId,
-                    'id_reserva': newData.reservationId 
+                    'id_reserva': newData.reservationId
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -147,7 +147,7 @@ class BuyMenu extends React.Component {
         const columns= [
             { title: 'Quantidade', field: 'quantity', type: 'numeric', validate: rowData=>rowData.quantity === 0 ? {isValid: false, helperText: 'A quantidade da compra não pode ser 0'} : true, align:"center"},
             { title: 'Preço', field: 'price', type: 'numeric', validate: rowData=>rowData.price === 0 ? {isValid: false, helperText: 'O preço não pode ser 0'} : true, align:"center" },
-            { title: 'Id do menu', field: 'menuId', type: 'numeric', validate: rowData=>rowData.menuId=== 0 ? {isValid: false, helperText: 'A identificação do menu não pode ser 0'} : true, align:"center" },
+            { title: 'Id do Menu', field: 'menuId', type: 'numeric', validate: rowData=>rowData.menuId=== 0 ? {isValid: false, helperText: 'A identificação do menu não pode ser 0'} : true, align:"center" },
             { title: 'Id da Reserva', field: 'reservationId', type: 'numeric', validate: rowData=>rowData.reservationId === 0 ? {isValid: false, helperText: 'A identificação da reserva não pode ser 0'} : true, align:"center" }
         ];
         const data = buyMenu.map((item) => {
@@ -207,11 +207,11 @@ class BuyMenu extends React.Component {
                                         editable={{
                                             onRowAdd: newData =>
                                                 new Promise((resolve, reject) => {
-                                                    if(newData.quantity==null || newData.price==null || newData.menuId==null || newData.reservationId==null) {
+                                                    if(newData.quantity==null || newData.price==null || newData.productId==null || newData.reservationId==null) {
                                                         alert('Nenhum dos valores inseridos pode ser nulo!');
                                                         reject();
                                                     }else{
-                                                        if(newData.quantity<0 || newData.price<0 || newData.menuId<0 || newData.reservationId<0) {
+                                                        if(newData.quantity<0 || newData.price<0 || newData.productId<0 || newData.reservationId<0) {
                                                             alert('A quantidade, o preço e/ou as identificações não pode ser negativo!');
                                                             reject();
                                                         }else{

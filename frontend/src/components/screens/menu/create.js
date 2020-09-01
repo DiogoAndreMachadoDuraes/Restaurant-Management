@@ -114,8 +114,12 @@ class Create extends React.Component {
                                             onChange={(value, index) => this.setState({ type : value})}
                                             style={{inlineSize: 200}}
                                         >
-                                            <MenuItem value={10}> </MenuItem>
-                                            
+                                            <MenuItem value={10}>Menus de Hambúrgues</MenuItem>
+                                            <MenuItem value={20}>Menus de Francesinhas</MenuItem>
+                                            <MenuItem value={30}>Pratos de Carne</MenuItem>
+                                            <MenuItem value={40}>Pratos de Peixe</MenuItem>
+                                            <MenuItem value={50}>Menus de Pizza</MenuItem>
+                                            <MenuItem value={60}>Menus de Cafés</MenuItem>                
                                         </Select>
                                     </FormControl>
                                     <TextField className={"outlineBasic"} label="Preço (€)" variant="outlined"/>
