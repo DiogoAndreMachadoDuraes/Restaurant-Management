@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 import Home from "./components/screens/home/index";
-import Choose from './components/screens/loginChoose/index';
+import Login from './components/screens/login/index';
 import Product from './components/screens/product/index';
 import ProductCreate from './components/screens/product/create';
 import ProductEdit from './components/screens/product/edit';
@@ -67,7 +67,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Choose />
+          <Login />
         </Route>
         <Route path="/home">
           <Home />
