@@ -38,7 +38,7 @@ const styles = theme => ({
     },
 });
 
-class Create extends React.Component {
+class Edit extends React.Component {
     constructor(props){
         super(props);
         this.save = this.save.bind(this);
@@ -49,7 +49,7 @@ class Create extends React.Component {
     }
 
     async componentDidMount (){ 
-        console.log("Mounting the screen Create Invoice...");
+        console.log("Mounting the screen Edit Invoice...");
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
         try {
@@ -94,7 +94,7 @@ class Create extends React.Component {
                 <main className={"content"}>
                     <Container maxWidth="lg" style={{marginTop: 100}}>
                         <Grid>
-                            <h1 style={{fontSize:35}}>Criar Fatura</h1>
+                            <h1 style={{fontSize:35}}>Editar Fatura</h1>
                             <Paper elevation={24} className={"paper"}>
                                 <a href="#pablo" onClick={e => e.preventDefault()}>
                                     <img src={avatar} alt="..." width="400" height="400" />
@@ -114,7 +114,7 @@ class Create extends React.Component {
                                             onChange={(value, index) => this.setState({ type : value})}
                                             style={{inlineSize: 200}}
                                         >
-                                            <MenuItem value={10}>Nome</MenuItem>
+                                            <MenuItem value={10}></MenuItem>
                                            
                                         </Select>
                                     </FormControl>
@@ -134,8 +134,8 @@ class Create extends React.Component {
     }
 }
 
-Create.propTypes = {
+Edit.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withRouter(withStyles(styles)(Create));
+export default withRouter(withStyles(styles)(Edit));

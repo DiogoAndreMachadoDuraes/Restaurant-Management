@@ -44,6 +44,8 @@ import CreateAllergen from './components/screens/allergen/create';
 import EditAllergen from './components/screens/allergen/edit';
 import Employee from './components/screens/employee/index';
 import Invoice from './components/screens/invoice/index';
+import InvoiceCreate from './components/screens/invoice/create';
+import InvoiceEdit from './components/screens/invoice/edit';
 import Menu from './components/screens/menu/index';
 import CreateMenu from './components/screens/menu/create';
 import EditMenu from './components/screens/menu/edit';
@@ -177,6 +179,12 @@ function App() {
         </Route>
         <Route path="/invoice">
           <Invoice />
+        </Route>
+        <Route path="/invoiceCreate">
+          <CreateInvoice />
+        </Route>
+        <Route path="/invoiceEdit">
+          <EditInvoice />
         </Route>
         <Route path="/menu">
           <Menu />

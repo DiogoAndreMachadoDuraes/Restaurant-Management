@@ -176,7 +176,7 @@ class NutritionalInformation extends React.Component {
                             <Grid item xs={12}>
                             <Paper elevation={3} className={"paper"}>
                                 <MaterialTable
-                                    title="Tabela de Clientes"
+                                    title="Tabela da Informação Nutricional"
                                     tableRef={tableRef}
                                     columns={columns}
                                     data={data}
