@@ -1,20 +1,17 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, Picker, ScrollView, TextInput, AsyncStorage, ActivityIndicator, TouchableOpacity } from 'react-native';
+import {StyleSheet, View, Text, Picker, ScrollView, AsyncStorage, ActivityIndicator, TouchableOpacity, CheckBox } from 'react-native';
 import { Input, Header } from 'react-native-elements';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
-import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
-import {useTheme, Avatar} from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-
 class EditAccount extends React.Component {
   constructor(){
       super();
       this.state={
-        name:"Registar",
+        name:"Editar Conta",
         tin:'',
         userName: '',
         birthday:'',
@@ -29,7 +26,6 @@ class EditAccount extends React.Component {
         confirmPassword:'',
         check: false,              //box check
         checked: false,
-        //avatarSource: null
         isValidName: true,
         isValidPassword: true,
         isValidStreet: true,
@@ -52,7 +48,8 @@ class EditAccount extends React.Component {
         isValidConfirmPassword: true,
         isConfirmPassword: true
       };
-    }
+  }
+
   componentDidMount(){ 
     console.log("Mounting the screen EditAccount...");
   }
@@ -70,6 +67,7 @@ class EditAccount extends React.Component {
         });
     }
   }
+
   validPassword = (val) => {
     if( val.trim().length >= 8 ) {
       this.setState({
@@ -83,6 +81,7 @@ class EditAccount extends React.Component {
         });
       }
   }
+
   validConfirmPassword = (val) => {
     if( val.trim().length >= 8 ) {
       if( val==this.state.password ) {
@@ -105,6 +104,7 @@ class EditAccount extends React.Component {
         });
       }
   }
+
   validStreet = (val) => {
     if( val.trim().length >= 14 ) {
       this.setState({
@@ -118,6 +118,7 @@ class EditAccount extends React.Component {
         });
       }
   }
+
   validTin = (val) => {
       if(/^[0-9]*$/.test(val)) {
         if( val.trim().length >= 9 ) {
@@ -140,6 +141,7 @@ class EditAccount extends React.Component {
         });
       }
   }
+
   validPostalCode = (val) => {
     if( val.trim().length >= 8 ) {
       if(/^[0-9-]*$/.test(val)) {
@@ -162,6 +164,7 @@ class EditAccount extends React.Component {
         });
       }
   }
+
   validEmail = (val) => {
     if( val.trim().length != 0 ){
       if(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(val)) {
@@ -184,6 +187,7 @@ class EditAccount extends React.Component {
         });
       }
   }
+
   validContact = (val) => {
     if( val.trim().length > 8 ) {
       if(/^[0-9+]*$/.test(val)) {
@@ -206,6 +210,7 @@ class EditAccount extends React.Component {
         });
       }
   }
+
   validLocation = (val) => {                         
     if( val.trim().length >= 4 ) {
       if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]*$/.test(val)) {
@@ -228,6 +233,7 @@ class EditAccount extends React.Component {
         });
       }
   }
+
   handlePicked = (date) => {
     this.setState({ 
       isVisible: false,
@@ -249,24 +255,7 @@ class EditAccount extends React.Component {
       check: true
     })
   }
-  /*selectImage=async () => {
-    await ImagePicker.showImagePicker({noData:true,mediaType:'photo'}, (response) => {
-      console.log('Response = ', response);
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = { uri: response.uri };
   
-        this.setState({
-          avatarSource: source,
-        });
-      }
-    });  
-  }*/
   getUser = async () => {
     try {
       const value = await AsyncStorage.getItem("User");
@@ -278,25 +267,26 @@ class EditAccount extends React.Component {
         console.log("Error rending user: " + e);
     }
   }
+
   render()
     { 
-        const { user, isLoading } = this.state;
-        {
-          this.getUser();
-        }
+      const { user, isLoading } = this.state;
+      {
+        this.getUser();
+    }
     return (
       <View style={style.container}>
       <OwnStatusBar />
       <Header 
-        centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color: '#fff', marginTop: -20}}>{this.state.name}</Text>} 
-        containerStyle={{
-        backgroundColor: '#556b2f',
-        justifyContent: 'space-around',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        borderColor: "white",
-        height: 80,
-        }}
+          centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color: '#fff', marginTop: -20}}>{this.state.name}</Text>} 
+          containerStyle={{
+          backgroundColor: '#556b2f',
+          justifyContent: 'space-around',
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          borderColor: "white",
+          height: 80,
+          }}
       />
 
       <ScrollView style={style.form}>
@@ -486,6 +476,7 @@ class EditAccount extends React.Component {
     );
   }
 }
+
 _onPress = async() => {
   console.log(this.state.tin);
   console.log(this.state.userName);
@@ -540,129 +531,129 @@ _onPress = async() => {
   }
 
 const style = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#556b2f"
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "#556b2f"
+  },
 
-    errorMsg: {
-      color: '#FF0000',
-      fontSize: 14,
-    },
+  errorMsg: {
+    color: '#FF0000',
+    fontSize: 14,
+  },
 
-    inputcolor:{
-      color: "white",
-    },
+  inputcolor:{
+    color: "white",
+  },
 
-    menu: {                           
-      width: "100%",
-      height:"100%"
-    },
+  menu: {                           
+    width: "100%",
+    height:"100%"
+  },
 
-    form:{
-      width: "100%",
-      height:"100%"
-    },
+  form:{
+    width: "100%",
+    height:"100%"
+  },
 
-    title:{
-      color: "#fff",
-      fontSize: 15,
-      fontWeight: 'bold',
-      fontStyle: "normal",
-      marginLeft: 30,
-      left: -10,
-      marginTop: 20,
-      padding:10,
-    },
+  title:{
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: 'bold',
+    fontStyle: "normal",
+    marginLeft: 30,
+    left: -10,
+    marginTop: 20,
+    padding:10,
+  },
 
-    title2:{
-      color: "#fff",
-      fontSize: 15,
-      fontStyle: "normal",
-      marginLeft: 30,
-      left: 10,
-      marginTop: -10,
-      padding:10,
-    },
-    
-    title1:{
-      color: "#fff",
-      fontSize: 15,
-      fontStyle: "normal",
-      marginLeft: 30,
-      left: -10,
-      marginTop: -10,
-      padding:10,
-    },
+  title2:{
+    color: "#fff",
+    fontSize: 15,
+    fontStyle: "normal",
+    marginLeft: 30,
+    left: 10,
+    marginTop: -10,
+    padding:10,
+  },
+  
+  title1:{
+    color: "#fff",
+    fontSize: 15,
+    fontStyle: "normal",
+    marginLeft: 30,
+    left: -10,
+    marginTop: -10,
+    padding:10,
+  },
 
-    title3:{
-      color: "#fff",
-      fontSize: 10,
-      fontWeight: 'bold',
-      fontStyle: "normal",
-      marginLeft: 30,
-      left: 100,
-      top: -30,
-      padding:10,
-    },
+  title3:{
+    color: "#fff",
+    fontSize: 10,
+    fontWeight: 'bold',
+    fontStyle: "normal",
+    marginLeft: 30,
+    left: 100,
+    top: -30,
+    padding:10,
+  },
 
-    header:{
-      fontSize: 25,
-      color: '#fff',
-      marginLeft: 130,
-      top: 60,
-      paddingBottom:60,
-      marginBottom:60,
-      borderBottomColor: 'black',
-    },
+  header:{
+    fontSize: 25,
+    color: '#fff',
+    marginLeft: 130,
+    top: 60,
+    paddingBottom:60,
+    marginBottom:60,
+    borderBottomColor: 'black',
+  },
 
-    button:{
-      alignSelf:'stretch',
-      alignItems:'center',
-      padding:10,
-      backgroundColor:'white',
-      marginTop: 50,
-      width:130,
-      left: 130,
-      marginVertical:20
-    },
+  button:{
+    alignSelf:'stretch',
+    alignItems:'center',
+    padding:10,
+    backgroundColor:'white',
+    marginTop: 50,
+    width:130,
+    left: 130,
+    marginVertical:20
+  },
 
-    btnText:{
-      color:'red',
-      fontWeight:'bold',
-      fontSize: 20,
-    },
-    
-    textInput:{
-      alignSelf:'stretch',
-      height: 40,
-      color: 'white',
-      marginBottom: 10,
-      borderBottomColor:'white',
-      borderBottomWidth:1,
-    },
+  btnText:{
+    color:'red',
+    fontWeight:'bold',
+    fontSize: 20,
+  },
+  
+  textInput:{
+    alignSelf:'stretch',
+    height: 40,
+    color: 'white',
+    marginBottom: 10,
+    borderBottomColor:'white',
+    borderBottomWidth:1,
+  },
 
-    email:{
-      color: 'white',
-    },
+  email:{
+    color: 'white',
+  },
 
-    imageBackground: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
+  imageBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 
-    text:{
-      color: 'white',
-      fontWeight: 'bold',
-      fontSize: 20,
-      left: 20,
-    },
+  text:{
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+    left: 20,
+  },
 
-    /*picker:{
-      with: '80%',
-      height: 200,
-      resizeMode: 'contain'
-    }*/
+  /*picker:{
+    with: '80%',
+    height: 200,
+    resizeMode: 'contain'
+  }*/
 });
 export default EditAccount;

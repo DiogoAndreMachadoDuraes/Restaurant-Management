@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput, AsyncStorage} from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop';
 import OwnStatusBar from './shared/OwnStatusBar';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'; 
@@ -9,6 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useTheme, Avatar} from 'react-native-paper';
+
 class Home extends React.Component{
     constructor(){
         super();
@@ -17,32 +18,35 @@ class Home extends React.Component{
     componentDidMount(){ 
         console.log("Mounting the screen Home...");
     }
-    async getName(){
-        try {
-            let json=await AsyncStorage.getItem("Name");
-            if (json!=null){
-                this.setState({
-                    avatarName: json
-                });
-            }
-        }
-        catch(e){
-            console.log("error to get asyncstorage name: " + e);
+
+async getName(){
+    try {
+        let json=await AsyncStorage.getItem("Name");
+        if (json!=null){
+            this.setState({
+                avatarName: json
+            });
         }
     }
-    async getPhoto(){
-        try {
-            let json=await AsyncStorage.getItem("Foto");
-            if (json!=null){
-                this.setState({
-                    photo: json
-                });
-            }
-        }
-        catch(e){
-            console.log("error to get asyncstorage photo: " + e);
+    catch(e){
+        console.log("error to get asyncstorage name: " + e);
+    }
+}
+    
+async getPhoto(){
+    try {
+        let json=await AsyncStorage.getItem("Foto");
+        if (json!=null){
+            this.setState({
+                photo: json
+            });
         }
     }
+    catch(e){
+        console.log("error to get asyncstorage photo: " + e);
+    }
+}
+
     render() {
         {this.getName()}
         {this.getPhoto()}
@@ -53,9 +57,7 @@ class Home extends React.Component{
                 <TouchableOpacity
                     style={{left: 330, marginTop: -55}} onPress={() => this.props.navigation.navigate("Account")}>
                         <Avatar.Image
-                        source={{
-                            uri:''+this.state.photo+''}}
-                            size={40}
+                        source={{uri:''+this.state.photo+''}} size={40}
                 />
                 </TouchableOpacity>
                 <ScrollView style={style.container}>
@@ -68,7 +70,7 @@ class Home extends React.Component{
                         <Image source={require('../assets/space1.jpg')} resizeMode="cover" style={style.sliderImage} />
                     </View>
                     <View style={style.slide}>
-                        <Image source={require('../assets/cartao.jpg')} resizeMode="cover" style={style.sliderImage} />
+                        <Image source={require('../assets/casamento.jpg')} resizeMode="cover" style={style.sliderImage} />
                     </View>
                     <View style={style.slide}>
                         <Image source={require('../assets/portuguesa.jpg')} resizeMode="cover" style={style.sliderImage} />
@@ -114,10 +116,10 @@ class Home extends React.Component{
                         <Text style={style.categoryBtnTxt}> Produtos </Text>
                     </TouchableOpacity>
                     </View>
-                    <View style={style.searchBox}>
+                    {/* <View style={style.searchBox}>
                             <TextInput placeholder="Procurar..." placeholderTextColor="#556b2f" autoCapitalize="none" fontWeight={'bold'} style={{flex:1,padding:5}} />
                             <Ionicons name="ios-search" size={30} />
-                    </View>
+                    </View> */}
             
                     <Text style={style.textFound}>Encontre o seu restaurante aqui! E veja todas as sugestões que temos para si! </Text>
                     
@@ -137,16 +139,14 @@ class Home extends React.Component{
                                 latitude: 41.69323,
                                 longitude: -8.83287,
                             }}
-                            title="Sabor da Avó"
-                            description="Restaurante em Viana do Castelo">
+                            >
                         <View>  
                             <Image style={style.marker} source={require ("../assets/marker.png")}/>
                         </View>
                         <Callout tooltip>
                             <View>
                                 <View style={style.bubble}>
-                                    <Text style= {style.name}>Restaurante Favorito</Text>
-                                    <Image source={require('../assets/space1.jpg')} style={style.imageRestaurant} />
+                                    <Text style= {style.name}>Restaurante em Viana do Castelo</Text>
                                 </View>
                                     <View style={style.arrowBorder} />
                                     <View style={style.arrow} />
@@ -158,18 +158,15 @@ class Home extends React.Component{
                                 latitude: 41.5084468,
                                 longitude: -6.77330236,
                             }}
-                            title="Sabor da Avó"
-                            description="Restaurante em Bragança">
+                            >
                         <View>  
                             <Image style={style.marker} source={require ("../assets/marker.png")}/>
                         </View>
                         <Callout tooltip>
                             <View>
                                 <View style={style.bubble}>
-                                    <Text style= {style.name}>Restaurante Favorito</Text>
-                                    <View style={style.imageRestaurant1}>
-                                    <Image source={require('../assets/space3.jpg')} /> 
-                                    </View>                                    
+                                    <Text style= {style.name}>Restaurante em Bragança</Text> 
+                                                                          
                                 </View>
                                     <View style={style.arrowBorder} />
                                     <View style={style.arrow} />
@@ -181,16 +178,14 @@ class Home extends React.Component{
                                 latitude: 41.3527285,
                                 longitude: -8.20451531,
                             }}
-                            title="Sabor da Avó"
-                            description="Restaurante em Felgeuiras">
+                            >
                         <View>  
                             <Image style={style.marker} source={require ("../assets/marker.png")}/>
                         </View>
                         <Callout tooltip>
                             <View>
                                 <View style={style.bubble}>
-                                    <Text style= {style.name}>Restaurante Favorito</Text>
-                                    <Image source={require('../assets/space2.jpg')} style={style.imageRestaurant2} size={18} />
+                                    <Text style= {style.name}>Restaurante em Felgueiras</Text>
                                 </View>
                                     <View style={style.arrowBorder} />
                                     <View style={style.arrow} />
@@ -204,9 +199,10 @@ class Home extends React.Component{
         );
     }   
 }
+
 const style = StyleSheet.create({
     container: {
-      flex: 1
+        flex: 1
     },
 
     container1:{
@@ -243,7 +239,8 @@ const style = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 0.5,
         padding: 15,
-        width: 200,
+        width: 280,
+        height: 50,
     },
 
     marker:{
@@ -323,7 +320,6 @@ const style = StyleSheet.create({
         top:-10,
     },
 
-    
     textFound:{
         fontSize: 20,
         fontWeight: 'normal',
@@ -331,5 +327,5 @@ const style = StyleSheet.create({
         top: 30,
         left: 20,
     }
-  });
-  export default Home;
+});
+export default Home;

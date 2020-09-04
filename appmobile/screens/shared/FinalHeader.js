@@ -3,12 +3,12 @@ import {Text, StyleSheet, View} from "react-native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
-export default function NossoFinal (){
+export default function FinalHeader (){
   return(
     <View style={style.final}>
-      <Text style={style.companhiaText}>@ Sabor da Avó 2020</Text>
-      <Text style={style.direitosText}>Todos os direitos autorais.</Text>
-      <Text style={style.redesText}>Siga-nos em:</Text>
+      <Text style={style.companyText}>@ Sabor da Avó 2020</Text>
+      <Text style={style.rightsText}>Todos os direitos autorais.</Text>
+      <Text style={style.socialText}>Siga-nos em:</Text>
       <FontAwesome name="facebook-official" style={style.facebook} size={30}/>            
       <FontAwesome name="instagram" style={style.instagram} size={30}/>
     </View>
@@ -16,21 +16,21 @@ export default function NossoFinal (){
 }
 
 const style = StyleSheet.create({
-companhiaText: {
+companyText: {
     color: "#fff",
     fontSize: 15,
     textAlign: 'center',
     marginTop: 50
   },
 
-  direitosText: {
+  rightsText: {
     color: "#fff",
     fontSize: 15,
     textAlign: 'center',
     marginTop: 20
   },
 
-  redesText: {
+  socialText: {
     color: "#fff",
     fontSize: 15,
     textAlign: 'center',

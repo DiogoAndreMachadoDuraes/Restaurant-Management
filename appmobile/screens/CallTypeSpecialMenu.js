@@ -1,6 +1,6 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity, ActivityIndicator, AsyncStorage } from "react-native";
-import NossoFinal from './shared/NossoFinal.js';
+import { StyleSheet, Text, View, ScrollView, ImageBackground, Image, TouchableOpacity, ActivityIndicator, AsyncStorage } from "react-native";
+import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
 
@@ -59,14 +59,25 @@ class CallTypeSpecialMenu extends React.Component{
                 })
                        
                 }
-                  <NossoFinal />
+                  <FinalHeader />
                 </View>
               </ScrollView>
             </ImageBackground>
           </View>
         );
       }
+ 
+    _onPress (item) {
+     
+      this.props.navigation.navigate("ProductDetail",{
+          idProduct:item.menu,
+          name:item.nome,
+          photo:item.foto,
+          description:item.descricao,
+          price:item.preco
+      });        
     }
+  }
     const style = StyleSheet.create({
       container: {
         flex: 1,

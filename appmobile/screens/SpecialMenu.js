@@ -1,9 +1,8 @@
 import * as React from "react";
 import {StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, ImageBackground, Image, TouchableOpacity } from "react-native";
-import NossoFinal from './shared/NossoFinal.js';
+import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
-
 
 const imageBackgound = { uri: "https://assets.tivolihotels.com/image/upload/q_auto,f_auto/media/minor/tivoli/images/hotels/tmpo/dinning/top-images/tivoli_marina_portimao_restaurants_top_image_1920x1000.jpg" };
 
@@ -19,16 +18,19 @@ const dataFromApi = [
     tipo: "Prato do Dia",
     imagem: Dia
   },
+
   {
     id: 2,
     tipo: "Baby Shower",
     imagem: Baby
   },
+
   {
     id: 3,
     tipo: "Batizados",
     imagem: Batizado
   },
+
   {
     id: 4,
     tipo: "Aniversários",
@@ -44,136 +46,136 @@ const dataFromApi = [
 ]
 
 class SpecialMenu extends React.Component{
-    constructor(){
-        super();
-        this.state={
-          tipo:"Ementa",
-          data:[],
-          isLoading: true
-        };
-      }
-      async componentDidMount(){ 
-        console.log("Mounting the screen SpecialMenu...");
-        let token = await AsyncStorage.getItem("token");
-        try {
-          let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Ementa', { 
-            headers: {
-              Authorization: 'Bearer ' + token,
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            }
-          });
-          let json = await response.json();
-          this.setState({
-            isLoading: false,
-            data: json,
-          });
-        } catch(e){
-          console.log("Error to get product: " + e);
+  constructor(){
+      super();
+      this.state={
+        tipo:"Ementa",
+        data:[],
+        isLoading: true
+      };
+    }
+  async componentDidMount(){ 
+    console.log("Mounting the screen SpecialMenu...");
+    let token = await AsyncStorage.getItem("token");
+    try {
+      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Ementa', { 
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
+      });
+    let json = await response.json();
+    this.setState({
+        isLoading: false,
+        data: json,
+      });
+    } catch(e){
+      console.log("Error to get product: " + e);
     }
-      render(){
-        const { isLoading } = this.state;
-        return (
-          <View style={style.container}>
-            <OwnStatusBar />
-            <OwnHeader nome={this.state.tipo} navigation={this.props.navigation} />
-            <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
-              <ScrollView>
-              <View style={style.menu}>
-              {
-                dataFromApi.map((item)=>{
-                        return(<TouchableOpacity style={style.menuExp} activeOpacity={0.3} onPress={()=>this.props.navigation.navigate("CallTypeSpecialMenu", {tipo:item.tipo})}>
-                          <Image style={style.menuExpFoto} source={item.imagem} ></Image>
-                          <Text style={style.titleMenu}>{item.tipo}</Text>
-                          <Text style={style.textMenu}></Text>
-                        </TouchableOpacity>);
-                      })
-                       
-                      }
-                  <NossoFinal />
-                </View>
-              </ScrollView>
-            </ImageBackground>
-          </View>
-        );
-      }
+  }
+    
+  render(){
+    const { isLoading } = this.state;
+      return (
+        <View style={style.container}>
+          <OwnStatusBar />
+          <OwnHeader nome={this.state.tipo} navigation={this.props.navigation} />
+          <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
+            <ScrollView>
+            <View style={style.menu}>
+            { dataFromApi.map((item)=>{
+                return(<TouchableOpacity style={style.menuExp} activeOpacity={0.3} onPress={()=>this.props.navigation.navigate("CallTypeSpecialMenu", {tipo:item.tipo})}>
+                  <Image style={style.menuExpFoto} source={item.imagem} ></Image>
+                  <Text style={style.titleMenu}>{item.tipo}</Text>
+                  <Text style={style.textMenu}></Text>
+                </TouchableOpacity>);
+              })
+            }
+                <FinalHeader />
+              </View>
+            </ScrollView>
+          </ImageBackground>
+        </View>
+      );
     }
-    const style = StyleSheet.create({
-      container: {
-        flex: 1,
-      },
+  }
 
-      imageBackgound: {                         //foto por tras do titulo
-        flex:1,
-      },
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
 
-      image: {                         //foto por tras do titulo
-        width: 420,
-        height: 250,
-      },
+  imageBackgound: {                         //foto por tras do titulo
+    flex:1,
+  },
 
-      text: {                       
-        color: "white",
-        fontSize: 20,
-        fontStyle: "italic",
-        textAlign: 'center',
-        fontWeight: 'bold',
-        top: 30,
-        opacity: 1,
-      },
+  image: {                         //foto por tras do titulo
+    width: 420,
+    height: 250,
+  },
 
-      menuText: {
-        width: 400,
-        height: 320
-      },
+  text: {                       
+    color: "white",
+    fontSize: 20,
+    fontStyle: "italic",
+    textAlign: 'center',
+    fontWeight: 'bold',
+    top: 30,
+    opacity: 1,
+  },
 
-      menu: {                           //scrollview
-        width: "100%",
-        height: "100%",
-      },
+  menuText: {
+    width: 400,
+    height: 320
+  },
 
-      menuExp: {
-        marginTop: 25,
-        top: 20,
-        marginLeft: 80,
-        width: 260,
-        height: 160,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center'
-      },
+  menu: {                           //scrollview
+    width: "100%",
+    height: "100%",
+  },
 
-      menuExpFoto: {
-        width: 240,
-        height: 130,
-        marginTop: 30
-      },
+  menuExp: {
+    marginTop: 25,
+    top: 20,
+    marginLeft: 80,
+    width: 260,
+    height: 160,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 
-      boxText2:{
-        width: 40,
-        height: 40,
-        backgroundColor: '#000',
-        opacity: 1,
-        top: 40,
-        marginLeft: 31,
-        borderRadius: 5,
-    },
-      titleMenu: {
-        color: "#556b2f",
-        fontSize: 18,
-        fontWeight: 'bold',
-        fontStyle: "normal",
-        top: -3
-      },
+  menuExpFoto: {
+    width: 240,
+    height: 130,
+    marginTop: 30
+  },
 
-      textMenu: {
-        color: "#000",
-        fontSize: 12,
-        fontStyle: "italic",
-        textAlign: 'center',
-        top: 20
-      }
-    });
+  boxText2:{
+    width: 40,
+    height: 40,
+    backgroundColor: '#000',
+    opacity: 1,
+    top: 40,
+    marginLeft: 31,
+    borderRadius: 5,
+},
+  titleMenu: {
+    color: "#556b2f",
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontStyle: "normal",
+    top: -3
+  },
+
+  textMenu: {
+    color: "#000",
+    fontSize: 12,
+    fontStyle: "italic",
+    textAlign: 'center',
+    top: 20
+  }
+});
 export default SpecialMenu;
