@@ -36,12 +36,12 @@ class Product extends React.Component {
     async componentDidMount (){ 
         console.log("Mounting the screen Product...");
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMyAxOTowNDoyNSJ9.FTaTpwBNG-VIoO9IyaA-kZ_Xb1OKTgof0_gxmF6IZt8";
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0xNCAyMDozODo0MiJ9.BbUHpKWZCH-3tcUaCDN0iKhs5saeDwDGnGSQLlqU53c";
         try {
             let response = await fetch('/Produto', 
             { 
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 }
