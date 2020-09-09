@@ -14,7 +14,7 @@ import {
   AsyncStorage
 } from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
-import NossoFinal from "./shared/NossoFinal.js";
+import FinalHeader from "./shared/FinalHeader.js";
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import Icon from "react-native-vector-icons/Foundation";
 import Email from "react-native-vector-icons/Fontisto";
@@ -116,7 +116,7 @@ class Restaurant extends React.Component{
                   </View>
                 )}
               />
-              <NossoFinal />
+              <FinalHeader />
             </View>
           </ScrollView>
         </ImageBackground>

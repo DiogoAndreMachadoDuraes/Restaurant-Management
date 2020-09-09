@@ -12,7 +12,7 @@ import {
   Alert,
 } from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
-import NossoFinal from './shared/NossoFinal.js';
+import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import moment from 'moment';
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -273,7 +273,7 @@ class ShowReservation extends React.Component{
                   />
                 </View>
             }
-            <NossoFinal />
+            <FinalHeader />
           </ScrollView>
         </ImageBackground>
       </View>

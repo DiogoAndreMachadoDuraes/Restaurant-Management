@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { Icon, colors } from "react-native-elements";
 import OwnStatusBar from "./shared/OwnStatusBar";
-import NossoFinal from "./shared/NossoFinal";
+import FinalHeader from "./shared/FinalHeader";
 import { ProgressChart } from "react-native-chart-kit";
 import Category from "./shared/Category.js";
 
@@ -202,7 +202,7 @@ class ProductDetail extends React.Component{
                     />
                     )
                 }
-                <NossoFinal />
+                <FinalHeader />
                 </ScrollView>
                 </ImageBackground>
             </View>

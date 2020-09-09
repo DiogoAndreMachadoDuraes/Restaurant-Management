@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image, ActivityIndicator, FlatList, AsyncStorage} from "react-native";
-import NossoFinal from "./shared/NossoFinal";
+import FinalHeader from "./shared/FinalHeader";
 import { OwnHeader } from "./shared/OwnHeader.js";
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 
@@ -112,7 +112,7 @@ class Product extends React.Component{
                   );
                 })
               }
-              <NossoFinal />
+              <FinalHeader />
             </View>
           </ScrollView>
         </ImageBackground>

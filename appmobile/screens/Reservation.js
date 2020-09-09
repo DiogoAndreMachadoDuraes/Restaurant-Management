@@ -14,7 +14,7 @@ import {
   Picker,
 } from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
-import NossoFinal from './shared/NossoFinal.js';
+import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
@@ -239,7 +239,7 @@ class Reservation extends React.Component{
                 onPress={this._onPress}
               />
             </View>
-            <NossoFinal />
+            <FinalHeader />
           </ScrollView>
         </ImageBackground>
       </View>
