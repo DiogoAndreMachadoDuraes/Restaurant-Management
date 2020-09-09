@@ -409,37 +409,92 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Email"
             leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} value = {this.email} />
-              { this.state.isNullEmail ? 
-              <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O email não pode ser nulo.</Text>
-              </Animatable.View>
-              : false
-            }
+               { this.state.isNullEmail ? 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O email não pode ser nulo.</Text>
+                </Animatable.View>
+                : false
+              }
+
+              { this.state.isValidEmail ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O email não está correto.</Text>
+                </Animatable.View>
+              }
 
             <Text style={style.text}>Telefone:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Telefone"
             leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} value = {this.telefone} />
+              { this.state.isContact ? true :
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números.</Text>
+              </Animatable.View>
+              }
+
+              { this.state.isValidContact ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais.</Text>
+                </Animatable.View>
+              }
             
             <Text style={style.text}>Rua:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Rua"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.rua} />
+              { this.state.isValidStreet ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres.</Text>
+              </Animatable.View>
+              }
             
             <Text style={style.text}>Código Postal:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Código Postal"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.codigo_postal} />
+              { this.state.isPostalCode ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres.</Text>
+              </Animatable.View>
+              }
+
+              { this.state.isValidPostalCode ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais.</Text>
+              </Animatable.View>
+              }
             
             <Text style={style.text}>Localização:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Localização"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.localizacao} />
+              { this.state.isLocation ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres.</Text>
+              </Animatable.View>
+              }
+
+              { this.state.isValidLocation ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais.</Text>
+              </Animatable.View>
+              }
             
             <Text style={style.text}>Nif:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Nif"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.nif} />
+              { this.state.isValidTin ? true :
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números.</Text>
+              </Animatable.View>
+              }
+
+              { this.state.isTin ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais.</Text>
+              </Animatable.View>
+              }
             
             <Text style={style.text}>Sexo:</Text>
             <Input inputStyle={style.inputcolor}
@@ -450,11 +505,27 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Password"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
+              { this.state.isValidPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
+              </Animatable.View>
+              }  
             
             <Text style={style.text}>Confirmar Password:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Confirmar Password"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
+              { this.state.isConfirmPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
+              </Animatable.View>
+              }  
+
+              { this.state.isValidConfirmPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>As passwords não correspondem.</Text>
+              </Animatable.View>
+              }  
             
             <Text style={style.text}>Data Nascimento:</Text>
             <Input inputStyle={style.inputcolor}
@@ -491,9 +562,23 @@ class CreateAccount extends React.Component {
 }
 
 _onPress = async() => {
+  if(this.state.tin.trim().length==0||this.state.userName.trim().length==0||this.state.choosenDate.trim().length==0||this.state.sex.trim().length==0||this.state.contact.trim().length==0||this.state.street.trim().length==0||this.state.postalCode.trim().length==0||this.state.location.trim().length==0||this.state.email.trim().length==0||this.state.password.trim().length==0||this.state.confirmPassword.trim().length==0)
+  {
+    Alert.alert('Atenção!', ' Preenchimento de todos os dados obrigatório.', [
+    {text: 'Voltar a tentar'}
+  ]);
+  return;
+  }
+  if(this.state.isValidName==true && isValidPassword==true && isValidStreet==true && isValidTin==true && isValidPhoto==true && isValidContact==true && isValidType==true && isValidPostalCode==true && isValidSex==true && isValidLocation==true && isValidBirthday==true && isValidEmail==true && isNullEmail==true && isContact==true && isPostalCode==true && isLocation==true && isTin==true && isVisible==false && isValidConfirmPassword==true && isConfirmPassword==true)
+  {
+    Alert.alert('Atenção!', 'Algum(s) do(s) dado(s) fornecido(s) está incorreto(s).', [
+    {text: 'Voltar a tentar'}
+  ]);
+  return;
+  }
   try
     {
-      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
+      await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Utilizador', {  
       method: 'POST', 
       headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
       body: JSON.stringify({

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, FlatList, AsyncStorage} from 'react-native';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
+import { Button, Card, Title, Paragraph } from 'react-native-paper';
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon from "react-native-vector-icons/FontAwesome";
 import {useTheme, Avatar} from 'react-native-paper';
@@ -21,7 +22,7 @@ class Account extends React.Component {
         console.log("Mounting the screen Account...");
         let token = await AsyncStorage.getItem("token");
     try {
-      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Cliente', { 
+      let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Cliente', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',
@@ -42,11 +43,13 @@ class Account extends React.Component {
           const value = await AsyncStorage.getItem("User");
           if (value !== null) {
             this.setState({ user: JSON.parse(value) });
-            console.log(value);
           }
         } catch (e) {
             console.log("Error rending user: " + e);
         }  
+      }
+      onPress(){
+        console.log("deu");
       }
 
     render()
@@ -57,13 +60,14 @@ class Account extends React.Component {
       }
       const userId=user.map(a=>a.id_utilizador);
       const clientUser=data.filter(a=>a.id_utilizador==userId).map(a=>a);
+      console.log(clientUser);
         return (
 
             <View style={style.container}>
             <OwnStatusBar />
             <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
             <ScrollView>            
-            <ImageBackground source={imageBackgound} style={style.imageOut} opacity={0.8}>
+            <ImageBackground source={imageBackgound} style={style.imageOut} opacity={0.5}>
                   <View style={style.menu}>
                     
                         <FlatList
@@ -135,20 +139,55 @@ class Account extends React.Component {
                                   <Text> {item.email}
                                   </Text>
                                   </Text>
-                                  {
+                                  <Text style={style.text1}>O seu cartão</Text>
+                                    {
                                     clientUser.map((item)=>{
-                                      return(
+                                      if(item.numero_compras>=10){
+                                        return(
+                                          <View>
+                                          <Card style={style.card} onPress={this.onPress}>
+                                    <Card.Title title="Sabor da Avó" subtitle="Cartão do restaurante" />
+                                    <Card.Cover source={{ uri: 'https://travelandleisureindia.in/wp-content/uploads/2019/03/Feature-image-Paella-Seafood.jpg' }} opacity={0.5} />
+                                    <Card.Actions>
+                                      <Button>Refeição grátis</Button>
+                                    </Card.Actions>
+                                    <Text style={style.textCardTitle}>Obrigado pela sua preferência!</Text>
+                                            <Text style={style.itemCard}>
+                                            <Text style={style.textCard}>Número de Compras:</Text>
+                                              <Text> {item.numero_compras}
+                                            </Text>
+                                            </Text>
+                                            <Text style={style.itemCard}>
+                                            <Text style={style.textCard}>Número cartão de cliente:</Text>
+                                              <Text> {item.numero_cartao}
+                                            </Text>
+                                            </Text>
+                                            </Card>
+                                          </View>
+                                          
+                                        );
+                                      } else{
+                                        return(
                                         <View>
-                                        <Text style={style.item}>
+                                        <Card style={style.card} onPress={this.onPress}>
+                                    <Card.Title title="Sabor da Avó" subtitle="Cartão do restaurante" />
+                                    <Card.Cover source={{ uri: 'https://i.pinimg.com/originals/f1/15/5a/f1155a4cce73af17fd2e22880fa59b4a.jpg' }} opacity={0.5} />
+                                    <Text style={style.textCardTitle}>Obrigado pela sua preferência!</Text>
+                                        <Text style={style.itemCard}>
+                                        <Text style={style.textCard}>Número de Compras:</Text>
                                           <Text> {item.numero_compras}
                                           </Text>
                                           </Text>
-                                          <Text style={style.item}>
+                                          <Text style={style.textCard}>Número cartão de cliente:</Text>
+                                          <Text style={style.itemCard}>
                                           <Text> {item.numero_cartao}
                                           </Text>
                                           </Text>
+                                          </Card>
                                         </View>
+                                        
                                       );
+                                      }
                                     })
                                   }
                               </View>
@@ -174,7 +213,40 @@ const style = StyleSheet.create({
 
   view:{
     width: "100%",
-    height: 1200,
+    height: 1380,
+  },
+
+  card:{
+    width: 380,
+    height: 320,
+    top: 70,
+    left: 7,
+    backgroundColor: '#e0ffff',
+    borderRadius: 10,
+  },
+
+  itemCard:{
+    color: 'black',
+    fontWeight: 'bold',
+    top: -160,
+    left: 110,
+    fontSize: 20,
+  },
+
+  textCardTitle:{
+    color: 'black',
+    fontWeight: 'bold',
+    top: -230,
+    left: 10,
+    fontSize: 25,
+  },
+
+  textCard:{
+    color: 'black',
+    fontWeight: 'bold',
+    top: -160,
+    left: 110,
+    fontSize: 20,
   },
 
   icon:{
@@ -218,7 +290,7 @@ const style = StyleSheet.create({
     width:150,
     left: 130,
     height: 30,
-    top: -30,
+    top: -80,
   },
 
   btnText:{
@@ -245,6 +317,14 @@ const style = StyleSheet.create({
     fontSize: 20,
     left: 50,
     top: 40,
+  },
+
+  text1:{
+    color: 'tomato',
+    fontWeight: 'bold',
+    fontSize: 25,
+    left: 20,
+    top: 60,
   }
 
 });

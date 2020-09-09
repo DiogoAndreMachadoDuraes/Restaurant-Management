@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, Tou
 import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
-import FinalHeader from "./shared/FinalHeader.js";
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 

@@ -19,7 +19,7 @@ class CallTypeSpecialMenu extends React.Component{
         console.log("Mounting the screen Call Type Special Menu...");
         let token = await AsyncStorage.getItem("token");
         try {
-          let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Ementa', { 
+          let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Ementa', { 
             headers: {
               Authorization: 'Bearer ' + token,
               Accept: 'application/json',

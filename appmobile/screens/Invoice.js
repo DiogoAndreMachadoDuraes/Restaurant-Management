@@ -19,7 +19,7 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
     console.log("Mounting the screen Invoice...");
     let token = await AsyncStorage.getItem("token");
     try {
-      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Fatura', { 
+      let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Fatura', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',
@@ -35,7 +35,7 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
       console.log("Error to get product: " + e);
     }
     try {
-      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', { 
+      let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Reserva', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',
@@ -50,7 +50,40 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
       } catch(e){
         console.log("Error to get product: " + e);
       }
-    }
+      try {
+        let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', { 
+          headers: {
+            Authorization: 'Bearer ' + token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+      });
+      let json = await response.json();
+      this.setState({
+        isLoading: false,
+        reservation: json,
+      });
+        } catch(e){
+          console.log("Error to get product: " + e);
+        }
+        try {
+          let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', { 
+            headers: {
+              Authorization: 'Bearer ' + token,
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            }
+        });
+        let json = await response.json();
+        this.setState({
+          isLoading: false,
+          reservation: json,
+        });
+          } catch(e){
+            console.log("Error to get product: " + e);
+          }
+        }
+    
 
     getUser = async () => {
       try {
@@ -73,12 +106,12 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
       const userStreet=user.map(a=>a.rua);
       const userPostalCode=user.map(a=>a.codigo_postal);
       const userLocalization=user.map(a=>a.localizacao);
+      const userTin=user.map(a=>a.nif);
       const invoiceReservation=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a.id_reserva);
       const invoiceData=reservation.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.data_marcada);
-      const userTin=user.map(a=>a.nif);
       const allInvoice=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a);
 
-      console.log(invoiceReservation);
+      console.log(invoice);
 
         return (
         <View style={style.container}>
@@ -91,21 +124,22 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
                 allInvoice.map((item)=>{
                   return (
                   <View>
-                    <Text style={style.header}>A minha fatura</Text>
-                    <Text style={style.header0}> userName                    Fatura {item.id_fatura}</Text>
-                    <Text style={style.header1}> userStreet                                                       userPostalCode userLocalization</Text>
-                    <Text style={style.header2}>Nif: {item.nif_cliente}                              Data: invoiceData</Text>
+                    <Text style={style.header}>Sabor da Avó</Text>
+                    <Text style={style.header0}>{userName}          Fatura nº{item.id_fatura}</Text>
+                    <Text style={style.header1}> {userStreet} , {userPostalCode} {userLocalization}</Text>
+                    <Text style={style.header2}>Nif: {item.nif_cliente}                              Data:{invoiceData}</Text>
                     <View style={style.line} />
                     <Text style={style.text}>Descrição</Text>
                     <Text style={style.text1}>Quantidade</Text>
                     <Text style={style.text2}>Preço</Text>
-                    <Text style={style.textTax}>Taxa </Text>
-                    <Text style={style.tax}>{item.taxa}</Text>
-                    <Text style={style.textIva}>Iva </Text> 
-                    <Text style={style.iva}>{item.iva}</Text> 
                     <View style={style.line1} />
-                    <Text style={style.text3}>Total:{item.valor_total}</Text>
+                    <Text style={style.textTax}>Taxa: </Text>
+                    <Text style={style.tax}>{item.taxa}</Text>
+                    <Text style={style.textIva}>Iva: </Text> 
+                    <Text style={style.iva}>{item.iva}</Text> 
+                    <Text style={style.text3}>Total: € {item.valor_total}</Text>
                     <Text style={style.textEmployee}>Funcionário : José Leite Machado</Text> 
+                    <View style={style.lineFinal} />
                   </View>
                   );
                 })
@@ -126,19 +160,15 @@ const style = StyleSheet.create({
     flex: 1,
   },
 
-  menu: {                           
-    width: "100%",
-    height:"100%"
-  },
-
   form:{
     width: "100%",
-    height:"100%"
+    height: "100%",
   },
 
   header:{
     fontSize: 25,
     color: '#000',
+    fontWeight: 'bold',
     marginLeft: 120,
     top: 60,
     paddingBottom:60,
@@ -149,7 +179,7 @@ const style = StyleSheet.create({
     fontSize: 20,
     color: 'brown',
     marginLeft: 30,
-    top: 0,
+    top: -10,
     paddingBottom:60,
     marginBottom:60,
     fontWeight: 'bold'
@@ -168,9 +198,10 @@ const style = StyleSheet.create({
     fontSize: 15,
     color: 'black',
     marginLeft: 30,
-    top: -230,
+    top: -220,
     paddingBottom:60,
-    marginBottom:60
+    marginBottom:60,
+    fontWeight:'bold',
   },
 
   button:{
@@ -178,7 +209,7 @@ const style = StyleSheet.create({
     alignItems:'center',
     padding:10,
     backgroundColor:'white',
-    marginTop: -300,
+    marginTop: 0,
     width:130,
     left: 130,
     marginVertical:20,
@@ -216,11 +247,20 @@ const style = StyleSheet.create({
     left: 20
   },
 
+  lineFinal:{
+    borderWidth: 5,
+    borderColor: "#191970",
+    margin: 10,
+    top: -20,
+    width: 380,
+    left: -5,
+  },
+
   text:{
     color: 'black',
     fontWeight: 'bold',
     fontSize: 15,
-    left: 30,
+    left: 50,
     top: -335,
   },
 
@@ -228,32 +268,32 @@ const style = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 15,
-    left: 120,
+    left: 170,
     top: -356,
   },
 
   textTax:{
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 20,
     left: 217,
-    top: -397,
+    top: -260,
   },
 
   textIva:{
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 15,
-    left: 270,
-    top: -438,
+    fontSize: 20,
+    left: 230,
+    top: -280,
   },
 
   tax:{
     color: 'black',
     fontWeight: 'bold',
     fontSize: 15,
-    left: 217,
-    top: -390,
+    left: 270,
+    top: -283,
   },
 
   iva:{
@@ -261,14 +301,14 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     left: 270,
-    top: -430,
+    top: -303,
   },
 
   text2:{
     color: 'black',
     fontWeight: 'bold',
     fontSize: 15,
-    left: 325,
+    left: 310,
     top: -375,
   },
 
@@ -276,8 +316,8 @@ const style = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 25,
-    left: 240,
-    top: -250,
+    left: 200,
+    top: -300,
   },
 
   textEmployee:{
@@ -285,9 +325,8 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     marginLeft: 30,
-    top: -230,
-    paddingBottom:60,
-    marginBottom:60
+    top: -270,
+    marginBottom:-200
   },
 });
 export default Invoice;

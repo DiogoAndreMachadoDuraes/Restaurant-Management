@@ -56,18 +56,24 @@ class TakeAway extends React.Component{
   async componentDidMount(){ 
       console.log("Mounting the screen Takeaway...");
       let token = await AsyncStorage.getItem("token");
-      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Take_away', { Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'})
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        this.setState({ data: json, isLoading:false });
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        this.setState({ isLoading: false });
-    });
       try {
-      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', { 
+        let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Take_away', { 
+          headers: {
+            Authorization: 'Bearer ' + token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+      });
+        let json = await response.json();
+        this.setState({
+          isLoading: false,
+          data: json,
+      });
+      } catch(e){
+        console.log("Error to get product: " + e);
+      }
+      try {
+      let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Reserva', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',
@@ -83,7 +89,7 @@ class TakeAway extends React.Component{
       console.log("Error to get product: " + e);
     }
       try {
-      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Cliente', { 
+      let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Cliente', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',
@@ -104,15 +110,14 @@ class TakeAway extends React.Component{
     try {
       const value = await AsyncStorage.getItem("User");
       if (value !== null) {
-        this.setState({ user: value});
-        console.log(this.state.user);
+        this.setState({ user: JSON.parse(value) });
       }
     } catch (e) {
         console.log("Error rending user: " + e);
     }
   }
 
-  _renderHeader = section => {
+  _renderHeader = (section) => {
     return (
       <View style={style.header}>
         <Text style={style.headerText}>{section.title}</Text>
@@ -120,7 +125,7 @@ class TakeAway extends React.Component{
     );
   };
 
-  _renderContent = section => {
+  _renderContent = (section) => {
     return (
       <View style={style.content}>
         <Icon2
@@ -136,16 +141,17 @@ class TakeAway extends React.Component{
   };
 
   render(){
-    const clientId=this.state.client.filter(a=>a.id_utilizador==user.id_utilizador).map(a=>a.id_cliente);
-    const allReservation=this.state.reservation.filter(a=>a.id_cliente==clientId).map(a=>a);
-    const reservationId=this.state.reservation.filter(a=>a.id_cliente==clientId).map(a=>a.id_reserva);
-    const allTakeAway=this.state.data.filter(a=>a.id_reserva==reservationId).map(a=>a);
-    
-    console.log(allTakeAway);
-    console.log(reservationId);
-    console.log(clientId);
-    console.log(allReservation);
-        
+    const { user, data , reservation, client } = this.state;
+
+    {
+      this.getUser();
+    }
+    const userId=user.map(a=>a.id_utilizador);
+    const clientId=client.filter(a=>a.id_utilizador==userId).map(a=>a.id_cliente);
+    const allReservation=reservation.filter(a=>a.id_cliente==clientId).map(a=>a);
+    const reservationId=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.id_reserva);
+    const allTakeAway=data.filter(a=>a.id_reserva==reservationId).map(a=>a);
+
     return (
       <View style={style.container}>
         <OwnStatusBar />
@@ -160,8 +166,8 @@ class TakeAway extends React.Component{
                           <Accordion
                             sections={item}
                             activeSections={this.state.activeSections}
-                            renderHeader={this._renderHeader}
-                            renderContent={this._renderContent}
+                            renderHeader={this._renderHeader(item)}
+                            renderContent={this._renderContent(item)}
                             onChange={this._updateSections}
                             sectionContainerStyle={{paddingVertical: 0.7}}
                           />

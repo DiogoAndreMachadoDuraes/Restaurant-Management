@@ -57,7 +57,7 @@ async getPhoto(){
                 <TouchableOpacity
                     style={{left: 330, marginTop: -55}} onPress={() => this.props.navigation.navigate("Account")}>
                         <Avatar.Image
-                        source={{uri:''+this.state.photo+''}} size={40}
+                        source={require('../assets/utilizador1.jpg')} size={40}
                 />
                 </TouchableOpacity>
                 <ScrollView style={style.container}>
