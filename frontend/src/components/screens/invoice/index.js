@@ -5,8 +5,7 @@ import { ListPages } from "../../shared/listPages/index";
 import List from '@material-ui/core/List';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import Copyright from '../../shared/copyRight/index.js';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -35,18 +34,18 @@ class Invoice extends React.Component {
     async componentDidMount (){ 
         console.log("Mounting the screen Invoice...");
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOC0yNiAxNzo1MjoxNiJ9._IB4GGt7IzLjqzBTfLzOz65HSZJM4gsPMNSJvihW49M";
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0xNCAyMDozODo0MiJ9.BbUHpKWZCH-3tcUaCDN0iKhs5saeDwDGnGSQLlqU53c";
         try {
             let response = await fetch('/Fatura', { 
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 }
             });
             let json = await response.json();
             this.setState({ 
-                nutritionalInformation: json
+                invoice: json
             });
             console.log(json);
         } catch(e){
@@ -80,7 +79,7 @@ class Invoice extends React.Component {
             console.log("Error to Post Invoice: " + e);
         }
     }
-
+/* 
     update = async (invoiceID) => {
         const { newData } = this.state;
 
@@ -108,7 +107,7 @@ class Invoice extends React.Component {
             console.log("Error to Put Invoice: " + e);
         }
     }
-
+ */
     delete = async (invoiceID) => {
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try
@@ -128,19 +127,6 @@ class Invoice extends React.Component {
         } catch(e){
             console.log("Error to Delete Invoice: " + e);
         }
-    }
-
-    Copyright() {
-        return (
-        <Typography variant="body2" color="textSecondary" align="center" style={{marginTop: 20}}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://sabordaavo.com/">
-            Sabor da Avó
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-        );
     }
 
     render(){
@@ -292,7 +278,7 @@ class Invoice extends React.Component {
                             </Grid>
                         </Grid>
                         <Box pt={4}>
-                            {this.Copyright}
+                            <Copyright></Copyright>
                         </Box>
                     </Container>
                 </main>

@@ -37,30 +37,15 @@ import WeeklyMealCreate from './components/screens/weeklyMeal/create';
 import WeeklyMealEdit from './components/screens/weeklyMeal/edit';
 import Account from './components/screens/account/index';
 import Admin from './components/screens/admin/index';
-import CreateAdmin from './components/screens/admin/create';
-import EditAdmin from './components/screens/admin/edit';
 import Allergen from './components/screens/allergen/index';
-import CreateAllergen from './components/screens/allergen/create';
-import EditAllergen from './components/screens/allergen/edit';
 import Employee from './components/screens/employee/index';
 import Invoice from './components/screens/invoice/index';
-import CreateInvoice from './components/screens/invoice/create';
-import EditInvoice from './components/screens/invoice/edit';
 import Menu from './components/screens/menu/index';
-import CreateMenu from './components/screens/menu/create';
-import EditMenu from './components/screens/menu/edit';
 import MenuProduct from './components/screens/menuProduct/index';
 import NutritionalInformation from './components/screens/nutritionalInformation/index';
-import CreateNutritionalInformation from './components/screens/nutritionalInformation/create';
-import EditNutritionalInformation from './components/screens/nutritionalInformation/edit';
 import SpecialMenu from './components/screens/specialMenu/index';
-import CreateSpecialMenu from './components/screens/specialMenu/create';
-import EditSpecialMenu from './components/screens/specialMenu/edit';
 import TakeAway from './components/screens/takeAway/index';
 import User from './components/screens/user/index';
-import CreateUser from './components/screens/user/create';
-import EditUser from './components/screens/user/edit';
-
 
 function App() {
   return (
@@ -158,21 +143,9 @@ function App() {
         </Route>
         <Route path="/admin">
           <Admin />
-          <Route path="/adminCreate">
-          <CreateAdmin />
-        </Route>
-        <Route path="/adminEdit">
-          <EditAdmin />
-        </Route>
         </Route>
         <Route path="/allergen">
           <Allergen />
-        </Route>
-        <Route path="/allergenCreate">
-          <CreateAllergen />
-        </Route>
-        <Route path="/allergenEdit">
-          <EditAllergen />
         </Route>
         <Route path="/employee">
           <Employee />
@@ -180,20 +153,8 @@ function App() {
         <Route path="/invoice">
           <Invoice />
         </Route>
-        <Route path="/invoiceCreate">
-          <CreateInvoice />
-        </Route>
-        <Route path="/invoiceEdit">
-          <EditInvoice />
-        </Route>
         <Route path="/menu">
           <Menu />
-        </Route>
-        <Route path="/menuCreate">
-          <CreateMenu />
-        </Route>
-        <Route path="/menuEdit">
-          <EditMenu />
         </Route>
         <Route path="/menuProduct">
           <MenuProduct />
@@ -201,32 +162,14 @@ function App() {
         <Route path="/nutritionalInformation">
           <NutritionalInformation />
         </Route>
-        <Route path="/nutritionalInformationCreate">
-          <CreateNutritionalInformation />
-        </Route>
-        <Route path="/nutritionalInformationEdit">
-          <EditNutritionalInformation />
-        </Route>
         <Route path="/specialMenu">
           <SpecialMenu />
-        </Route>
-        <Route path="/specialMenuCreate">
-          <CreateSpecialMenu />
-        </Route>
-        <Route path="/specialMenuEdit">
-          <EditSpecialMenu />
         </Route>
         <Route path="/takeAway">
           <TakeAway />
         </Route>
         <Route path="/user">
           <User />
-        </Route>
-        <Route path="/userCreate">
-          <CreateUser />
-        </Route>
-        <Route path="/userEdit">
-          <EditUser />
         </Route>
       </Switch>
     </Router>
