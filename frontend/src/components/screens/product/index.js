@@ -649,12 +649,11 @@ class Product extends React.Component {
                         </div>
                     </div>
                 </Drawer>
-                <main className={"content"}>
-                    <div className={"appBarSpacer"} />
-                    <Container maxWidth="lg" className={"container"} style={{marginTop: 100}}>
+                <main className={classes.content}>
+                    <Container maxWidth="lg" style={{marginTop: 150}}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
-                            <Paper elevation={3} className={"paper"}>
+                            <Paper elevation={3}>
                                 <MaterialTable
                                     title="Tabela de Produtos"
                                     tableRef={tableRef}
