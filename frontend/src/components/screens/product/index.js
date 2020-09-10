@@ -16,11 +16,32 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import PropTypes from 'prop-types';
 import MaterialTable from 'material-table';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Toolbar from '@material-ui/core/Toolbar';
+
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const drawerWidth = 250;
 
 const styles = theme => ({
+    root: {
+        display: 'flex',
+    },
     appBar: {
-        zIndex: theme.zIndex.drawer + 1
+        zIndex: theme.zIndex.drawer + 1,
+    },
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    drawerContainer: {
+        overflow: 'auto',
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
     },
 });
 
@@ -609,18 +630,25 @@ class Product extends React.Component {
         const tableRef = React.createRef();
 
         return (
-            <div className="root">
-                <AppBar position="absolute" className={classes.appBar}>
-                    <Header></Header>
+            <div className={classes.root}>
+                <CssBaseline />
+                <AppBar position="fixed" className={classes.appBar}>
+                    <Header/>
                 </AppBar>
-                <div className="list">
-                    <Divider />
-                    <Drawer variant="permanent">
-                        <List style={{marginTop: 100}}>
+                <Drawer
+                    className={classes.drawer}
+                    variant="permanent"
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                >
+                    <Toolbar />
+                    <div className={classes.drawerContainer} style={{marginTop: 25}}>
+                        <div style={{marginTop: 50}}>
                             <ListPages/>
-                        </List>
-                    </Drawer>
-                </div>
+                        </div>
+                    </div>
+                </Drawer>
                 <main className={"content"}>
                     <div className={"appBarSpacer"} />
                     <Container maxWidth="lg" className={"container"} style={{marginTop: 100}}>

@@ -109,127 +109,85 @@ export function ListPages (){
   }
 
   return( 
-    <div>
-      <ListItem button>
-        <ListItemIcon>
-          <HomeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" onClick={goHome}/>
-      </ListItem>
-      <ListItem button>
+    <>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <LocationOnIcon />
         </ListItemIcon>
         <ListItemText primary="Restaurantes" onClick={goRestaurant}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <DateRangeIcon />
         </ListItemIcon>
         <ListItemText primary="Refeição Semanal" onClick={goWeeklyMeal}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <MenuBookIcon />
         </ListItemIcon>
         <ListItemText primary="Ementas" onClick={goSpecialMenu}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <RestaurantMenuIcon />
         </ListItemIcon>
         <ListItemText primary="Menus" onClick={goMenu}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <RestaurantIcon />
         </ListItemIcon>
         <ListItemText primary="Produtos" onClick={goProduct}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <FastfoodIcon />
         </ListItemIcon>
         <ListItemText primary="Extras" onClick={goExtra}/>
       </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <AddShoppingCartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Produtos Extras" onClick={goProductExtra}/>
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <LocalOfferIcon  />
-        </ListItemIcon>
-        <ListItemText primary="Produtos do Menu" onClick={goMenuProduct}/>
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <ShoppingCartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Compras Menu" onClick={goBuyMenu}/>
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <ShoppingBasketIcon />
-        </ListItemIcon>
-        <ListItemText primary="Compras Produto" onClick={goBuyProduct}/>
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <AssignmentLateIcon />
-        </ListItemIcon>
-        <ListItemText primary="Alergénio" onClick={goAllergen}/>
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <InfoIcon />
-        </ListItemIcon>
-        <ListItemText primary="Informação Nutricional" onClick={goNutritionalInformation}/>
-      </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <BookIcon />
         </ListItemIcon>
         <ListItemText primary="Reservas" onClick={goReservation}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <EmojiTransportationIcon />
         </ListItemIcon>
         <ListItemText primary="Take Away" onClick={goTakeAway}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <DescriptionIcon />
         </ListItemIcon>
         <ListItemText primary="Faturas" onClick={goInvoice}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <SupervisorAccountIcon />
         </ListItemIcon>
         <ListItemText primary="Administrador" onClick={goAdmin}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <EmojiPeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Funcionário" onClick={goEmployee}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <AssignmentIndIcon />
         </ListItemIcon>
         <ListItemText primary="Cliente" onClick={goClient}/>
       </ListItem>
-      <ListItem button>
+      <ListItem button style={{marginBottom: 10}}>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Utilizadores" onClick={goUser}/>
       </ListItem>
-    </div>
+    </>
   );
 }
