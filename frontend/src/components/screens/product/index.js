@@ -29,7 +29,11 @@ class Product extends React.Component {
         super(props);
         this.state={
             product: [],
-            newData:[]
+            info:[],
+            aller:[],
+            newData:[],
+            newDataInfo:[],
+            newDataAller:[]
         }
     }
 
@@ -53,6 +57,42 @@ class Product extends React.Component {
             });
         } catch(e){
             console.log("Error to get Product: " + e);
+        }
+
+        try {
+            let response = await fetch('/Info_nutricional', 
+            { 
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            let res = await response.json();
+            console.log(res);
+            this.setState({ 
+                info: res
+            });
+        } catch(e){
+            console.log("Error to get Info Nutricional: " + e);
+        }
+
+        try {
+            let response = await fetch('/Alergenio', 
+            { 
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            let res = await response.json();
+            console.log(res);
+            this.setState({ 
+                aller: res
+            });
+        } catch(e){
+            console.log("Error to get Alergenio: " + e);
         }
     }
 
@@ -78,7 +118,7 @@ class Product extends React.Component {
             let response = await fetch('/Produto', { 
                 method: 'POST',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -105,7 +145,7 @@ class Product extends React.Component {
             let response = await fetch('/Produto', { 
                 method: 'PUT',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -131,7 +171,7 @@ class Product extends React.Component {
             let response = await fetch('/Produto', { 
                 method: 'DELETE',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -143,6 +183,412 @@ class Product extends React.Component {
         } catch(e){
             console.log("Error to Delete Product: " + e);
         }
+    }
+
+    addInfo = async () => {
+        const { newDataInfo } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Info_nutricional', { 
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'tipo': newDataInfo.type,
+                    'quantidade_nutrientes': newDataInfo.quantity,
+                    /* 'id_produto': newDataInfo.productId,
+                    'id_extra': newDataInfo.extraId */
+                })
+            });
+            alert("Coluna inserida com sucesso!");
+            console.log(response);
+        } catch(e){
+            console.log("Error to Post Info Nutricional: " + e);
+        }
+    }
+
+    updateInfo = async (infoID) => {
+        const { newDataInfo } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Info_nutricional', { 
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_info_nutricional': infoID,
+                    'tipo': newDataInfo.type,
+                    'quantidade_nutrientes': newDataInfo.quantity,
+                    /* 'id_produto': newDataInfo.productId,
+                    'id_extra': newDataInfo.extraId */
+                })
+            });
+            alert("Coluna modificada com sucesso!");
+        } catch(e){
+            console.log("Error to Put Info Nutricional: " + e);
+        }
+    }
+
+    deleteInfo = async (infoID) => {
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Info_nutricional', { 
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_info_nutricional': infoID
+                })
+            });
+            alert("Coluna eliminada com sucesso!");
+        } catch(e){
+            console.log("Error to Delete Info Nutricional: " + e);
+        }
+    }
+
+    addAller = async () => {
+        const { newDataAller } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Alergenio', { 
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'tipo': newDataAller.type,
+                    'descicao': newDataAller.description,
+                    'foto': newDataAller.photo,
+                    /*'id_extra': newDataInfo.extraId,
+                    'id_produto': newDataInfo.productId */
+                })
+            });
+            alert("Coluna inserida com sucesso!");
+        } catch(e){
+            console.log("Error to Post Alergenio: " + e);
+        }
+    }
+
+    updateAller = async (allerID) => {
+        const { newDataAller } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Alergenio', { 
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_alergenio': allerID,
+                    'tipo': newDataAller.type,
+                    'descicao': newDataAller.description,
+                    'foto': newDataAller.photo,
+                    /*'id_extra': newDataInfo.extraId,
+                    'id_produto': newDataInfo.productId */
+                })
+            });
+            alert("Coluna modificada com sucesso!");
+        } catch(e){
+            console.log("Error to Put Alergenio: " + e);
+        }
+    }
+
+    deleteAller = async (allerID) => {
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Alergenio', { 
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_alergenio': allerID
+                })
+            });
+            alert("Coluna eliminada com sucesso!");
+        } catch(e){
+            console.log("Error to Delete Alergenio: " + e);
+        }
+    }
+
+    showDetails(productId) {
+        const { info, aller } = this.state;
+        const { classes } = this.props;
+        const columnsInfo= [
+            { title: 'Tipo', field: 'type', lookup: { 'Calorias': 'Calorias', 'Gorduras': 'Gorduras', 'Carboidratos': 'Carboidratos', 'Proteína':'Proteína' }, align:"center"},
+            { title: 'Quantidade de nutrientes', field: 'quantity', validate: rowData => rowData.quantity <= 0 ? 'A quantidade não pode ser 0 nem negativa' : '', type: "numeric", align:"center"}
+        ];
+
+        const infoProduct=info.filter(a=>a.id_produto==productId).map(a=>a);
+
+        const dataInfo = infoProduct.map((item) => {
+            return { infoId: item.id_info_nutricional, type: item.tipo, quantity: item.quantidade_nutrientes};
+        });;
+
+        const columnsAller= [
+            { 
+                title: 'Tipo', 
+                field: 'type',  
+                lookup: {'Glúten':'Glúten', 'Crustácios':'Crustácios', 'Ovos':'Ovos', 'Peixe':'Peixe', 'Amendoim':'Amendoim', 'Soja':'Soja', 'Lactose':'Lactose', 'Frutas de casca rija':'Frutas de casca rija', 'Aipo':'Aipo', 'Mostarda':'Mostarda', 'Sésamo':'Sésamo', 'Dióxido de enxofre e sulfitos':'Dióxido de enxofre e sulfitos', 'Tremoços':'Tremoços', 'Moluscos':'Moluscos'},
+                align:"center"
+            },
+            { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? 'A descrição não pode ser nula' : '', align:"center"},
+            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"}
+        ];
+
+        const allerProduct=aller.filter(a=>a.id_produto==1).map(a=>a);
+
+        const dataAller= allerProduct.map((item) => {
+            return { allerId: item.id_alergenio, type: item.tipo, description: item.descricao, photo: item.foto};
+        });;
+
+        const tableRef = React.createRef();
+        return (
+            <div style={{ marginTop: 20, marginLeft: 20, marginBottom: 20, marginInlineEnd: 20}}>
+                <MaterialTable
+                    title="Informação Nutricional"
+                    tableRef={tableRef}
+                    columns={columnsInfo}
+                    data={dataInfo}
+                    options={{
+                        actionsColumnIndex: -1,
+                        search: false,
+                        headerStyle: {
+                            backgroundColor: 'black',
+                            color: '#FFF'
+                        },
+                        paging:false
+                    }}
+                    localization={
+                        { 
+                            header: { actions: ""},
+                            body:{
+                                emptyDataSourceMessage: 'Não existe dados para mostar',
+                                addTooltip: "Novo",
+                                editTooltip: "Editar",
+                                deleteTooltip: "Eliminar",
+                                editRow: { deleteText: 'Tem a certeza que deseja eliminar?', cancelTooltip: 'Cancelar', saveTooltip: 'Guardar' }
+                            },
+                            toolbar: { searchTooltip: "Pesquisar", searchPlaceholder: "Procurar"},
+                            pagination: { labelDisplayedRows: "{from}-{to} de {count}", firstTooltip: "Primeira Página", previousTooltip: "Página Anterior", nextTooltip: "Próxima Página", lastTooltip: "Última Página", labelRowsSelect:"registos"}
+                        }
+                    }
+                    editable={{
+                        onRowAdd: newData =>
+                            new Promise((resolve, reject) => {
+                                if(newData.quantity==null || newData.type==null) {
+                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                    reject();
+                                }else{
+                                    if(newData.quantity<0) {
+                                        alert('A quantidade não pode ser 0!');
+                                        reject();
+                                    }else{
+                                        if(Number.isInteger(newData.quantity)==false){
+                                            alert('A quantidade tem de ser do tipo inteiro!');
+                                            reject();
+                                        }else{
+                                            if(newData.type.lenght<0){
+                                                alert('Tem de conter uma descrição!');
+                                                reject();
+                                            }else{
+                                                setTimeout(() => {
+                                                    this.setState({
+                                                        newDataInfo: newData
+                                                    });
+                                                    resolve();
+                                                    this.add();
+                                                }, 100)
+                                            }
+                                        }
+                                    }
+                                }
+                        }),
+                        onRowUpdate: (newData, oldData) =>
+                            new Promise((resolve, reject) => {
+                                if(newData.quantity==null || newData.type==null) {
+                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                    reject();
+                                }else{
+                                    if(newData.quantity<0) {
+                                        alert('A quantidade não pode ser 0!');
+                                        reject();
+                                    }else{
+                                        if(Number.isInteger(newData.quantity)==false){
+                                            alert('A quantidade tem de ser do tipo inteiro!');
+                                            reject();
+                                        }else{
+                                            if(newData.type.lenght<0){
+                                                alert('Tem de conter uma descrição!');
+                                                reject();
+                                            }else{
+                                                setTimeout(() => {
+                                                    const dataUpdate = [...dataInfo];
+                                                    const index = oldData.tableData.id;
+                                                    dataUpdate[index] = newData;
+                                                    this.setState({
+                                                        newDataInfo: newData
+                                                    });
+                                                    const infoID=newData.infoID;
+                                                    resolve();
+                                                    this.update(infoID);
+                                                }, 1000)
+                                            }
+                                        }
+                                    }
+                                }
+                        }),
+                        onRowDelete: oldData =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    const infoID = oldData.infoId;
+                                    resolve();
+                                    this.deleteInfo(infoID);
+                                }, 1000)
+                            }),
+                    }}
+                />
+                <div style={{ marginTop: 20}}>
+                <MaterialTable
+                    title="Alergénios"
+                    tableRef={tableRef}
+                    columns={columnsAller}
+                    data={dataAller}
+                    options={{
+                        actionsColumnIndex: -1,
+                        search: false,
+                        headerStyle: {
+                            backgroundColor: 'black',
+                            color: '#FFF'
+                        }
+                    }}
+                    localization={
+                        { 
+                            header: { actions: ""},
+                            body:{
+                                emptyDataSourceMessage: 'Não existe dados para mostar',
+                                addTooltip: "Novo",
+                                editTooltip: "Editar",
+                                deleteTooltip: "Eliminar",
+                                editRow: { deleteText: 'Tem a certeza que deseja eliminar?', cancelTooltip: 'Cancelar', saveTooltip: 'Guardar' }
+                            },
+                            toolbar: { searchTooltip: "Pesquisar", searchPlaceholder: "Procurar"},
+                            pagination: { labelDisplayedRows: "{from}-{to} de {count}", firstTooltip: "Primeira Página", previousTooltip: "Página Anterior", nextTooltip: "Próxima Página", lastTooltip: "Última Página", labelRowsSelect:"registos"}
+                        }
+                    }
+                    editable={{
+                        onRowAdd: newData =>
+                            new Promise((resolve, reject) => {
+                                if(newData.type==null || newData.description==null || newData.photo==null) {
+                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                    reject();
+                                }else{
+                                    if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
+                                        alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                                        reject();
+                                    }else{
+                                        if(Number.isInteger(newData.quantity)==false){
+                                            alert('A quantidade tem de ser do tipo inteiro!');
+                                            reject();
+                                        }else{
+                                            if(newData.description.lenght<0){
+                                                alert('Tem de conter uma descrição!');
+                                                reject();
+                                            }else{
+                                                if(newData.photo.lenght<0){
+                                                    alert('Tem de conter uma foto!');
+                                                    reject();
+                                                }else{
+                                                    setTimeout(() => {
+                                                        this.setState({
+                                                            newDataAller: newData
+                                                        });
+                                                        resolve();
+                                                        this.addAller();
+                                                    }, 1000)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                        }),
+                        onRowUpdate: (newData, oldData) =>
+                            new Promise((resolve, reject) => {
+                                if(newData.type==null || newData.description==null || newData.photo==null) {
+                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                    reject();
+                                }else{
+                                    if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
+                                        alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                                        reject();
+                                    }else{
+                                        if(Number.isInteger(newData.quantity)==false){
+                                            alert('A quantidade tem de ser do tipo inteiro!');
+                                            reject();
+                                        }else{
+                                            if(newData.description.lenght<0){
+                                                alert('Tem de conter uma descrição!');
+                                                reject();
+                                            }else{
+                                                if(newData.photo.lenght<0){
+                                                    alert('Tem de conter uma foto!');
+                                                    reject();
+                                                }else{
+                                                    setTimeout(() => {
+                                                        const dataUpdate = [...dataAller];
+                                                        const index = oldData.tableData.id;
+                                                        dataUpdate[index] = newData;
+                                                        this.setState({
+                                                            newDataAller: newData
+                                                        });
+                                                        const allerID=newData.allerID;
+                                                        resolve();
+                                                        this.updateAller(allerID);
+                                                    }, 1000)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                        }),
+                        onRowDelete: oldData =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    const allerID = oldData.allerId;
+                                    resolve();
+                                    this.deleteAller(allerID);
+                                }, 1000)
+                            }),
+                    }}
+                />
+                </div>
+            </div>
+        )
     }
 
     render(){
@@ -186,6 +632,7 @@ class Product extends React.Component {
                                     tableRef={tableRef}
                                     columns={columns}
                                     data={data}
+                                    detailPanel={rowData => this.showDetails(1)}
                                     actions={[
                                         {
                                             icon: 'refresh',
