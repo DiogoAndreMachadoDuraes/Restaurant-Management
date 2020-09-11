@@ -1,34 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
-import "./style.css";
-import { ListPages } from "../../shared/listPages/index";
-import List from '@material-ui/core/List';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import MaterialTable from 'material-table';
-import Header from "../../shared/header/index";
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import PropTypes from 'prop-types';
+import {OwnTable} from "../../OwnTable";
+import {SecoundTable} from "../../SecoundTable";
+import {StructurePage} from "../../StructurePage";
 
-const styles = theme => ({
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1
-    },
-});
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 class SpecialMenu extends React.Component {
     constructor(props){
         super(props);
         this.state={
             buySpecialMenu:[],
-            newData:[]
+            newData:[],
+            meal:[],
+            newDataMeal:[]
         }
     }
 
@@ -52,7 +37,25 @@ class SpecialMenu extends React.Component {
         } catch(e){
             console.log("Error to get Buy Special Menu: " + e);
         }
+    
+    try {
+        let response = await fetch('/Refeicao_semanal', 
+        { 
+            headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        let res = await response.json();
+        console.log(res);
+        this.setState({ 
+            meal: res
+        });
+    } catch(e){
+        console.log("Error to get Refeiçao Semanal: " + e);
     }
+}
 
     add = async () => {
         const { newData } = this.state;
@@ -129,20 +132,181 @@ class SpecialMenu extends React.Component {
             console.log("Error to Delete Buy Special Menu: " + e);
         }
     }
+    
+    addMeal = async () => {
+        const { newDataMeal } = this.state;
 
-    Copyright() {
-        return (
-        <Typography variant="body2" color="textSecondary" align="center" style={{marginTop: 20}}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://sabordaavo.com/">
-            Sabor da Avó
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-        );
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Refeicao_semanal', { 
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'dia_semana': newDataMeal.weekDay,
+                    'data': newDataMeal.date,
+                    'hora': newDataMeal.hour,
+                    /* 'id_restaurante': newDataMeal.restaurantId,
+                    'id_ementa': newDataMeal.specialMenuId */
+                })
+            });
+            alert("Coluna inserida com sucesso!");
+            console.log(response);
+        } catch(e){
+            console.log("Error to Post Refeição Semanal: " + e);
+        }
     }
 
+    updateMeal = async (mealID) => {
+        const { newDataMeal } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Refeicao_semanal', { 
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_refeicao_semanal': mealID,
+                    'dia_semana': newDataMeal.weekDay,
+                    'data': newDataMeal.date,
+                    'hora': newDataMeal.hour,
+                    /* 'id_restaurante': newDataMeal.restaurantId,
+                    'id_ementa': newDataMeal.specialMenuId */
+                })
+            });
+            alert("Coluna modificada com sucesso!");
+        } catch(e){
+            console.log("Error to Put Refeição Semanal: " + e);
+        }
+    }
+
+    deleteMeal = async (mealID) => {
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Refeicao_semanal', { 
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_refeicao_semanal': mealID
+                })
+            });
+            alert("Coluna eliminada com sucesso!");
+        } catch(e){
+            console.log("Error to Delete Refeição semanal: " + e);
+        }
+    }
+
+    showDetails(buySpecialMenuID) {
+        const { meal } = this.state;
+        const columnsMeal= [
+            { title: 'Dia da Semana', field: 'weekDay', lookup: { 'Segunda feira': 'Segunda feira', 'Terça feira': 'Terça feira', 'Quarta feira': 'Quarta feira', 'Quinta feira':'Quinta feira', 'Sexta feira':'Sexta feira', 'Sábado':'Sábado'  }, align:"center"},
+            { title: 'Data', field: 'date', validate: rowData => rowData.quantity <= 0 ? 'A data não pode ser 0 nem negativa' : '', type: "numeric", align:"center"},
+            { title: 'Hora', field: 'hour', validate: rowData => rowData.quantity <= 0 ? 'A hora não pode ser 0 nem negativa' : '', type: "numeric", align:"center"}
+        ];
+        const mealSpecialMenu=meal.filter(a=>a.id_ementa==buySpecialMenuID).map(a=>a);
+        const dataMeal = mealSpecialMenu.map((item) => {
+            return { mealId: item.id_refeicao_semanal, weekDay: item.dia_semana, date: item.data, hour: item.hora};
+        });;
+    
+    return (
+        <div style={{ marginTop: 20, marginLeft: 20, marginBottom: 20, marginInlineEnd: 20}}>
+            <SecoundTable
+                title="Refeiçao Semanal"
+                columns={columnsMeal}
+                data={dataMeal}
+                editable={{
+                    onRowAdd: newData =>
+                        new Promise((resolve, reject) => {
+                            if(newData.quantity==null || newData.type==null) {
+                                alert('Nenhum dos valores inseridos pode ser nulo!');
+                                reject();
+                            }else{
+                                if(newData.quantity<0) {
+                                    alert('A quantidade não pode ser 0!');
+                                    reject();
+                                }else{
+                                    if(Number.isInteger(newData.quantity)==false){
+                                        alert('A quantidade tem de ser do tipo inteiro!');
+                                        reject();
+                                    }else{
+                                        if(newData.type.lenght<0){
+                                            alert('Tem de conter uma descrição!');
+                                            reject();
+                                        }else{
+                                            setTimeout(() => {
+                                                this.setState({
+                                                    newDataMeal: newData
+                                                });
+                                                resolve();
+                                                this.add();
+                                            }, 100)
+                                        }
+                                    }
+                                }
+                            }
+                    }),
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            if(newData.quantity==null || newData.type==null) {
+                                alert('Nenhum dos valores inseridos pode ser nulo!');
+                                reject();
+                            }else{
+                                if(newData.quantity<0) {
+                                    alert('A quantidade não pode ser 0!');
+                                    reject();
+                                }else{
+                                    if(Number.isInteger(newData.quantity)==false){
+                                        alert('A quantidade tem de ser do tipo inteiro!');
+                                        reject();
+                                    }else{
+                                        if(newData.type.lenght<0){
+                                            alert('Tem de conter uma descrição!');
+                                            reject();
+                                        }else{
+                                            setTimeout(() => {
+                                                const dataUpdate = [...dataMeal];
+                                                const index = oldData.tableData.id;
+                                                dataUpdate[index] = newData;
+                                                this.setState({
+                                                    newDataMeal: newData
+                                                });
+                                                const mealID=newData.mealID;
+                                                resolve();
+                                                this.update(mealID);
+                                            }, 1000)
+                                        }
+                                    }
+                                }
+                            }
+                    }),
+                    onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                const mealID = oldData.mealId;
+                                resolve();
+                                this.deleteMeal(mealID);
+                            }, 1000)
+                        }),
+                }}
+            />
+        </div>
+    )
+}
+    
     render(){
         const { buySpecialMenu } = this.state;
         const {classes} = this.props;
@@ -158,154 +322,100 @@ class SpecialMenu extends React.Component {
         });;
         const tableRef = React.createRef();
         return (
-            <div className="root">
-                <AppBar position="absolute" className={classes.appBar}>
-                    <Header></Header>
-                </AppBar>
-                <div className="list">
-                    <Divider />
-                    <Drawer variant="permanent">
-                        <List style={{marginTop: 100}}>
-                            <ListPages/>
-                        </List>
-                    </Drawer>
-                </div>
-                <main className={"content"}>
-                    <div className={"appBarSpacer"} />
-                    <Container maxWidth="lg" className={"container"} style={{marginTop: 100}}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <Paper elevation={3} className={"paper"}>
-                                    <MaterialTable
-                                        title="Tabela da Ementa"
-                                        tableRef={tableRef}
-                                        columns={columns}
-                                        data={data}
-                                        actions={[
-                                            {
-                                                icon: 'refresh',
-                                                tooltip: 'Recarregar',
-                                                isFreeAction: true,
-                                                onClick: () => tableRef.current && tableRef.current.componentDidMount()
-                                            }
-                                        ]}
-                                        options={{
-                                            actionsColumnIndex: -1,
-                                            search: true
-                                        }}
-                                        localization={
-                                            { 
-                                                header: { actions: ""},
-                                                body:{
-                                                    emptyDataSourceMessage: 'Não existe dados para mostar',
-                                                    addTooltip: "Novo",
-                                                    editTooltip: "Editar",
-                                                    deleteTooltip: "Eliminar",
-                                                    editRow: { deleteText: 'Tem a certeza que deseja eliminar?', cancelTooltip: 'Cancelar', saveTooltip: 'Guardar' }
-                                                },
-                                                toolbar: { searchTooltip: "Pesquisar", searchPlaceholder: "Procurar"},
-                                                pagination: { labelDisplayedRows: "{from}-{to} de {count}", firstTooltip: "Primeira Página", previousTooltip: "Página Anterior", nextTooltip: "Próxima Página", lastTooltip: "Última Página", labelRowsSelect:"registos"}
+            <StructurePage table={
+                <OwnTable 
+                    title="Tabela de Ementas" 
+                    columns={columns}
+                    data={data}
+                    detailPanel={rowData => this.showDetails(1)}
+                    editable={{
+                        onRowAdd: newData =>
+                        new Promise((resolve, reject) => {
+                            if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
+                                alert('Nenhum dos valores inseridos pode ser nulo!');
+                                reject();
+                            }else{
+                                if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
+                                    alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                                    reject();
+                                }else{
+                                    if(Number.isInteger(newData.quantidade)==false){
+                                        alert('A quantidade tem de ser do tipo inteiro!');
+                                        reject();
+                                    }else{
+                                        if(newData.description.lenght<0){
+                                            alert('Tem de conter uma descrição!');
+                                            reject();
+                                        }else{
+                                            if(newData.photo.lenght<0){
+                                                alert('Tem de conter uma foto!');
+                                                reject();
+                                            }else{
+                                                setTimeout(() => {
+                                                    this.setState({
+                                                        newData: newData
+                                                    });
+                                                    resolve();
+                                                    this.add();
+                                                }, 1000)
                                             }
                                         }
-                                        editable={{
-                                            onRowAdd: newData =>
-                                            new Promise((resolve, reject) => {
-                                                if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
-                                                    alert('Nenhum dos valores inseridos pode ser nulo!');
-                                                    reject();
-                                                }else{
-                                                    if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                                        alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
-                                                        reject();
-                                                    }else{
-                                                        if(Number.isInteger(newData.quantidade)==false){
-                                                            alert('A quantidade tem de ser do tipo inteiro!');
-                                                            reject();
-                                                        }else{
-                                                            if(newData.description.lenght<0){
-                                                                alert('Tem de conter uma descrição!');
-                                                                reject();
-                                                            }else{
-                                                                if(newData.photo.lenght<0){
-                                                                    alert('Tem de conter uma foto!');
-                                                                    reject();
-                                                                }else{
-                                                                    setTimeout(() => {
-                                                                        this.setState({
-                                                                            newData: newData
-                                                                        });
-                                                                        resolve();
-                                                                        this.add();
-                                                                    }, 1000)
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                        }),
-                                        onRowUpdate: (newData, oldData) =>
-                                            new Promise((resolve, reject) => {
-                                                if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
-                                                    alert('Nenhum dos valores inseridos pode ser nulo!');
-                                                    reject();
-                                                }else{
-                                                    if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                                        alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
-                                                        reject();
-                                                    }else{
-                                                        if(Number.isInteger(newData.quantidade)==false){
-                                                            alert('A quantidade tem de ser do tipo inteiro!');
-                                                            reject();
-                                                        }else{
-                                                            if(newData.description.lenght<0){
-                                                                alert('Tem de conter uma descrição!');
-                                                                reject();
-                                                            }else{
-                                                                if(newData.photo.lenght<0){
-                                                                    alert('Tem de conter uma foto!');
-                                                                    reject();
-                                                                }else{
-                                                                    setTimeout(() => {
-                                                                        const dataUpdate = [...data];
-                                                                        const index = oldData.tableData.id;
-                                                                        dataUpdate[index] = newData;
-                                                                        this.setState({
-                                                                            newData: newData
-                                                                        });
-                                                                        const specialMenuID=newData.specialMenuID;
-                                                                        resolve();
-                                                                        this.update(specialMenuID);
-                                                                    }, 1000)
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                        }),
-                                            onRowDelete: oldData =>
-                                                new Promise((resolve, reject) => {
-                                                    setTimeout(() => {
-                                                        const buySpecialMenuID = oldData.buySpecialMenuId;
-                                                        resolve();
-                                                        this.delete(buySpecialMenuID);
-                                                    }, 1000)
-                                            }),
-                                        }}
-                                    />
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                        <Box pt={4}>
-                            {this.Copyright}
-                        </Box>
-                    </Container>
-                </main>
-            </div>
+                                    }
+                                }
+                            }
+                    }),
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
+                                alert('Nenhum dos valores inseridos pode ser nulo!');
+                                reject();
+                            }else{
+                                if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
+                                    alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                                    reject();
+                                }else{
+                                    if(Number.isInteger(newData.quantidade)==false){
+                                        alert('A quantidade tem de ser do tipo inteiro!');
+                                        reject();
+                                    }else{
+                                        if(newData.description.lenght<0){
+                                            alert('Tem de conter uma descrição!');
+                                            reject();
+                                        }else{
+                                            if(newData.photo.lenght<0){
+                                                alert('Tem de conter uma foto!');
+                                                reject();
+                                            }else{
+                                                setTimeout(() => {
+                                                    const dataUpdate = [...data];
+                                                    const index = oldData.tableData.id;
+                                                    dataUpdate[index] = newData;
+                                                    this.setState({
+                                                        newData: newData
+                                                    });
+                                                    const specialMenuID=newData.specialMenuID;
+                                                    resolve();
+                                                    this.update(specialMenuID);
+                                                }, 1000)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                    }),
+                        onRowDelete: oldData =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    const buySpecialMenuID = oldData.buySpecialMenuId;
+                                    resolve();
+                                    this.delete(buySpecialMenuID);
+                                }, 1000)
+                            }),
+                        }}
+                    />
+                } 
+            />
         )
     }
 }
-SpecialMenu.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-  
-export default withRouter(withStyles(styles)(SpecialMenu));
+export default withRouter(SpecialMenu);

@@ -6,7 +6,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Home from "./components/screens/home/index";
 import Login from './components/screens/login/index';
 import Product from './components/screens/product/index';
 import ProductCreate from './components/screens/product/create';
@@ -23,20 +22,13 @@ import BuyMenuEdit from './components/screens/buyMenu/edit';
 import BuyProduct from './components/screens/buyProduct/index';
 import BuyProductCreate from './components/screens/buyProduct/create';
 import BuyProductEdit from './components/screens/buyProduct/edit';
-import Client from './components/screens/client/index';
-import ClientCreate from './components/screens/client/create';
-import ClientEdit from './components/screens/client/edit';
 import Extra from './components/screens/extra/index';
 import ExtraCreate from './components/screens/extra/create';
 import ExtraEdit from './components/screens/extra/edit';
 import ProductExtra from './components/screens/productExtra/index';
 import ProductExtraCreate from './components/screens/productExtra/create';
 import ProductExtraEdit from './components/screens/productExtra/edit';
-import WeeklyMeal from './components/screens/weeklyMeal/index';
-import WeeklyMealCreate from './components/screens/weeklyMeal/create';
-import WeeklyMealEdit from './components/screens/weeklyMeal/edit';
 import Account from './components/screens/account/index';
-import Admin from './components/screens/admin/index';
 import Allergen from './components/screens/allergen/index';
 import Employee from './components/screens/employee/index';
 import Invoice from './components/screens/invoice/index';
@@ -53,9 +45,6 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Login />
-        </Route>
-        <Route path="/home">
-          <Home />
         </Route>
         <Route path="/product">
           <Product />
@@ -102,15 +91,6 @@ function App() {
         <Route path="/buyProductEdit">
           <BuyProductEdit />
         </Route>
-        <Route path="/client">
-          <Client />
-        </Route>
-        <Route path="/clientCreate">
-          <ClientCreate />
-        </Route>
-        <Route path="/clientEdit">
-          <ClientEdit />
-        </Route>
         <Route path="/extra">
           <Extra />
         </Route>
@@ -129,20 +109,8 @@ function App() {
         <Route path="/productExtraEdit">
           <ProductExtraEdit />
         </Route>
-        <Route path="/weeklyMeal">
-          <WeeklyMeal />
-        </Route>
-        <Route path="/weeklyMealCreate">
-          <WeeklyMealCreate />
-        </Route>
-        <Route path="/weeklyMealEdit">
-          <WeeklyMealEdit />
-        </Route>
         <Route path="/account">
           <Account />
-        </Route>
-        <Route path="/admin">
-          <Admin />
         </Route>
         <Route path="/allergen">
           <Allergen />
