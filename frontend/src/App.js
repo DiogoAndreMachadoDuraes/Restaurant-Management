@@ -10,11 +10,11 @@ import Login from './components/screens/login/index';
 import Product from './components/screens/product/index';
 import Restaurant from './components/screens/restaurant/index';
 import Extra from './components/screens/extra/index';
+import Reservation from './components/screens/reservation/index';
 import Account from './components/screens/account/index';
 import Invoice from './components/screens/invoice/index';
-import Menu from './components/screens/menu/index';
-import SpecialMenu from './components/screens/specialMenu/index';
-import TakeAway from './components/screens/takeAway/index';
+/* import Menu from './components/screens/menu/index';
+ */import SpecialMenu from './components/screens/specialMenu/index';
 import User from './components/screens/user/index';
 
 function App() {
@@ -27,9 +27,9 @@ function App() {
         <Route path="/product">
           <Product />
         </Route>
-        {/* <Route path="/reservation">
+        <Route path="/reservation">
           <Reservation />
-        </Route> */}
+        </Route>
         <Route path="/restaurant">
           <Restaurant />
         </Route>
@@ -42,14 +42,11 @@ function App() {
         <Route path="/invoice">
           <Invoice />
         </Route>
-        <Route path="/menu">
+        {/* <Route path="/menu">
           <Menu />
-        </Route>
+        </Route> */}
         <Route path="/specialMenu">
           <SpecialMenu />
-        </Route>
-        <Route path="/takeAway">
-          <TakeAway />
         </Route>
         <Route path="/user">
           <User />

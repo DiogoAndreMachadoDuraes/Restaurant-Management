@@ -14,7 +14,9 @@ class User extends React.Component {
             user:[],
             newData:[],
             client:[],
-            newDataClient:[]
+            newDataClient:[],
+            invoice:[],
+            newDataInvoice:[]
         }
     }
 
@@ -39,7 +41,6 @@ class User extends React.Component {
             console.log("Error to get User: " + e);
         }
     
-
         try {
             let response = await fetch('/Cliente', 
             { 
@@ -56,6 +57,24 @@ class User extends React.Component {
             });
         } catch(e){
             console.log("Error to get Cliente: " + e);
+        }
+
+        try {
+            let response = await fetch('/Fatura', 
+            { 
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            let res = await response.json();
+            console.log(res);
+            this.setState({ 
+                invoice: res
+            });
+        } catch(e){
+            console.log("Error to get Fatura: " + e);
         }
 }
 
@@ -222,8 +241,85 @@ class User extends React.Component {
         }
     }
 
+    addInvoice = async () => {
+        const { newDataInvoice } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Fatura', { 
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'iva': newDataInvoice.iva,
+                    'taxa': newDataInvoice.tax,
+                    'valor_total': newDataInvoice.totalValue,
+                    'nif_cliente': newDataInvoice.tin,
+                    /* 'id_reserva': newDataInvoice.invoiceId,*/
+                })
+            });
+            alert("Coluna inserida com sucesso!");
+            console.log(response);
+        } catch(e){
+            console.log("Error to Post Fatura: " + e);
+        }
+    }
+
+    updateInvoice = async (invoiceID) => {
+        const { newDataInvoice } = this.state;
+
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Fatura', { 
+                method: 'PUT',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_fatura': invoiceID,
+                    'iva': newDataInvoice.iva,
+                    'taxa': newDataInvoice.tax,
+                    'valor_total': newDataInvoice.totalValue,
+                    'nif_cliente': newDataInvoice.tin,
+                    /* 'id_reserva': newDataInvoice.invoiceId,*/
+                })
+            });
+            alert("Coluna modificada com sucesso!");
+        } catch(e){
+            console.log("Error to Put Fatura: " + e);
+        }
+    }
+
+    deleteInvoice = async (invoiceID) => {
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        try
+        {
+            let response = await fetch('/Fatura', { 
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'id_cliente': invoiceID
+                })
+            });
+            alert("Coluna eliminada com sucesso!");
+        } catch(e){
+            console.log("Error to Delete Fatura: " + e);
+        }
+    }
+
     showDetails(userID) {
-        const { client } = this.state;
+        const { client, invoice } = this.state;
         const columnsClient= [
             { title: 'Número de Cartão', field: 'shopNumber', validate: rowData => rowData.shopNumber <= 0 ? 'O número de cartão não pode ser 0 nem negativo' : '', type: "numeric", align:"center"},
             { title: 'Número de Compras', field: 'cardNumber', validate: rowData => rowData.cardNumber < 0 ? 'O número de compras não pode ser negativo' : '', type: "numeric", align:"center"}
@@ -231,6 +327,17 @@ class User extends React.Component {
         const clientUser=client.filter(a=>a.id_utilizador==userID).map(a=>a);
         const dataClient = clientUser.map((item) => {
             return { clientId: item.id_cliente, cardNumber: item.numero_cartao, shopNumber: item.numero_compras};
+        });;
+
+        const columnsInvoice= [
+            { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? 'O iva não pode ser nulo' : '', align:"center"},
+            { title: 'Taxa', field: 'tax', validate: rowData => rowData.tax === '' ? 'A taxa não pode ser nula' : '', align:"center"},
+            { title: 'Valor total', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? 'O valor total não pode ser nulo' : '', align:"center"},
+            { title: 'Nif do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ? 'O nif do cliente não pode ser nulo' : '', align:"center"}
+        ];
+        const invoiceUser=invoice.filter(a=>a.id_utilizador==1).map(a=>a);
+        const dataInvoice= invoiceUser.map((item) => {
+            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, valueTotal: item.valor_total};
         });;
     
     return (
@@ -302,11 +409,76 @@ class User extends React.Component {
                                 this.deleteClient(clientID);
                             }, 1000)
                         }),
-                }}
-            />
-        </div>
-    )
-}
+                    }}
+                />
+                <div style={{ marginTop: 20}}>
+                    <SecoundTable
+                        title="Fatura"
+                        columns={columnsInvoice}
+                        data={dataInvoice}
+                        editable={{
+                            onRowAdd: newData =>
+                                new Promise((resolve, reject) => {
+                                    if(newData.iva==null || newData.tax==null || newData.valueTotal==null || newData.tin==null) {
+                                        alert('Nenhum dos valores inseridos pode ser nulo!');
+                                        reject();
+                                    }else{
+                                        if(newData.iva<0 || newData.tax<0 || newData.valueTotal<0 || newData.tin<0 ) {
+                                            alert('O iva, a taxa, o valor total e/ou o nif do cliente não pode ser negativo!');
+                                            reject();
+                                        }else{
+                                            setTimeout(() => {
+                                            this.setState({
+                                            newDataInvoice: newData
+                                            });
+                                            resolve();
+                                            this.addInvoice();
+                                            }, 1000)
+                                        }                                            
+                                    }
+                            }),
+                            onRowUpdate: (newData, oldData) =>
+                                new Promise((resolve, reject) => {
+                                    if(newData.iva==null || newData.tax==null || newData.valueTotal==null || newData.tin==null) {
+                                        alert('Nenhum dos valores inseridos pode ser nulo!');
+                                        reject();
+                                    }else{
+                                        if(newData.iva<0 || newData.tax<0 || newData.valueTotal<0 || newData.tin<0 ) {
+                                            alert('O iva, a taxa, o valor total e/ou o nif do cliente não pode ser negativo!');
+                                            reject();
+                                            
+                                                    }else{
+                                                        setTimeout(() => {
+                                                            const dataUpdate = [...invoice];
+                                                            const index = oldData.tableData.id;
+                                                            dataUpdate[index] = newData;
+                                                            this.setState({
+                                                                newDataInvoice: newData
+                                                            });
+                                                            const invoiceID=newData.invoiceID;
+                                                            resolve();
+                                                            this.updateInvoice(invoiceID);
+                                                        }, 1000)
+                                                    }
+                                                }
+                            }),
+                            onRowDelete: oldData =>
+                                new Promise((resolve, reject) => {
+                                    setTimeout(() => {
+                                        const invoiceID = oldData.invoiceId;
+                                        resolve();
+                                        this.deleteInvoice(invoiceID);
+                                    }, 1000)
+                                }),
+                        }}
+                    />
+                </div>
+            </div>
+        )
+    }
+
+        
+
 
     render(){
         const { user } = this.state;

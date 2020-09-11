@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
-import "./style.css";
-import { ListPages } from "../../shared/listPages/index";
-import List from '@material-ui/core/List';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import Copyright from '../../shared/copyRight/index.js';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import MaterialTable from 'material-table';
-import Header from "../../shared/header/index";
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import PropTypes from 'prop-types';
+import {OwnTable} from "../../OwnTable";
+import {SecoundTable} from "../../SecoundTable";
+import {StructurePage} from "../../StructurePage";
 
-const styles = theme => ({
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1
-    },
-});
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 class Invoice extends React.Component {
     constructor(props){
@@ -106,8 +90,8 @@ class Invoice extends React.Component {
         } catch(e){
             console.log("Error to Put Invoice: " + e);
         }
-    }
- */
+    } */
+ 
     delete = async (invoiceID) => {
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try
@@ -146,25 +130,8 @@ class Invoice extends React.Component {
 
         const tableRef = React.createRef();
         return (
-            <div className="root">
-                <AppBar position="absolute" className={classes.appBar}>
-                    <Header></Header>
-                </AppBar>
-                <div className="list">
-                    <Divider />
-                    <Drawer variant="permanent">
-                        <List style={{marginTop: 100}}>
-                            <ListPages/>
-                        </List>
-                    </Drawer>
-                </div>
-                <main className={"content"}>
-                    <div className={"appBarSpacer"} />
-                    <Container maxWidth="lg" className={"container"} style={{marginTop: 100}}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                            <Paper elevation={3} className={"paper"}>
-                                <MaterialTable
+            <StructurePage table={
+                <OwnTable 
                                     title="Tabela das Faturas"
                                     tableRef={tableRef}
                                     columns={columns}
@@ -271,23 +238,12 @@ class Invoice extends React.Component {
                                                     resolve();
                                                     this.delete(invoiceID);
                                                 }, 1000)
-                                        }),
-                                    }}
-                                />
-                            </Paper>
-                            </Grid>
-                        </Grid>
-                        <Box pt={4}>
-                            <Copyright></Copyright>
-                        </Box>
-                    </Container>
-                </main>
-            </div>
+                                            }),
+                        }}
+                    />
+                } 
+            />
         )
     }
 }
-Invoice.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-  
-export default withRouter(withStyles(styles)(Invoice));
+export default withRouter(Invoice);

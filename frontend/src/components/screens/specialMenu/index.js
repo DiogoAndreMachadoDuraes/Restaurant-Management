@@ -278,7 +278,7 @@ class SpecialMenu extends React.Component {
                                             reject();
                                         }else{
                                             setTimeout(() => {
-                                                const dataUpdate = [...dataMeal];
+                                                const dataUpdate = [...meal];
                                                 const index = oldData.tableData.id;
                                                 dataUpdate[index] = newData;
                                                 this.setState({

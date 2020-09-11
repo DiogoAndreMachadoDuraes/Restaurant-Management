@@ -1,37 +1,10 @@
-import React, { useState, useEffect } from "react";
+/* import React from "react";
 import { withRouter } from "react-router-dom";
-import "./style.css";
-import { ListPages } from "../../shared/listPages/index";
-import List from '@material-ui/core/List';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Header from "../../shared/header/index";
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import PropTypes from 'prop-types';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import {OwnTable} from "../../OwnTable";
+import {SecoundTable} from "../../SecoundTable";
+import {StructurePage} from "../../StructurePage";
 
-const styles = theme => ({
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1
-    },
-});
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 class Menu extends React.Component {
     constructor(props){
@@ -39,7 +12,9 @@ class Menu extends React.Component {
         this.goCreate = this.goCreate.bind(this);
         this.goEdit = this.goEdit.bind(this);
         this.state={
-            data:[]
+            data:[],
+            productMenu:[],
+            newDataProductMenu:[]
         }
     }
 
@@ -63,19 +38,24 @@ class Menu extends React.Component {
         } catch(e){
             console.log("Error to get data: " + e);
         }
-    }
 
-    Copyright() {
-        return (
-        <Typography variant="body2" color="textSecondary" align="center" style={{marginTop: 20}}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://sabordaavo.com/">
-            Sabor da Avó
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-        );
+        try {
+            let response = await fetch('/Produto_menu', 
+            { 
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            let res = await response.json();
+            console.log(res);
+            this.setState({ 
+                productMenu: res
+            });
+        } catch(e){
+            console.log("Error to get Produto Menu: " + e);
+        }
     }
 
     goCreate() {
@@ -85,6 +65,8 @@ class Menu extends React.Component {
     goEdit() {
         this.props.history.push("/menuEdit");
     }
+
+    
 
     render(){
         const { data } = this.state;
@@ -163,3 +145,4 @@ Menu.propTypes = {
 };
   
 export default withRouter(withStyles(styles)(Menu));
+ */
