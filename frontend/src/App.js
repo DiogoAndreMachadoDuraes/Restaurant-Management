@@ -8,33 +8,11 @@ import {
 } from "react-router-dom";
 import Login from './components/screens/login/index';
 import Product from './components/screens/product/index';
-import ProductCreate from './components/screens/product/create';
-import ProductEdit from './components/screens/product/edit';
-import Reservation from './components/screens/reservation/index';
-import ReservationCreate from './components/screens/reservation/create';
-import ReservationEdit from './components/screens/reservation/edit';
 import Restaurant from './components/screens/restaurant/index';
-import RestaurantCreate from './components/screens/restaurant/create';
-import RestaurantEdit from './components/screens/restaurant/edit';
-import BuyMenu from './components/screens/buyMenu/index';
-import BuyMenuCreate from './components/screens/buyMenu/create';
-import BuyMenuEdit from './components/screens/buyMenu/edit';
-import BuyProduct from './components/screens/buyProduct/index';
-import BuyProductCreate from './components/screens/buyProduct/create';
-import BuyProductEdit from './components/screens/buyProduct/edit';
 import Extra from './components/screens/extra/index';
-import ExtraCreate from './components/screens/extra/create';
-import ExtraEdit from './components/screens/extra/edit';
-import ProductExtra from './components/screens/productExtra/index';
-import ProductExtraCreate from './components/screens/productExtra/create';
-import ProductExtraEdit from './components/screens/productExtra/edit';
 import Account from './components/screens/account/index';
-import Allergen from './components/screens/allergen/index';
-import Employee from './components/screens/employee/index';
 import Invoice from './components/screens/invoice/index';
 import Menu from './components/screens/menu/index';
-import MenuProduct from './components/screens/menuProduct/index';
-import NutritionalInformation from './components/screens/nutritionalInformation/index';
 import SpecialMenu from './components/screens/specialMenu/index';
 import TakeAway from './components/screens/takeAway/index';
 import User from './components/screens/user/index';
@@ -49,86 +27,23 @@ function App() {
         <Route path="/product">
           <Product />
         </Route>
-        <Route path="/productCreate">
-          <ProductCreate />
-        </Route>
-        <Route path="/productEdit">
-          <ProductEdit />
-        </Route>
-        <Route path="/reservation">
+        {/* <Route path="/reservation">
           <Reservation />
-        </Route>
-        <Route path="/reservationCreate">
-          <ReservationCreate />
-        </Route>
-        <Route path="/reservationEdit">
-          <ReservationEdit />
-        </Route>
+        </Route> */}
         <Route path="/restaurant">
           <Restaurant />
-        </Route>
-        <Route path="/restaurantCreate">
-          <RestaurantCreate />
-        </Route>
-        <Route path="/restaurantEdit">
-          <RestaurantEdit />
-        </Route>
-        <Route path="/buyMenu">
-          <BuyMenu />
-        </Route>
-        <Route path="/buyMenuCreate">
-          <BuyMenuCreate />
-        </Route>
-        <Route path="/buyMenuEdit">
-          <BuyMenuEdit />
-        </Route>
-        <Route path="/buyProduct">
-          <BuyProduct />
-        </Route>
-        <Route path="/buyProductCreate">
-          <BuyProductCreate />
-        </Route>
-        <Route path="/buyProductEdit">
-          <BuyProductEdit />
         </Route>
         <Route path="/extra">
           <Extra />
         </Route>
-        <Route path="/extraCreate">
-          <ExtraCreate />
-        </Route>
-        <Route path="/extraEdit">
-          <ExtraEdit />
-        </Route>
-        <Route path="/productExtra">
-          <ProductExtra />
-        </Route>
-        <Route path="/productExtraCreate">
-          <ProductExtraCreate />
-        </Route>
-        <Route path="/productExtraEdit">
-          <ProductExtraEdit />
-        </Route>
         <Route path="/account">
           <Account />
-        </Route>
-        <Route path="/allergen">
-          <Allergen />
-        </Route>
-        <Route path="/employee">
-          <Employee />
         </Route>
         <Route path="/invoice">
           <Invoice />
         </Route>
         <Route path="/menu">
           <Menu />
-        </Route>
-        <Route path="/menuProduct">
-          <MenuProduct />
-        </Route>
-        <Route path="/nutritionalInformation">
-          <NutritionalInformation />
         </Route>
         <Route path="/specialMenu">
           <SpecialMenu />

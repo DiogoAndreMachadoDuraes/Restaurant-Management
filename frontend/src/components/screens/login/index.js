@@ -3,11 +3,10 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import CopyRight from '../../shared/copyRight/index';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {
@@ -82,19 +81,6 @@ class Login extends React.Component {
     
         this.setState({ error, [name]: value }, () => console.log(this.state));
     };
-
-    Copyright() {
-        return (
-            <Typography variant="body2" color="textSecondary" align="center" style={{marginTop: 20}}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://sabordaavo.com/">
-                Sabor da Avó
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-            </Typography>
-        );
-    }
  
     login = async()=>{
         if (this.state.email.length == 0 || this.state.password.length == 0 ) {
@@ -218,7 +204,7 @@ class Login extends React.Component {
                             onClick={this.login}
                         >Iniciar Sessão</Button>
                         <Box mt={5}>
-                            {this.Copyright}
+                            <CopyRight/>
                         </Box>
                     </form>
                 </div>
