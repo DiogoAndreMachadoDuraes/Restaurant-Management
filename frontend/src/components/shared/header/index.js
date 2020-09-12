@@ -10,11 +10,29 @@ class Header extends Component{
     constructor(props){
         super(props);
         this.goAccount = this.goAccount.bind(this);
+        /*this.state={
+            name: "",
+            photo: ""
+        } */
     }
     goAccount(){
         this.props.history.push("/account");
     }
+    /*getData = async () =>{
+        let name=await localStorage.getItem("name");
+        let photo=await localStorage.getItem("photo");
+        console.log(name);
+        console.log(name);
+        this.setState({
+            name: name,
+            photo: photo
+        })
+    } */
     render(){
+    /*const { name, photo } = this.state;
+        {
+            this.getData();
+        } */
         return (
             <header>
                 <div className="logo">
@@ -23,17 +41,17 @@ class Header extends Component{
                 <nav>
                     <ul>
                         <li onClick={this.goAccount}>
-                            <a className={"first"}>José Leite Machado</a>
+                            <a className={"first"}>José</a>
                         </li>
                     </ul>
                     <ul>
                         <li onClick={this.goAccount}>
-                            <Avatar src="https://www.karacteragency.pt/wp-content/uploads/2016/03/jose-leite-board-1.jpg" className={"last"} />
+                            <Avatar src="" className={"last"} />
                         </li>
                     </ul>
                 </nav>
             </header>
-          );
+        );
     }
 }
 

@@ -13,6 +13,7 @@ import {
     BrowserRouter as Router,
     withRouter
 } from "react-router-dom";
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const styles = theme => ({
   root: {
@@ -104,7 +105,8 @@ class Login extends React.Component {
                 });
 
                 let token = await response.text();
-                
+                localStorage.setItem("token", token);
+                console.log(token);            
                 try 
                 {
                     let response = await fetch('/Utilizador', { 
@@ -121,23 +123,29 @@ class Login extends React.Component {
                     });
                 } catch(e){
                     console.log("Error to get data: " + e);
-                    alert('Aconteceu um erro, contacte o programador!');
+                    alert('Não está a ser possível o acesso à sua conta... Por favor, contacte o programador!');
                     return;
                 }
 
                 const { data } = this.state;
                
                 const name=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
+                localStorage.setItem('name', name);
                 const photo=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
+                localStorage.setItem('photo', name);
                 const user=data.filter(a=>a.email==this.state.email).map(a=>a);
+                localStorage.setItem('user', name);
+                const type=data.filter(a=>a.email==this.state.email).map(a=>a.tipo);
 
-                this.props.history.push("/home", { getToken: token, name: name, photo: photo });
-
+                if(type=="Cliente")
+                {
+                    alert('Só é possível a entrada a funcionários e administradores da empresa!');
+                    return;
+                } else{
+                    this.props.history.push("/user", { getToken: token, name: name, photo: photo });
+                }
             } catch(e){
                 console.log("Error to get User: " + e);
-                /* Alert.alert('Erro', '   Não está a ser possível o acesso à sua conta...', [
-                    {text: 'Por favor, tente mais tarde'}
-                ]); */
                 alert('O Email e/ou a palavra-passe estão incorreto(s).');
                 return;
             }

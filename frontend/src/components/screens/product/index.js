@@ -22,7 +22,7 @@ class Product extends React.Component {
     async componentDidMount (){ 
         console.log("Mounting the screen Product...");
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0xNCAyMDozODo0MiJ9.BbUHpKWZCH-3tcUaCDN0iKhs5saeDwDGnGSQLlqU53c";
+        let token=localStorage.getItem("token");
         try {
             let response = await fetch('/Produto', 
             { 
@@ -81,7 +81,7 @@ class Product extends React.Component {
     add = async () => {
         const { newData } = this.state;
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Produto', { 
@@ -93,13 +93,14 @@ class Product extends React.Component {
                 },
                 body: JSON.stringify({
                     'nome': newData.name,
-                    'descicao': newData.description,
+                    'descricao': newData.description,
                     'tipo': newData.type,
                     'foto': newData.photo,
                     'preco': newData.price
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Post Product: " + e);
         }
@@ -108,7 +109,7 @@ class Product extends React.Component {
     update = async (productID) => {
         const { newData } = this.state;
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Produto', { 
@@ -121,20 +122,21 @@ class Product extends React.Component {
                 body: JSON.stringify({
                     'id_produto': productID,
                     'nome': newData.name,
-                    'descicao': newData.description,
+                    'descricao': newData.description,
                     'tipo': newData.type,
                     'foto': newData.photo,
                     'preco': newData.price
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Product: " + e);
         }
     }
 
     delete = async (productID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Produto', { 
@@ -149,6 +151,7 @@ class Product extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Product: " + e);
         }
@@ -157,7 +160,7 @@ class Product extends React.Component {
     addInfo = async () => {
         const { newDataInfo } = this.state;
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Info_nutricional', { 
@@ -175,16 +178,18 @@ class Product extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
-            console.log(response);
+            window.location.reload();
         } catch(e){
             console.log("Error to Post Info Nutricional: " + e);
         }
     }
 
-    updateInfo = async (infoID) => {
+    updateInfo = async (infoID, productId) => {
         const { newDataInfo } = this.state;
+        console.log(productId);
+        console.log(infoID);
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Info_nutricional', { 
@@ -198,18 +203,19 @@ class Product extends React.Component {
                     'id_info_nutricional': infoID,
                     'tipo': newDataInfo.type,
                     'quantidade_nutrientes': newDataInfo.quantity,
-                    /* 'id_produto': newDataInfo.productId,
-                    'id_extra': newDataInfo.extraId */
+                    'id_produto': productId,
+                    'id_extra': 0
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Info Nutricional: " + e);
         }
     }
 
     deleteInfo = async (infoID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Info_nutricional', { 
@@ -224,6 +230,7 @@ class Product extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Info Nutricional: " + e);
         }
@@ -232,7 +239,7 @@ class Product extends React.Component {
     addAller = async () => {
         const { newDataAller } = this.state;
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Alergenio', { 
@@ -251,6 +258,7 @@ class Product extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Post Alergenio: " + e);
         }
@@ -259,7 +267,7 @@ class Product extends React.Component {
     updateAller = async (allerID) => {
         const { newDataAller } = this.state;
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Alergenio', { 
@@ -279,13 +287,14 @@ class Product extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Alergenio: " + e);
         }
     }
 
     deleteAller = async (allerID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Alergenio', { 
@@ -300,8 +309,63 @@ class Product extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Alergenio: " + e);
+        }
+    }
+
+    testInfo(newData, resolve, reject){
+        if(newData.quantity==null || newData.type==null) {
+            alert('Nenhum dos valores inseridos pode ser nulo!');
+            reject();
+        }
+        else{
+            return true;
+        }
+    }
+
+    testAller(newData, resolve, reject){
+        if(newData.type==null || newData.description==null || newData.photo==null) {
+            alert('Nenhum dos valores inseridos pode ser nulo!');
+            reject();
+        }
+        else{
+            return true;
+        }
+    }
+
+    test(newData, resolve, reject){
+        if(newData.type==null || newData.price==null || newData.photo==null || newData.name==null || newData.description==null){
+            alert('Nenhum dos valores inseridos pode ser nulo!');
+            reject();
+        }else{
+            if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.name)) {
+                alert('O nome não é válido!');
+                reject();
+            }else{
+                if(newData.name.length<3){
+                    alert('O nome tem de conter no mínimo 3 carateres!');
+                    reject();
+                }else{
+                    if(newData.photo.length<0){
+                        alert('Tem de conter uma foto!');
+                        reject();
+                    }else{
+                        if(newData.description.length<5){
+                            alert('Tipo tem de conter no mínimo 3 carateres!');
+                            reject();
+                        }else{
+                            if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.description)) {
+                                alert('O tipo não é válido!');
+                                reject();
+                            }else{
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -325,7 +389,7 @@ class Product extends React.Component {
             { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? 'A descrição não pode ser nula' : '', align:"center"},
             { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"}
         ];
-        const allerProduct=aller.filter(a=>a.id_produto==1).map(a=>a);
+        const allerProduct=aller.filter(a=>a.id_produto==productId).map(a=>a);
         const dataAller= allerProduct.map((item) => {
             return { allerId: item.id_alergenio, type: item.tipo, description: item.descricao, photo: item.foto};
         });;
@@ -338,68 +402,38 @@ class Product extends React.Component {
                     editable={{
                         onRowAdd: newData =>
                             new Promise((resolve, reject) => {
-                                if(newData.quantity==null || newData.type==null) {
-                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                if(this.testInfo(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(newData.quantity<0) {
-                                        alert('A quantidade não pode ser 0!');
-                                        reject();
-                                    }else{
-                                        if(Number.isInteger(newData.quantity)==false){
-                                            alert('A quantidade tem de ser do tipo inteiro!');
-                                            reject();
-                                        }else{
-                                            if(newData.type.lenght<0){
-                                                alert('Tem de conter uma descrição!');
-                                                reject();
-                                            }else{
-                                                setTimeout(() => {
-                                                    this.setState({
-                                                        newDataInfo: newData
-                                                    });
-                                                    resolve();
-                                                    this.add();
-                                                }, 100)
-                                            }
-                                        }
-                                    }
+                                    setTimeout(() => {
+                                        this.setState({
+                                            newDataInfo: newData
+                                        });
+                                        resolve();
+                                        this.add(productId);
+                                    }, 100)
                                 }
-                        }),
+                            }    
+                        ),
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve, reject) => {
-                                if(newData.quantity==null || newData.type==null) {
-                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                if(this.testInfo(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(newData.quantity<0) {
-                                        alert('A quantidade não pode ser 0!');
-                                        reject();
-                                    }else{
-                                        if(Number.isInteger(newData.quantity)==false){
-                                            alert('A quantidade tem de ser do tipo inteiro!');
-                                            reject();
-                                        }else{
-                                            if(newData.type.lenght<0){
-                                                alert('Tem de conter uma descrição!');
-                                                reject();
-                                            }else{
-                                                setTimeout(() => {
-                                                    const dataUpdate = [...dataInfo];
-                                                    const index = oldData.tableData.id;
-                                                    dataUpdate[index] = newData;
-                                                    this.setState({
-                                                        newDataInfo: newData
-                                                    });
-                                                    const infoID=newData.infoID;
-                                                    resolve();
-                                                    this.update(infoID);
-                                                }, 1000)
-                                            }
-                                        }
-                                    }
+                                    setTimeout(() => {
+                                        const dataUpdate = [...infoProduct];
+                                        const index = oldData.tableData.id;
+                                        dataUpdate[index] = newData;
+                                        this.setState({
+                                            newDataInfo: newData
+                                        });
+                                        const infoID=newData.infoID;
+                                        resolve();
+                                        this.update(infoID, productId);
+                                    }, 1000)
                                 }
-                        }),
+                            }
+                        ),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
@@ -418,78 +452,38 @@ class Product extends React.Component {
                         editable={{
                             onRowAdd: newData =>
                                 new Promise((resolve, reject) => {
-                                    if(newData.type==null || newData.description==null || newData.photo==null) {
-                                        alert('Nenhum dos valores inseridos pode ser nulo!');
+                                    if(this.testAller(newData, resolve, reject)!=true){
                                         reject();
                                     }else{
-                                        if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                            alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
-                                            reject();
-                                        }else{
-                                            if(Number.isInteger(newData.quantity)==false){
-                                                alert('A quantidade tem de ser do tipo inteiro!');
-                                                reject();
-                                            }else{
-                                                if(newData.description.lenght<0){
-                                                    alert('Tem de conter uma descrição!');
-                                                    reject();
-                                                }else{
-                                                    if(newData.photo.lenght<0){
-                                                        alert('Tem de conter uma foto!');
-                                                        reject();
-                                                    }else{
-                                                        setTimeout(() => {
-                                                            this.setState({
-                                                                newDataAller: newData
-                                                            });
-                                                            resolve();
-                                                            this.addAller();
-                                                        }, 1000)
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        setTimeout(() => {
+                                            this.setState({
+                                                newDataAller: newData
+                                            });
+                                            resolve();
+                                            this.addAller();
+                                        }, 1000)
                                     }
-                            }),
+                                }
+                            ),
                             onRowUpdate: (newData, oldData) =>
                                 new Promise((resolve, reject) => {
-                                    if(newData.type==null || newData.description==null || newData.photo==null) {
-                                        alert('Nenhum dos valores inseridos pode ser nulo!');
+                                    if(this.testAller(newData, resolve, reject)!=true){
                                         reject();
                                     }else{
-                                        if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                            alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
-                                            reject();
-                                        }else{
-                                            if(Number.isInteger(newData.quantity)==false){
-                                                alert('A quantidade tem de ser do tipo inteiro!');
-                                                reject();
-                                            }else{
-                                                if(newData.description.lenght<0){
-                                                    alert('Tem de conter uma descrição!');
-                                                    reject();
-                                                }else{
-                                                    if(newData.photo.lenght<0){
-                                                        alert('Tem de conter uma foto!');
-                                                        reject();
-                                                    }else{
-                                                        setTimeout(() => {
-                                                            const dataUpdate = [...dataAller];
-                                                            const index = oldData.tableData.id;
-                                                            dataUpdate[index] = newData;
-                                                            this.setState({
-                                                                newDataAller: newData
-                                                            });
-                                                            const allerID=newData.allerID;
-                                                            resolve();
-                                                            this.updateAller(allerID);
-                                                        }, 1000)
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        setTimeout(() => {
+                                            const dataUpdate = [...dataAller];
+                                            const index = oldData.tableData.id;
+                                            dataUpdate[index] = newData;
+                                            this.setState({
+                                                newDataAller: newData
+                                            });
+                                            const allerID=newData.allerID;
+                                            resolve();
+                                            this.updateAller(allerID);
+                                        }, 1000)
                                     }
-                            }),
+                                }
+                            ),
                             onRowDelete: oldData =>
                                 new Promise((resolve, reject) => {
                                     setTimeout(() => {
@@ -508,11 +502,15 @@ class Product extends React.Component {
     render(){
         const { product } = this.state;
         const columns= [
-            { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? 'O nome não pode ser nulo' : '', align:"center"},
-            { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? 'A descrição não pode ser nula' : '', align:"center"},
-            { title: 'Tipo', field: 'type',  /* lookup: rowData => [rowData.type], defaultFilter: rowData => [rowData.type], */ align:"center"},
-            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"},
-            { title: 'Preço (€)', field: 'price', validate: rowData => rowData.birthYear <= 0 ? 'O preço não pode ser negativo' : '', type: "numeric", align:"center"}
+            { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? { isValid: false, helperText: 'O nome não pode ser nulo' } : true, align:"center"},
+            { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? { isValid: false, helperText: 'A descrição não pode ser nula' } : true, align:"center"},
+            { 
+                title: 'Tipo', 
+                field: 'type', 
+                lookup: {'Hambúrgueres':'Hambúrgueres', 'Francesinhas':'Francesinhas', 'Pizzas':'Pizzas', 'Pratos de carne':'Pratos de carne', 'Pratos de peixe':'Pratos de peixe', 'Pratos sem glúten':'Pratos sem glúten', 'Pratos Vegan':'Pratos Vegan', 'Batata Frita':'Batata Frita', 'Saladas':'Saladas', 'Sopas':'Sopas', 'Bebidas':'Bebidas', 'Sobremesas':'Sobremesas', 'Bebidas Quentes':'Bebidas Quentes'},
+                align:"center"},
+            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, validate: rowData => rowData.photo === '' ? { isValid: false, helperText: 'A foto não pode ser nula' } : true, align:"center"},
+            { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price <= 0 ?  { isValid: false, helperText: 'O preço não pode ser negativo' } : true, type: "numeric", align:"center"}
         ];
 
         const data = product.map((item) => {
@@ -525,82 +523,42 @@ class Product extends React.Component {
                     title="Tabela de Produtos" 
                     columns={columns}
                     data={data}
-                    detailPanel={rowData => this.showDetails(1)}
+                    detailPanel={rowData => this.showDetails(rowData.productId)}
                     editable={{
                         onRowAdd: newData =>
                             new Promise((resolve, reject) => {
-                                if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
-                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                        alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
-                                        reject();
-                                    }else{
-                                        if(Number.isInteger(newData.quantidade)==false){
-                                            alert('A quantidade tem de ser do tipo inteiro!');
-                                            reject();
-                                        }else{
-                                            if(newData.description.lenght<0){
-                                                alert('Tem de conter uma descrição!');
-                                                reject();
-                                            }else{
-                                                if(newData.photo.lenght<0){
-                                                    alert('Tem de conter uma foto!');
-                                                    reject();
-                                                }else{
-                                                    setTimeout(() => {
-                                                        this.setState({
-                                                            newData: newData
-                                                        });
-                                                        resolve();
-                                                        this.add();
-                                                    }, 1000)
-                                                }
-                                            }
-                                        }
-                                    }
+                                    setTimeout(() => {
+                                        this.setState({
+                                            newData: newData
+                                        });
+                                        resolve();
+                                        this.add();
+                                    }, 1000)
                                 }
-                        }),
+                            }
+                        ),
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve, reject) => {
-                                if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
-                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                        alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
-                                        reject();
-                                    }else{
-                                        if(Number.isInteger(newData.quantidade)==false){
-                                            alert('A quantidade tem de ser do tipo inteiro!');
-                                            reject();
-                                        }else{
-                                            if(newData.description.lenght<0){
-                                                alert('Tem de conter uma descrição!');
-                                                reject();
-                                            }else{
-                                                if(newData.photo.lenght<0){
-                                                    alert('Tem de conter uma foto!');
-                                                    reject();
-                                                }else{
-                                                    setTimeout(() => {
-                                                        const dataUpdate = [...data];
-                                                        const index = oldData.tableData.id;
-                                                        dataUpdate[index] = newData;
-                                                        this.setState({
-                                                            newData: newData
-                                                        });
-                                                        const productID=newData.productID;
-                                                        resolve();
-                                                        this.update(productID);
-                                                    }, 1000)
-                                                }
-                                            }
-                                        }
-                                    }
+                                    setTimeout(() => {
+                                        const dataUpdate = [...data];
+                                        const index = oldData.tableData.id;
+                                        dataUpdate[index] = newData;
+                                        this.setState({
+                                            newData: newData
+                                        });
+                                        const productID=newData.productId;
+                                        resolve();
+                                        this.update(productID);
+                                    }, 1000)
                                 }
-                        }),
+                            }
+                        ),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
