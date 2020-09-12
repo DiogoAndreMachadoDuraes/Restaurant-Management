@@ -12,8 +12,8 @@ import Restaurant from './components/screens/restaurant/index';
 import Extra from './components/screens/extra/index';
 import Reservation from './components/screens/reservation/index';
 import Account from './components/screens/account/index';
-import Invoice from './components/screens/invoice/index';
-import Menu from './components/screens/menu/index';
+/* import Invoice from './components/screens/invoice/index';
+ */import Menu from './components/screens/menu/index';
 import SpecialMenu from './components/screens/specialMenu/index';
 import User from './components/screens/user/index';
 
@@ -39,9 +39,9 @@ function App() {
         <Route path="/account">
           <Account />
         </Route>
-        <Route path="/invoice">
+        {/* <Route path="/invoice">
           <Invoice />
-        </Route>
+        </Route> */}
         <Route path="/menu">
           <Menu />
         </Route>

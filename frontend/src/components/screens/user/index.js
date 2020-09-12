@@ -309,7 +309,7 @@ class User extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_cliente': invoiceID
+                    'id_fatura': invoiceID
                 })
             });
             alert("Coluna eliminada com sucesso!");
@@ -318,11 +318,66 @@ class User extends React.Component {
         }
     }
 
-    showDetails(userID) {
+    testClient(newData, resolve, reject){
+        if(newData.cardNumber==null || newData.shopNumber==null) {
+            alert('Nenhum dos valores inseridos pode ser nulo!');
+            reject();
+        }
+        else{
+            return true;
+        }
+    }
+
+    testInvoice(newData, resolve, reject){
+        if(newData.iva==null || newData.tax==null || newData.valueTotal==null || newData.tin==null) {
+            alert('Nenhum dos valores inseridos pode ser nulo!');
+            reject();
+        }
+        else{
+            return true;
+        }
+    }
+
+    test(newData, resolve, reject){
+        if(newData.tin==null || newData.name==null || newData.dateBirth==null || newData.sex==null || newData.telephone==null || newData.street==null || newData.postalCode==null || newData.localization==null || newData.photo==null || newData.email==null || newData.password==null || newData.type==null){
+            alert('Nenhum dos valores inseridos pode ser nulo!');
+            reject();
+        }else{
+            if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.name)) {
+                alert('O nome não é válido!');
+                reject();
+            }else{
+                if(newData.name.length<3){
+                    alert('O nome tem de conter no mínimo 3 carateres!');
+                    reject();
+                }else{
+                    if(newData.photo.length<0){
+                        alert('Tem de conter uma foto!');
+                        reject();
+                    }else{
+                        if(newData.street.length<5){
+                            alert('A rua tem de conter no mínimo 5 carateres!');
+                            reject();
+                            }else{
+                                if(newData.localization.length<3){
+                                    alert('A rua tem de conter no mínimo 3 carateres!');
+                                    reject();
+                                    }else{
+                                return true;
+                            }
+                    }
+                }
+                }
+            }
+        }
+    }
+
+    showDetails(userID , tin) {
         const { client, invoice } = this.state;
+        console.log(tin);
         const columnsClient= [
-            { title: 'Número de Cartão', field: 'shopNumber', validate: rowData => rowData.shopNumber <= 0 ? 'O número de cartão não pode ser 0 nem negativo' : '', type: "numeric", align:"center"},
-            { title: 'Número de Compras', field: 'cardNumber', validate: rowData => rowData.cardNumber < 0 ? 'O número de compras não pode ser negativo' : '', type: "numeric", align:"center"}
+            { title: 'Número de Cartão', field: 'shopNumber', validate: rowData => rowData.shopNumber <= 0 ? { isValid: false, helperText: 'O cartão de cliente não pode ser nulo' } : true, type: "numeric", align:"center"},
+            { title: 'Número de Compras', field: 'cardNumber', validate: rowData => rowData.cardNumber < 0 ? { isValid: false, helperText: 'O número de compras não pode ser nulo' } : true, type: "numeric", align:"center"}
         ];
         const clientUser=client.filter(a=>a.id_utilizador==userID).map(a=>a);
         const dataClient = clientUser.map((item) => {
@@ -330,14 +385,14 @@ class User extends React.Component {
         });;
 
         const columnsInvoice= [
-            { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? 'O iva não pode ser nulo' : '', align:"center"},
-            { title: 'Taxa', field: 'tax', validate: rowData => rowData.tax === '' ? 'A taxa não pode ser nula' : '', align:"center"},
-            { title: 'Valor total', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? 'O valor total não pode ser nulo' : '', align:"center"},
-            { title: 'Nif do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ? 'O nif do cliente não pode ser nulo' : '', align:"center"}
+            { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? { isValid: false, helperText: 'O iva não pode ser nulo' } : true , align:"center"},
+            { title: 'Taxa', field: 'tax', validate: rowData => rowData.tax === '' ? { isValid: false, helperText: 'A taxa não pode ser nula' } : true , align:"center"},
+            { title: 'Valor total', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? { isValid: false, helperText: 'O valor total não pode ser nulo' } : true , align:"center"},
+            { title: 'Nif do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ?{ isValid: false, helperText: 'O nif do cliente não pode ser nulo' } : true, align:"center"}
         ];
-        const invoiceUser=invoice.filter(a=>a.id_utilizador==1).map(a=>a);
+        const invoiceUser=invoice.filter(a=>a.nif_cliente==tin).map(a=>a);
         const dataInvoice= invoiceUser.map((item) => {
-            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, valueTotal: item.valor_total};
+            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, valueTotal: item.valor_total, tin: item.nif_cliente};
         });;
     
     return (
@@ -349,43 +404,23 @@ class User extends React.Component {
                 editable={{
                     onRowAdd: newData =>
                         new Promise((resolve, reject) => {
-                            if(newData.cardNumber==null || newData.shopNumber==null) {
-                                alert('Nenhum dos valores inseridos pode ser nulo!');
-                                reject();
-                            }else{
-                                    if(Number.isInteger(newData.cardNumber)==false){
-                                        alert('O número de cartão tem de ser do tipo inteiro!');
-                                        reject();
-                                    }else{
-                                        if(Number.isInteger(newData.shopNumber)==false){                                            
-                                            alert('O número de compras tem de ser do tipo inteiro!');
-                                            reject();
-                                        }else{
+                            if(this.testClient(newData, resolve, reject)!=true){
+                                    reject();
+                                }else{
                                             setTimeout(() => {
                                                 this.setState({
-                                                    newDataMeal: newData
+                                                    newDataClient: newData
                                                 });
                                                 resolve();
                                                 this.addClient();
                                             }, 100)
                                         }
-                                    }
-                            }
                     }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
-                            if(newData.cardNumber==null || newData.shopNumber==null) {
-                                alert('Nenhum dos valores inseridos pode ser nulo!');
-                                reject();
-                            }else{
-                                    if(Number.isInteger(newData.cardNumber)==false){
-                                        alert('O número de cartão tem de ser do tipo inteiro!');
-                                        reject();
-                                    }else{
-                                        if(Number.isInteger(newData.shopNumber)==false){                                            
-                                            alert('O número de compras tem de ser do tipo inteiro!');
-                                            reject();
-                                        }else{
+                            if(this.testClient(newData, resolve, reject)!=true){
+                                    reject();
+                                }else{
                                             setTimeout(() => {
                                                 const dataUpdate = [...client];
                                                 const index = oldData.tableData.id;
@@ -398,8 +433,6 @@ class User extends React.Component {
                                                 this.updateClient(clientID);
                                             }, 1000)
                                         }
-                                    }
-                            }
                     }),
                     onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
@@ -419,14 +452,9 @@ class User extends React.Component {
                         editable={{
                             onRowAdd: newData =>
                                 new Promise((resolve, reject) => {
-                                    if(newData.iva==null || newData.tax==null || newData.valueTotal==null || newData.tin==null) {
-                                        alert('Nenhum dos valores inseridos pode ser nulo!');
-                                        reject();
-                                    }else{
-                                        if(newData.iva<0 || newData.tax<0 || newData.valueTotal<0 || newData.tin<0 ) {
-                                            alert('O iva, a taxa, o valor total e/ou o nif do cliente não pode ser negativo!');
-                                            reject();
-                                        }else{
+                                    if(this.testInvoice(newData, resolve, reject)!=true){
+                                    reject();
+                                }else{
                                             setTimeout(() => {
                                             this.setState({
                                             newDataInvoice: newData
@@ -435,19 +463,12 @@ class User extends React.Component {
                                             this.addInvoice();
                                             }, 1000)
                                         }                                            
-                                    }
                             }),
                             onRowUpdate: (newData, oldData) =>
                                 new Promise((resolve, reject) => {
-                                    if(newData.iva==null || newData.tax==null || newData.valueTotal==null || newData.tin==null) {
-                                        alert('Nenhum dos valores inseridos pode ser nulo!');
-                                        reject();
-                                    }else{
-                                        if(newData.iva<0 || newData.tax<0 || newData.valueTotal<0 || newData.tin<0 ) {
-                                            alert('O iva, a taxa, o valor total e/ou o nif do cliente não pode ser negativo!');
-                                            reject();
-                                            
-                                                    }else{
+                                    if(this.testInvoice(newData, resolve, reject)!=true){
+                                    reject();
+                                }else{
                                                         setTimeout(() => {
                                                             const dataUpdate = [...invoice];
                                                             const index = oldData.tableData.id;
@@ -460,7 +481,6 @@ class User extends React.Component {
                                                             this.updateInvoice(invoiceID);
                                                         }, 1000)
                                                     }
-                                                }
                             }),
                             onRowDelete: oldData =>
                                 new Promise((resolve, reject) => {
@@ -484,16 +504,16 @@ class User extends React.Component {
         const { user } = this.state;
         const {classes} = this.props;
         const columns= [
-            { title: 'NIF do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ? 'O NIF do cliente não pode ser nulo' : '', align:"center"},
-            { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? 'O nome não pode ser nulo' : '', align:"center"},
-            { title: 'Data de nascimento', field: 'dateBirth', validate: rowData => rowData.dateBirth === '' ? 'A data de nascimento não pode ser nula' : '', align:"center"},
-            { title: 'Sexo', field: 'sex', validate: rowData => rowData.sex === '' ? 'O sexo não pode ser nulo' : '', align:"center"},
-            { title: 'Telefone', field: 'telephone', validate: rowData => rowData.telephone === '' ? 'O telefone do cliente não pode ser nulo' : '', align:"center"},
-            { title: 'Rua', field: 'street', validate: rowData => rowData.street === '' ? 'A rua não pode ser nula' : '', align:"center"},
-            { title: 'Localização', field: 'localization', validate: rowData => rowData.localization === '' ? 'A localização não pode ser nula' : '', align:"center"},
-            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"},
-            { title: 'Email', field: 'email', validate: rowData => rowData.email === '' ? 'O email não pode ser nulo' : '', align:"center"},
-            { title: 'Password', field: 'password', validate: rowData => rowData.password === '' ? 'A password não pode ser nula' : '', align:"center"},
+            { title: 'NIF do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ? { isValid: false, helperText: 'O nif do cliente não pode ser nulo' } : true, align:"center"},
+            { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? { isValid: false, helperText: 'O nome não pode ser nulo' } : true, align:"center"},
+            { title: 'Data de nascimento', field: 'dateBirth', validate: rowData => rowData.dateBirth === '' ? { isValid: false, helperText: 'A data de nascimento não pode ser nula' } : true, align:"center"},
+            { title: 'Género', field: 'sex',  lookup: { 'Feminino': 'Feminino', 'Masculino': 'Masculino', 'Indefinido':'Indefinido' },  align:"center"},
+            { title: 'Telefone', field: 'telephone', validate: rowData => rowData.telephone === '' ? { isValid: false, helperText: 'O telefone não pode ser nulo' } : true, align:"center"},
+            { title: 'Rua', field: 'street', validate: rowData => rowData.street === '' ? { isValid: false, helperText: 'A rua não pode ser nula' } : true, align:"center"},
+            { title: 'Localização', field: 'localization', validate: rowData => rowData.localization === '' ? { isValid: false, helperText: 'A localização não pode ser nulo' } : true, align:"center"},
+            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, validate: rowData => rowData.photo === '' ? { isValid: false, helperText: 'A foto não pode ser nula' } : true, align:"center"},
+            { title: 'Email', field: 'email', validate: rowData => rowData.email === '' ? { isValid: false, helperText: 'O email não pode ser nulo' } : true, align:"center"},
+            { title: 'Password', field: 'password', validate: rowData => rowData.password === '' ? { isValid: false, helperText: 'A password não pode ser nula' } : true, align:"center"},
             { title: 'Tipo', field: 'type',  lookup: { 'Administrador': 'Administrador', 'Funcionário': 'Funcionário', 'Cliente':'Cliente' },  align:"center"}
         ];
         const data = user.map((item) => {
@@ -507,7 +527,7 @@ class User extends React.Component {
                     tableRef={tableRef}
                     columns={columns}
                     data={data}
-                    detailPanel={rowData => this.showDetails(1)}
+                    detailPanel={rowData => this.showDetails(rowData.userId, rowData.tin)}
                     editable={{
                         onRowAdd: newData =>
                         new Promise((resolve, reject) => {

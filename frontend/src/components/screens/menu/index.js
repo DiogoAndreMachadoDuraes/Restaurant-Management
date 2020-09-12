@@ -206,10 +206,58 @@ class Menu extends React.Component {
         }
     }
 
+    testMenuProduct(newData, resolve, reject){
+        if(newData.quantity==null ) {
+            alert('A quantidade não pode ser negativa nem nula!');
+            reject();
+            }else{
+                if(Number.isInteger(newData.quantity)==false){
+                    alert('A quantidade tem de ser do tipo inteiro!');
+                    reject();
+                }else{    
+                    return true;
+            }
+        }
+    }
+
+    test(newData, resolve, reject){
+        if(newData.type==null || newData.price==null || newData.photo==null || newData.name==null || newData.description==null){
+            alert('Nenhum dos valores inseridos pode ser nulo!');
+            reject();
+        }else{
+            if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.name)) {
+                alert('O nome não é válido!');
+                reject();
+            }else{
+                if(newData.name.length<3){
+                    alert('O nome tem de conter no mínimo 3 carateres!');
+                    reject();
+                }else{
+                    if(newData.photo.length<0){
+                        alert('Tem de conter uma foto!');
+                        reject();
+                    }else{
+                        if(newData.description.length<5){
+                            alert('Tipo tem de conter no mínimo 3 carateres!');
+                            reject();
+                        }else{
+                            if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.description)) {
+                                alert('O tipo não é válido!');
+                                reject();
+                            }else{
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     showDetails(menuID) {
         const { menuProduct } = this.state;
         const columnsMenuProduct= [
-            { title: 'Quantidade', field: 'quantity', validate: rowData => rowData.quantity < 0 ? 'A quantidade não pode ser negativa' : '', type: "numeric", align:"center"}
+            { title: 'Quantidade', field: 'quantity', validate: rowData => rowData.quantity < 0 ? { isValid: false, helperText: 'A quantidade não pode ser nula' } : true, type: "numeric", align:"center"}
         ];
         const productMenu=menuProduct.filter(a=>a.id_menu==menuID).map(a=>a);
         const dataMenuProduct = productMenu.map((item) => {
@@ -225,14 +273,9 @@ class Menu extends React.Component {
                 editable={{
                     onRowAdd: newData =>
                         new Promise((resolve, reject) => {
-                                if(newData.quantity<0) {
-                                    alert('A quantidade não pode ser negativa!');
+                            if(this.testMenuProduct(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(Number.isInteger(newData.quantity)==false){
-                                        alert('A quantidade tem de ser do tipo inteiro!');
-                                        reject();
-                                    }else{
                                             setTimeout(() => {
                                                 this.setState({
                                                     newDataMenuProduct: newData
@@ -240,19 +283,13 @@ class Menu extends React.Component {
                                                 resolve();
                                                 this.addMenuProduct();
                                             }, 100)
-                                        }
-                            }
-                    }),
+                                        }  
+                            }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
-                            if(newData.quantity<0) {
-                                    alert('A quantidade não pode ser negativa!');
+                            if(this.testMenuProduct(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(Number.isInteger(newData.quantity)==false){
-                                        alert('A quantidade tem de ser do tipo inteiro!');
-                                        reject();
-                                    }else{
                                             setTimeout(() => {
                                                 const dataUpdate = [...menuProduct];
                                                 const index = oldData.tableData.id;
@@ -264,9 +301,8 @@ class Menu extends React.Component {
                                                 resolve();
                                                 this.updateMenuProduct(menuProductID);
                                             }, 1000)
-                                }
                             }
-                    }),
+                        }),
                     onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
@@ -285,11 +321,11 @@ class Menu extends React.Component {
         const { menu } = this.state;
         const {classes} = this.props;
         const columns= [
-            { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? 'O nome não pode ser nulo' : '', align:"center"},
-            { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? 'A descrição não pode ser nula' : '', align:"center"},
+            { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? { isValid: false, helperText: 'O nome não pode ser nulo' } : true, align:"center"},
+            { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? { isValid: false, helperText: 'A descrição não pode ser nula' } : true, align:"center"},
             { title: 'Tipo', field: 'type',  lookup: { 'Menus de Hambúrgueres': 'Menus de Hambúrgueres', 'Pratos de Carne': 'Pratos de Carne', 'Pratos de Peixe':'Pratos de Peixe', 'Menus de Pizzas':'Menus de Pizzas', 'Menus de Francesinhas':'Menus de Francesinhas', 'Pratos Vegan':'Pratos Vegan', 'Menus de Cafés':'Menus de Cafés' },  align:"center"},
-            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"},
-            { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price <= 0 ? 'O preço não pode ser negativo' : '', type: "numeric", align:"center"}
+            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, validate: rowData => rowData.photo === '' ? { isValid: false, helperText: 'A foto não pode ser nula' } : true, align:"center"},
+            { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price <= 0 ? { isValid: false, helperText: 'O preço não pode ser negativo' } : true, type: "numeric", align:"center"}
         ];
         const data = menu.map((item) => {
             return { menuId: item.id_menu, name: item.nome, description: item.descricao, type: item.tipo, photo: item.foto, price: item.preco};
@@ -305,26 +341,9 @@ class Menu extends React.Component {
                     editable={{
                         onRowAdd: newData =>
                         new Promise((resolve, reject) => {
-                            if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
-                                alert('Nenhum dos valores inseridos pode ser nulo!');
-                                reject();
-                            }else{
-                                if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                    alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                            if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(Number.isInteger(newData.quantidade)==false){
-                                        alert('A quantidade tem de ser do tipo inteiro!');
-                                        reject();
-                                    }else{
-                                        if(newData.description.lenght<0){
-                                            alert('Tem de conter uma descrição!');
-                                            reject();
-                                        }else{
-                                            if(newData.photo.lenght<0){
-                                                alert('Tem de conter uma foto!');
-                                                reject();
-                                            }else{
                                                 setTimeout(() => {
                                                     this.setState({
                                                         newData: newData
@@ -333,33 +352,12 @@ class Menu extends React.Component {
                                                     this.add();
                                                 }, 1000)
                                             }
-                                        }
-                                    }
-                                }
-                            }
                     }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
-                            if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
-                                alert('Nenhum dos valores inseridos pode ser nulo!');
-                                reject();
-                            }else{
-                                if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                    alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                            if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(Number.isInteger(newData.quantidade)==false){
-                                        alert('A quantidade tem de ser do tipo inteiro!');
-                                        reject();
-                                    }else{
-                                        if(newData.description.lenght<0){
-                                            alert('Tem de conter uma descrição!');
-                                            reject();
-                                        }else{
-                                            if(newData.photo.lenght<0){
-                                                alert('Tem de conter uma foto!');
-                                                reject();
-                                            }else{
                                                 setTimeout(() => {
                                                     const dataUpdate = [...data];
                                                     const index = oldData.tableData.id;
@@ -372,10 +370,6 @@ class Menu extends React.Component {
                                                     this.update(menuID);
                                                 }, 1000)
                                             }
-                                        }
-                                    }
-                                }
-                            }
                     }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {

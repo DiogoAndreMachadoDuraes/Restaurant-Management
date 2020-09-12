@@ -1,4 +1,5 @@
 import React from 'react';
+import Copyright from '../components/shared/copyRight/index';
 import { ListPages } from "../components/shared/listPages/index";
 import List from '@material-ui/core/List';
 import Drawer from '@material-ui/core/Drawer';
@@ -42,19 +43,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Copyright = () => {
-    return (
-    <Typography variant="body2" color="textSecondary" align="center" style={{marginTop: 20}}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://sabordaavo.com/">
-        Sabor da Avó
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-    </Typography>
-    );
-};
-
 export function StructurePage (props){
     const classes = useStyles();
 
@@ -88,7 +76,7 @@ export function StructurePage (props){
                             </Grid>
                         </Grid>
                         <Box pt={4} style={{paddingVertical: 80}}>
-                            {Copyright()}
+                            <Copyright/>
                         </Box>
                     </Container>
                 </main>

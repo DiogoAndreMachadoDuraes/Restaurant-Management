@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { withRouter } from "react-router-dom";
 import {OwnTable} from "../../OwnTable";
 import {SecoundTable} from "../../SecoundTable";
@@ -63,7 +63,7 @@ class Invoice extends React.Component {
             console.log("Error to Post Invoice: " + e);
         }
     }
-/* 
+
     update = async (invoiceID) => {
         const { newData } = this.state;
 
@@ -90,7 +90,7 @@ class Invoice extends React.Component {
         } catch(e){
             console.log("Error to Put Invoice: " + e);
         }
-    } */
+    } 
  
     delete = async (invoiceID) => {
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
@@ -246,4 +246,4 @@ class Invoice extends React.Component {
         )
     }
 }
-export default withRouter(Invoice);
+export default withRouter(Invoice); */
