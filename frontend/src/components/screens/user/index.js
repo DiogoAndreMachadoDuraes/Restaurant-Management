@@ -56,7 +56,7 @@ class User extends React.Component {
                 client: res
             });
         } catch(e){
-            console.log("Error to get Cliente: " + e);
+            console.log("Error to get Client: " + e);
         }
 
         try {
@@ -74,7 +74,7 @@ class User extends React.Component {
                 invoice: res
             });
         } catch(e){
-            console.log("Error to get Fatura: " + e);
+            console.log("Error to get Invoice: " + e);
         }
 }
 
@@ -87,7 +87,7 @@ class User extends React.Component {
             let response = await fetch('/Utilizador', { 
                 method: 'POST',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -121,7 +121,7 @@ class User extends React.Component {
             let response = await fetch('/Utilizador', { 
                 method: 'PUT',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -154,7 +154,7 @@ class User extends React.Component {
             let response = await fetch('/Utilizador', { 
                 method: 'DELETE',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },

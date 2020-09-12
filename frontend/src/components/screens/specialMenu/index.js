@@ -66,7 +66,7 @@ class SpecialMenu extends React.Component {
             let response = await fetch('/Ementa', { 
                 method: 'POST',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -119,7 +119,7 @@ class SpecialMenu extends React.Component {
             let response = await fetch('/Ementa', { 
                 method: 'DELETE',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -214,8 +214,8 @@ class SpecialMenu extends React.Component {
         const { meal } = this.state;
         const columnsMeal= [
             { title: 'Dia da Semana', field: 'weekDay', lookup: { 'Segunda feira': 'Segunda feira', 'Terça feira': 'Terça feira', 'Quarta feira': 'Quarta feira', 'Quinta feira':'Quinta feira', 'Sexta feira':'Sexta feira', 'Sábado':'Sábado'  }, align:"center"},
-            { title: 'Data', field: 'date', validate: rowData => rowData.quantity <= 0 ? 'A data não pode ser 0 nem negativa' : '', type: "numeric", align:"center"},
-            { title: 'Hora', field: 'hour', validate: rowData => rowData.quantity <= 0 ? 'A hora não pode ser 0 nem negativa' : '', type: "numeric", align:"center"}
+            { title: 'Data', field: 'date', validate: rowData => rowData.date <= 0 ? 'A data não pode ser 0 nem negativa' : '', type: "numeric", align:"center"},
+            { title: 'Hora', field: 'hour', validate: rowData => rowData.hour <= 0 ? 'A hora não pode ser 0 nem negativa' : '', type: "numeric", align:"center"}
         ];
         const mealSpecialMenu=meal.filter(a=>a.id_ementa==buySpecialMenuID).map(a=>a);
         const dataMeal = mealSpecialMenu.map((item) => {
@@ -252,7 +252,7 @@ class SpecialMenu extends React.Component {
                                                     newDataMeal: newData
                                                 });
                                                 resolve();
-                                                this.add();
+                                                this.addMeal();
                                             }, 100)
                                         }
                                     }
@@ -286,7 +286,7 @@ class SpecialMenu extends React.Component {
                                                 });
                                                 const mealID=newData.mealID;
                                                 resolve();
-                                                this.update(mealID);
+                                                this.updateMeal(mealID);
                                             }, 1000)
                                         }
                                     }
@@ -313,7 +313,7 @@ class SpecialMenu extends React.Component {
         const columns= [
             { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? 'O nome não pode ser nulo' : '', align:"center"},
             { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? 'A descrição não pode ser nula' : '', align:"center"},
-            { title: 'Tipo', field: 'type',  /* lookup: rowData => [rowData.type], defaultFilter: rowData => [rowData.type], */ align:"center"},
+            { title: 'Tipo', field: 'type',  lookup: { 'Prato do Dia': 'Prato do Dia', 'Aniversários': 'Aniversários', 'Casamentos':'Casamentos', 'Batizados':'Batizados', 'Baby Shower':'Baby Shower' },  align:"center"},
             { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"},
             { title: 'Preço (€)', field: 'price', validate: rowData => rowData.birthYear <= 0 ? 'O preço não pode ser negativo' : '', type: "numeric", align:"center"}
         ];

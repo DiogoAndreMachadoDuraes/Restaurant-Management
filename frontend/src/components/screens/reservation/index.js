@@ -6,13 +6,12 @@ import {StructurePage} from "../../StructurePage";
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-
 class Reservation extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            reservation:[],
-            newData: [],
+            reserve:[],
+            newData:[],
             takeAway:[],
             newDataTakeAway:[]
         }
@@ -21,26 +20,9 @@ class Reservation extends React.Component {
     async componentDidMount (){ 
         console.log("Mounting the screen Reservation...");
 
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0xNCAyMDozODo0MiJ9.BbUHpKWZCH-3tcUaCDN0iKhs5saeDwDGnGSQLlqU53c";
         try {
             let response = await fetch('/Reserva', { 
-                headers: {
-                    Autentication: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log(response);
-            let json = await response.json();
-            this.setState({ 
-                reservation: json
-            });
-        } catch(e){
-            console.log("Error to Get Reservation: " + e);
-        }
-
-        try {
-            let response = await fetch('/Take_away', { 
                 headers: {
                     Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
@@ -49,13 +31,31 @@ class Reservation extends React.Component {
             });
             let json = await response.json();
             this.setState({ 
-                takeAway: json
+                reserve: json
             });
             console.log(json);
         } catch(e){
+            console.log("Error to get Reservation: " + e);
+        }
+    
+        try {
+            let response = await fetch('/Take_away', 
+            { 
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            let res = await response.json();
+            console.log(res);
+            this.setState({ 
+                takeAway: res
+            });
+        } catch(e){
             console.log("Error to get Take Away: " + e);
         }
-    }
+}
 
     add = async () => {
         const { newData } = this.state;
@@ -63,10 +63,10 @@ class Reservation extends React.Component {
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try
         {
-            let response = await fetch('/Cliente', { 
+            let response = await fetch('/Reserva', { 
                 method: 'POST',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
@@ -76,17 +76,16 @@ class Reservation extends React.Component {
                     'quantidade_pessoas': newData.quantity,
                     'data_marcada': newData.pointDate,
                     'hora_marcada': newData.pointHour,
-                    'estado': newData.state,
-                    'id_cliente': newData.clientId 
+                    'estado': newData.status
                 })
             });
             alert("Coluna inserida com sucesso!");
         } catch(e){
-            console.log("Error to Post Reservation: " + e);
+            console.log("Error to Post Reserva: " + e);
         }
     }
 
-    update = async (reservationID) => {
+    update = async (reserveID) => {
         const { newData } = this.state;
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
@@ -95,19 +94,18 @@ class Reservation extends React.Component {
             let response = await fetch('/Reserva', { 
                 method: 'PUT',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_reserva': reservationID,
+                    'id_reserva': reserveID,
                     'data': newData.date,
                     'hora': newData.hour,
                     'quantidade_pessoas': newData.quantity,
                     'data_marcada': newData.pointDate,
                     'hora_marcada': newData.pointHour,
-                    'estado': newData.state,
-                    'id_cliente': newData.clientId 
+                    'estado': newData.status
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -116,29 +114,29 @@ class Reservation extends React.Component {
         }
     }
 
-    delete = async (reservationID) => {
+    delete = async (reserveID) => {
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try
         {
             let response = await fetch('/Reserva', { 
                 method: 'DELETE',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_reserva': reservationID,
+                    'id_reserva': reserveID
                 })
             });
             alert("Coluna eliminada com sucesso!");
         } catch(e){
-            console.log("Error to Delete Reservation: " + e);
+            console.log("Error to Delete Reserva: " + e);
         }
     }
-
+    
     addTakeAway = async () => {
-        const { newDataTakeAway } = this.state;
+        const { newDataTakeAway} = this.state;
 
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try
@@ -171,7 +169,7 @@ class Reservation extends React.Component {
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
         try
         {
-            let response = await fetch('/Take_Away', { 
+            let response = await fetch('/Take_away', { 
                 method: 'PUT',
                 headers: {
                     Authorization: 'Bearer ' + token,
@@ -214,35 +212,31 @@ class Reservation extends React.Component {
         }
     }
 
-    showDetails(reservationID) {
+    showDetails(reserveID) {
         const { takeAway } = this.state;
         const columnsTakeAway= [
-            { title: 'Tipo de Entrega', field: 'type', lookup: { 'Domicílio': 'Domicílio', 'Terça feira': ''}, align:"center"},
-            { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price <= 0 ? 'O preço não pode ser negativo' : '', type: "numeric", align:"center"},
-            { title: 'Estado da Encomenda', field: 'status', validate: rowData => rowData.status <= 0 ? 'O estado da encomenda não pode ser 0 nem negativo' : '', type: "numeric", align:"center"}
+            { title: 'Tipo de Entrega', field: 'type',  lookup: { 'Domicílio': 'Domicílio', 'Restaurente': 'Restaurante'},  align:"center"},
+            { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price < 0 ? 'O preço não pode ser negativo' : '', type: "numeric", align:"center"},
+            { title: 'Estado da Encomenda', field: 'status',  lookup: { 'Em processamento': 'Em processamento', 'Em análise': 'Em análise', 'Concluído':'Concluído' },  align:"center"}
         ];
-        const takeReservation=takeAway.filter(a=>a.id_reserva==reservationID).map(a=>a);
+        const takeReservation=takeAway.filter(a=>a.id_reserva==reserveID).map(a=>a);
         const dataTakeAway = takeReservation.map((item) => {
-            return { takeAwayId: item.id_take_away, type: item.tipo_entrega, price: item.preco, status: item.estado};
+            return { takeAwayId: item.id_take_away, quantity: item.quantidade};
         });;
     
     return (
         <div style={{ marginTop: 20, marginLeft: 20, marginBottom: 20, marginInlineEnd: 20}}>
             <SecoundTable
-                title="Take Away"
+                title="Tabela Take Away"
                 columns={columnsTakeAway}
                 data={dataTakeAway}
                 editable={{
                     onRowAdd: newData =>
                         new Promise((resolve, reject) => {
-                            if(newData.type==null || newData.price==null || newData.status==null) {
-                                alert('Nenhum dos valores inseridos pode ser nulo!');
-                                reject();
-                            }else{
-                                if(newData.type<0 || newData.price<0 || newData.status<0 ){
-                                    alert('O tipo de encomenda e/ou preço e/ou estado da encomenda não pode ser 0!');
+                                if(newData.price<0) {
+                                    alert('O preço não pode ser negativo!');
                                     reject();
-                                
+                                }
                                             setTimeout(() => {
                                                 this.setState({
                                                     newDataTakeAway: newData
@@ -250,18 +244,13 @@ class Reservation extends React.Component {
                                                 resolve();
                                                 this.addTakeAway();
                                             }, 100)
-                                        }
-                            }
                     }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
-                            if(newData.type==null || newData.price==null || newData.status==null) {
-                                alert('Nenhum dos valores inseridos pode ser nulo!');
-                                reject();
-                            }else{
-                                if(newData.type<0 || newData.price<0 || newData.status<0 ){
-                                    alert('O tipo de encomenda e/ou preço e/ou estado da encomenda não pode ser 0!');
+                            if(newData.price<0) {
+                                    alert('O preço não pode ser negativo!');
                                     reject();
+                                }
                                             setTimeout(() => {
                                                 const dataUpdate = [...takeAway];
                                                 const index = oldData.tableData.id;
@@ -273,8 +262,6 @@ class Reservation extends React.Component {
                                                 resolve();
                                                 this.updateTakeAway(takeAwayID);
                                             }, 1000)
-                                        }
-                            }
                     }),
                     onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
@@ -289,105 +276,57 @@ class Reservation extends React.Component {
         </div>
     )
 }
-
+    
     render(){
-        const { reservation} = this.state;
+        const { reserve } = this.state;
         const {classes} = this.props;
         const columns= [
-            { title: 'Data da Reserva', field: 'data', type: 'date', align:"center"},
-            { title: 'Hora da Reserva', field: 'hour', type: 'time', align:"center"},
-            { title: 'Quantidade de Pessoas', field: 'quantity', type: 'numeric', align:"center" },
-            { title: 'Data Marcada', field: 'pointData', type: 'date', align:"center"},
-            { title: 'Hora Marcada', field: 'pointHour', type: 'time', align:"center"},
-            { title: 'Estado', field: 'state', /* lookup: rowData => [rowData.type], defaultFilter: rowData => [rowData.type], */ align:"center"},
-            { title: 'Id do Cliente', field: 'clientId', type: 'numeric', align:"center" },
-        ];
-        const data = reservation.map((item) => {
-            return { reservationtId: item.id_reserva, data: item.data, hour: item.hora, quantity: item.quantidade_pessoas, pointData: item.data_marcada, pointHour: item.hora_marcada, state: item.estado, clientId: item.id_cliente};
+            { title: 'Data', field: 'date', validate: rowData => rowData.date <= 0 ? 'A data não pode ser 0 nem negativa' : '', type: "numeric", align:"center"},
+            { title: 'Hora', field: 'hour', validate: rowData => rowData.hour <= 0 ? 'A hora não pode ser 0 nem negativa' : '', type: "numeric", align:"center"},
+            { title: 'Número de pessoas', field: 'quantity', validate: rowData => rowData.quantity < 0 ? 'A quantidade de pessoas não pode ser negativa' : '', type: "numeric", align:"center"},            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"},
+            { title: 'Data marcada', field: 'pointDate', validate: rowData => rowData.pointDate <= 0 ? 'A data não pode ser 0 nem negativa' : '', type: "numeric", align:"center"},
+            { title: 'Hora marcada', field: 'pointHour', validate: rowData => rowData.pointHour <= 0 ? 'A hora marcada não pode ser 0 nem negativa' : '', type: "numeric", align:"center"}        ];
+        const data = reserve.map((item) => {
+            return { reserveId: item.id_reserva, name: item.nome, description: item.descricao, type: item.tipo, photo: item.foto, price: item.preco};
         });;
         const tableRef = React.createRef();
         return (
             <StructurePage table={
-                <OwnTable
-                    title="Tabela das Reservas"
-                    tableRef={tableRef}
+                <OwnTable 
+                    title="Tabela das Reservas" 
                     columns={columns}
                     data={data}
-                    actions={[
-                        {
-                            icon: 'refresh',
-                            tooltip: 'Recarregar',
-                            isFreeAction: true,
-                            onClick: () => tableRef.current && tableRef.current.componentDidMount()
-                        }
-                    ]}
-                    options={{
-                        actionsColumnIndex: -1,
-                        search: true
-                    }}
-                    localization={
-                        { 
-                            header: { actions: ""},
-                            body:{
-                                emptyDataSourceMessage: 'Não existe dados para mostar',
-                                addTooltip: "Novo",
-                                editTooltip: "Editar",
-                                deleteTooltip: "Eliminar",
-                                editRow: { deleteText: 'Tem a certeza que deseja eliminar?', cancelTooltip: 'Cancelar', saveTooltip: 'Guardar' }
-                            },
-                            toolbar: { searchTooltip: "Pesquisar", searchPlaceholder: "Procurar"},
-                            pagination: { labelDisplayedRows: "{from}-{to} de {count}", firstTooltip: "Primeira Página", previousTooltip: "Página Anterior", nextTooltip: "Próxima Página", lastTooltip: "Última Página", labelRowsSelect:"registos"}
-                        }
-                    }
+                    detailPanel={rowData => this.showDetails(1)}
                     editable={{
                         onRowAdd: newData =>
-                            new Promise((resolve, reject) => {
-                                if(newData.date==null || newData.hour==null || newData.quantity==null || newData.pointData==null || newData.pointHour==null || newData.estado==null || newData.clientId==null) {
-                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                        new Promise((resolve, reject) => {
+                            if(newData.date==null || newData.hour==null || newData.pointDate==null || newData.pointHour==null) {
+                                alert('Nenhum dos valores inseridos pode ser nulo!');
+                                reject();
+                            }else{
+                                if(newData.date<0 || newData.hour<0 || newData.quantity<0 || newData.pointDate<0 || newData.pointHour<0 ) {
+                                    alert('A quantidade de pessoas, a data, a hora, a data marcada e/ou a hora marcada não pode ser negativa!');
                                     reject();
-                                }else{
-                                    if(newData.quantity<0 || newData.estado<0 || newData.clientId<0 ) {
-                                        alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
-                                        reject();
-                                    }else{
-                                        if(Number.isInteger(newData.quantidade)==false){
-                                            alert('A quantidade tem de ser do tipo inteiro!');
-                                            reject();
-                                        }else{
-                                            if(Number.isInteger(newData.clientId)==false){
-                                                alert('A identificação do cliente tem de ser do tipo inteiro!');
-                                                reject();
-                                            }else{
+                                }
                                                 setTimeout(() => {
                                                     this.setState({
                                                         newData: newData
                                                     });
                                                     resolve();
                                                     this.add();
-                                                }, 1000)
-                                            }
-                                        }
-                                    }
-                                }
-                        }),
-                        onRowUpdate: (newData, oldData) =>
-                            new Promise((resolve, reject) => {
-                                if(newData.date==null || newData.hour==null || newData.quantity==null || newData.pointData==null || newData.pointHour==null || newData.estado==null || newData.clientId==null) {
-                                    alert('Nenhum dos valores inseridos pode ser nulo!');
+                                                }, 1000)   
+                            }
+                    }),
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            if(newData.date==null || newData.hour==null || newData.pointDate==null || newData.pointHour==null) {
+                                alert('Nenhum dos valores inseridos pode ser nulo!');
+                                reject();
+                            }else{
+                                if(newData.date<0 || newData.hour<0 || newData.quantity<0 || newData.pointDate<0 || newData.pointHour<0 ) {
+                                    alert('A quantidade de pessoas, a data, a hora, a data marcada e/ou a hora marcada não pode ser negativa!');
                                     reject();
-                                }else{
-                                    if(newData.quantity<0 || newData.estado<0 || newData.clientId<0 ) {
-                                        alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
-                                        reject();
-                                    }else{
-                                        if(Number.isInteger(newData.quantidade)==false){
-                                            alert('A quantidade tem de ser do tipo inteiro!');
-                                            reject();
-                                        }else{
-                                            if(Number.isInteger(newData.clientId)==false){
-                                                alert('A identificação do cliente tem de ser do tipo inteiro!');
-                                                reject();
-                                            }else{
+                                }
                                                 setTimeout(() => {
                                                     const dataUpdate = [...data];
                                                     const index = oldData.tableData.id;
@@ -395,21 +334,18 @@ class Reservation extends React.Component {
                                                     this.setState({
                                                         newData: newData
                                                     });
-                                                    const reservationID=newData.reservationId;
+                                                    const reserveID=newData.reserveID;
                                                     resolve();
-                                                    this.update(reservationID);
+                                                    this.update(reserveID);
                                                 }, 1000)
                                             }
-                                        }
-                                    }
-                                }
-                        }),
+                    }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
-                                    const reservationID = oldData.reservationId;
+                                    const reserveID = oldData.reserveId;
                                     resolve();
-                                    this.delete(reservationID);
+                                    this.delete(reserveID);
                                 }, 1000)
                             }),
                         }}
