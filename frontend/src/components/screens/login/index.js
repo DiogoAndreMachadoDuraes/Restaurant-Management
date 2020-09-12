@@ -47,179 +47,180 @@ const styles = theme => ({
 });
 
 class Login extends React.Component {
-    constructor(props){
-        super(props);
-        this.login = this.login.bind(this);
-        this.state={
-            email: "",
-            password: "",
-            data:[],
-            error: {
-                email: "",
-                password: ""
-            }
-        }
+  constructor(props){
+    super(props);
+    this.login = this.login.bind(this);
+    localStorage.clear();
+    this.state={
+      email: "",
+      password: "",
+      data:[],
+      error: {
+        email: "",
+        password: ""
+      }
+    }
+  }
+
+  handleSubmit = e => {
+      e.preventDefault();
+  };
+
+  handleChange = e => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    let error = { ...this.state.error };
+
+    switch (name) {
+      case "email":
+        error.email = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value) ? "" : "O email inserido não é válido!";
+        break;
+      case "password":
+        error.password = value.length < 6 ? "A password tem de conter no mínimo 6 carateres!" : "";
+        break;
+      default: break;
     }
 
-    handleSubmit = e => {
-        e.preventDefault();
-    };
-
-    handleChange = e => {
-        e.preventDefault();
-        const { name, value } = e.target;
-        let error = { ...this.state.error };
-    
-        switch (name) {
-          case "email":
-            error.email = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value) ? "" : "O email inserido não é válido!";
-            break;
-          case "password":
-            error.password = value.length < 6 ? "A password tem de conter no mínimo 6 carateres!" : "";
-            break;
-          default: break;
-        }
-    
-        this.setState({ error, [name]: value }, () => console.log(this.state));
-    };
+    this.setState({ error, [name]: value }, () => console.log(this.state));
+  };
  
-    login = async()=>{
-        if (this.state.email.length == 0 || this.state.password.length == 0 ) {
-            alert('O Email e/ou a palavra-passe não podem ser nulos.');
-            return;
-        }
-      
-        if(this.state.error.email==false && this.state.error.password==false){
-            try
-            {
-                let response = await fetch('/Login', { 
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "email":this.state.email,
-                        "password":this.state.password
-                    })
-                });
+  login = async()=>{
+    if (this.state.email.length == 0 || this.state.password.length == 0 ) {
+      alert('O Email e/ou a palavra-passe não podem ser nulos.');
+      return;
+    }
+    
+    if(this.state.error.email==false && this.state.error.password==false){
+      try
+      {
+        let response = await fetch('/Login', { 
+          method: 'POST',
+          headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            "email":this.state.email,
+            "password":this.state.password
+          })
+        });
 
-                let token = await response.text();
-                localStorage.setItem("token", token);
-                console.log(token);            
-                try 
-                {
-                    let response = await fetch('/Utilizador', { 
-                      headers: {
-                        Authorization: 'Bearer ' + token,
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json; charset=utf-8'
-                      }
-                    });
-                    let json = await response.json();
-                    this.setState({
-                      isLoading: false,
-                      data: json
-                    });
-                } catch(e){
-                    console.log("Error to get data: " + e);
-                    alert('Não está a ser possível o acesso à sua conta... Por favor, contacte o programador!');
-                    return;
-                }
-
-                const { data } = this.state;
-               
-                const name=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
-                localStorage.setItem('name', name);
-                const photo=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
-                localStorage.setItem('photo', name);
-                const user=data.filter(a=>a.email==this.state.email).map(a=>a);
-                localStorage.setItem('user', name);
-                const type=data.filter(a=>a.email==this.state.email).map(a=>a.tipo);
-
-                if(type=="Cliente")
-                {
-                    alert('Só é possível a entrada a funcionários e administradores da empresa!');
-                    return;
-                } else{
-                    this.props.history.push("/user", { getToken: token, name: name, photo: photo });
-                }
-            } catch(e){
-                console.log("Error to get User: " + e);
-                alert('O Email e/ou a palavra-passe estão incorreto(s).');
-                return;
+        let token = await response.text();
+        localStorage.setItem("token", token);
+        console.log(token);            
+        try 
+        {
+          let response = await fetch('/Utilizador', { 
+            headers: {
+              Authorization: 'Bearer ' + token,
+              Accept: 'application/json',
+              'Content-Type': 'application/json; charset=utf-8'
             }
-        } else{
-            alert('Os valores inseridos não são válidos.');
-            return;
+          });
+          let json = await response.json();
+          this.setState({
+            isLoading: false,
+            data: json
+          });
+        } catch(e){
+          console.log("Error to get data: " + e);
+          alert('Não está a ser possível o acesso à sua conta... Por favor, contacte o programador!');
+          return;
         }
-    }
 
-    render(){
-        const { error } = this.state;
-        const { classes } = this.props;
+        const { data } = this.state;
+        
+        const name=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
+        localStorage.setItem('name', name);
+        const photo=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
+        localStorage.setItem('photo', name);
+        const user=data.filter(a=>a.email==this.state.email).map(a=>a);
+        localStorage.setItem('user', name);
+        const type=data.filter(a=>a.email==this.state.email).map(a=>a.tipo);
 
-        return (
-          <Grid container component="main" className={classes.root}>
-            <CssBaseline />
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                <div className={classes.paper}>
-                    <Avatar src={require("../../../assets/logo.png")} className={classes.logo}/>
-                    <form className={classes.form} onSubmit={this.handleSubmit} noValidate>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            noValidate
-                            onChange={this.handleChange}
-                        />
-                        {   
-                            error.email.length > 0 && (
-                                <span style={{color:'red'}}>{error.email}</span>
-                            )
-                        }
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            noValidate
-                            onChange={this.handleChange}
-                        />
-                        {
-                            error.password.length > 0 && (
-                                <span style={{color:'red'}}>{error.password}</span>
-                            )
-                        }
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={this.login}
-                        >Iniciar Sessão</Button>
-                        <Box mt={5}>
-                            <CopyRight/>
-                        </Box>
-                    </form>
-                </div>
-          </Grid>
-        </Grid>
-        );
+        if(type=="Cliente")
+        {
+            alert('Só é possível a entrada a funcionários e administradores da empresa!');
+            return;
+        } else{
+            this.props.history.push("/user", { getToken: token, name: name, photo: photo });
+        }
+      } catch(e){
+          console.log("Error to get User: " + e);
+          alert('O Email e/ou a palavra-passe estão incorreto(s).');
+          return;
+      }
+    } else{
+      alert('Os valores inseridos não são válidos.');
+      return;
     }
+  }
+
+  render(){
+    const { error } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <div className={classes.paper}>
+                <Avatar src={require("../../../assets/logo.png")} className={classes.logo}/>
+                <form className={classes.form} onSubmit={this.handleSubmit} noValidate>
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email"
+                      name="email"
+                      autoComplete="email"
+                      autoFocus
+                      noValidate
+                      onChange={this.handleChange}
+                    />
+                    {   
+                      error.email.length > 0 && (
+                        <span style={{color:'red'}}>{error.email}</span>
+                      )
+                    }
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      noValidate
+                      onChange={this.handleChange}
+                    />
+                    {
+                      error.password.length > 0 && (
+                        <span style={{color:'red'}}>{error.password}</span>
+                      )
+                    }
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={this.login}
+                    >Iniciar Sessão</Button>
+                    <Box mt={5}>
+                        <CopyRight/>
+                    </Box>
+                </form>
+            </div>
+      </Grid>
+    </Grid>
+    );
+  }
 }
 
 Login.propTypes = {

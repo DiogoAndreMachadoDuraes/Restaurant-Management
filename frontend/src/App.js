@@ -16,41 +16,24 @@ import Account from './components/screens/account/index';
  */import Menu from './components/screens/menu/index';
 import SpecialMenu from './components/screens/specialMenu/index';
 import User from './components/screens/user/index';
+import { PrivateRoute } from './components/PrivateRoute';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
-          <Login />
-        </Route>
-        <Route path="/product">
-          <Product />
-        </Route>
-        <Route path="/reservation">
-          <Reservation />
-        </Route>
-        <Route path="/restaurant">
-          <Restaurant />
-        </Route>
-        <Route path="/extra">
-          <Extra />
-        </Route>
-        <Route path="/account">
-          <Account />
-        </Route>
+        <Route path="/" exact component={Login}/>
+        <PrivateRoute exact path="/product" component={Product}/>
+        <PrivateRoute exact path="/reservation" component={Reservation}/>
+        <PrivateRoute exact path="/restaurant" component={Restaurant}/>
+        <PrivateRoute exact path="/extra" component={Extra}/>
+        <PrivateRoute exact path="/account" component={Account}/>
         {/* <Route path="/invoice">
           <Invoice />
         </Route> */}
-        <Route path="/menu">
-          <Menu />
-        </Route>
-        <Route path="/specialMenu">
-          <SpecialMenu />
-        </Route>
-        <Route path="/user">
-          <User />
-        </Route>
+        <PrivateRoute exact path="/menu" component={Menu}/>
+        <PrivateRoute exact path="/specialMenu" component={SpecialMenu}/>
+        <PrivateRoute exact path="/user" component={User}/>
       </Switch>
     </Router>
   );
