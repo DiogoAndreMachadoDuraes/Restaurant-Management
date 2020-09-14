@@ -4,8 +4,6 @@ import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { Button, Card, Title, Paragraph } from 'react-native-paper';
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon from "react-native-vector-icons/FontAwesome";
-import {useTheme, Avatar} from 'react-native-paper';
-import { ListItem } from 'react-native-elements';
 
 const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
 
@@ -84,7 +82,7 @@ class Account extends React.Component {
                                   </Text>
                                   </Text>
 
-                                  <Text style={style.text}>Sexo:</Text>
+                                  <Text style={style.text}>Género:</Text>
                                   <Icon name='venus-mars' style={style.icon} size= {25} color='white' />
                                   <Text style={style.item}>
                                   <Text> {item.sexo}

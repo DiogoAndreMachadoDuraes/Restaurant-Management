@@ -1,46 +1,38 @@
 import * as React from "react";
-import {StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, ImageBackground, Image, TouchableOpacity } from "react-native";
+import {StyleSheet, Text, View, ScrollView, ImageBackground, Image, TouchableOpacity } from "react-native";
 import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
-
-const imageBackgound = { uri: "https://assets.tivolihotels.com/image/upload/q_auto,f_auto/media/minor/tivoli/images/hotels/tmpo/dinning/top-images/tivoli_marina_portimao_restaurants_top_image_1920x1000.jpg" };
-
-const Dia = require('../assets/dia.jpg');
-const Aniversario = require('../assets/aniversario.jpg');
-const Batizado = require('../assets/batizado.jpg');
-const Baby = require('../assets/baby.jpg');
-const Casamento = require('../assets/casamento.jpg');
 
 const dataFromApi = [
   {
     id: 1,
     tipo: "Prato do Dia",
-    imagem: Dia
+    imagem:  require('../assets/dia.jpg')
   },
 
   {
     id: 2,
     tipo: "Baby Shower",
-    imagem: Baby
+    imagem: require('../assets/baby.jpg')
   },
 
   {
     id: 3,
     tipo: "Batizados",
-    imagem: Batizado
+    imagem: require('../assets/batizado.jpg')
   },
 
   {
     id: 4,
     tipo: "Aniversários",
-    imagem: Aniversario
+    imagem: require('../assets/aniversario.jpg')
   },
 
   {
     id: 5,
     tipo: "Casamentos",
-    imagem: Casamento
+    imagem: require('../assets/casamento.jpg')
   }
 
 ]
@@ -49,43 +41,27 @@ class SpecialMenu extends React.Component{
   constructor(){
       super();
       this.state={
-        tipo:"Ementa",
-        data:[],
-        isLoading: true
+        type:"Ementa"
       };
     }
-  async componentDidMount(){ 
-    console.log("Mounting the screen SpecialMenu...");
-    let token = await AsyncStorage.getItem("token");
-    try {
-      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Ementa', { 
-        headers: {
-          Authorization: 'Bearer ' + token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-    let json = await response.json();
-    this.setState({
-        isLoading: false,
-        data: json,
-      });
-    } catch(e){
-      console.log("Error to get product: " + e);
-    }
+  componentDidMount(){ 
+    console.log("Mounting the screen SpecialMenu...");  
+  }
+
+  onPress(item){
+    this.props.navigation.navigate("CallTypeSpecialMenu", {type:item.tipo});
   }
     
   render(){
-    const { isLoading } = this.state;
       return (
         <View style={style.container}>
           <OwnStatusBar />
-          <OwnHeader nome={this.state.tipo} navigation={this.props.navigation} />
-          <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
+          <OwnHeader nome={this.state.type} navigation={this.props.navigation} />
+          <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} opacity={1}>
             <ScrollView>
             <View style={style.menu}>
             { dataFromApi.map((item)=>{
-                return(<TouchableOpacity style={style.menuExp} activeOpacity={0.3} onPress={()=>this.props.navigation.navigate("CallTypeSpecialMenu", {tipo:item.tipo})}>
+                return(<TouchableOpacity style={style.menuExp} activeOpacity={0.3} onPress={()=>this.onPress(item)}>
                   <Image style={style.menuExpFoto} source={item.imagem} ></Image>
                   <Text style={style.titleMenu}>{item.tipo}</Text>
                   <Text style={style.textMenu}></Text>

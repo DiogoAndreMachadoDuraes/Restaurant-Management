@@ -6,40 +6,6 @@ import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import Accordion from 'react-native-collapsible/Accordion';
 import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
-
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-const SECTIONS = [
-  {
-    title: 'Data Marcada',
-    content: '10/09/2020',
-    icon: 'calendar'
-  },
-
-  {
-    title: 'Hora Maracada',
-    content: '12h:30min',
-    icon:'clock'
-  },
- 
-  {
-    title: 'Nome da Resrva',
-    content: 'José Leite',
-    icon:'library'
-  },
-  {
-    title: 'Preço do Take Away',
-    content: '€21.40',
-    icon:'cash'
-  },
-
-  {
-    title: 'Estado da encomenda',
-    content: 'Em preparação',
-    icon:'truck'
-  },
-
-];
-
 class TakeAway extends React.Component{
   constructor(){
       super();
@@ -105,7 +71,6 @@ class TakeAway extends React.Component{
       console.log("Error to get product: " + e);
     }
   }
-
   getUser = async () => {
     try {
       const value = await AsyncStorage.getItem("User");
@@ -116,42 +81,92 @@ class TakeAway extends React.Component{
         console.log("Error rending user: " + e);
     }
   }
-
-  _renderHeader = (section) => {
+  _renderHeader = section => {
     return (
       <View style={style.header}>
-        <Text style={style.headerText}>{section.title}</Text>
+        <Text style={style.headerText}>Take Away nº{section.id_take_away}</Text>
       </View>
     );
   };
-
-  _renderContent = (section) => {
+  _renderContent = section => {
     return (
       <View style={style.content}>
-        <Icon2
-          name={section.icon} style={style.icon} color={'green'} size={25}
-        ></Icon2>
-        <Text style={style.headerText2}>{section.tipo_entrega}</Text>
+        {/* <Icon2 name={section.icon} style={style.icon} color={'green'} size={25}></Icon2> */}
+        <Text style={style.headerText2}>
+        <Text style={{fontWeight: 'bold'}}>Tipo de entrega: </Text>
+        <Text>{section.tipo_entrega}</Text>
+        </Text>
+        <Text style={style.headerText2}>
+        <Text style={{fontWeight: 'bold'}}>Preço: </Text>
+        <Text>{section.preco}€</Text>
+        </Text>
+        <Text style={style.headerText2}>
+        <Text style={{fontWeight: 'bold'}}>Estado da entrega: </Text>
+        <Text>{section.estado}</Text>
+        </Text>
       </View>
     );
   };
-
   _updateSections = activeSections => {
     this.setState({ activeSections });
   };
-
-  render(){
+  /* sections(){
     const { user, data , reservation, client } = this.state;
-
     {
       this.getUser();
     }
     const userId=user.map(a=>a.id_utilizador);
+    const userName=user.map(a=>a.nome);
     const clientId=client.filter(a=>a.id_utilizador==userId).map(a=>a.id_cliente);
-    const allReservation=reservation.filter(a=>a.id_cliente==clientId).map(a=>a);
     const reservationId=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.id_reserva);
     const allTakeAway=data.filter(a=>a.id_reserva==reservationId).map(a=>a);
-
+    /*     
+    const allTakeAway=data.map(a=>a.id_reserva);
+    const reservationId=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.id_reserva);
+    const takeAwayByUser=data.filter(a=>a.id_reserva==reservationId).map(a=>a);
+    const checkHour=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.data_marcada);
+    const checkDate=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.hora_marcada);
+    const price=allTakeAway.map(a=>a.preco);
+    const status=allTakeAway.map(a=>a.estado);
+    const SECTIONS = [
+      {
+        title: 'Data Marcada',
+        content: checkDate[0],
+        icon: 'calendar'
+      },
+      {
+        title: 'Hora Maracada',
+        content: checkHour[0],
+        icon:'clock'
+      },
+      {
+        title: 'Nome da Reserva',
+        content: userName[0],
+        icon:'library'
+      },
+      {
+        title: 'Preço do Take Away',
+        content: price[0],
+        icon:'cash'
+      },
+      {
+        title: 'Estado da encomenda',
+        content: status[0],
+        icon:'truck'
+      },
+    ];
+    return SECTIONS;
+  } */
+  render(){
+    /* const section=this.sections(); */
+    const { user, data , reservation, client } = this.state;
+    /* {
+      this.getUser();
+    }
+    const userId=user.map(a=>a.id_utilizador);
+    const userName=user.map(a=>a.nome);
+    const clientId=client.filter(a=>a.id_utilizador==userId).map(a=>a.id_cliente); */
+    /* const allReservation=reservation.filter(a=>a.id_cliente==clientId).map(a=>a); */
     return (
       <View style={style.container}>
         <OwnStatusBar />
@@ -160,21 +175,14 @@ class TakeAway extends React.Component{
           <ImageBackground source={require('../assets/take.jpg')} style={style.imageBackgound} opacity={1}/>             
           <ScrollView>
             <View style={style.form}>
-                { allTakeAway.map((item)=>{
-                  return (
-                          <View>
-                          <Accordion
-                            sections={item}
-                            activeSections={this.state.activeSections}
-                            renderHeader={this._renderHeader(item)}
-                            renderContent={this._renderContent(item)}
-                            onChange={this._updateSections}
-                            sectionContainerStyle={{paddingVertical: 0.7}}
-                          />
-                          </View>
-                              );
-                            })
-                  }
+              <Accordion
+                sections={data}
+                activeSections={this.state.activeSections}
+                renderHeader={this._renderHeader}
+                renderContent={this._renderContent}
+                onChange={this._updateSections}
+                sectionContainerStyle={{paddingVertical: 0.7}}
+              />
               <FinalHeader />
             </View>
           </ScrollView> 
@@ -183,16 +191,13 @@ class TakeAway extends React.Component{
     );
   };
 }
-
 const style = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   imageBackground: {
     flex: 1,
   },
-
   imageBackgound: {                         //foto por tras do titulo
     width: 395,
     height: 200,
@@ -200,48 +205,41 @@ const style = StyleSheet.create({
     top: 0,
     opacity: 1,
   },
-
   menu: {                           //scrollview
     width: "100%",
     height: 1000,
   },
-
   containerCollapsible: {
     flex: 1
   },
-
   accordion: {
     top: 0,
   },
-
   title: {
     textAlign: 'center',
     fontSize: 30,
   },
-
   header: {
     backgroundColor: '#f0e68c',         //boxtext with title
     padding: 10,
     opacity: 0.8
   },
-
   headerText: {                              //titles
     textAlign: 'center',
+    color: '#dc143c',
+    fontWeight: 'bold',
     fontSize: 20,
   },
-
   headerText2: {                              //titles
     fontSize: 20,
-    left: 50,
-    top:-30,
+    left: 30,
+    top:0,
   },
-
   content: {                            //o que esta a verde
     padding: 10,
     backgroundColor: '#f5fffa',
     opacity: 0.8,
   },
-
   icon:{
     top:0,
     left: 0,

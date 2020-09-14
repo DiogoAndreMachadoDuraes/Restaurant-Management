@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, CheckBox, TouchableOpacity, ScrollView, AsyncStorage, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, ImageBackground, CheckBox, Picker } from 'react-native';
 import { Input, Header } from 'react-native-elements';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
@@ -8,6 +8,8 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import * as Animatable from 'react-native-animatable';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+
 
 class CreateAccount extends React.Component {
   constructor(){
@@ -25,6 +27,7 @@ class CreateAccount extends React.Component {
         password:'',
         tipo:'',
         check: false,
+        checked: false,
         image: 'https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_1280.png',
         isValidName: true,
         isValidPassword: true,
@@ -239,6 +242,22 @@ class CreateAccount extends React.Component {
     this.setState({
       check:!this.state.check
     })
+  }
+
+  handlePicked = (date) => {
+    this.setState({ 
+      isVisible: false,
+      choosenDate: moment(date).format('DD/MM/YYYY')
+    })
+    this.hidePicker();
+  }
+
+  showPicked = () => {
+    this.setState({ isVisible: true });
+  }
+
+  hidePicker = () => {
+    this.setState({ isVisible: false });
   }
 
   bs = React.createRef();
@@ -483,7 +502,7 @@ class CreateAccount extends React.Component {
             <Text style={style.text}>Nif:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Nif"
-            leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.nif} />
+            leftIcon={{ type: 'font-awesome', name: 'user', color:'white' }} value = {this.nif} />
               { this.state.isValidTin ? true :
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números.</Text>
@@ -496,15 +515,23 @@ class CreateAccount extends React.Component {
               </Animatable.View>
               }
             
-            <Text style={style.text}>Sexo:</Text>
-            <Input inputStyle={style.inputcolor}
-            placeholder="Sexo"
-            leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.sexo} />
+              <Text style={style.text}>Género:</Text>
+          <Picker
+            style={{ height: 60, width: 140, top: -42, left: 95}}
+            selectedValue={this.state.sex}
+            placeholder="Género"
+            onValueChange={(value, index) => this.setState({ sexo: value })}
+            mode='dropdown'
+          >
+            <Picker.Item label="Feminino" value="Feminino" />
+            <Picker.Item label="Masculino" value="Masculino" />
+            <Picker.Item label="Indefinido" value="Indefinido" />
+          </Picker>
             
             <Text style={style.text}>Password:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Password"
-            leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
+            leftIcon={{ type: 'font-awesome', name: 'key', color:'white' }} value = {this.password} />
               { this.state.isValidPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
@@ -514,7 +541,7 @@ class CreateAccount extends React.Component {
             <Text style={style.text}>Confirmar Password:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Confirmar Password"
-            leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.password} />
+            leftIcon={{ type: 'font-awesome', name: 'key', color:'white' }} value = {this.password} />
               { this.state.isConfirmPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
@@ -527,10 +554,17 @@ class CreateAccount extends React.Component {
               </Animatable.View>
               }  
             
-            <Text style={style.text}>Data Nascimento:</Text>
-            <Input inputStyle={style.inputcolor}
-            placeholder="Data Nascimento"
-            leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.data_nascimento} />
+              <Text style={style.text}>Data Nascimento: {this.state.choosenDate}</Text>
+          <DateTimePicker
+                  isVisible={this.state.isVisible}
+                  mode={'date'}
+                  onConfirm={this.handlePicked}
+                  onCancel={this.hidePicker}
+                  placeholder="Data de nascimento"
+          />
+          <TouchableOpacity style={style.getHour} onPress={this.showPicked}>
+            <Icon name="calendar" size={35} color={'white'} style={{left:20}}> </Icon>
+          </TouchableOpacity>
             
             <View style={style.checkBoxContainer}>
               <CheckBox
@@ -569,13 +603,14 @@ _onPress = async() => {
   ]);
   return;
   }
-  if(this.state.isValidName==true && isValidPassword==true && isValidStreet==true && isValidTin==true && isValidPhoto==true && isValidContact==true && isValidType==true && isValidPostalCode==true && isValidSex==true && isValidLocation==true && isValidBirthday==true && isValidEmail==true && isNullEmail==true && isContact==true && isPostalCode==true && isLocation==true && isTin==true && isVisible==false && isValidConfirmPassword==true && isConfirmPassword==true)
+  if(this.state.isValidName!=true && isValidPassword!=true && isValidStreet!=true && isValidTin!=true && isValidPhoto!=true && isValidContact!=true && isValidType!=true && isValidPostalCode!=true && isValidSex!=true && isValidLocation!=true && isValidBirthday!=true && isValidEmail!=true && isNullEmail!=true && isContact!=true && isPostalCode!=true && isLocation!=true && isTin!=true && isVisible!=false && isValidConfirmPassword!=true && isConfirmPassword!=true)
   {
     Alert.alert('Atenção!', 'Algum(s) do(s) dado(s) fornecido(s) está incorreto(s).', [
     {text: 'Voltar a tentar'}
   ]);
   return;
   }
+  else{
   try
     {
       await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Utilizador', {  
@@ -598,6 +633,7 @@ _onPress = async() => {
   } catch(e){
       console.log(e);
     }      
+}
 }
 
 const style = StyleSheet.create({

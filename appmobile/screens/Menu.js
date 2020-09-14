@@ -1,114 +1,82 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, ImageBackground, Image, TouchableOpacity, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ScrollView, ImageBackground, Image, TouchableOpacity} from "react-native";
 import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { OwnHeader } from './shared/OwnHeader';
 
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-
-const Hamburguer = require('../assets/gourmet.jpg');
-const Francesinha = require('../assets/french.jpg');
-const Carne = require('../assets/variedade.jpg');
-const Peixe = require('../assets/peixe.jpg');
-const Pizza = require('../assets/pizzamenu.jpg');
-const Vegan = require('../assets/vegan.jpg');
-const Doce = require('../assets/doces.jpg');
-
 const dataFromApi = [
   {
     id: 1,
-    name: "Menus de Hambúrgueres",
+    name: "Menu Hambúrguer",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Hamburguer
+    imagem: require('../assets/gourmet.jpg')
   },
   
   {
     id: 2,
-    name: "Menus de Francesinhas",
+    name: "Menu Francesinha",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Francesinha
+    imagem: require('../assets/french.jpg')
   },
 
   {
     id: 3,
     name: "Pratos de Carne",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Carne
+    imagem: require('../assets/variedade.jpg')
   },
 
   {
     id: 4,
     name: "Pratos de Peixe",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Peixe
+    imagem: require('../assets/peixe.jpg')
   },
 
   {
     id: 5,
-    name: "Menus de Pizzas",
+    name: "Menu Pizza",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Pizza
+    imagem: require('../assets/pizzamenu.jpg')
   },
 
   {
     id: 6,
     name: "Pratos Vegan",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Vegan
+    imagem: require('../assets/vegan.jpg')
   },
 
   {
     id: 7,
-    name: "Menus de Cafés",
+    name: "Menu Café",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Doce
+    imagem: require('../assets/doces.jpg')
   }
 ]
 
-  class Menu extends React.Component{
-    constructor(){
-        super();
-        this.state={
-          name:"Menu",
-          data:[],
-          isLoading: true
-        };
-  }
+class Menu extends React.Component{
+  constructor(){
+      super();
+      this.state={
+        name:"Menu"
+      };
+}
 
-  async componentDidMount(){ 
+  componentDidMount(){ 
     console.log("Mounting the screen Menu...");
-    let token = await AsyncStorage.getItem("token");
-    try {
-      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Menu', { 
-        headers: {
-          Authorization: 'Bearer ' + token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      let json = await response.json();
-      this.setState({
-        isLoading: false,
-        data: json,
-      });
-    } catch(e){
-      console.log("Error to get product: " + e);
-    }
   }
 
   _onPress (item){
-    this.props.navigation.navigate("CallTypeMenu", {
-      name: item.name
-    });
+    this.props.navigation.navigate("CallTypeMenu", {type:item.name});
   }
 
   render(){
-    const { isLoading } = this.state;
     return (
       <View style={style.container}>
         <OwnStatusBar />
         <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
-        <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
+        <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} opacity={1}>
           <ScrollView>
           <View style={style.menu}>
           {
@@ -138,29 +106,9 @@ const style = StyleSheet.create({
     flex:1,
   },
 
-  image: {                         //foto por tras do titulo
-    width: 420,
-    height: 250,
-  },
-
-  text: {                       
-    color: "white",
-    fontSize: 20,
-    fontStyle: "italic",
-    textAlign: 'center',
-    fontWeight: 'bold',
-    top: 30,
-    opacity: 1,
-  },
-
-  menuText: {
-    width: 400,
-    height: 320
-  },
-
   menu: {                           //scrollview
     width: "100%",
-    height: 1690,
+    height: "100%",
   },
 
   menuExp: {
@@ -181,8 +129,6 @@ const style = StyleSheet.create({
     height: 100,
     marginTop: -10
   },
-
-  
 
   menuExpText: {
     width: 180,
@@ -206,4 +152,5 @@ const style = StyleSheet.create({
     top: 20
   }
 });
+
 export default Menu;

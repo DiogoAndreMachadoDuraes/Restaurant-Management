@@ -75,6 +75,12 @@ async getPhoto(){
                     <View style={style.slide}>
                         <Image source={require('../assets/portuguesa.jpg')} resizeMode="cover" style={style.sliderImage} />
                     </View>
+                    <View style={style.slide}>
+                        <Image source={require('../assets/caldoVerde.jpg')} resizeMode="cover" style={style.sliderImage} />
+                    </View>
+                    <View style={style.slide}>
+                        <Image source={require('../assets/baby.jpg')} resizeMode="cover" style={style.sliderImage} />
+                    </View>
                 </Swiper> 
                 <View style={style.categoryContainer}>
                     <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("Space") }>
@@ -328,4 +334,5 @@ const style = StyleSheet.create({
         left: 20,
     }
 });
+
 export default Home;

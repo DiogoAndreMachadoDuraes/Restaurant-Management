@@ -1,31 +1,33 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, Picker, ScrollView, AsyncStorage, ActivityIndicator, TouchableOpacity, CheckBox } from 'react-native';
+import {StyleSheet, View, Text, ImageBackground, ScrollView, AsyncStorage, Picker, TouchableOpacity, BottomSheet } from 'react-native';
 import { Input, Header } from 'react-native-elements';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
+import Animated from 'react-native-reanimated';
 import * as Animatable from 'react-native-animatable';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
 
 class EditAccount extends React.Component {
   constructor(){
       super();
       this.state={
         name:"Editar Conta",
-        tin:'',
-        userName: '',
-        birthday:'',
-        sex:'',
-        contact:'',
-        street:'',
-        postalCode:'',
-        location:'',
-        photo:'',
-        email: '',
-        password:'',
-        confirmPassword:'',
-        check: false,              //box check
-        checked: false,
+        user: [],
+        tin:[],
+        birthday:[],
+        sex:[],
+        contact:[],
+        street:[],
+        postalCode:[],
+        location:[],
+        photo: 'https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_1280.png',
+        email: [],
+        password:[],
+        confirmPassword:[],
         isValidName: true,
         isValidPassword: true,
         isValidStreet: true,
@@ -50,20 +52,28 @@ class EditAccount extends React.Component {
       };
   }
 
-  componentDidMount(){ 
+  async componentDidMount(){ 
     console.log("Mounting the screen EditAccount...");
+    try {
+      const value = await AsyncStorage.getItem("User");
+      if (value !== null) {
+        this.setState({ user: JSON.parse(value) });
+      }
+    } catch (e) {
+        console.log("Error rending user: " + e);
+    }
   }
    
   validName = (val) => {
     if( val.trim().length >= 5 ) {
       this.setState({
             isValidName: true,
-            userName:val
+            name:val
         });
     } else {
       this.setState({
             isValidName: false,
-            userName:val
+            name:val
         });
     }
   }
@@ -250,53 +260,176 @@ class EditAccount extends React.Component {
     this.setState({ isVisible: false });
   }
 
-  checkedBox(){
-    this.setState({
-      check: true
-    })
-  }
-  
-  getUser = async () => {
-    try {
-      const value = await AsyncStorage.getItem("User");
-      if (value !== null) {
-        this.setState({ user: JSON.parse(value) });
-        console.log(this.state.user);
+  getPermissionAsync = async () => {
+    if (Platform.OS !== 'web') {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
       }
-    } catch (e) {
-        console.log("Error rending user: " + e);
     }
   }
+
+  _pickImage = async () => {
+    this.bs.current.snapTo(1);
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  }
+
+  _openCamera = async () => {
+    this.bs.current.snapTo(1);
+
+    try {
+      let result = await ImagePicker.launchCameraAsync()({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  }
+  
+  renderInner = () => {
+    return (
+    <View style={style.panel}>
+      <View style={{alignItems: 'center'}}>
+        <Text style={style.panelTitle}>Selecionar Foto</Text>
+        <Text style={style.panelSubtitle}>Escolha a sua foto de perfil</Text>
+      </View>
+      <TouchableOpacity style={style.panelButton} onPress={this._pickImage}>
+        <Text style={style.panelButtonTitle}>Selecionar uma foto da galeria</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={style.panelButton} onPress={this._openCamera}>
+        <Text style={style.panelButtonTitle}>Tirar foto</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={style.panelButton}
+        onPress={() => this.bs.current.snapTo(1)}>
+        <Text style={style.panelButtonTitle}>Cancelar</Text>
+      </TouchableOpacity>
+    </View>
+  );}
+
+  renderHeader = () => {
+    return(
+    <View style={style.header}>
+      <View style={style.panelHeader}>
+        <View style={style.panelHandle} />
+      </View>
+    </View>
+  );}
+  
 
   render()
     { 
-      const { user, isLoading } = this.state;
-      {
-        this.getUser();
-    }
+      const { user, image } = this.state;
+
+      const nameUser=user.map(a=>a.nome);
+      const emailUser=user.map(a=>a.email);
+      const contactUser=user.map(a=>a.telefone);
+      const streetUser=user.map(a=>a.rua);
+      const postalCodeUser=user.map(a=>a.codigo_postal);
+      const tinUser=user.map(a=>a.nif);
+      const locationUser=user.map(a=>a.localizacao);
+      const sexUser=user.map(a=>a.sexo);
+      const passwordUser=user.map(a=>a.password);
+      const birthdayUser=user.map(a=>a.data_nascimento);
+ 
     return (
       <View style={style.container}>
       <OwnStatusBar />
-      <Header 
-          centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color: '#fff', marginTop: -20}}>{this.state.name}</Text>} 
-          containerStyle={{
-          backgroundColor: '#556b2f',
-          justifyContent: 'space-around',
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
-          borderColor: "white",
-          height: 80,
-          }}
-      />
+       <Header
+                centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color:"white", marginTop: -20}}> {this.state.name} </Text>}
+                containerStyle={{
+                    backgroundColor:"#556b2f",
+                    justifyContent: 'space-around',
+                    borderTopLeftRadius: 30,
+                    borderTopRightRadius: 30,
+                    borderColor: "white",
+                    height: 80,
+                }}
+            />
+          <BottomSheet
+            ref={this.bs}
+            snapPoints={[430, 0]}
+            renderContent={this.renderInner}
+            renderHeader={this.renderHeader}
+            initialSnap={1}
+            callbackNode={this.fall}
+            enabledGestureInteraction={true}
+          />
+          <Animated.View style={{margin: 20,
+          opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),
+          }}>
+          <View style={{alignItems: 'center'}}>
+      
+        <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
+        <View
+                style={{
+                  height: 200,
+                  width: 200,
+                  
+                  borderRadius: 100,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <ImageBackground
+                  source={{
+                    uri: image,
+                  }}
+                  style={{height: 200, width: 200}}
+                  imageStyle={{borderRadius: 100}}>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Icon
+                      name="camera"
+                      size={35}
+                      color="#fff"
+                      style={{
+                        opacity: 0.7,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderWidth: 1,
+                        borderColor: '#fff',
+                        borderRadius: 10,
+                      }}
+                    />
+                  </View>
+                </ImageBackground>
+              </View>
+            </TouchableOpacity>
+            </View>
+            </Animated.View>     
 
       <ScrollView style={style.form}>
       <View style={style.form}>
-
           <Text style={style.text}>Nome Completo:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Nome Completo"
+          defaultValue={nameUser[0]}
           autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }} onChangeText={(val)=>this.validName(val)} values = {this.state.userName} onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
+          leftIcon={{ type: 'font-awesome', name: 'user', color: 'black' }} onChangeText={(val)=>this.validName(val)} values = {this.state.name} onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
           
           { this.state.isValidName ? true : 
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -306,9 +439,9 @@ class EditAccount extends React.Component {
 
           <Text style={style.text}>Email:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Email"
+          defaultValue={emailUser[0]}
           keyboardType= "email-address"
-          leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} onChangeText={(val)=>this.validEmail(val)} values = {this.state.email} onEndEditing={(e)=>this.validEmail(e.nativeEvent.text)} />
+          leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'black' }} onChangeText={(val)=>this.validEmail(val)} values = {this.state.email} onEndEditing={(e)=>this.validEmail(e.nativeEvent.text)} />
           
           { this.state.isNullEmail ? 
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -325,9 +458,9 @@ class EditAccount extends React.Component {
 
           <Text style={style.text}>Telefone:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Telefone"
+          defaultValue={contactUser[0]}
           keyboardType="phone-pad"
-          leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} onChangeText={(val)=>this.validContact(val)} values = {this.state.contact} onEndEditing={(e)=>this.validContact(e.nativeEvent.text)} />
+          leftIcon={{ type: 'font-awesome', name: 'phone', color:'black' }} onChangeText={(val)=>this.validContact(val)} values = {this.state.contact} onEndEditing={(e)=>this.validContact(e.nativeEvent.text)} />
           
           { this.state.isContact ? true :
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -343,9 +476,9 @@ class EditAccount extends React.Component {
 
           <Text style={style.text}>Morada:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Rua e Porta"
+          defaultValue={streetUser[0]}
           autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validStreet(val)} values = {this.state.street} onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)} />
+          leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validStreet(val)} values = {this.state.street} onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)} />
           
           { this.state.isValidStreet ? true : 
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -355,9 +488,9 @@ class EditAccount extends React.Component {
           
           <Text style={style.text}>Código Postal:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Código Postal"
+          defaultValue={postalCodeUser[0]}
           keyboardType='number-pad'
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validPostalCode(val)} values = {this.state.postalCode} onEndEditing={(e)=>this.validPostalCode(e.nativeEvent.text)} />
+          leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validPostalCode(val)} values = {this.state.postalCode} onEndEditing={(e)=>this.validPostalCode(e.nativeEvent.text)} />
 
           { this.state.isPostalCode ? true : 
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -373,9 +506,9 @@ class EditAccount extends React.Component {
 
           <Text style={style.text}>Localização:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Localização"
+          defaultValue={locationUser[0]}
           autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validLocation(val)} values = {this.state.location} onEndEditing={(e)=>this.validLocation(e.nativeEvent.text)} />
+          leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validLocation(val)} values = {this.state.location} onEndEditing={(e)=>this.validLocation(e.nativeEvent.text)} />
 
           { this.state.isLocation ? true : 
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -391,9 +524,9 @@ class EditAccount extends React.Component {
 
           <Text style={style.text}>Nif:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Nif"
+          defaultValue={tinUser[0]}
           keyboardType="numeric"
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validTin(val)} values = {this.state.tin} onEndEditing={(e)=>this.validTin(e.nativeEvent.text)} />
+          leftIcon={{ type: 'font-awesome', name: 'user', color:'black' }} onChangeText={(val)=>this.validTin(val)} values = {this.state.tin} onEndEditing={(e)=>this.validTin(e.nativeEvent.text)} />
 
           { this.state.isValidTin ? true :
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -414,10 +547,11 @@ class EditAccount extends React.Component {
 
           <Button  title="selecionar imagem" onPress={this.selectImage}/> */}
 
-          <Text style={style.text}>Sexo:</Text>
+          <Text style={style.text}>Género:</Text>
           <Picker
-            style={{ height: 60, width: 140, top: -42, left: 80}}
+            style={{ height: 60, width: 140, top: -42, left: 95}}
             selectedValue={this.state.sex}
+            defaultValue={sexUser[0]}
             onValueChange={(value, index) => this.setState({ sex: value })}
             mode='dropdown'
           >
@@ -428,8 +562,8 @@ class EditAccount extends React.Component {
 
           <Text style={style.text}>Password:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Password"
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validPassword(val)} values = {this.state.password} onEndEditing={(e)=>this.validPassword(e.nativeEvent.text)} />
+          defaultValue={passwordUser[0]}
+          leftIcon={{ type: 'font-awesome', name: 'key', color:'black' }} onChangeText={(val)=>this.validPassword(val)} values = {this.state.password} onEndEditing={(e)=>this.validPassword(e.nativeEvent.text)} />
           
           { this.state.isValidPassword ? true : 
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -439,8 +573,8 @@ class EditAccount extends React.Component {
           
           <Text style={style.text}>Confirmar Password:</Text>
           <Input inputStyle={style.inputcolor}
-          placeholder="Confirmar Password"
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validConfirmPassword(val)} values = {this.state.confirmPassword} onEndEditing={(e)=>this.validConfirmPassword(e.nativeEvent.text)} />
+          placeholder='Confirmar password'
+          leftIcon={{ type: 'font-awesome', name: 'key', color:'black' }} onChangeText={(val)=>this.validConfirmPassword(val)} values = {this.state.confirmPassword} onEndEditing={(e)=>this.validConfirmPassword(e.nativeEvent.text)} /> 
          
           { this.state.isConfirmPassword ? true : 
             <Animatable.View animation="fadeInLeft" duration={500}>
@@ -458,18 +592,14 @@ class EditAccount extends React.Component {
                   mode={'date'}
                   onConfirm={this.handlePicked}
                   onCancel={this.hidePicker}
+                  defaultValue={birthdayUser[0]}
           />
           <TouchableOpacity style={style.getHour} onPress={this.showPicked}>
-            <Icon name="calendar" size={45}> </Icon>
+            <Icon name="calendar" size={35} color={'white'} style={{left:20}}> </Icon>
           </TouchableOpacity>
-
-          <View style={style.checkBoxContainer}>
-            <CheckBox
-              value={this.state.check}
-              onChange={this.checkedBox}
-              style={style.checkBox}
-            />
-          </View>  
+          <TouchableOpacity style={style.button} onPress={this._onPress}>
+            <Text style={style.btnText}>Guardar as alterações</Text>
+          </TouchableOpacity>
       </View>
       </ScrollView>
       </View>
@@ -486,7 +616,6 @@ _onPress = async() => {
   console.log(this.state.street);
   console.log(this.state.postalCode);
   console.log(this.state.location);
-  //console.log(this.state.photo);
   console.log(this.state.email);
   console.log(this.state.password);
 
@@ -506,7 +635,7 @@ _onPress = async() => {
   }
 
   try{
-      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
+      await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Utilizador', {  
       method: 'POST', 
       headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -531,9 +660,75 @@ _onPress = async() => {
   }
 
 const style = StyleSheet.create({
+  header: {
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#333333',
+    shadowOffset: {width: -1, height: -3},
+    shadowRadius: 2,
+    shadowOpacity: 0.4,
+    // elevation: 5,
+    paddingTop: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+
+  panel: {
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    paddingTop: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 5,
+    shadowOpacity: 0.4,
+  },
+
+  panelHeader: {
+    alignItems: 'center',
+  },
+
+  panelHandle: {
+    width: 70,
+    height: 8,
+    borderRadius: 7,
+    backgroundColor: '#ff8c00',
+    marginBottom: 6,
+    left: -75,
+    top: 60,
+  },
+
+  panelTitle: {
+    fontSize: 30,
+    height: 35,
+    color: '#556b2f',
+    fontWeight: 'bold',
+  },
+
+  panelSubtitle: {
+    fontSize: 14,
+    color: 'black',
+    height: 30,
+    marginBottom: 10,
+  },
+
+  panelButton: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: 'tomato',
+    alignItems: 'center',
+    marginVertical: 7,
+  },
+
+  panelButtonTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+
   container: {
     flex: 1,
-    backgroundColor: "#556b2f"
+    backgroundColor: "#fff"
   },
 
   errorMsg: {
@@ -542,12 +737,7 @@ const style = StyleSheet.create({
   },
 
   inputcolor:{
-    color: "white",
-  },
-
-  menu: {                           
-    width: "100%",
-    height:"100%"
+    color: "black",
   },
 
   form:{
@@ -567,7 +757,7 @@ const style = StyleSheet.create({
   },
 
   title2:{
-    color: "#fff",
+    color: "#000",
     fontSize: 15,
     fontStyle: "normal",
     marginLeft: 30,
@@ -577,7 +767,7 @@ const style = StyleSheet.create({
   },
   
   title1:{
-    color: "#fff",
+    color: "#000",
     fontSize: 15,
     fontStyle: "normal",
     marginLeft: 30,
@@ -587,7 +777,7 @@ const style = StyleSheet.create({
   },
 
   title3:{
-    color: "#fff",
+    color: "#000",
     fontSize: 10,
     fontWeight: 'bold',
     fontStyle: "normal",
@@ -599,7 +789,7 @@ const style = StyleSheet.create({
 
   header:{
     fontSize: 25,
-    color: '#fff',
+    color: '#000',
     marginLeft: 130,
     top: 60,
     paddingBottom:60,
@@ -611,10 +801,10 @@ const style = StyleSheet.create({
     alignSelf:'stretch',
     alignItems:'center',
     padding:10,
-    backgroundColor:'white',
+    backgroundColor:'black',
     marginTop: 50,
-    width:130,
-    left: 130,
+    width:230,
+    left: 100,
     marginVertical:20
   },
 
@@ -644,7 +834,7 @@ const style = StyleSheet.create({
   },
 
   text:{
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
     fontSize: 20,
     left: 20,

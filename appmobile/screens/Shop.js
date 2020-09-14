@@ -33,7 +33,7 @@ class Shop extends React.Component {
   async componentDidMount(){ 
     console.log("Mounting the screen Shop...");
     let token = await AsyncStorage.getItem("token");
-    await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
+    await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
     .then((response) => response.json())
     .then((json) => {
       this.setState({ menu: json, isLoading:false });
@@ -43,7 +43,7 @@ class Shop extends React.Component {
       this.setState({ isLoading: false });
     });
 
-    await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Produto', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
+    await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Produto', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
     .then((response) => response.json())
     .then((json) => {
       this.setState({ product: json, isLoading:false });
@@ -53,7 +53,7 @@ class Shop extends React.Component {
       this.setState({ isLoading: false });
     });
 
-    await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Cliente', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
+    await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Cliente', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
     .then((response) => response.json())
     .then((json) => {
       this.setState({ client: json, isLoading:false });
@@ -63,7 +63,7 @@ class Shop extends React.Component {
       this.setState({ isLoading: false });
     });
 
-    await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
+    await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Reserva', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
     .then((response) => response.json())
     .then((json) => {
       this.setState({ reservation: json, isLoading:false });
@@ -73,7 +73,7 @@ class Shop extends React.Component {
       this.setState({ isLoading: false });
     });
 
-    await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
+    await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
       .then((response) => response.json())
       .then((json) => {
         this.setState({ buyMenu: json, isLoading:false });
@@ -83,7 +83,7 @@ class Shop extends React.Component {
         this.setState({ isLoading: false });
       });
     
-      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_produto', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
+      await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
       .then((response) => response.json())
       .then((json) => {
         this.setState({ buyProduct: json, isLoading:false });
@@ -151,7 +151,7 @@ class Shop extends React.Component {
       const allBuyMenu=buyMenu.filter(a=>a.id_reserva==reservationId).map (a=>a);
       const allBuyProduct=buyProduct.filter(a=>a.id_reserva==reservationId).map (a=>a);
 
-      console.log(productBuy);
+      console.log(userId);
 
       return (
           <View style={style.container}>
@@ -246,7 +246,7 @@ class Shop extends React.Component {
 _onPress = async() => {
   /*        try
           {
-              await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_produto', { 
+              await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', { 
                   method: 'POST',
                   headers: {
                       Accept: 'application/json',
@@ -271,7 +271,7 @@ _onPress = async() => {
 
           try
             {
-              await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Compra_menu', { 
+              await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', { 
                   method: 'POST',
                   headers: {
                       Accept: 'application/json',

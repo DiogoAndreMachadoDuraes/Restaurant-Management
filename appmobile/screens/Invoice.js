@@ -11,7 +11,11 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
               isLoading: true,
               user: [],
               invoice:[],
-              reservation:[]    
+              reservation:[],
+              productShop:[],
+              menuShop:[],
+              menu:[],
+              product:[]   
           }; 
   }
 
@@ -32,7 +36,7 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
       invoice: json,
     });
     } catch(e){
-      console.log("Error to get product: " + e);
+      console.log("Error to get invoice: " + e);
     }
     try {
       let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Reserva', { 
@@ -48,7 +52,7 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
       reservation: json,
     });
       } catch(e){
-        console.log("Error to get product: " + e);
+        console.log("Error to get reserve: " + e);
       }
       try {
         let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', { 
@@ -61,10 +65,10 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
       let json = await response.json();
       this.setState({
         isLoading: false,
-        reservation: json,
+        productShop: json,
       });
         } catch(e){
-          console.log("Error to get product: " + e);
+          console.log("Error to get product shop: " + e);
         }
         try {
           let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', { 
@@ -77,12 +81,46 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
         let json = await response.json();
         this.setState({
           isLoading: false,
-          reservation: json,
+          menuShop: json,
         });
+          } catch(e){
+            console.log("Error to get menu shop: " + e);
+          }
+          try {
+            let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Menu', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+          });
+          let json = await response.json();
+          this.setState({
+            isLoading: false,
+            menu: json,
+          });
+          } catch(e){
+            console.log("Error to get menu: " + e);
+          }
+          try {
+            let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Produto', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+          });
+          let json = await response.json();
+          this.setState({
+            isLoading: false,
+            product: json,
+          });
           } catch(e){
             console.log("Error to get product: " + e);
           }
-        }
+  }
+
+        
     
 
     getUser = async () => {
@@ -98,7 +136,7 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 
     render()
     { 
-        const { user, invoice , reservation } = this.state;
+        const { user, invoice , reservation, menuShop, productShop, menu, product } = this.state;
       {
         this.getUser();
       }
@@ -110,8 +148,16 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
       const invoiceReservation=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a.id_reserva);
       const invoiceData=reservation.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.data_marcada);
       const allInvoice=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a);
+      const shopMenuQuantity = menuShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.quantidade);
+      const shopMenuPrice = menuShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.preco);
+      const shopProductQuantity = productShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.quantidade);
+      const shopProductPrice = productShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.preco);
+      const productId = productShop. filter(a=>a.id_reserva==invoiceReservation).map(a=>a.id_produto);
+      const productDescription = product.filter(a=>a.id_produto==productId).map(a=>a.descricao);
+      const menuId = menuShop. filter(a=>a.id_reserva==invoiceReservation).map(a=>a.id_menu);
+      const menuDescription = menu.filter(a=>a.id_menu==menuId).map(a=>a.descricao);
 
-      console.log(invoice);
+      console.log(invoiceData);
 
         return (
         <View style={style.container}>
@@ -127,11 +173,11 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
                     <Text style={style.header}>Sabor da Avó</Text>
                     <Text style={style.header0}>{userName}          Fatura nº{item.id_fatura}</Text>
                     <Text style={style.header1}> {userStreet} , {userPostalCode} {userLocalization}</Text>
-                    <Text style={style.header2}>Nif: {item.nif_cliente}                              Data:{invoiceData}</Text>
+                    <Text style={style.header2}>Nif: {item.nif_cliente}                            Data:{invoiceData}</Text>
                     <View style={style.line} />
-                    <Text style={style.text}>Descrição</Text>
-                    <Text style={style.text1}>Quantidade</Text>
-                    <Text style={style.text2}>Preço</Text>
+                    <Text style={style.text}>Descrição {}</Text>
+                    <Text style={style.text1}>Quantidade {shopMenuQuantity}</Text>
+                    <Text style={style.text2}>Preço {shopMenuPrice}</Text>
                     <View style={style.line1} />
                     <Text style={style.textTax}>Taxa: </Text>
                     <Text style={style.tax}>{item.taxa}</Text>
