@@ -314,7 +314,7 @@ class Reservation extends React.Component {
                     title="Tabela das Reservas" 
                     columns={columns}
                     data={data}
-                    detailPanel={rowData => this.showDetails(1)}
+                    detailPanel={rowData => this.showDetails(rowData.reserveId)}
                     editable={{
                         onRowAdd: newData =>
                         new Promise((resolve, reject) => {

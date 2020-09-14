@@ -374,7 +374,6 @@ class User extends React.Component {
 
     showDetails(userID , tin) {
         const { client, invoice } = this.state;
-        console.log(tin);
         const columnsClient= [
             { title: 'Número de Cartão', field: 'shopNumber', validate: rowData => rowData.shopNumber <= 0 ? { isValid: false, helperText: 'O cartão de cliente não pode ser nulo' } : true, type: "numeric", align:"center"},
             { title: 'Número de Compras', field: 'cardNumber', validate: rowData => rowData.cardNumber < 0 ? { isValid: false, helperText: 'O número de compras não pode ser nulo' } : true, type: "numeric", align:"center"}
@@ -391,8 +390,9 @@ class User extends React.Component {
             { title: 'Nif do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ?{ isValid: false, helperText: 'O nif do cliente não pode ser nulo' } : true, align:"center"}
         ];
         const invoiceUser=invoice.filter(a=>a.nif_cliente==tin).map(a=>a);
+        console.log(invoiceUser);
         const dataInvoice= invoiceUser.map((item) => {
-            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, valueTotal: item.valor_total, tin: item.nif_cliente};
+            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, totalValue: item.valor_total, tin: item.nif_cliente};
         });;
     
     return (

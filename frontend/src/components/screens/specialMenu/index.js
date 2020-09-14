@@ -337,7 +337,7 @@ class SpecialMenu extends React.Component {
                     title="Tabela de Ementas" 
                     columns={columns}
                     data={data}
-                    detailPanel={rowData => this.showDetails(1)}
+                    detailPanel={rowData => this.showDetails(rowData.specialMenuId)}
                     editable={{
                         onRowAdd: newData =>
                         new Promise((resolve, reject) => {

@@ -323,7 +323,7 @@ class Menu extends React.Component {
         const columns= [
             { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? { isValid: false, helperText: 'O nome não pode ser nulo' } : true, align:"center"},
             { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? { isValid: false, helperText: 'A descrição não pode ser nula' } : true, align:"center"},
-            { title: 'Tipo', field: 'type',  lookup: { 'Menus de Hambúrgueres': 'Menus de Hambúrgueres', 'Pratos de Carne': 'Pratos de Carne', 'Pratos de Peixe':'Pratos de Peixe', 'Menus de Pizzas':'Menus de Pizzas', 'Menus de Francesinhas':'Menus de Francesinhas', 'Pratos Vegan':'Pratos Vegan', 'Menus de Cafés':'Menus de Cafés' },  align:"center"},
+            { title: 'Tipo', field: 'type',  lookup: { 'Menu Hambúrguer': 'Menu Hambúrguer', 'Pratos de Carne': 'Pratos de Carne', 'Pratos de Peixe':'Pratos de Peixe', 'Menu Pizza':'Menu Pizza', 'Menu Francesinha':'Menu Francesinha', 'Pratos Vegan':'Pratos Vegan', 'Menu Café':'Menu Café' },  align:"center"},
             { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, validate: rowData => rowData.photo === '' ? { isValid: false, helperText: 'A foto não pode ser nula' } : true, align:"center"},
             { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price <= 0 ? { isValid: false, helperText: 'O preço não pode ser negativo' } : true, type: "numeric", align:"center"}
         ];
@@ -337,7 +337,7 @@ class Menu extends React.Component {
                     title="Tabela dos Menus" 
                     columns={columns}
                     data={data}
-                    detailPanel={rowData => this.showDetails(1)}
+                    detailPanel={rowData => this.showDetails(rowData.menuId)}
                     editable={{
                         onRowAdd: newData =>
                         new Promise((resolve, reject) => {
