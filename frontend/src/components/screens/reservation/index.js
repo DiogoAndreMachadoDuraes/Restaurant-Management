@@ -221,7 +221,7 @@ class Reservation extends React.Component {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
         }else{
-            if(newData.tax.length<4){
+            if(newData.tax.length>4 && newData.tax.length<2){
                 alert('A taxa tem de conter no mínimo 3 carateres!');
                 reject();
             }else{
@@ -233,7 +233,7 @@ class Reservation extends React.Component {
                         alert('O valor total tem de ser positivo!');
                         reject();
                     }else{
-                        if(newData.tin.length==9){
+                        if(newData.tin.length>9||newData.tin.length<9){
                             alert('O nif tem de conter no mínimo 9 carateres!');
                             reject();
                         }else{
