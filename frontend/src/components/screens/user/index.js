@@ -524,7 +524,6 @@ class User extends React.Component {
             <StructurePage table={
                 <OwnTable 
                     title="Tabela dos Utilizadores"
-                    tableRef={tableRef}
                     columns={columns}
                     data={data}
                     detailPanel={rowData => this.showDetails(rowData.userId, rowData.tin)}
