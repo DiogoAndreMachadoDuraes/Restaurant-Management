@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import {OwnTable} from "../../OwnTable";
 import {SecoundTable} from "../../SecoundTable";
 import {StructurePage} from "../../StructurePage";
+import moment from "moment";
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
@@ -13,7 +14,8 @@ class SpecialMenu extends React.Component {
             menuSpecialMenu:[],
             newData:[],
             meal:[],
-            newDataMeal:[]
+            newDataMeal:[],
+            now: moment().format("YYYY-MM-DD")
         }
     }
 
@@ -59,8 +61,7 @@ class SpecialMenu extends React.Component {
     add = async () => {
         const { newData } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Ementa', { 
                 method: 'POST',
                 headers: {
@@ -88,8 +89,7 @@ class SpecialMenu extends React.Component {
         console.log(newData);
         console.log(specialMenuID);
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Ementa', { 
                 method: 'PUT',
                 headers: {
@@ -115,8 +115,7 @@ class SpecialMenu extends React.Component {
 
     delete = async (specialMenuID) => {
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Ementa', { 
                 method: 'DELETE',
                 headers: {
@@ -138,8 +137,7 @@ class SpecialMenu extends React.Component {
     addMeal = async () => {
         const { newDataMeal } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Refeicao_semanal', { 
                 method: 'POST',
                 headers: {
@@ -166,8 +164,7 @@ class SpecialMenu extends React.Component {
     updateMeal = async (mealID) => {
         const { newDataMeal } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Refeicao_semanal', { 
                 method: 'PUT',
                 headers: {
@@ -193,8 +190,7 @@ class SpecialMenu extends React.Component {
 
     deleteMeal = async (mealID) => {
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Refeicao_semanal', { 
                 method: 'DELETE',
                 headers: {
@@ -217,8 +213,13 @@ class SpecialMenu extends React.Component {
         if(newData.weekDay==null || newData.date==null || newData.hour==null){
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
+        }else{
+            if(moment.duration(moment(newData.date,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asDays()>0){
+                alert('Não pode fazer uma reserva em menos de 2 dias de antecedência!');
+                reject();
             }else{
-                return true;
+            return true;
+            }
         }
     }
 
@@ -285,33 +286,33 @@ class SpecialMenu extends React.Component {
                             if(this.testMeal(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                            setTimeout(() => {
-                                                this.setState({
-                                                    newDataMeal: newData
-                                                });
-                                                resolve();
-                                                this.addMeal();
-                                            }, 100)
-                            }
-                    }),
+                                    setTimeout(() => {
+                                        this.setState({
+                                            newDataMeal: newData
+                                        });
+                                        resolve();
+                                        this.addMeal();
+                                    }, 100)
+                                }
+                        }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             if(this.testMeal(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                            setTimeout(() => {
-                                                const dataUpdate = [...meal];
-                                                const index = oldData.tableData.id;
-                                                dataUpdate[index] = newData;
-                                                this.setState({
-                                                    newDataMeal: newData
-                                                });
-                                                const mealID=newData.mealId;
-                                                resolve();
-                                                this.updateMeal(mealID);
-                                            }, 1000)
+                                    setTimeout(() => {
+                                        const dataUpdate = [...meal];
+                                        const index = oldData.tableData.id;
+                                        dataUpdate[index] = newData;
+                                        this.setState({
+                                            newDataMeal: newData
+                                        });
+                                        const mealID=newData.mealId;
+                                        resolve();
+                                        this.updateMeal(mealID);
+                                    }, 1000)
                                 }
-                    }),
+                        }),
                     onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
@@ -320,11 +321,11 @@ class SpecialMenu extends React.Component {
                                 this.deleteMeal(mealID);
                             }, 1000)
                         }),
-                }}
-            />
-        </div>
-    )
-}
+                    }}
+                />
+            </div>
+        )
+    }
     
     render(){
         const { menuSpecialMenu } = this.state;
@@ -350,33 +351,33 @@ class SpecialMenu extends React.Component {
                             if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                                setTimeout(() => {
-                                                    this.setState({
-                                                        newData: newData
-                                                    });
-                                                    resolve();
-                                                    this.add();
-                                                }, 1000)
-                                            }
-                    }),
+                                    setTimeout(() => {
+                                        this.setState({
+                                            newData: newData
+                                        });
+                                        resolve();
+                                        this.add();
+                                    }, 1000)
+                                }
+                            }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                                setTimeout(() => {
-                                                    const dataUpdate = [...data];
-                                                    const index = oldData.tableData.id;
-                                                    dataUpdate[index] = newData;
-                                                    this.setState({
-                                                        newData: newData
-                                                    });
-                                                    const specialMenuID=newData.specialMenuId;
-                                                    resolve();
-                                                    this.update(specialMenuID);
-                                                }, 1000)
-                                            }
-                    }),
+                                    setTimeout(() => {
+                                        const dataUpdate = [...data];
+                                        const index = oldData.tableData.id;
+                                        dataUpdate[index] = newData;
+                                        this.setState({
+                                            newData: newData
+                                        });
+                                        const specialMenuID=newData.specialMenuId;
+                                        resolve();
+                                        this.update(specialMenuID);
+                                    }, 1000)
+                                }
+                            }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {

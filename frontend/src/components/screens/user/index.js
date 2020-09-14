@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import {OwnTable} from "../../OwnTable";
 import {SecoundTable} from "../../SecoundTable";
 import {StructurePage} from "../../StructurePage";
+import moment from "moment";
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
@@ -13,13 +14,14 @@ class User extends React.Component {
             user:[],
             newData:[],
             client:[],
-            newDataClient:[]
+            newDataClient:[],
+            now: moment().format("YYYY-MM-DD")
         }
     }
 
-async componentDidMount (){ 
-    console.log("Mounting the screen User...");
-    let token=localStorage.getItem("token");
+    async componentDidMount (){ 
+        console.log("Mounting the screen User...");
+        let token=localStorage.getItem("token");
         try {
             let response = await fetch('/Utilizador', { 
                 headers: {
@@ -35,7 +37,7 @@ async componentDidMount (){
             console.log(json);
         } catch(e){
             console.log("Error to get User: " + e);
-    }
+        }
 
         try {
             let response = await fetch('/Cliente', 
@@ -77,8 +79,7 @@ async componentDidMount (){
     update = async (userID) => {
         const { newData } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Utilizador', { 
                 method: 'PUT',
                 headers: {
@@ -111,8 +112,7 @@ async componentDidMount (){
 
     delete = async (userID) => {
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Utilizador', { 
                 method: 'DELETE',
                 headers: {
@@ -134,8 +134,7 @@ async componentDidMount (){
     addClient = async (userID) => {
         const { newDataClient } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Cliente', { 
                 method: 'POST',
                 headers: {
@@ -157,11 +156,10 @@ async componentDidMount (){
         }
     }
 
-    updateClient = async (clientID, userID) => {
+    updateClient = async (userID) => {
         const { newDataClient } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Cliente', { 
                 method: 'PUT',
                 headers: {
@@ -170,7 +168,7 @@ async componentDidMount (){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_cliente': clientID,
+                    'id_cliente': newDataClient.clientId,
                     'numero_cartao': newDataClient.cardNumber,
                     'numero_compras': newDataClient.shopNumber,
                     'id_utilizador': userID
@@ -185,8 +183,8 @@ async componentDidMount (){
 
     deleteClient = async (clientID) => {
         let token=localStorage.getItem("token");
-        try
-        {
+        console.log(clientID);
+        try{
             let response = await fetch('/Cliente', { 
                 method: 'DELETE',
                 headers: {
@@ -209,17 +207,16 @@ async componentDidMount (){
         if(newData.cardNumber==null || newData.shopNumber==null) {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
-        }
-        else{
-            if(newData.shopNumber>=0 && newData.shopNumber<11){
+        }else{
+            if(newData.shopNumber<0 && newData.shopNumber>=11){
                 alert('O número de compras tem de ser entre 0 e 10!');
                 reject();
             }else{
-                if(newData.cardNumber>0){
+                if(newData.cardNumber<0){
                     alert('O número de cartão tem de ser positivo!');
                     reject();
                 }else{
-            return true;
+                return true;
                 }
             }
         }
@@ -229,8 +226,7 @@ async componentDidMount (){
         if(newData.iva==null || newData.tax==null || newData.totalValue==null || newData.tin==null) {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
-        }
-        else{
+        }else{
             if(newData.tax.length<4){
                 alert('A taxa tem de conter no mínimo 3 carateres!');
                 reject();
@@ -247,10 +243,10 @@ async componentDidMount (){
                             alert('O nif tem de conter no mínimo 9 carateres!');
                             reject();
                         }else{
-            return true;
+                        return true;
                         }
                     }
-                }
+                }   
             }
         }
     }
@@ -268,8 +264,8 @@ async componentDidMount (){
                     alert('O nome tem de conter no mínimo 3 carateres!');
                     reject();
                 }else{
-                    if(newData.dateBirth.length>=18){
-                        alert('O registo tem de ser acessado pela idade maior ou iguala 18 anos');
+                    if(moment.duration(moment(this.state.now,"YYYY-MM-DD").diff(moment(newData.dateBirth, "YYYY-MM-DD"))).asYears()<18){
+                        alert('Tem de ter pelo meno 18 anos!');
                         reject();
                     }else{
                         if(newData.tin.length==8){
@@ -284,46 +280,47 @@ async componentDidMount (){
                                     alert('O telefone tem de conter no mínimo 9 e no máximo 13 carateres');
                                     reject();
                                 }else{
-                    if(newData.photo.length<0){
-                        alert('Tem de conter uma foto!');
-                        reject();
-                    }else{
-                        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.street)){
-                            alert('A morada não pode conter certos caratéres especiais!');
-                            reject();
-                        }else{
-                            if(newData.street.length < 8){
-                                alert('A morada tem de conter no mínimo 8 carateres');
-                                reject();
-                            }else{
-                                if(!/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]*$/.test(newData.localization)){
-                                    alert('A localização não pode conter certos caratéres especiais');
-                                    reject();
-                                }else{
-                                    if(newData.localization.length < 4){
-                                        alert('A localização tem de conter no mínimo 4 carateres');
+                                    if(newData.photo.length<0){
+                                        alert('Tem de conter uma foto!');
                                         reject();
                                     }else{
-                                        if(newData.postalCode.length < 8){
-                                            alert('O código postal tem de conter no mínimo 8 carateres');
+                                        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.street)){
+                                            alert('A morada não pode conter certos caratéres especiais!');
                                             reject();
                                         }else{
-                                            if(newData.email.length < 6){
-                                                alert('O email tem de conter no mínimo 6 carateres');
+                                            if(newData.street.length < 8){
+                                                alert('A morada tem de conter no mínimo 8 carateres');
                                                 reject();
-                                            }
-                                            else{
-                                                if(!/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(newData.email)){
-                                                    alert('O email não pode conter certos caratéres especiais');
+                                            }else{
+                                                if(!/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]*$/.test(newData.localization)){
+                                                    alert('A localização não pode conter certos caratéres especiais');
                                                     reject();
                                                 }else{
-                                return true;
+                                                    if(newData.localization.length < 4){
+                                                        alert('A localização tem de conter no mínimo 4 carateres');
+                                                        reject();
+                                                    }else{
+                                                        if(newData.postalCode.length < 8){
+                                                            alert('O código postal tem de conter no mínimo 8 carateres');
+                                                            reject();
+                                                        }else{
+                                                            if(newData.email.length < 6){
+                                                                alert('O email tem de conter no mínimo 6 carateres');
+                                                                reject();
+                                                            }
+                                                            else{
+                                                                if(!/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(newData.email)){
+                                                                    alert('O email não pode conter certos caratéres especiais');
+                                                                    reject();
+                                                                }else{
+                                                                return true;
+                                                                }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            }
-                                        }       
+                                            }       
+                                        }
                                     }
                                 }
                             }
@@ -333,7 +330,6 @@ async componentDidMount (){
             }
         }
     }
-}
 
     showDetails(userID) {
         const { client } = this.state;
@@ -358,32 +354,31 @@ async componentDidMount (){
                             if(this.testClient(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                            setTimeout(() => {
-                                                this.setState({
-                                                    newDataClient: newData
-                                                });
-                                                resolve();
-                                                this.addClient();
-                                            }, 100)
-                                        }
+                                    setTimeout(() => {
+                                        this.setState({
+                                            newDataClient: newData
+                                        });
+                                        resolve();
+                                        this.addClient();
+                                    }, 100)
+                                }
                     }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             if(this.testClient(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                            setTimeout(() => {
-                                                const dataUpdate = [...client];
-                                                const index = oldData.tableData.id;
-                                                dataUpdate[index] = newData;
-                                                this.setState({
-                                                    newDataClient: newData
-                                                });
-                                                const clientID=newData.clientId;
-                                                resolve();
-                                                this.updateClient(clientID);
-                                            }, 1000)
-                                        }
+                                    setTimeout(() => {
+                                        const dataUpdate = [...client];
+                                        const index = oldData.tableData.id;
+                                        dataUpdate[index] = newData;
+                                        this.setState({
+                                            newDataClient: newData
+                                        });
+                                        resolve();
+                                        this.updateClient(userID);
+                                    }, 1000)
+                                }
                     }),
                     onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
@@ -416,41 +411,42 @@ async componentDidMount (){
         const data = user.map((item) => {
             return { userId: item.id_utilizador, tin: item.nif, name: item.nome, dateBirth: item.data_nascimento, sex: item.sexo, telephone: item.telefone, street: item.rua, postalCode: item.codigo_postal, localization: item.localizacao, photo: item.foto, email: item.email, password: item.password, type: item.tipo};
         });;
-        return (
-            <StructurePage table={
-                <OwnTable 
-                    title="Tabela dos Utilizadores"
-                    columns={columns}
-                    data={data}
-                    detailPanel={rowData => this.showDetails(rowData.userId, rowData.tin)}
-                    editable={{   
+
+    return (
+        <StructurePage table={
+            <OwnTable 
+                title="Tabela dos Utilizadores"
+                columns={columns}
+                data={data}
+                detailPanel={rowData => this.showDetails(rowData.userId, rowData.tin)}
+                editable={{   
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                                setTimeout(() => {
-                                                    const dataUpdate = [...user];
-                                                    const index = oldData.tableData.id;
-                                                    dataUpdate[index] = newData;
-                                                    this.setState({
-                                                        newData: newData
-                                                    });
-                                                    const userID=newData.userId;
-                                                    resolve();
-                                                    this.update(userID);
-                                                }, 1000)
+                                    setTimeout(() => {
+                                        const dataUpdate = [...user];
+                                        const index = oldData.tableData.id;
+                                        dataUpdate[index] = newData;
+                                        this.setState({
+                                            newData: newData
+                                        });
+                                        const userID=newData.userId;
+                                        resolve();
+                                        this.update(userID);
+                                    }, 1000)
                                 }
                     }),
-                        onRowDelete: oldData =>
-                            new Promise((resolve, reject) => {
-                                setTimeout(() => {
-                                    const userID = oldData.userId;
-                                    resolve();
-                                    this.delete(userID);
-                                }, 1000)
+                    onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                const userID = oldData.userId;
+                                resolve();
+                                this.delete(userID);
+                            }, 1000)
                             }),
-                        }}
+                     }}
                     />
                 } 
             />

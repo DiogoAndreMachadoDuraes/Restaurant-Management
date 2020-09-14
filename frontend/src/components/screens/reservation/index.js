@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import {OwnTable} from "../../OwnTable";
 import {SecoundTable} from "../../SecoundTable";
 import {StructurePage} from "../../StructurePage";
+import moment from "moment";
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
@@ -15,7 +16,8 @@ class Reservation extends React.Component {
             takeAway:[],
             newDataTakeAway:[],
             invoice:[],
-            newDataInvoice:[]
+            newDataInvoice:[],
+            now: moment().format("YYYY-MM-DD")
         }
     }
 
@@ -57,7 +59,6 @@ class Reservation extends React.Component {
             console.log("Error to get Invoice: " + e);
         }
 
-    
         try {
             let response = await fetch('/Take_away', 
             { 
@@ -74,14 +75,13 @@ class Reservation extends React.Component {
             });
         } catch(e){
             console.log("Error to get Take Away: " + e);
-        }
-}
+        }   
+    }
 
     update = async (reserveID) => {
         const { newData } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Reserva', { 
                 method: 'PUT',
                 headers: {
@@ -96,7 +96,8 @@ class Reservation extends React.Component {
                     'quantidade_pessoas': newData.quantity,
                     'data_marcada': newData.pointDate,
                     'hora_marcada': newData.pointHour,
-                    'estado': newData.status
+                    'estado': newData.status, 
+                    'id_cliente': newData.clienteId
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -108,8 +109,7 @@ class Reservation extends React.Component {
 
     delete = async (reserveID) => {
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Reserva', { 
                 method: 'DELETE',
                 headers: {
@@ -127,40 +127,11 @@ class Reservation extends React.Component {
             console.log("Error to Delete Reserva: " + e);
         }
     }
-    
-    addTakeAway = async () => {
-        const { newDataTakeAway} = this.state;
-        let token=localStorage.getItem("token");
-        try
-        {
-            let response = await fetch('/Take_away', { 
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'tipo_entrega': newDataTakeAway.type,
-                    'preco': newDataTakeAway.price,
-                    'estado': newDataTakeAway.status,
-                    /* 'id_funcionario': newDataTakeAway.employeeId,
-                    'id_reserva': newDataTakeAway.reservationId */
-                })
-            });
-            alert("Coluna inserida com sucesso!");
-            window.location.reload();
-            console.log(response);
-        } catch(e){
-            console.log("Error to Post Take Away: " + e);
-        }
-    }
-
+   
     updateTakeAway = async (takeAwayID) => {
         const { newDataTakeAway } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Take_away', { 
                 method: 'PUT',
                 headers: {
@@ -173,8 +144,8 @@ class Reservation extends React.Component {
                     'tipo_entrega': newDataTakeAway.type,
                     'preco': newDataTakeAway.price,
                     'estado': newDataTakeAway.status,
-                    /* 'id_funcionario': newDataTakeAway.employeeId,
-                    'id_reserva': newDataTakeAway.reservationId */
+                    'id_funcionario': newDataTakeAway.employeeId,
+                    'id_reserva': newDataTakeAway.reservationId 
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -186,8 +157,7 @@ class Reservation extends React.Component {
 
     deleteTakeAway = async (takeAwayID) => {
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Take_away', { 
                 method: 'DELETE',
                 headers: {
@@ -209,8 +179,7 @@ class Reservation extends React.Component {
     addInvoice = async () => {
         const { newDataInvoice } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Fatura', { 
                 method: 'POST',
                 headers: {
@@ -223,7 +192,7 @@ class Reservation extends React.Component {
                     'taxa': newDataInvoice.tax,
                     'valor_total': newDataInvoice.totalValue,
                     'nif_cliente': newDataInvoice.tin,
-                    /* 'id_reserva': newDataInvoice.invoiceId,*/
+                    'id_reserva': newDataInvoice.invoiceId
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -253,13 +222,23 @@ class Reservation extends React.Component {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
         }else{
-            if(newData.quantity>0){
-                alert('A quantidade de pessoas tem de ser maior que 0!');
+            if(moment.duration(moment(newData.date,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asDays()<2){
+                alert('Não pode fazer uma reserva em menos de 2 dias de antecedência!');
                 reject();
             }else{
-            return true;
+                if(newData.quantity>0){
+                    alert('A quantidade de pessoas tem de ser maior que 0!');
+                    reject();
+                }else{
+                    if(moment.duration(moment(newData.pointDate,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asDays()<2){
+                        alert('Não pode fazer uma reserva em menos de 2 dias de antecedência!');
+                        reject();
+                    }else{
+                     return true;
+                    }
+                }
+            }
         }
-    }
     }
 
     showDetails(reserveID) {
@@ -271,7 +250,7 @@ class Reservation extends React.Component {
         ];
         const takeReservation=takeAway.filter(a=>a.id_reserva==reserveID).map(a=>a);
         const dataTakeAway = takeReservation.map((item) => {
-            return { takeAwayId: item.id_take_away, type: item.tipo_entrega, price: item.preco, status: item.estado };
+            return { takeAwayId: item.id_take_away, type: item.tipo_entrega, price: item.preco, status: item.estado, employeeId: item.id_funcionario, reservationId: item.id_reserva };
         });;
         const columnsInvoice= [
             { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? { isValid: false, helperText: 'O iva não pode ser nulo' } : true , align:"center"},
@@ -282,7 +261,7 @@ class Reservation extends React.Component {
         const invoiceUser=invoice.filter(a=>a.id_reserva==reserveID).map(a=>a);
         console.log(invoiceUser);
         const dataInvoice= invoiceUser.map((item) => {
-            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, totalValue: item.valor_total, tin: item.nif_cliente};
+            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, totalValue: item.valor_total, tin: item.nif_cliente, invoiceId: item.id_fatura};
         });;
     
     return (
@@ -292,37 +271,23 @@ class Reservation extends React.Component {
                 columns={columnsTakeAway}
                 data={dataTakeAway}
                 editable={{
-                    onRowAdd: newData =>
-                        new Promise((resolve, reject) => {
-                            if(this.testTakeAway(newData, resolve, reject)!=true){
-                                    reject();
-                                }else{
-                                            setTimeout(() => {
-                                                this.setState({
-                                                    newDataTakeAway: newData
-                                                });
-                                                resolve();
-                                                this.addTakeAway();
-                                            }, 100)
-                                }
-                    }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             if(this.testTakeAway(newData, resolve, reject)!=true){
                                     reject();
-                                }else{
-                                            setTimeout(() => {
-                                                const dataUpdate = [...takeAway];
-                                                const index = oldData.tableData.id;
-                                                dataUpdate[index] = newData;
-                                                this.setState({
-                                                    newDataTakeAway: newData
-                                                });
-                                                const takeAwayID=newData.takeAwayId;
-                                                resolve();
-                                                this.updateTakeAway(takeAwayID);
-                                            }, 1000)
-                                }
+                                    }else{
+                                        setTimeout(() => {
+                                            const dataUpdate = [...takeAway];
+                                            const index = oldData.tableData.id;
+                                            dataUpdate[index] = newData;
+                                            this.setState({
+                                                newDataTakeAway: newData
+                                            });
+                                            const takeAwayID=newData.takeAwayId;
+                                            resolve();
+                                            this.updateTakeAway(takeAwayID);
+                                        }, 1000)
+                                    }
                     }),
                     onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
@@ -332,34 +297,33 @@ class Reservation extends React.Component {
                                 this.deleteTakeAway(takeAwayID);
                             }, 1000)
                         }),
-                }}
-            />
-<div style={{ marginTop: 20}}>
-<SecoundTable
-    title="Tabela das Faturas"
-    columns={columnsInvoice}
-    data={dataInvoice}
-    editable={{
-        onRowAdd: newData =>
-            new Promise((resolve, reject) => {
-                if(this.testInvoice(newData, resolve, reject)!=true){
-                reject();
-            }else{
-                        setTimeout(() => {
-                        this.setState({
-                        newDataInvoice: newData
-                        });
-                        resolve();
-                        this.addInvoice();
-                        }, 1000)
-                    }                                            
-        })
-    }}
-/>
-</div>
-</div>
-)
-}
+                }}/>
+                
+            <div style={{ marginTop: 20}}>
+                <SecoundTable
+                    title="Tabela das Faturas"
+                    columns={columnsInvoice}
+                    data={dataInvoice}
+                    editable={{
+                        onRowAdd: newData =>
+                            new Promise((resolve, reject) => {
+                                if(this.testInvoice(newData, resolve, reject)!=true){
+                                reject();
+                                }else{
+                                    setTimeout(() => {
+                                    this.setState({
+                                    newDataInvoice: newData
+                                    });
+                                    resolve();
+                                    this.addInvoice();
+                                    }, 1000)
+                                }                                            
+                            })
+                        }}/>
+            </div>
+        </div>
+        )
+    }
     
     render(){
         const { reserve } = this.state;
@@ -371,7 +335,7 @@ class Reservation extends React.Component {
             { title: 'Hora marcada', field: 'pointHour', validate: rowData => rowData.pointHour <= 0 ? { isValid: false, helperText: 'A hora marcada não pode ser nula' } : true, align:"center"}   
         ];
         const data = reserve.map((item) => {
-            return { reserveId: item.id_reserva, date: item.data, hour: item.hora, quantity: item.quantidade_pessoas, pointDate: item.data_marcada, pointHour: item.hora_marcada};
+            return { reserveId: item.id_reserva, date: item.data, hour: item.hora, quantity: item.quantidade_pessoas, pointDate: item.data_marcada, pointHour: item.hora_marcada, clienteId: item.id_cliente};
         });;
         return (
             <StructurePage table={
@@ -385,30 +349,29 @@ class Reservation extends React.Component {
                         new Promise((resolve, reject) => {
                             if(this.test(newData, resolve, reject)!=true){
                                     reject();
-                                }else{
-                                                setTimeout(() => {
-                                                    const dataUpdate = [...data];
-                                                    const index = oldData.tableData.id;
-                                                    dataUpdate[index] = newData;
-                                                    this.setState({
-                                                        newData: newData
-                                                    });
-                                                    const reserveID=newData.reserveId;
-                                                    resolve();
-                                                    this.update(reserveID);
-                                                }, 1000)
-                                            }
-                    }),
-                        onRowDelete: oldData =>
-                            new Promise((resolve, reject) => {
-                                setTimeout(() => {
-                                    const reserveID = oldData.reserveId;
-                                    resolve();
-                                    this.delete(reserveID);
-                                }, 1000)
+                                    }else{
+                                        setTimeout(() => {
+                                            const dataUpdate = [...data];
+                                            const index = oldData.tableData.id;
+                                            dataUpdate[index] = newData;
+                                            this.setState({
+                                                newData: newData
+                                            });
+                                            const reserveID=newData.reserveId;
+                                            resolve();
+                                            this.update(reserveID);
+                                        }, 1000)
+                                    }
                             }),
-                        }}
-                    />
+                    onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                const reserveID = oldData.reserveId;
+                                resolve();
+                                this.delete(reserveID);
+                            }, 1000)
+                        }),
+                    }}/>
                 } 
             />
         )

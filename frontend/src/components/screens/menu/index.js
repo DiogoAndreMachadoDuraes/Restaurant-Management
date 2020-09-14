@@ -79,8 +79,7 @@ class Menu extends React.Component {
         const { newData } = this.state;
         console.log(newData);
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Menu', { 
                 method: 'POST',
                 headers: {
@@ -106,8 +105,7 @@ class Menu extends React.Component {
     update = async (menuID) => {
         const { newData } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Menu', { 
                 method: 'PUT',
                 headers: {
@@ -133,8 +131,7 @@ class Menu extends React.Component {
 
     delete = async (menuID) => {
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Menu', { 
                 method: 'DELETE',
                 headers: {
@@ -156,8 +153,7 @@ class Menu extends React.Component {
     addMenuProduct = async () => {
         const { newDataMenuProduct } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Produto_menu', { 
                 method: 'POST',
                 headers: {
@@ -182,8 +178,7 @@ class Menu extends React.Component {
     updateMenuProduct = async (menuProductID) => {
         const { newDataMenuProduct } = this.state;
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Produto_menu', { 
                 method: 'PUT',
                 headers: {
@@ -207,8 +202,7 @@ class Menu extends React.Component {
 
     deleteMenuProduct = async (menuProductID) => {
         let token=localStorage.getItem("token");
-        try
-        {
+        try{
             let response = await fetch('/Produto_menu', { 
                 method: 'DELETE',
                 headers: {
@@ -236,7 +230,7 @@ class Menu extends React.Component {
                     alert('A quantidade de pessoas tem de ser maior que 0!');
                     reject();
                 }else{ 
-                    return true;
+                return true;
             }
         }
     }
@@ -254,28 +248,28 @@ class Menu extends React.Component {
                     alert('O preço tem de ser positivo!');
                     reject();
                 }else{
-                if(newData.name.length<3){
-                    alert('O nome tem de conter no mínimo 3 carateres!');
-                    reject();
-                }else{
-                    if(newData.photo.length<0){
-                        alert('Tem de conter uma foto!');
+                    if(newData.name.length<3){
+                        alert('O nome tem de conter no mínimo 3 carateres!');
                         reject();
                     }else{
-                        if(newData.description.length<5){
-                            alert('A descrição tem de conter no mínimo 5 carateres!');
+                        if(newData.photo.length<0){
+                            alert('Tem de conter uma foto!');
                             reject();
                         }else{
-                            if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.description)) {
-                                alert('A descrição não é válida!');
+                            if(newData.description.length<5){
+                                alert('A descrição tem de conter no mínimo 5 carateres!');
                                 reject();
                             }else{
+                                if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.description)) {
+                                    alert('A descrição não é válida!');
+                                    reject();
+                                }else{
                                 return true;
+                                }
                             }
                         }
                     }
                 }
-            }
             }
         }
     }
@@ -302,32 +296,32 @@ class Menu extends React.Component {
                             if(this.testMenuProduct(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                            setTimeout(() => {
-                                                this.setState({
-                                                    newDataMenuProduct: newData
-                                                });
-                                                resolve();
-                                                this.addMenuProduct();
-                                            }, 100)
-                                        }  
-                            }),
+                                    setTimeout(() => {
+                                        this.setState({
+                                            newDataMenuProduct: newData
+                                        });
+                                        resolve();
+                                        this.addMenuProduct();
+                                    }, 100)
+                                }  
+                        }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             if(this.testMenuProduct(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                            setTimeout(() => {
-                                                const dataUpdate = [...menuProduct];
-                                                const index = oldData.tableData.id;
-                                                dataUpdate[index] = newData;
-                                                this.setState({
-                                                    newDataMenuProduct: newData
-                                                });
-                                                const menuProductID=newData.menuProductId;
-                                                resolve();
-                                                this.updateMenuProduct(menuProductID);
-                                            }, 1000)
-                            }
+                                    setTimeout(() => {
+                                        const dataUpdate = [...menuProduct];
+                                        const index = oldData.tableData.id;
+                                        dataUpdate[index] = newData;
+                                        this.setState({
+                                            newDataMenuProduct: newData
+                                        });
+                                        const menuProductID=newData.menuProductId;
+                                        resolve();
+                                        this.updateMenuProduct(menuProductID);
+                                    }, 1000)
+                                }
                         }),
                     onRowDelete: oldData =>
                         new Promise((resolve, reject) => {
@@ -337,8 +331,8 @@ class Menu extends React.Component {
                                 this.deleteMenuProduct(menuProductID);
                             }, 1000)
                         }),
-                }}
-            />
+                    }}
+                />
         </div>
     )
 }
@@ -371,33 +365,33 @@ class Menu extends React.Component {
                             if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                                setTimeout(() => {
-                                                    this.setState({
-                                                        newData: newData
-                                                    });
-                                                    resolve();
-                                                    this.add();
-                                                }, 1000)
-                                            }
-                    }),
-                    onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve, reject) => {
-                            if(this.test(newData, resolve, reject)!=true){
-                                    reject();
-                                }else{
-                                                setTimeout(() => {
-                                                    const dataUpdate = [...data];
-                                                    const index = oldData.tableData.id;
-                                                    dataUpdate[index] = newData;
-                                                    this.setState({
-                                                        newData: newData
-                                                    });
-                                                    const menuID=newData.menuId;
-                                                    resolve();
-                                                    this.update(menuID);
-                                                }, 1000)
-                                            }
-                    }),
+                                    setTimeout(() => {
+                                        this.setState({
+                                            newData: newData
+                                        });
+                                        resolve();
+                                        this.add();
+                                    }, 1000)
+                                }
+                        }),
+                        onRowUpdate: (newData, oldData) =>
+                            new Promise((resolve, reject) => {
+                                if(this.test(newData, resolve, reject)!=true){
+                                        reject();
+                                    }else{
+                                        setTimeout(() => {
+                                            const dataUpdate = [...data];
+                                            const index = oldData.tableData.id;
+                                            dataUpdate[index] = newData;
+                                            this.setState({
+                                                newData: newData
+                                            });
+                                            const menuID=newData.menuId;
+                                            resolve();
+                                            this.update(menuID);
+                                        }, 1000)
+                                    }
+                        }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
@@ -405,7 +399,7 @@ class Menu extends React.Component {
                                     resolve();
                                     this.delete(menuID);
                                 }, 1000)
-                            }),
+                        }),
                         }}
                     />
                 } 
