@@ -54,7 +54,7 @@ class Login extends React.Component {
     };
 
     handleValidEmail = (val) => {
-        if(val.trim().length >= 5){
+        if(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(val)){
             this.setState({
                 validEmail: true,
                 email: val
@@ -116,7 +116,7 @@ class Login extends React.Component {
                             validEmail ? true : 
 
                             <Animatable.View animation="fadeInLeft" duration={500}>
-                                <Text style={style.invalidEmail}>O email deve conter pelo menos 5 caráteres.</Text>
+                                <Text style={style.invalidEmail}>O email está incorreto.</Text>
                             </Animatable.View>
                         }
 
@@ -173,14 +173,15 @@ class Login extends React.Component {
     }
 
     _login = async() => {
-        if (this.state.email.trim().length == 0 || this.state.password.trim().length == 0 ) {
+        const { email, password, validEmail, validPass } = this.state;
+        if (email.trim().length == 0 || password.trim().length == 0 ) {
             Alert.alert('Introdução de valores nulos', '   O Email ou a palavra-passe não podem ser nulos.', [
                 {text: 'Voltar a tentar'}
             ]);
             return;
         }
 
-        if(this.state.validEmail==true && this.state.validPass==true){
+        if(validEmail==true && validPass==true){
             try
             {
                 let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Login', { 
@@ -190,8 +191,8 @@ class Login extends React.Component {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        "email":this.state.email,
-                        "password":this.state.password
+                        "email":email,
+                        "password":password
                     })
                 });
 
@@ -217,24 +218,24 @@ class Login extends React.Component {
                       data: json
                     });
                 } catch(e){
-                    console.log("Error to get data: " + e);
+                    console.log("Error to get User: " + e);
+                    Alert.alert('Erro', 'Não está a ser possível o acesso à sua conta... Por favor, contacte Sabor da Avó para perceber o acontecido!', [
+                        {text: 'Voltar a tentar'}
+                    ]);
                 }
                 const { data } = this.state;
                
-                const nome=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
+                const nome=data.filter(a=>a.email==email).map(a=>a.nome);
                 AsyncStorage.setItem("Name", nome[0]);
-                const foto=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
+                const foto=data.filter(a=>a.email==email).map(a=>a.foto);
                 AsyncStorage.setItem("Foto", foto[0]);
-                const user=data.filter(a=>a.email==this.state.email).map(a=>a);
+                const user=data.filter(a=>a.email==email).map(a=>a);
                 AsyncStorage.setItem("User", JSON.stringify(user));
 
                 this.props.navigation.navigate("Home");
 
             } catch(e){
                 console.log("Error to get User: " + e);
-                /* Alert.alert('Erro', '   Não está a ser possível o acesso à sua conta...', [
-                    {text: 'Por favor, tente mais tarde'}
-                ]); */
                 Alert.alert('Valores incorretos', '    O Email e/ou a palavra-passe estão incorreto(s).', [
                     {text: 'Voltar a tentar'}
                 ]);

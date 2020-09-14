@@ -10,8 +10,9 @@ import {
   FlatList ,
   AsyncStorage
 } from "react-native";
-import { Icon, PricingCard } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import FinalHeader from "./shared/FinalHeader";
+import { OwnHeader } from "./shared/OwnHeader.js";
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 
 class ProductCategory extends React.Component{
@@ -59,40 +60,37 @@ class ProductCategory extends React.Component{
   render(){
     const { data, isLoading } = this.state;
     const { navigation, route } = this.props;
-    const { type, photo, subtitle } = route.params;
+    const { type } = route.params;
     const typeData=data.filter(a=>a.tipo==type).map(a=>a);
     return (
       <View style={style.container}>
         <OwnStatusBar />
-        <ScrollView>
-          <View style={style.productCategoryText}>
-            <ImageBackground source={photo} style={style.imageBackgound} opacity={0.8}>
-              <View style={style.arrow}>
-                <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("Product")} size={45} color={"#fff"}></Icon>
-              </View>
-              <Text style={style.title}>{type}</Text>
-              <Text style={style.text}>{subtitle}</Text>
-            </ImageBackground>
-          </View>
-          <View style={style.productCategory}>
-          {
-            isLoading ? <ActivityIndicator/> : (
-              <FlatList
-                data={typeData}
-                keyExtractor={({ id }, index) => id}
-                renderItem={({ item }) => (
-                  <TouchableOpacity style={style.productCategoryExp} activeOpacity={0.5} onPress={() => this._onPress(item)}>
-                    <Image style={style.productCategoryExpFoto} source={{ uri: '' + item.foto + '' }} ></Image>
-                    <Text style={style.titleProductCategory}>{item.nome}</Text>
-                    <Text style={style.textProductCategory}>{item.descricao}</Text>
-                    <Text style={style.textProductCategory}>{item.preco}€</Text>
-                  </TouchableOpacity>
-                )}
-              />
-            )
-          }
-          </View>
-        </ScrollView>
+        <OwnHeader nome={type} navigation={this.props.navigation} />
+        <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} >
+          <ScrollView>
+            <View style={style.product}>
+              {
+                isLoading ? <ActivityIndicator/> : (
+                  <FlatList
+                    data={typeData}
+                    keyExtractor={({ id }, index) => id}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity style={style.productExp} activeOpacity={0.5} onPress={() => this._onPress(item)}>
+                        <Image style={style.photoProduct} source={{ uri: '' + item.foto + '' }} ></Image>
+                        <Text style={style.titleProduct}>{item.nome}</Text>
+                        <Text style={style.textProduct}>
+                          <Text style={{fontWeight:"bold"}}>Preço: </Text> 
+                          <Text>{item.preco}€</Text>
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  />
+                )
+              }
+              <FinalHeader />
+            </View>
+          </ScrollView>
+        </ImageBackground>
       </View>
     );
   }
@@ -102,72 +100,40 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
   },
-  imageBackgound: {
-    width: 400,
-    height: 320
+  imageBackground: {
+    flex: 1
   },
-  title: {
-    color: "lightgreen",
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontStyle: "italic",
-    top: -10
-  },
-  text: {
-    color: "white",
-    fontSize: 22,
-    fontStyle: "italic",
-    textAlign: 'center',
-    fontWeight: 'bold',
-    top: 15
-  },
-  productCategoryText: {
-    width: 400,
-    height: 320
-  },
-  productCategory: {
+  product: {
     width: "100%",
-    height: 1000,
+    height: "100%",
   },
-  productCategoryExp: {
+  productExp: {
     marginTop: 30,
     marginLeft: 40,
     padding: 30,
     width: 320,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     borderRadius: 5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  productCategoryExpFoto: {
+  photoProduct: {
     width: 180,
-    height: 180,
-    marginTop: 0
+    height: 180
   },
-  arrow: {
-    marginTop: 45,
-    marginLeft: -320
-  },
-  productCategoryExpText: {
-    width: 180,
-    height: 180,
-    marginTop: -150,
-  },
-  titleProductCategory: {
+  titleProduct: {
     color: "#000",
     fontSize: 20,
     fontWeight: 'bold',
-    fontStyle: "italic",
-    top: 12
+    top: 12,
+    textAlign: 'center'
   },
-  textProductCategory: {
+  textProduct: {
     color: "#000",
-    fontSize: 12,
-    fontStyle: "italic",
+    fontSize: 15,
     textAlign: 'center',
     top: 20
-  },
+  }
 });
 
 export default ProductCategory;
