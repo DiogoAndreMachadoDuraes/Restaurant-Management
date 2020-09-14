@@ -176,7 +176,7 @@ class Reservation extends React.Component {
         }
     }
 
-    addInvoice = async () => {
+    addInvoice = async (reserveID) => {
         const { newDataInvoice } = this.state;
         let token=localStorage.getItem("token");
         try{
@@ -192,7 +192,7 @@ class Reservation extends React.Component {
                     'taxa': newDataInvoice.tax,
                     'valor_total': newDataInvoice.totalValue,
                     'nif_cliente': newDataInvoice.tin,
-                    'id_reserva': newDataInvoice.invoiceId
+                    'id_reserva': reserveID
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -272,7 +272,7 @@ class Reservation extends React.Component {
     showDetails(reserveID) {
         const { takeAway, invoice } = this.state;
         const columnsTakeAway= [
-            { title: 'Tipo de Entrega', field: 'type',  lookup: { 'Domicílio': 'Domicílio', 'Restaurente': 'Restaurante'},  align:"center"},
+            { title: 'Tipo de Entrega', field: 'type',  lookup: { 'Domicílio': 'Domicílio', 'Restaurante': 'Restaurante'},  align:"center"},
             { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price < 0 ? { isValid: false, helperText: 'O preço não pode ser nulo' } : true, type: "numeric", align:"center"},
             { title: 'Estado da Encomenda', field: 'status',  lookup: { 'Em processamento': 'Em processamento', 'Em análise': 'Em análise', 'Concluído':'Concluído' },  align:"center"}
         ];
@@ -343,7 +343,7 @@ class Reservation extends React.Component {
                                     newDataInvoice: newData
                                     });
                                     resolve();
-                                    this.addInvoice();
+                                    this.addInvoice(reserveID);
                                     }, 1000)
                                 }                                            
                             })
