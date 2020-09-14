@@ -197,7 +197,6 @@ class Reservation extends React.Component {
             });
             alert("Coluna inserida com sucesso!");
             window.location.reload();
-            console.log(response);
         } catch(e){
             console.log("Error to Post Fatura: " + e);
         }
@@ -213,6 +212,35 @@ class Reservation extends React.Component {
                 reject();
             }else{
             return true;
+            }
+        }
+    }
+
+    testInvoice(newData, resolve, reject){
+        if(newData.iva==null || newData.tax==null || newData.totalValue==null || newData.tin==null) {
+            alert('Nenhum dos valores inseridos pode ser nulo!');
+            reject();
+        }else{
+            if(newData.tax.length<4){
+                alert('A taxa tem de conter no mínimo 3 carateres!');
+                reject();
+            }else{
+                if(newData.iva<=0){
+                    alert('O iva tem de ser positivo!');
+                    reject();
+                }else{
+                    if(newData.totalValue<=0){
+                        alert('O valor total tem de ser positivo!');
+                        reject();
+                    }else{
+                        if(newData.tin.length==9){
+                            alert('O nif tem de conter no mínimo 9 carateres!');
+                            reject();
+                        }else{
+                        return true;
+                        }
+                    }
+                }   
             }
         }
     }
@@ -253,9 +281,9 @@ class Reservation extends React.Component {
             return { takeAwayId: item.id_take_away, type: item.tipo_entrega, price: item.preco, status: item.estado, employeeId: item.id_funcionario, reservationId: item.id_reserva };
         });;
         const columnsInvoice= [
-            { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? { isValid: false, helperText: 'O iva não pode ser nulo' } : true , align:"center"},
+            { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? { isValid: false, helperText: 'O iva não pode ser nulo' } : true ,  type: "numeric", align:"center"},
             { title: 'Taxa', field: 'tax', validate: rowData => rowData.tax === '' ? { isValid: false, helperText: 'A taxa não pode ser nula' } : true , align:"center"},
-            { title: 'Valor total €', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? { isValid: false, helperText: 'O valor total não pode ser nulo' } : true , align:"center"},
+            { title: 'Valor total €', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? { isValid: false, helperText: 'O valor total não pode ser nulo' } : true ,  type: "numeric", align:"center"},
             { title: 'Nif do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ?{ isValid: false, helperText: 'O nif do cliente não pode ser nulo' } : true, align:"center"}
         ];
         const invoiceUser=invoice.filter(a=>a.id_reserva==reserveID).map(a=>a);

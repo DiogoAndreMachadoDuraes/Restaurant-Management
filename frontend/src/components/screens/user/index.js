@@ -222,35 +222,6 @@ class User extends React.Component {
         }
     }
 
-    testInvoice(newData, resolve, reject){
-        if(newData.iva==null || newData.tax==null || newData.totalValue==null || newData.tin==null) {
-            alert('Nenhum dos valores inseridos pode ser nulo!');
-            reject();
-        }else{
-            if(newData.tax.length<4){
-                alert('A taxa tem de conter no mínimo 3 carateres!');
-                reject();
-            }else{
-                if(newData.iva<=0){
-                    alert('O iva tem de ser positivo!');
-                    reject();
-                }else{
-                    if(newData.totalValue<=0){
-                        alert('O valor total tem de ser positivo!');
-                        reject();
-                    }else{
-                        if(newData.tin.length==9){
-                            alert('O nif tem de conter no mínimo 9 carateres!');
-                            reject();
-                        }else{
-                        return true;
-                        }
-                    }
-                }   
-            }
-        }
-    }
-
     test(newData, resolve, reject){
         if(newData.tin==null || newData.name==null || newData.dateBirth==null || newData.sex==null || newData.telephone==null || newData.street==null || newData.postalCode==null || newData.localization==null || newData.photo==null || newData.email==null || newData.password==null || newData.type==null){
             alert('Nenhum dos valores inseridos pode ser nulo!');
