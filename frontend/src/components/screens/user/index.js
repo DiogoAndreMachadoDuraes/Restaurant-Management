@@ -530,26 +530,9 @@ class User extends React.Component {
                     editable={{
                         onRowAdd: newData =>
                         new Promise((resolve, reject) => {
-                            if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
-                                alert('Nenhum dos valores inseridos pode ser nulo!');
-                                reject();
-                            }else{
-                                if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                    alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                            if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(Number.isInteger(newData.quantidade)==false){
-                                        alert('A quantidade tem de ser do tipo inteiro!');
-                                        reject();
-                                    }else{
-                                        if(newData.description.lenght<0){
-                                            alert('Tem de conter uma descrição!');
-                                            reject();
-                                        }else{
-                                            if(newData.photo.lenght<0){
-                                                alert('Tem de conter uma foto!');
-                                                reject();
-                                            }else{
                                                 setTimeout(() => {
                                                     this.setState({
                                                         newData: newData
@@ -558,33 +541,12 @@ class User extends React.Component {
                                                     this.add();
                                                 }, 1000)
                                             }
-                                        }
-                                    }
-                                }
-                            }
                     }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
-                            if(newData.quantity==null || newData.price==null || newData.photo==null || newData.description==null) {
-                                alert('Nenhum dos valores inseridos pode ser nulo!');
-                                reject();
-                            }else{
-                                if(newData.quantity<0 || newData.price<0 || newData.photo<0 ) {
-                                    alert('A quantidade, o preço e/ou a foto não pode ser negativo!');
+                            if(this.test(newData, resolve, reject)!=true){
                                     reject();
                                 }else{
-                                    if(Number.isInteger(newData.quantidade)==false){
-                                        alert('A quantidade tem de ser do tipo inteiro!');
-                                        reject();
-                                    }else{
-                                        if(newData.description.lenght<0){
-                                            alert('Tem de conter uma descrição!');
-                                            reject();
-                                        }else{
-                                            if(newData.photo.lenght<0){
-                                                alert('Tem de conter uma foto!');
-                                                reject();
-                                            }else{
                                                 setTimeout(() => {
                                                     const dataUpdate = [...user];
                                                     const index = oldData.tableData.id;
@@ -596,11 +558,7 @@ class User extends React.Component {
                                                     resolve();
                                                     this.update(userID);
                                                 }, 1000)
-                                            }
-                                        }
-                                    }
                                 }
-                            }
                     }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
