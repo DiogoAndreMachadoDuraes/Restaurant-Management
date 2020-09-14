@@ -326,7 +326,17 @@ class User extends React.Component {
             reject();
         }
         else{
+            if(newData.shopNumber>=0 && newData.shopNumber<11){
+                alert('O número de compras tem de ser entre 0 e 10!');
+                reject();
+            }else{
+                if(newData.cardNumber>0){
+                    alert('O número de cartão tem de ser positivo!');
+                    reject();
+                }else{
             return true;
+                }
+            }
         }
     }
 
@@ -336,7 +346,27 @@ class User extends React.Component {
             reject();
         }
         else{
+            if(newData.tax.length<4){
+                alert('A taxa tem de conter no mínimo 3 carateres!');
+                reject();
+            }else{
+                if(newData.iva>=0){
+                    alert('O iva tem de ser positivo!');
+                    reject();
+                }else{
+                    if(newData.totalValue>=0){
+                        alert('O valor total tem de conter no mínimo 3 carateres!');
+                        reject();
+                    }else{
+                        if(newData.tin.length==9){
+                            alert('O nif tem de conter no mínimo 9 carateres!');
+                            reject();
+                        }else{
             return true;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -353,26 +383,72 @@ class User extends React.Component {
                     alert('O nome tem de conter no mínimo 3 carateres!');
                     reject();
                 }else{
+                    if(newData.dateBirth.length>=18){
+                        alert('O registo tem de ser acessado pela idade maior ou iguala 18 anos');
+                        reject();
+                    }else{
+                        if(newData.tin.length==9){
+                            alert('O nif tem de conter no mínimo 9 carateres!');
+                            reject();
+                        }else{
+                            if(!/^[0-9+]*$/.test(newData.telephone)){
+                                alert('O telefone não pode conter certos caratéres especiais');
+                                reject();
+                            }else{
+                                if(newData.telephone.length < 9 || newData.telephone.length > 13){
+                                    alert('O telefone tem de conter no mínimo 9 e no máximo 13 carateres');
+                                    reject();
+                                }else{
                     if(newData.photo.length<0){
                         alert('Tem de conter uma foto!');
                         reject();
                     }else{
-                        if(newData.street.length<5){
-                            alert('A rua tem de conter no mínimo 5 carateres!');
+                        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.street)){
+                            alert('A morada não pode conter certos caratéres especiais!');
                             reject();
+                        }else{
+                            if(newData.street.length < 8){
+                                alert('A morada tem de conter no mínimo 8 carateres');
+                                reject();
                             }else{
-                                if(newData.localization.length<3){
-                                    alert('A localização tem de conter no mínimo 3 carateres!');
+                                if(!/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]*$/.test(newData.localization)){
+                                    alert('A localização não pode conter certos caratéres especiais');
                                     reject();
+                                }else{
+                                    if(newData.localization.length < 4){
+                                        alert('A localização tem de conter no mínimo 4 carateres');
+                                        reject();
                                     }else{
+                                        if(newData.postalCode.length < 8){
+                                            alert('O código postal tem de conter no mínimo 8 carateres');
+                                            reject();
+                                        }else{
+                                            if(newData.email.length < 6){
+                                                alert('O email tem de conter no mínimo 6 carateres');
+                                                reject();
+                                            }
+                                            else{
+                                                if(!/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(newData.email)){
+                                                    alert('O email não pode conter certos caratéres especiais');
+                                                    reject();
+                                                }else{
                                 return true;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }       
+                                    }
+                                }
                             }
+                        }
                     }
-                }
                 }
             }
         }
     }
+}
 
     showDetails(userID , tin) {
         const { client, invoice } = this.state;
@@ -465,42 +541,13 @@ class User extends React.Component {
                                             this.addInvoice();
                                             }, 1000)
                                         }                                            
-                            }),
-                            onRowUpdate: (newData, oldData) =>
-                                new Promise((resolve, reject) => {
-                                    if(this.testInvoice(newData, resolve, reject)!=true){
-                                    reject();
-                                }else{
-                                                        setTimeout(() => {
-                                                            const dataUpdate = [...invoice];
-                                                            const index = oldData.tableData.id;
-                                                            dataUpdate[index] = newData;
-                                                            this.setState({
-                                                                newDataInvoice: newData
-                                                            });
-                                                            const invoiceID=newData.invoiceId;
-                                                            resolve();
-                                                            this.updateInvoice(invoiceID);
-                                                        }, 1000)
-                                                    }
-                            }),
-                            onRowDelete: oldData =>
-                                new Promise((resolve, reject) => {
-                                    setTimeout(() => {
-                                        const invoiceID = oldData.invoiceId;
-                                        resolve();
-                                        this.deleteInvoice(invoiceID);
-                                    }, 1000)
-                                }),
+                            })
                         }}
                     />
                 </div>
             </div>
         )
     }
-
-        
-
 
     render(){
         const { user } = this.state;
@@ -514,7 +561,6 @@ class User extends React.Component {
             { title: 'Localização', field: 'localization', validate: rowData => rowData.localization === '' ? { isValid: false, helperText: 'A localização não pode ser nulo' } : true, align:"center"},
             { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, validate: rowData => rowData.photo === '' ? { isValid: false, helperText: 'A foto não pode ser nula' } : true, align:"center"},
             { title: 'Email', field: 'email', validate: rowData => rowData.email === '' ? { isValid: false, helperText: 'O email não pode ser nulo' } : true, align:"center"},
-            { title: 'Password', field: 'password', validate: rowData => rowData.password === '' ? { isValid: false, helperText: 'A password não pode ser nula' } : true, align:"center"},
             { title: 'Tipo', field: 'type',  lookup: { 'Administrador': 'Administrador', 'Funcionário': 'Funcionário', 'Cliente':'Cliente' },  align:"center"}
         ];
         const data = user.map((item) => {
@@ -527,21 +573,7 @@ class User extends React.Component {
                     columns={columns}
                     data={data}
                     detailPanel={rowData => this.showDetails(rowData.userId, rowData.tin)}
-                    editable={{
-                        onRowAdd: newData =>
-                        new Promise((resolve, reject) => {
-                            if(this.test(newData, resolve, reject)!=true){
-                                    reject();
-                                }else{
-                                                setTimeout(() => {
-                                                    this.setState({
-                                                        newData: newData
-                                                    });
-                                                    resolve();
-                                                    this.add();
-                                                }, 1000)
-                                            }
-                    }),
+                    editable={{   
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             if(this.test(newData, resolve, reject)!=true){

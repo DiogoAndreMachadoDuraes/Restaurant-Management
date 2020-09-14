@@ -218,7 +218,12 @@ class Reservation extends React.Component {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
         }else{
+            if(newData.price>=0){
+                alert('O preço tem de ser positivo!');
+                reject();
+            }else{
             return true;
+            }
         }
     }
 
@@ -227,8 +232,13 @@ class Reservation extends React.Component {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
         }else{
+            if(newData.quantity>0){
+                alert('A quantidade de pessoas tem de ser maior que 0!');
+                reject();
+            }else{
             return true;
         }
+    }
     }
 
     showDetails(reserveID) {

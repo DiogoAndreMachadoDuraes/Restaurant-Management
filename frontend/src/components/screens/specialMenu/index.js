@@ -247,7 +247,12 @@ class SpecialMenu extends React.Component {
                                 alert('A descrição não é válida!');
                                 reject();
                             }else{
+                                if(newData.price>=0){
+                                    alert('O preço tem de ser positivo!');
+                                    reject();
+                                }else{
                                 return true;
+                                }
                             }
                         }
                     }

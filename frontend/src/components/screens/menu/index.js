@@ -232,10 +232,10 @@ class Menu extends React.Component {
             alert('A quantidade não pode ser negativa nem nula!');
             reject();
             }else{
-                if(Number.isInteger(newData.quantity)==false){
-                    alert('A quantidade tem de ser do tipo inteiro!');
+                if(newData.quantity>0){
+                    alert('A quantidade de pessoas tem de ser maior que 0!');
                     reject();
-                }else{    
+                }else{ 
                     return true;
             }
         }
@@ -250,6 +250,10 @@ class Menu extends React.Component {
                 alert('O nome não é válido!');
                 reject();
             }else{
+                if(newData.price>=0){
+                    alert('O preço tem de ser positivo!');
+                    reject();
+                }else{
                 if(newData.name.length<3){
                     alert('O nome tem de conter no mínimo 3 carateres!');
                     reject();
@@ -271,6 +275,7 @@ class Menu extends React.Component {
                         }
                     }
                 }
+            }
             }
         }
     }
