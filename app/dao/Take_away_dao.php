@@ -49,7 +49,7 @@ class Take_away_dao extends ConnectionDB
     public function Update (Take_away $take_away): void
     {
         $statement = $this->pdo
-            ->prepare('UPDATE Take_away set tipo_entrega:=tipo_entrega , preco=:preco , estado=:estado , id_funcionario=:id_funcionario , id_reserva=:id_reserva Where id_take_away=:id_take_away');
+            ->prepare('UPDATE Take_away set tipo_entrega=:tipo_entrega , preco=:preco , estado=:estado , id_funcionario=:id_funcionario , id_reserva=:id_reserva Where id_take_away=:id_take_away');
         $statement->execute([
             'id_take_away' => $take_away->getid_take_away(),
             'tipo_entrega' => $take_away->gettipo_entrega(),
