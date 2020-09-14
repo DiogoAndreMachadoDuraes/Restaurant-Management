@@ -135,6 +135,7 @@ class Extra extends React.Component {
 
     delete = async (extraID) => {
         let token=localStorage.getItem("token");
+
         try
         {
             let response = await fetch('/Extra', { 
@@ -155,7 +156,7 @@ class Extra extends React.Component {
         }
     }
 
-    addInfo = async () => {
+    addInfo = async (extraId) => {
         const { newDataInfo } = this.state;
 
         let token=localStorage.getItem("token");
@@ -171,19 +172,18 @@ class Extra extends React.Component {
                 body: JSON.stringify({
                     'tipo': newDataInfo.type,
                     'quantidade_nutrientes': newDataInfo.quantity,
-                    /* 'id_produto': newDataInfo.ExtraId,
-                    'id_extra': newDataInfo.extraId */
+                    'id_produto': null,
+                    'id_extra': extraId
                 })
             });
             alert("Coluna inserida com sucesso!");
             window.location.reload();
-            console.log(response);
         } catch(e){
             console.log("Error to Post Info Nutricional: " + e);
         }
     }
 
-    updateInfo = async (infoID) => {
+    updateInfo = async (extraId) => {
         const { newDataInfo } = this.state;
 
         let token=localStorage.getItem("token");
@@ -197,11 +197,11 @@ class Extra extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_info_nutricional': infoID,
+                    'id_info_nutricional': newDataInfo.infoId,
                     'tipo': newDataInfo.type,
                     'quantidade_nutrientes': newDataInfo.quantity,
-                    /* 'id_produto': newDataInfo.ExtraId,
-                    'id_extra': newDataInfo.extraId */
+                    'id_produto': newDataInfo.productId,
+                    'id_extra': extraId
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -213,6 +213,7 @@ class Extra extends React.Component {
 
     deleteInfo = async (infoID) => {
         let token=localStorage.getItem("token");
+
         try
         {
             let response = await fetch('/Info_nutricional', { 
@@ -233,7 +234,7 @@ class Extra extends React.Component {
         }
     }
 
-    addAller = async () => {
+    addAller = async (extraId) => {
         const { newDataAller } = this.state;
 
         let token=localStorage.getItem("token");
@@ -248,10 +249,10 @@ class Extra extends React.Component {
                 },
                 body: JSON.stringify({
                     'tipo': newDataAller.type,
-                    'descicao': newDataAller.description,
+                    'descricao': newDataAller.description,
                     'foto': newDataAller.photo,
-                    /*'id_extra': newDataInfo.extraId,
-                    'id_produto': newDataInfo.ExtraId */
+                    'id_extra': extraId,
+                    'id_produto': null
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -261,7 +262,7 @@ class Extra extends React.Component {
         }
     }
 
-    updateAller = async (allerID) => {
+    updateAller = async (extraId) => {
         const { newDataAller } = this.state;
 
         let token=localStorage.getItem("token");
@@ -275,12 +276,12 @@ class Extra extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_alergenio': allerID,
+                    'id_alergenio': newDataAller.allerId,
                     'tipo': newDataAller.type,
-                    'descicao': newDataAller.description,
+                    'descricao': newDataAller.description,
                     'foto': newDataAller.photo,
-                    /*'id_extra': newDataInfo.extraId,
-                    'id_produto': newDataInfo.ExtraId */
+                    'id_extra': extraId,
+                    'id_produto': newDataAller.productId
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -292,6 +293,7 @@ class Extra extends React.Component {
 
     deleteAller = async (allerID) => {
         let token=localStorage.getItem("token");
+
         try
         {
             let response = await fetch('/Alergenio', { 
@@ -374,7 +376,7 @@ class Extra extends React.Component {
         ];
         const infoExtra=info.filter(a=>a.id_extra==extraId).map(a=>a);
         const dataInfo = infoExtra.map((item) => {
-            return { infoId: item.id_info_nutricional, type: item.tipo, quantity: item.quantidade_nutrientes};
+            return { infoId: item.id_info_nutricional, type: item.tipo, quantity: item.quantidade_nutrientes, productId: item.id_produto};
         });;
         const columnsAller= [
             { 
@@ -393,7 +395,7 @@ class Extra extends React.Component {
         ];
         const allerExtra=aller.filter(a=>a.id_extra==extraId).map(a=>a);
         const dataAller= allerExtra.map((item) => {
-            return { allerId: item.id_alergenio, type: item.tipo, description: item.descricao, photo: item.foto};
+            return { allerId: item.id_alergenio, type: item.tipo, description: item.descricao, photo: item.foto, productId: item.id_produto};
         });;
         return (
             <div style={{ marginTop: 20, marginLeft: 20, marginBottom: 20, marginInlineEnd: 20}}>
@@ -412,7 +414,7 @@ class Extra extends React.Component {
                                             newDataInfo: newData
                                         });
                                         resolve();
-                                        this.add();
+                                        this.addInfo(extraId);
                                     }, 100)
                                 }
                             }
@@ -429,9 +431,8 @@ class Extra extends React.Component {
                                         this.setState({
                                             newDataInfo: newData
                                         });
-                                        const infoID=newData.infoID;
                                         resolve();
-                                        this.update(infoID);
+                                        this.updateInfo(extraId);
                                     }, 1000)
                                 }
                             }
@@ -463,7 +464,7 @@ class Extra extends React.Component {
                                                 newDataAller: newData
                                             });
                                             resolve();
-                                            this.addAller();
+                                            this.addAller(extraId);
                                         }, 1000)
                                     }
                                 }
@@ -480,9 +481,8 @@ class Extra extends React.Component {
                                             this.setState({
                                                 newDataAller: newData
                                             });
-                                            const allerID=newData.allerID;
                                             resolve();
-                                            this.updateAller(allerID);
+                                            this.updateAller(extraId);
                                         }, 1000)
                                     }
                                 }

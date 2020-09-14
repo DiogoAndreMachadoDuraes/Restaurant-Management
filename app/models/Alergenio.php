@@ -8,8 +8,8 @@ namespace App\Models;
         private string $tipo;
         private string $descricao;
         private string $foto;
-        private int $id_extra;
-        private int $id_produto;
+        private $id_extra;
+        private $id_produto;
 
         //get e set id alergenio
         public function getid_alergenio() :int
@@ -56,22 +56,22 @@ namespace App\Models;
         }
 
         //get e set id_extra
-        public function getid_extra(): int
+        public function getid_extra()
         {
             return $this->id_extra;
         }
-        public function setid_extra(int $id_extra): self
+        public function setid_extra($id_extra): self
         {
             $this->id_extra = $id_extra;
             return $this;
         }
 
         //get e set id_produto
-        public function getid_produto(): int
+        public function getid_produto()
         {
             return $this->id_produto;
         }
-        public function setid_produto(int $id_produto): self
+        public function setid_produto($id_produto): self
         {
             $this->id_produto = $id_produto;
             return $this;
