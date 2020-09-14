@@ -222,7 +222,7 @@ class Reservation extends React.Component {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
         }else{
-            if(moment.duration(moment(newData.date,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asDays()<2){
+            if(moment.duration(moment(newData.date,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asDays()>2){
                 alert('Não pode fazer uma reserva em menos de 2 dias de antecedência!');
                 reject();
             }else{
@@ -332,10 +332,11 @@ class Reservation extends React.Component {
             { title: 'Hora', field: 'hour', validate: rowData => rowData.hour <= 0 ? { isValid: false, helperText: 'A hora não pode ser nula' } : true, align:"center"},
             { title: 'Número de pessoas', field: 'quantity', validate: rowData => rowData.quantity < 0 ? { isValid: false, helperText: 'O número de pessoas não pode ser nulo' } : true, type: "numeric", align:"center"},            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"},
             { title: 'Data marcada', field: 'pointDate', validate: rowData => rowData.pointDate <= 0 ? { isValid: false, helperText: 'A data marcada não pode ser nula' } : true, align:"center"},
-            { title: 'Hora marcada', field: 'pointHour', validate: rowData => rowData.pointHour <= 0 ? { isValid: false, helperText: 'A hora marcada não pode ser nula' } : true, align:"center"}   
+            { title: 'Hora marcada', field: 'pointHour', validate: rowData => rowData.pointHour <= 0 ? { isValid: false, helperText: 'A hora marcada não pode ser nula' } : true, align:"center"},   
+            { title: 'Estado', field: 'status',  lookup: { 'Em processamento': 'Em processamento', 'Em análise': 'Em análise', 'Concluído':'Concluído' },  align:"center"}
         ];
         const data = reserve.map((item) => {
-            return { reserveId: item.id_reserva, date: item.data, hour: item.hora, quantity: item.quantidade_pessoas, pointDate: item.data_marcada, pointHour: item.hora_marcada, clienteId: item.id_cliente};
+            return { reserveId: item.id_reserva, date: item.data, hour: item.hora, quantity: item.quantidade_pessoas, pointDate: item.data_marcada, pointHour: item.hora_marcada, status:item.estado, clienteId: item.id_cliente};
         });;
         return (
             <StructurePage table={

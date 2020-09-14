@@ -244,7 +244,7 @@ class Menu extends React.Component {
                 alert('O nome não é válido!');
                 reject();
             }else{
-                if(newData.price>=0){
+                if(newData.price<=0){
                     alert('O preço tem de ser positivo!');
                     reject();
                 }else{
