@@ -13,7 +13,9 @@ class Reservation extends React.Component {
             reserve:[],
             newData:[],
             takeAway:[],
-            newDataTakeAway:[]
+            newDataTakeAway:[],
+            invoice:[],
+            newDataInvoice:[]
         }
     }
 
@@ -36,6 +38,25 @@ class Reservation extends React.Component {
         } catch(e){
             console.log("Error to get Reservation: " + e);
         }
+
+        try {
+            let response = await fetch('/Fatura', 
+            { 
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            let res = await response.json();
+            console.log(res);
+            this.setState({ 
+                invoice: res
+            });
+        } catch(e){
+            console.log("Error to get Invoice: " + e);
+        }
+
     
         try {
             let response = await fetch('/Take_away', 
@@ -55,34 +76,6 @@ class Reservation extends React.Component {
             console.log("Error to get Take Away: " + e);
         }
 }
-
-    add = async () => {
-        const { newData } = this.state;
-        let token=localStorage.getItem("token");
-        try
-        {
-            let response = await fetch('/Reserva', { 
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'data': newData.date,
-                    'hora': newData.hour,
-                    'quantidade_pessoas': newData.quantity,
-                    'data_marcada': newData.pointDate,
-                    'hora_marcada': newData.pointHour,
-                    'estado': newData.status
-                })
-            });
-            alert("Coluna inserida com sucesso!");
-            window.location.reload();
-        } catch(e){
-            console.log("Error to Post Reserva: " + e);
-        }
-    }
 
     update = async (reserveID) => {
         const { newData } = this.state;
@@ -213,6 +206,34 @@ class Reservation extends React.Component {
         }
     }
 
+    addInvoice = async () => {
+        const { newDataInvoice } = this.state;
+        let token=localStorage.getItem("token");
+        try
+        {
+            let response = await fetch('/Fatura', { 
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'iva': newDataInvoice.iva,
+                    'taxa': newDataInvoice.tax,
+                    'valor_total': newDataInvoice.totalValue,
+                    'nif_cliente': newDataInvoice.tin,
+                    /* 'id_reserva': newDataInvoice.invoiceId,*/
+                })
+            });
+            alert("Coluna inserida com sucesso!");
+            window.location.reload();
+            console.log(response);
+        } catch(e){
+            console.log("Error to Post Fatura: " + e);
+        }
+    }
+
     testTakeAway(newData, resolve, reject){
         if(newData.type==null || newData.price==null || newData.status==null){
             alert('Nenhum dos valores inseridos pode ser nulo!');
@@ -242,7 +263,7 @@ class Reservation extends React.Component {
     }
 
     showDetails(reserveID) {
-        const { takeAway } = this.state;
+        const { takeAway, invoice } = this.state;
         const columnsTakeAway= [
             { title: 'Tipo de Entrega', field: 'type',  lookup: { 'Domicílio': 'Domicílio', 'Restaurente': 'Restaurante'},  align:"center"},
             { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price < 0 ? { isValid: false, helperText: 'O preço não pode ser nulo' } : true, type: "numeric", align:"center"},
@@ -251,6 +272,17 @@ class Reservation extends React.Component {
         const takeReservation=takeAway.filter(a=>a.id_reserva==reserveID).map(a=>a);
         const dataTakeAway = takeReservation.map((item) => {
             return { takeAwayId: item.id_take_away, type: item.tipo_entrega, price: item.preco, status: item.estado };
+        });;
+        const columnsInvoice= [
+            { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? { isValid: false, helperText: 'O iva não pode ser nulo' } : true , align:"center"},
+            { title: 'Taxa', field: 'tax', validate: rowData => rowData.tax === '' ? { isValid: false, helperText: 'A taxa não pode ser nula' } : true , align:"center"},
+            { title: 'Valor total €', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? { isValid: false, helperText: 'O valor total não pode ser nulo' } : true , align:"center"},
+            { title: 'Nif do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ?{ isValid: false, helperText: 'O nif do cliente não pode ser nulo' } : true, align:"center"}
+        ];
+        const invoiceUser=invoice.filter(a=>a.id_reserva==reserveID).map(a=>a);
+        console.log(invoiceUser);
+        const dataInvoice= invoiceUser.map((item) => {
+            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, totalValue: item.valor_total, tin: item.nif_cliente};
         });;
     
     return (
@@ -302,8 +334,31 @@ class Reservation extends React.Component {
                         }),
                 }}
             />
-        </div>
-    )
+<div style={{ marginTop: 20}}>
+<SecoundTable
+    title="Tabela das Faturas"
+    columns={columnsInvoice}
+    data={dataInvoice}
+    editable={{
+        onRowAdd: newData =>
+            new Promise((resolve, reject) => {
+                if(this.testInvoice(newData, resolve, reject)!=true){
+                reject();
+            }else{
+                        setTimeout(() => {
+                        this.setState({
+                        newDataInvoice: newData
+                        });
+                        resolve();
+                        this.addInvoice();
+                        }, 1000)
+                    }                                            
+        })
+    }}
+/>
+</div>
+</div>
+)
 }
     
     render(){
@@ -325,20 +380,6 @@ class Reservation extends React.Component {
                     data={data}
                     detailPanel={rowData => this.showDetails(rowData.reserveId)}
                     editable={{
-                        onRowAdd: newData =>
-                        new Promise((resolve, reject) => {
-                            if(this.test(newData, resolve, reject)!=true){
-                                    reject();
-                                }else{
-                                                setTimeout(() => {
-                                                    this.setState({
-                                                        newData: newData
-                                                    });
-                                                    resolve();
-                                                    this.add();
-                                                }, 1000)   
-                            }
-                    }),
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve, reject) => {
                             if(this.test(newData, resolve, reject)!=true){

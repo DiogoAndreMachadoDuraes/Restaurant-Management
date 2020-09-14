@@ -6,7 +6,6 @@ import {StructurePage} from "../../StructurePage";
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-
 class User extends React.Component {
     constructor(props){
         super(props);
@@ -14,15 +13,13 @@ class User extends React.Component {
             user:[],
             newData:[],
             client:[],
-            newDataClient:[],
-            invoice:[],
-            newDataInvoice:[]
+            newDataClient:[]
         }
     }
 
-    async componentDidMount (){ 
-        console.log("Mounting the screen User...");
-        let token=localStorage.getItem("token");
+async componentDidMount (){ 
+    console.log("Mounting the screen User...");
+    let token=localStorage.getItem("token");
         try {
             let response = await fetch('/Utilizador', { 
                 headers: {
@@ -38,8 +35,8 @@ class User extends React.Component {
             console.log(json);
         } catch(e){
             console.log("Error to get User: " + e);
-        }
-    
+    }
+
         try {
             let response = await fetch('/Cliente', 
             { 
@@ -77,40 +74,6 @@ class User extends React.Component {
         }
 }
 
-    add = async () => {
-        const { newData } = this.state;
-        let token=localStorage.getItem("token");
-        try
-        {
-            let response = await fetch('/Utilizador', { 
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'nif': newData.tin,
-                    'nome': newData.name,
-                    'data_nascimento': newData.dateBirth,
-                    'sexo': newData.sex,
-                    'telefone': newData.telephone,
-                    'rua': newData.street,
-                    'codigo_postal': newData.postalCode,
-                    'localizacao': newData.localization,
-                    'foto': newData.photo,
-                    'email': newData.email,
-                    'password': newData.password,
-                    'tipo': newData.price
-                })
-            });
-            alert("Coluna inserida com sucesso!");
-            window.location.reload();
-        } catch(e){
-            console.log("Error to Post User: " + e);
-        }
-    }
-
     update = async (userID) => {
         const { newData } = this.state;
         let token=localStorage.getItem("token");
@@ -124,7 +87,7 @@ class User extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_utilizador': newData.userID,
+                    'id_utilizador': userID,
                     'nif': newData.tin,
                     'nome': newData.name,
                     'data_nascimento': newData.dateBirth,
@@ -168,7 +131,7 @@ class User extends React.Component {
         }
     }
 
-    addClient = async () => {
+    addClient = async (userID) => {
         const { newDataClient } = this.state;
         let token=localStorage.getItem("token");
         try
@@ -183,7 +146,7 @@ class User extends React.Component {
                 body: JSON.stringify({
                     'numero_cartao': newDataClient.cardNumber,
                     'numero_compras': newDataClient.shopNumber,
-                    /* 'id_utilizador': newDataClient.clientId,*/
+                    'id_utilizador': userID
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -194,7 +157,7 @@ class User extends React.Component {
         }
     }
 
-    updateClient = async (clientID) => {
+    updateClient = async (clientID, userID) => {
         const { newDataClient } = this.state;
         let token=localStorage.getItem("token");
         try
@@ -210,7 +173,7 @@ class User extends React.Component {
                     'id_cliente': clientID,
                     'numero_cartao': newDataClient.cardNumber,
                     'numero_compras': newDataClient.shopNumber,
-                    /* 'id_utilizador': newDataClient.clientId,*/
+                    'id_utilizador': userID
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -239,84 +202,6 @@ class User extends React.Component {
             window.location.reload();
         } catch(e){
             console.log("Error to Delete Cliente: " + e);
-        }
-    }
-
-    addInvoice = async () => {
-        const { newDataInvoice } = this.state;
-        let token=localStorage.getItem("token");
-        try
-        {
-            let response = await fetch('/Fatura', { 
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'iva': newDataInvoice.iva,
-                    'taxa': newDataInvoice.tax,
-                    'valor_total': newDataInvoice.totalValue,
-                    'nif_cliente': newDataInvoice.tin,
-                    /* 'id_reserva': newDataInvoice.invoiceId,*/
-                })
-            });
-            alert("Coluna inserida com sucesso!");
-            window.location.reload();
-            console.log(response);
-        } catch(e){
-            console.log("Error to Post Fatura: " + e);
-        }
-    }
-
-    updateInvoice = async (invoiceID) => {
-        const { newDataInvoice } = this.state;
-        let token=localStorage.getItem("token");
-        try
-        {
-            let response = await fetch('/Fatura', { 
-                method: 'PUT',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'id_fatura': invoiceID,
-                    'iva': newDataInvoice.iva,
-                    'taxa': newDataInvoice.tax,
-                    'valor_total': newDataInvoice.totalValue,
-                    'nif_cliente': newDataInvoice.tin,
-                    /* 'id_reserva': newDataInvoice.invoiceId,*/
-                })
-            });
-            alert("Coluna modificada com sucesso!");
-            window.location.reload();
-        } catch(e){
-            console.log("Error to Put Fatura: " + e);
-        }
-    }
-
-    deleteInvoice = async (invoiceID) => {
-        let token=localStorage.getItem("token");
-        try
-        {
-            let response = await fetch('/Fatura', { 
-                method: 'DELETE',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'id_fatura': invoiceID
-                })
-            });
-            alert("Coluna eliminada com sucesso!");
-            window.location.reload();
-        } catch(e){
-            console.log("Error to Delete Fatura: " + e);
         }
     }
 
@@ -387,8 +272,8 @@ class User extends React.Component {
                         alert('O registo tem de ser acessado pela idade maior ou iguala 18 anos');
                         reject();
                     }else{
-                        if(newData.tin.length==9){
-                            alert('O nif tem de conter no mínimo 9 carateres!');
+                        if(newData.tin.length==8){
+                            alert('O nif tem de 8 carateres!');
                             reject();
                         }else{
                             if(!/^[0-9+]*$/.test(newData.telephone)){
@@ -450,8 +335,8 @@ class User extends React.Component {
     }
 }
 
-    showDetails(userID , tin) {
-        const { client, invoice } = this.state;
+    showDetails(userID) {
+        const { client } = this.state;
         const columnsClient= [
             { title: 'Número de Cartão', field: 'shopNumber', validate: rowData => rowData.shopNumber <= 0 ? { isValid: false, helperText: 'O cartão de cliente não pode ser nulo' } : true, type: "numeric", align:"center"},
             { title: 'Número de Compras', field: 'cardNumber', validate: rowData => rowData.cardNumber < 0 ? { isValid: false, helperText: 'O número de compras não pode ser nulo' } : true, type: "numeric", align:"center"}
@@ -459,18 +344,6 @@ class User extends React.Component {
         const clientUser=client.filter(a=>a.id_utilizador==userID).map(a=>a);
         const dataClient = clientUser.map((item) => {
             return { clientId: item.id_cliente, cardNumber: item.numero_cartao, shopNumber: item.numero_compras};
-        });;
-
-        const columnsInvoice= [
-            { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? { isValid: false, helperText: 'O iva não pode ser nulo' } : true , align:"center"},
-            { title: 'Taxa', field: 'tax', validate: rowData => rowData.tax === '' ? { isValid: false, helperText: 'A taxa não pode ser nula' } : true , align:"center"},
-            { title: 'Valor total €', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? { isValid: false, helperText: 'O valor total não pode ser nulo' } : true , align:"center"},
-            { title: 'Nif do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ?{ isValid: false, helperText: 'O nif do cliente não pode ser nulo' } : true, align:"center"}
-        ];
-        const invoiceUser=invoice.filter(a=>a.nif_cliente==tin).map(a=>a);
-        console.log(invoiceUser);
-        const dataInvoice= invoiceUser.map((item) => {
-            return { invoiceId: item.id_fatura, iva: item.iva, tax: item.taxa, totalValue: item.valor_total, tin: item.nif_cliente};
         });;
     
     return (
@@ -522,29 +395,6 @@ class User extends React.Component {
                         }),
                     }}
                 />
-                <div style={{ marginTop: 20}}>
-                    <SecoundTable
-                        title="Fatura"
-                        columns={columnsInvoice}
-                        data={dataInvoice}
-                        editable={{
-                            onRowAdd: newData =>
-                                new Promise((resolve, reject) => {
-                                    if(this.testInvoice(newData, resolve, reject)!=true){
-                                    reject();
-                                }else{
-                                            setTimeout(() => {
-                                            this.setState({
-                                            newDataInvoice: newData
-                                            });
-                                            resolve();
-                                            this.addInvoice();
-                                            }, 1000)
-                                        }                                            
-                            })
-                        }}
-                    />
-                </div>
             </div>
         )
     }
