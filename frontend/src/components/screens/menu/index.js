@@ -226,7 +226,7 @@ class Menu extends React.Component {
             alert('A quantidade não pode ser negativa nem nula!');
             reject();
             }else{
-                if(newData.quantity>0){
+                if(newData.quantity<=0){
                     alert('A quantidade de pessoas tem de ser maior que 0!');
                     reject();
                 }else{ 
@@ -244,7 +244,7 @@ class Menu extends React.Component {
                 alert('O nome não é válido!');
                 reject();
             }else{
-                if(newData.price<=0){
+                if(newData.price<0){
                     alert('O preço tem de ser positivo!');
                     reject();
                 }else{

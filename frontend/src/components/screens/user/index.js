@@ -231,12 +231,12 @@ class User extends React.Component {
                 alert('A taxa tem de conter no mínimo 3 carateres!');
                 reject();
             }else{
-                if(newData.iva>=0){
+                if(newData.iva<=0){
                     alert('O iva tem de ser positivo!');
                     reject();
                 }else{
-                    if(newData.totalValue>=0){
-                        alert('O valor total tem de conter no mínimo 3 carateres!');
+                    if(newData.totalValue<=0){
+                        alert('O valor total tem de ser positivo!');
                         reject();
                     }else{
                         if(newData.tin.length==9){

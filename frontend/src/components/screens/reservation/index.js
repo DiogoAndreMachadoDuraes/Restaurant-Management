@@ -208,7 +208,7 @@ class Reservation extends React.Component {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
         }else{
-            if(newData.price>=0){
+            if(newData.price<0){
                 alert('O preço tem de ser positivo!');
                 reject();
             }else{
@@ -226,7 +226,7 @@ class Reservation extends React.Component {
                 alert('Não pode fazer uma reserva em menos de 2 dias de antecedência!');
                 reject();
             }else{
-                if(newData.quantity>0){
+                if(newData.quantity<0){
                     alert('A quantidade de pessoas tem de ser maior que 0!');
                     reject();
                 }else{
@@ -330,7 +330,7 @@ class Reservation extends React.Component {
         const columns= [
             { title: 'Data', field: 'date', validate: rowData => rowData.date <= 0 ? { isValid: false, helperText: 'A data não pode ser nula' } : true, align:"center"},
             { title: 'Hora', field: 'hour', validate: rowData => rowData.hour <= 0 ? { isValid: false, helperText: 'A hora não pode ser nula' } : true, align:"center"},
-            { title: 'Número de pessoas', field: 'quantity', validate: rowData => rowData.quantity < 0 ? { isValid: false, helperText: 'O número de pessoas não pode ser nulo' } : true, type: "numeric", align:"center"},            { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, align:"center"},
+            { title: 'Número de pessoas', field: 'quantity', validate: rowData => rowData.quantity < 0 ? { isValid: false, helperText: 'O número de pessoas não pode ser nulo' } : true, type: "numeric", align:"center"},            
             { title: 'Data marcada', field: 'pointDate', validate: rowData => rowData.pointDate <= 0 ? { isValid: false, helperText: 'A data marcada não pode ser nula' } : true, align:"center"},
             { title: 'Hora marcada', field: 'pointHour', validate: rowData => rowData.pointHour <= 0 ? { isValid: false, helperText: 'A hora marcada não pode ser nula' } : true, align:"center"},   
             { title: 'Estado', field: 'status',  lookup: { 'Em processamento': 'Em processamento', 'Em análise': 'Em análise', 'Concluído':'Concluído' },  align:"center"}
