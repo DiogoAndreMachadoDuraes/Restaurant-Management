@@ -157,7 +157,7 @@ class Product extends React.Component {
         }
     }
 
-    addInfo = async () => {
+    addInfo = async (productId) => {
         const { newDataInfo } = this.state;
 
         let token=localStorage.getItem("token");
@@ -173,8 +173,8 @@ class Product extends React.Component {
                 body: JSON.stringify({
                     'tipo': newDataInfo.type,
                     'quantidade_nutrientes': newDataInfo.quantity,
-                    /* 'id_produto': newDataInfo.productId,
-                    'id_extra': newDataInfo.extraId */
+                    'id_produto': productId,
+                    'id_extra': null
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -184,10 +184,8 @@ class Product extends React.Component {
         }
     }
 
-    updateInfo = async (infoID, productId) => {
+    updateInfo = async (productId) => {
         const { newDataInfo } = this.state;
-        console.log(productId);
-        console.log(infoID);
 
         let token=localStorage.getItem("token");
         try
@@ -200,11 +198,11 @@ class Product extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_info_nutricional': infoID,
+                    'id_info_nutricional': newDataInfo.infoId,
                     'tipo': newDataInfo.type,
                     'quantidade_nutrientes': newDataInfo.quantity,
                     'id_produto': productId,
-                    'id_extra': 0
+                    'id_extra': newDataInfo.extraId
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -236,9 +234,8 @@ class Product extends React.Component {
         }
     }
 
-    addAller = async () => {
+    addAller = async (productId) => {
         const { newDataAller } = this.state;
-
         let token=localStorage.getItem("token");
         try
         {
@@ -251,10 +248,10 @@ class Product extends React.Component {
                 },
                 body: JSON.stringify({
                     'tipo': newDataAller.type,
-                    'descicao': newDataAller.description,
+                    'descricao': newDataAller.description,
                     'foto': newDataAller.photo,
-                    /*'id_extra': newDataInfo.extraId,
-                    'id_produto': newDataInfo.productId */
+                    'id_extra': null,
+                    'id_produto': productId
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -264,9 +261,8 @@ class Product extends React.Component {
         }
     }
 
-    updateAller = async (allerID) => {
+    updateAller = async (productId) => {
         const { newDataAller } = this.state;
-
         let token=localStorage.getItem("token");
         try
         {
@@ -278,12 +274,12 @@ class Product extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_alergenio': allerID,
+                    'id_alergenio': newDataAller.allerId,
                     'tipo': newDataAller.type,
-                    'descicao': newDataAller.description,
+                    'descricao': newDataAller.description,
                     'foto': newDataAller.photo,
-                    /*'id_extra': newDataInfo.extraId,
-                    'id_produto': newDataInfo.productId */
+                    'id_extra': newDataAller.extraId,
+                    'id_produto': productId
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -353,11 +349,11 @@ class Product extends React.Component {
                         reject();
                     }else{
                         if(newData.description.length<5){
-                            alert('Tipo tem de conter no mínimo 3 carateres!');
+                            alert('A descrição tem de ter no mínimo 5 carateres!');
                             reject();
                         }else{
                             if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.description)) {
-                                alert('O tipo não é válido!');
+                                alert('A descrição não é válida!');
                                 reject();
                             }else{
                                 return true;
@@ -377,7 +373,7 @@ class Product extends React.Component {
         ];
         const infoProduct=info.filter(a=>a.id_produto==productId).map(a=>a);
         const dataInfo = infoProduct.map((item) => {
-            return { infoId: item.id_info_nutricional, type: item.tipo, quantity: item.quantidade_nutrientes};
+            return { infoId: item.id_info_nutricional, type: item.tipo, quantity: item.quantidade_nutrientes, extraId: item.id_extra};
         });;
         const columnsAller= [
             { 
@@ -391,7 +387,7 @@ class Product extends React.Component {
         ];
         const allerProduct=aller.filter(a=>a.id_produto==productId).map(a=>a);
         const dataAller= allerProduct.map((item) => {
-            return { allerId: item.id_alergenio, type: item.tipo, description: item.descricao, photo: item.foto};
+            return { allerId: item.id_alergenio, type: item.tipo, description: item.descricao, photo: item.foto, extraId: item.id_extra};
         });;
         return (
             <div style={{ marginTop: 20, marginLeft: 20, marginBottom: 20, marginInlineEnd: 20}}>
@@ -410,7 +406,7 @@ class Product extends React.Component {
                                             newDataInfo: newData
                                         });
                                         resolve();
-                                        this.add(productId);
+                                        this.addInfo(productId);
                                     }, 100)
                                 }
                             }    
@@ -427,9 +423,8 @@ class Product extends React.Component {
                                         this.setState({
                                             newDataInfo: newData
                                         });
-                                        const infoID=newData.infoID;
                                         resolve();
-                                        this.update(infoID, productId);
+                                        this.updateInfo(productId);
                                     }, 1000)
                                 }
                             }
@@ -460,7 +455,7 @@ class Product extends React.Component {
                                                 newDataAller: newData
                                             });
                                             resolve();
-                                            this.addAller();
+                                            this.addAller(productId);
                                         }, 1000)
                                     }
                                 }
@@ -477,9 +472,8 @@ class Product extends React.Component {
                                             this.setState({
                                                 newDataAller: newData
                                             });
-                                            const allerID=newData.allerID;
                                             resolve();
-                                            this.updateAller(allerID);
+                                            this.updateAller(productId);
                                         }, 1000)
                                     }
                                 }

@@ -41,6 +41,28 @@ class Header extends Component{
             open: false
         }
     }
+    async componentDidMount (){
+        try{
+            let photo=await localStorage.getItem("photo");
+            if (photo !== null) {
+                this.setState({
+                    photo: photo
+                });
+            }
+        }catch (e) {
+            console.log("Error rending photo: " + e);
+        }
+        try {
+            let name=await localStorage.getItem("name");
+            if (name !== null) {
+                this.setState({
+                    name: name
+                });
+            }
+        }catch (e) {
+        console.log("Error rending name: " + e);
+        }
+    }
     goAccount(){
         this.props.history.push("/account");
     }
@@ -56,22 +78,9 @@ class Header extends Component{
     handleClickAway = () => {
         this.setState({open: false});
     }
-    /*getData = async () =>{
-        let name=await localStorage.getItem("name");
-        let photo=await localStorage.getItem("photo");
-        console.log(name);
-        console.log(name);
-        this.setState({
-            name: name,
-            photo: photo
-        })
-    } */
 
     render(){
-    /*const { name, photo } = this.state;
-        {
-            this.getData();
-        } */
+        const { name, photo } = this.state;
         const { classes } = this.props;
         return (
             <header>
@@ -84,10 +93,10 @@ class Header extends Component{
                             <ClickAwayListener onClickAway={this.handleClickAway}>
                                 <div className={classes.root}>
                                     <li onClick={this.handleClick}>
-                                        <Avatar src="https://www.karacteragency.pt/wp-content/uploads/2016/03/jose-leite-board-1.jpg" className="last"/>
+                                        <Avatar src={photo} className="last"/>
                                     </li>
                                     <li onClick={this.handleClick}>
-                                        <a className="first">José Leite Machado</a>
+                                        <a className="first">{name}</a>
                                     </li>
                                     {
                                         this.state.open ? (

@@ -106,8 +106,7 @@ class Login extends React.Component {
         });
 
         let token = await response.text();
-        localStorage.setItem("token", token);
-        console.log(token);            
+        localStorage.setItem("token", token);          
         try 
         {
           let response = await fetch('/Utilizador', { 
@@ -133,7 +132,7 @@ class Login extends React.Component {
         const name=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
         localStorage.setItem('name', name);
         const photo=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
-        localStorage.setItem('photo', name);
+        localStorage.setItem('photo', photo);
         const user=data.filter(a=>a.email==this.state.email).map(a=>a);
         localStorage.setItem('user', name);
         const type=data.filter(a=>a.email==this.state.email).map(a=>a.tipo);
