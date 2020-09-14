@@ -22,8 +22,7 @@ class User extends React.Component {
 
     async componentDidMount (){ 
         console.log("Mounting the screen User...");
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0xNCAyMDozODo0MiJ9.BbUHpKWZCH-3tcUaCDN0iKhs5saeDwDGnGSQLlqU53c";
+        let token=localStorage.getItem("token");
         try {
             let response = await fetch('/Utilizador', { 
                 headers: {
@@ -80,8 +79,7 @@ class User extends React.Component {
 
     add = async () => {
         const { newData } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Utilizador', { 
@@ -107,6 +105,7 @@ class User extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Post User: " + e);
         }
@@ -114,8 +113,7 @@ class User extends React.Component {
 
     update = async (userID) => {
         const { newData } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Utilizador', { 
@@ -142,13 +140,14 @@ class User extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put User: " + e);
         }
     }
 
     delete = async (userID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Utilizador', { 
@@ -163,6 +162,7 @@ class User extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete User: " + e);
         }
@@ -170,8 +170,7 @@ class User extends React.Component {
 
     addClient = async () => {
         const { newDataClient } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Cliente', { 
@@ -188,6 +187,7 @@ class User extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
             console.log(response);
         } catch(e){
             console.log("Error to Post Cliente: " + e);
@@ -196,8 +196,7 @@ class User extends React.Component {
 
     updateClient = async (clientID) => {
         const { newDataClient } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Cliente', { 
@@ -215,13 +214,14 @@ class User extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Cliente: " + e);
         }
     }
 
     deleteClient = async (clientID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Cliente', { 
@@ -236,6 +236,7 @@ class User extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Cliente: " + e);
         }
@@ -243,8 +244,7 @@ class User extends React.Component {
 
     addInvoice = async () => {
         const { newDataInvoice } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Fatura', { 
@@ -263,6 +263,7 @@ class User extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
             console.log(response);
         } catch(e){
             console.log("Error to Post Fatura: " + e);
@@ -271,8 +272,7 @@ class User extends React.Component {
 
     updateInvoice = async (invoiceID) => {
         const { newDataInvoice } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Fatura', { 
@@ -292,13 +292,14 @@ class User extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Fatura: " + e);
         }
     }
 
     deleteInvoice = async (invoiceID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Fatura', { 
@@ -313,6 +314,7 @@ class User extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Fatura: " + e);
         }
@@ -329,7 +331,7 @@ class User extends React.Component {
     }
 
     testInvoice(newData, resolve, reject){
-        if(newData.iva==null || newData.tax==null || newData.valueTotal==null || newData.tin==null) {
+        if(newData.iva==null || newData.tax==null || newData.totalValue==null || newData.tin==null) {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
         }
@@ -360,7 +362,7 @@ class User extends React.Component {
                             reject();
                             }else{
                                 if(newData.localization.length<3){
-                                    alert('A rua tem de conter no mínimo 3 carateres!');
+                                    alert('A localização tem de conter no mínimo 3 carateres!');
                                     reject();
                                     }else{
                                 return true;
@@ -386,7 +388,7 @@ class User extends React.Component {
         const columnsInvoice= [
             { title: 'Iva', field: 'iva', validate: rowData => rowData.iva === '' ? { isValid: false, helperText: 'O iva não pode ser nulo' } : true , align:"center"},
             { title: 'Taxa', field: 'tax', validate: rowData => rowData.tax === '' ? { isValid: false, helperText: 'A taxa não pode ser nula' } : true , align:"center"},
-            { title: 'Valor total', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? { isValid: false, helperText: 'O valor total não pode ser nulo' } : true , align:"center"},
+            { title: 'Valor total €', field: 'totalValue', validate: rowData => rowData.totalValue === '' ? { isValid: false, helperText: 'O valor total não pode ser nulo' } : true , align:"center"},
             { title: 'Nif do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ?{ isValid: false, helperText: 'O nif do cliente não pode ser nulo' } : true, align:"center"}
         ];
         const invoiceUser=invoice.filter(a=>a.nif_cliente==tin).map(a=>a);
@@ -428,7 +430,7 @@ class User extends React.Component {
                                                 this.setState({
                                                     newDataClient: newData
                                                 });
-                                                const clientID=newData.clientID;
+                                                const clientID=newData.clientId;
                                                 resolve();
                                                 this.updateClient(clientID);
                                             }, 1000)
@@ -476,7 +478,7 @@ class User extends React.Component {
                                                             this.setState({
                                                                 newDataInvoice: newData
                                                             });
-                                                            const invoiceID=newData.invoiceID;
+                                                            const invoiceID=newData.invoiceId;
                                                             resolve();
                                                             this.updateInvoice(invoiceID);
                                                         }, 1000)
@@ -502,7 +504,6 @@ class User extends React.Component {
 
     render(){
         const { user } = this.state;
-        const {classes} = this.props;
         const columns= [
             { title: 'NIF do Cliente', field: 'tin', validate: rowData => rowData.tin === '' ? { isValid: false, helperText: 'O nif do cliente não pode ser nulo' } : true, align:"center"},
             { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? { isValid: false, helperText: 'O nome não pode ser nulo' } : true, align:"center"},
@@ -519,7 +520,6 @@ class User extends React.Component {
         const data = user.map((item) => {
             return { userId: item.id_utilizador, tin: item.nif, name: item.nome, dateBirth: item.data_nascimento, sex: item.sexo, telephone: item.telefone, street: item.rua, postalCode: item.codigo_postal, localization: item.localizacao, photo: item.foto, email: item.email, password: item.password, type: item.tipo};
         });;
-        const tableRef = React.createRef();
         return (
             <StructurePage table={
                 <OwnTable 
@@ -593,7 +593,7 @@ class User extends React.Component {
                                                     this.setState({
                                                         newData: newData
                                                     });
-                                                    const userID=newData.userID;
+                                                    const userID=newData.userId;
                                                     resolve();
                                                     this.update(userID);
                                                 }, 1000)
@@ -618,4 +618,5 @@ class User extends React.Component {
         )
     }
 }
+
 export default withRouter(User);

@@ -13,14 +13,14 @@ class Menu extends React.Component {
             menu:[],
             newData:[],
             menuProduct:[],
-            newDataMenuProduct:[]
+            newDataMenuProduct:[],
+            specialMenu: []
         }
     }
 
     async componentDidMount (){ 
         console.log("Mounting the screen Menu...");
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0xNCAyMDozODo0MiJ9.BbUHpKWZCH-3tcUaCDN0iKhs5saeDwDGnGSQLlqU53c";
+        let token=localStorage.getItem("token");
         try {
             let response = await fetch('/Menu', { 
                 headers: {
@@ -55,12 +55,30 @@ class Menu extends React.Component {
         } catch(e){
             console.log("Error to get Menu Product: " + e);
         }
+
+        try {
+            let response = await fetch('/Ementa', 
+            { 
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            let res = await response.json();
+            console.log(res);
+            this.setState({ 
+                specialMenu: res
+            });
+        } catch(e){
+            console.log("Error to get Special Menu: " + e);
+        }
 }
 
     add = async () => {
         const { newData } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        console.log(newData);
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Menu', { 
@@ -79,6 +97,7 @@ class Menu extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Post Menu: " + e);
         }
@@ -86,8 +105,7 @@ class Menu extends React.Component {
 
     update = async (menuID) => {
         const { newData } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Menu', { 
@@ -107,13 +125,14 @@ class Menu extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Menu: " + e);
         }
     }
 
     delete = async (menuID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Menu', { 
@@ -128,6 +147,7 @@ class Menu extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Menu: " + e);
         }
@@ -135,8 +155,7 @@ class Menu extends React.Component {
     
     addMenuProduct = async () => {
         const { newDataMenuProduct } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Produto_menu', { 
@@ -153,6 +172,7 @@ class Menu extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
             console.log(response);
         } catch(e){
             console.log("Error to Post Produto menu: " + e);
@@ -161,8 +181,7 @@ class Menu extends React.Component {
 
     updateMenuProduct = async (menuProductID) => {
         const { newDataMenuProduct } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Produto_menu', { 
@@ -180,13 +199,14 @@ class Menu extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Produto menu: " + e);
         }
     }
 
     deleteMenuProduct = async (menuProductID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Produto_menu', { 
@@ -201,6 +221,7 @@ class Menu extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Produto menu: " + e);
         }
@@ -238,11 +259,11 @@ class Menu extends React.Component {
                         reject();
                     }else{
                         if(newData.description.length<5){
-                            alert('Tipo tem de conter no mínimo 3 carateres!');
+                            alert('A descrição tem de conter no mínimo 5 carateres!');
                             reject();
                         }else{
                             if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.description)) {
-                                alert('O tipo não é válido!');
+                                alert('A descrição não é válida!');
                                 reject();
                             }else{
                                 return true;
@@ -297,7 +318,7 @@ class Menu extends React.Component {
                                                 this.setState({
                                                     newDataMenuProduct: newData
                                                 });
-                                                const menuProductID=newData.menuProductID;
+                                                const menuProductID=newData.menuProductId;
                                                 resolve();
                                                 this.updateMenuProduct(menuProductID);
                                             }, 1000)
@@ -318,19 +339,20 @@ class Menu extends React.Component {
 }
     
     render(){
-        const { menu } = this.state;
-        const {classes} = this.props;
+        const { menu, specialMenu } = this.state;
+        const data = menu.map((item) => {
+            return { menuId: item.id_menu, name: item.nome, description: item.descricao, type: item.tipo, photo: item.foto, price: item.preco, specialMenuId: item.id_ementa};
+        });;
+        const specialMenuName = specialMenu.map(a=>a.tipo);
         const columns= [
             { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? { isValid: false, helperText: 'O nome não pode ser nulo' } : true, align:"center"},
             { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? { isValid: false, helperText: 'A descrição não pode ser nula' } : true, align:"center"},
             { title: 'Tipo', field: 'type',  lookup: { 'Menu Hambúrguer': 'Menu Hambúrguer', 'Pratos de Carne': 'Pratos de Carne', 'Pratos de Peixe':'Pratos de Peixe', 'Menu Pizza':'Menu Pizza', 'Menu Francesinha':'Menu Francesinha', 'Pratos Vegan':'Pratos Vegan', 'Menu Café':'Menu Café' },  align:"center"},
             { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, validate: rowData => rowData.photo === '' ? { isValid: false, helperText: 'A foto não pode ser nula' } : true, align:"center"},
-            { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price <= 0 ? { isValid: false, helperText: 'O preço não pode ser negativo' } : true, type: "numeric", align:"center"}
+            { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price <= 0 ? { isValid: false, helperText: 'O preço não pode ser negativo' } : true, type: "numeric", align:"center"},
+            { title: 'Ementa correspondente', field: 'specialMenuId',  lookup: { 1: specialMenuName[0], 2: specialMenuName[1], 3: specialMenuName[2], 4: specialMenuName[3], 5: specialMenuName[4] },  align:"center"},
         ];
-        const data = menu.map((item) => {
-            return { menuId: item.id_menu, name: item.nome, description: item.descricao, type: item.tipo, photo: item.foto, price: item.preco};
-        });;
-        const tableRef = React.createRef();
+
         return (
             <StructurePage table={
                 <OwnTable 
@@ -365,7 +387,7 @@ class Menu extends React.Component {
                                                     this.setState({
                                                         newData: newData
                                                     });
-                                                    const menuID=newData.menuID;
+                                                    const menuID=newData.menuId;
                                                     resolve();
                                                     this.update(menuID);
                                                 }, 1000)
@@ -386,4 +408,5 @@ class Menu extends React.Component {
         )
     }
 }
+
 export default withRouter(Menu);

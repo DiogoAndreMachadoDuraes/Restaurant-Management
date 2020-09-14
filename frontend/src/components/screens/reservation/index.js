@@ -19,8 +19,7 @@ class Reservation extends React.Component {
 
     async componentDidMount (){ 
         console.log("Mounting the screen Reservation...");
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0xOCAxOToxNDoxMyJ9.ZecKt8ufjhdDvzorPFg5vnWodF-nvSHUQq64j2ealdA";
+        let token=localStorage.getItem("token");
         try {
             let response = await fetch('/Reserva', { 
                 headers: {
@@ -59,8 +58,7 @@ class Reservation extends React.Component {
 
     add = async () => {
         const { newData } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Reserva', { 
@@ -80,6 +78,7 @@ class Reservation extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Post Reserva: " + e);
         }
@@ -87,8 +86,7 @@ class Reservation extends React.Component {
 
     update = async (reserveID) => {
         const { newData } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Reserva', { 
@@ -109,13 +107,14 @@ class Reservation extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Reserva: " + e);
         }
     }
 
     delete = async (reserveID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Reserva', { 
@@ -130,6 +129,7 @@ class Reservation extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Reserva: " + e);
         }
@@ -137,8 +137,7 @@ class Reservation extends React.Component {
     
     addTakeAway = async () => {
         const { newDataTakeAway} = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Take_away', { 
@@ -157,6 +156,7 @@ class Reservation extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
             console.log(response);
         } catch(e){
             console.log("Error to Post Take Away: " + e);
@@ -165,8 +165,7 @@ class Reservation extends React.Component {
 
     updateTakeAway = async (takeAwayID) => {
         const { newDataTakeAway } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Take_away', { 
@@ -186,13 +185,14 @@ class Reservation extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Take Away: " + e);
         }
     }
 
     deleteTakeAway = async (takeAwayID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Take_away', { 
@@ -207,6 +207,7 @@ class Reservation extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Take Away: " + e);
         }
@@ -275,7 +276,7 @@ class Reservation extends React.Component {
                                                 this.setState({
                                                     newDataTakeAway: newData
                                                 });
-                                                const takeAwayID=newData.takeAwayID;
+                                                const takeAwayID=newData.takeAwayId;
                                                 resolve();
                                                 this.updateTakeAway(takeAwayID);
                                             }, 1000)
@@ -297,7 +298,6 @@ class Reservation extends React.Component {
     
     render(){
         const { reserve } = this.state;
-        const {classes} = this.props;
         const columns= [
             { title: 'Data', field: 'date', validate: rowData => rowData.date <= 0 ? { isValid: false, helperText: 'A data não pode ser nula' } : true, type: "numeric", align:"center"},
             { title: 'Hora', field: 'hour', validate: rowData => rowData.hour <= 0 ? { isValid: false, helperText: 'A hora não pode ser nula' } : true, type: "numeric", align:"center"},
@@ -307,7 +307,6 @@ class Reservation extends React.Component {
         const data = reserve.map((item) => {
             return { reserveId: item.id_reserva, date: item.data, hour: item.hora, quantity: item.quantidade_pessoas, pointDate: item.data_marcada, pointHour: item.hora_marcada};
         });;
-        const tableRef = React.createRef();
         return (
             <StructurePage table={
                 <OwnTable 
@@ -342,7 +341,7 @@ class Reservation extends React.Component {
                                                     this.setState({
                                                         newData: newData
                                                     });
-                                                    const reserveID=newData.reserveID;
+                                                    const reserveID=newData.reserveId;
                                                     resolve();
                                                     this.update(reserveID);
                                                 }, 1000)
@@ -363,4 +362,5 @@ class Reservation extends React.Component {
         )
     }
 }
+
 export default withRouter(Reservation);

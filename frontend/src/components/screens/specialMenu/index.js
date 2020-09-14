@@ -10,7 +10,7 @@ class SpecialMenu extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            buySpecialMenu:[],
+            menuSpecialMenu:[],
             newData:[],
             meal:[],
             newDataMeal:[]
@@ -19,8 +19,7 @@ class SpecialMenu extends React.Component {
 
     async componentDidMount (){ 
         console.log("Mounting the screen Special Menu...");
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0xNCAyMDozODo0MiJ9.BbUHpKWZCH-3tcUaCDN0iKhs5saeDwDGnGSQLlqU53c";
+        let token=localStorage.getItem("token");
         try {
             let response = await fetch('/Ementa', { 
                 headers: {
@@ -31,11 +30,11 @@ class SpecialMenu extends React.Component {
             });
             let json = await response.json();
             this.setState({ 
-                buySpecialMenu: json
+                menuSpecialMenu: json
             });
             console.log(json);
         } catch(e){
-            console.log("Error to get Buy Special Menu: " + e);
+            console.log("Error to get Menu Special Menu: " + e);
         }
     
     try {
@@ -59,8 +58,7 @@ class SpecialMenu extends React.Component {
 
     add = async () => {
         const { newData } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Ementa', { 
@@ -79,26 +77,28 @@ class SpecialMenu extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Post Buy Special Menu: " + e);
         }
     }
 
-    update = async (buySpecialMenuID) => {
+    update = async (specialMenuID) => {
         const { newData } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        console.log(newData);
+        console.log(specialMenuID);
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Ementa', { 
                 method: 'PUT',
                 headers: {
-                    Autentication: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_ementa': buySpecialMenuID,
+                    'id_ementa': specialMenuID,
                     'nome': newData.name,
                     'descricao': newData.description,
                     'tipo': newData.type,
@@ -107,13 +107,14 @@ class SpecialMenu extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
-            console.log("Error to Put Buy Special Menu: " + e);
+            console.log("Error to Put Special Menu: " + e);
         }
     }
 
-    delete = async (buySpecialMenuID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+    delete = async (specialMenuID) => {
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Ementa', { 
@@ -124,19 +125,19 @@ class SpecialMenu extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_ementa': buySpecialMenuID
+                    'id_ementa': specialMenuID
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
-            console.log("Error to Delete Buy Special Menu: " + e);
+            console.log("Error to Delete Special Menu: " + e);
         }
     }
     
     addMeal = async () => {
         const { newDataMeal } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Refeicao_semanal', { 
@@ -155,6 +156,7 @@ class SpecialMenu extends React.Component {
                 })
             });
             alert("Coluna inserida com sucesso!");
+            window.location.reload();
             console.log(response);
         } catch(e){
             console.log("Error to Post Refeição Semanal: " + e);
@@ -163,8 +165,7 @@ class SpecialMenu extends React.Component {
 
     updateMeal = async (mealID) => {
         const { newDataMeal } = this.state;
-
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Refeicao_semanal', { 
@@ -184,13 +185,14 @@ class SpecialMenu extends React.Component {
                 })
             });
             alert("Coluna modificada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Put Refeição Semanal: " + e);
         }
     }
 
     deleteMeal = async (mealID) => {
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZF91dGlsaXphZG9yIjoxLCJub21lIjoiSm9zXHUwMGU5IExlaXRlIE1hY2hhZG8iLCJlbWFpbCI6Impvc2VsZWl0ZW1AZ21haWwuY29tIiwiZXhwaXJlZF9kYXRlIjoiMjAyMC0wOS0wMiAxNzo0NDo1MyJ9.LcyoUq6SExv5wNEylr0wL7u0Eic0hRuTxB1zOOUIm5g";
+        let token=localStorage.getItem("token");
         try
         {
             let response = await fetch('/Refeicao_semanal', { 
@@ -205,6 +207,7 @@ class SpecialMenu extends React.Component {
                 })
             });
             alert("Coluna eliminada com sucesso!");
+            window.location.reload();
         } catch(e){
             console.log("Error to Delete Refeição semanal: " + e);
         }
@@ -215,7 +218,7 @@ class SpecialMenu extends React.Component {
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
             }else{
-                    return true;
+                return true;
         }
     }
 
@@ -237,11 +240,11 @@ class SpecialMenu extends React.Component {
                         reject();
                     }else{
                         if(newData.description.length<5){
-                            alert('Tipo tem de conter no mínimo 3 carateres!');
+                            alert('A descrição tem de conter no mínimo 5 carateres!');
                             reject();
                         }else{
                             if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(newData.description)) {
-                                alert('O tipo não é válido!');
+                                alert('A descrição não é válida!');
                                 reject();
                             }else{
                                 return true;
@@ -253,14 +256,14 @@ class SpecialMenu extends React.Component {
         }
     }
 
-    showDetails(buySpecialMenuID) {
+    showDetails(menuSpecialMenuID) {
         const { meal } = this.state;
         const columnsMeal= [
             { title: 'Dia da Semana', field: 'weekDay', lookup: { 'Segunda feira': 'Segunda feira', 'Terça feira': 'Terça feira', 'Quarta feira': 'Quarta feira', 'Quinta feira':'Quinta feira', 'Sexta feira':'Sexta feira', 'Sábado':'Sábado'  }, align:"center"},
             { title: 'Data', field: 'date', validate: rowData => rowData.date <= 0 ? { isValid: false, helperText: 'A data não pode ser nula' } : true, type: "numeric", align:"center"},
             { title: 'Hora', field: 'hour', validate: rowData => rowData.hour <= 0 ? { isValid: false, helperText: 'A hora não pode ser nula' } : true, type: "numeric", align:"center"}
         ];
-        const mealSpecialMenu=meal.filter(a=>a.id_ementa==buySpecialMenuID).map(a=>a);
+        const mealSpecialMenu=meal.filter(a=>a.id_ementa==menuSpecialMenuID).map(a=>a);
         const dataMeal = mealSpecialMenu.map((item) => {
             return { mealId: item.id_refeicao_semanal, weekDay: item.dia_semana, date: item.data, hour: item.hora};
         });;
@@ -298,7 +301,7 @@ class SpecialMenu extends React.Component {
                                                 this.setState({
                                                     newDataMeal: newData
                                                 });
-                                                const mealID=newData.mealID;
+                                                const mealID=newData.mealId;
                                                 resolve();
                                                 this.updateMeal(mealID);
                                             }, 1000)
@@ -319,18 +322,16 @@ class SpecialMenu extends React.Component {
 }
     
     render(){
-        const { buySpecialMenu } = this.state;
-        const {classes} = this.props;
+        const { menuSpecialMenu } = this.state;
         const columns= [
             { title: 'Nome', field: 'name', validate: rowData => rowData.name === '' ? { isValid: false, helperText: 'O nome não pode ser nulo' } : true, align:"center"},
             { title: 'Descrição', field: 'description', validate: rowData => rowData.description === '' ? { isValid: false, helperText: 'A descrição não pode ser nula' } : true, align:"center"},
             { title: 'Tipo', field: 'type',  lookup: { 'Prato do Dia': 'Prato do Dia', 'Aniversários': 'Aniversários', 'Casamentos':'Casamentos', 'Batizados':'Batizados', 'Baby Shower':'Baby Shower' },  align:"center"},
             { title: 'Foto', field: 'photo', render: rowData => <img src={rowData.photo} style={{width: '50%', borderRadius: '20%'}}/>, validate: rowData => rowData.photo === '' ? { isValid: false, helperText: 'A foto não pode ser nula' } : true, align:"center"},
             { title: 'Preço (€)', field: 'price', validate: rowData => rowData.price <= 0 ? { isValid: false, helperText: 'O preço não pode ser negativo' } : true, type: "numeric", align:"center"}        ];
-        const data = buySpecialMenu.map((item) => {
+        const data = menuSpecialMenu.map((item) => {
             return { specialMenuId: item.id_ementa, name: item.nome, description: item.descricao, type: item.tipo, photo: item.foto, price: item.preco};
         });;
-        const tableRef = React.createRef();
         return (
             <StructurePage table={
                 <OwnTable 
@@ -365,7 +366,7 @@ class SpecialMenu extends React.Component {
                                                     this.setState({
                                                         newData: newData
                                                     });
-                                                    const specialMenuID=newData.specialMenuID;
+                                                    const specialMenuID=newData.specialMenuId;
                                                     resolve();
                                                     this.update(specialMenuID);
                                                 }, 1000)
@@ -374,9 +375,9 @@ class SpecialMenu extends React.Component {
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
-                                    const buySpecialMenuID = oldData.buySpecialMenuId;
+                                    const specialMenuID = oldData.specialMenuId;
                                     resolve();
-                                    this.delete(buySpecialMenuID);
+                                    this.delete(specialMenuID);
                                 }, 1000)
                             }),
                         }}
@@ -386,4 +387,5 @@ class SpecialMenu extends React.Component {
         )
     }
 }
+
 export default withRouter(SpecialMenu);
