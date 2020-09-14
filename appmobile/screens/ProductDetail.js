@@ -141,7 +141,7 @@ class ProductDetail extends React.Component{
             <ImageBackground source={require("../assets/imageBackground.jpg")} opacity={0.4} style={style.imageBackground}>
             <ScrollView>
                 <View style={style.arrow}>
-                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.goBack()} color={"black"} size={45}/>
+                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("ProductDetail")} color={"black"} size={45}/>
                 </View>
                 <View style={style.shop}>
                     <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Shop")} color={"black"} size={40}/>

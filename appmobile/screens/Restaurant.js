@@ -48,7 +48,7 @@ class Restaurant extends React.Component{
         dataSource: json,
       });
     } catch(e){
-      console.log("Error to get data: " + e);
+      console.log("Error to get Restaurant: " + e);
     }
   }
 

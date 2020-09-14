@@ -30,66 +30,15 @@ class ShowReservation extends React.Component{
       isLoadingClient: true,
       isLoadingTakeAway: true,
       existReservation: false,
-      existTakeAway: false
+      existTakeAway: false,
+      allTakeAway: [],
+      allReservation: []
     };
   }
 
-  componentDidMount(){ 
+  async componentDidMount(){ 
     console.log("Mounting the screen ShowReservation...");
-  }
 
-  getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("User");
-      if (value !== null) {
-        this.setState({ user: JSON.parse(value) });
-      }
-    } catch (e) {
-      console.log("Error rending user: " + e);
-    }
-  }
-
-  getClient = async () => {
-    let token = await AsyncStorage.getItem("token");
-    try {
-        let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Cliente', { 
-          headers: {
-            Authorization: 'Bearer ' + token,
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          }
-        });
-        let json = await response.json();
-        this.setState({
-          isLoadingClient: false,
-          client: json,
-        });
-    } catch(e){
-    console.log("Error to get client: " + e);
-    }
-  }
-
-  getReservation = async () => {
-    let token = await AsyncStorage.getItem("token");
-    try {
-      let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
-        headers: {
-          Authorization: 'Bearer ' + token,
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      let json = await response.json();
-      this.setState({
-        isLoadingReservation: false,
-        reservation: json,
-      });
-    } catch(e){
-      console.log("Error to get reservation: " + e);
-    }
-  }
-
-  getTakeAway = async () => {
     let token = await AsyncStorage.getItem("token");
     try {
       let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Take_away', { 
@@ -107,17 +56,82 @@ class ShowReservation extends React.Component{
     } catch(e){
       console.log("Error to get take away: " + e);
     }
+
+    try {
+      let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Cliente', { 
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      let json = await response.json();
+      this.setState({
+        isLoadingClient: false,
+        client: json,
+      });
+    } catch(e){
+    console.log("Error to get client: " + e);
+    }
+
+    try {
+      let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      let json = await response.json();
+      this.setState({
+        isLoadingReservation: false,
+        reservation: json,
+      });
+    } catch(e){
+      console.log("Error to get reservation: " + e);
+    }
+
+    try {
+      const value = await AsyncStorage.getItem("User");
+      if (value !== null) {
+        this.setState({ user: JSON.parse(value) });
+      }
+    } catch (e) {
+      console.log("Error rending user: " + e);
+    }
   }
 
-  showReservation = () => {
+  verify(){
     const { user, reservation, client, takeAway } = this.state;
     const getId=user.map(a=>a.id_utilizador);
     const clientId=client.filter(a=>a.id_utilizador==getId).map(a=>a.id_cliente);
     const allReservation=reservation.filter(a=>a.id_cliente==clientId).map(a=>a);
+    const reservationId=allReservation.map(a=>a.id_reserva);
+    const allTakeAway=takeAway.filter(a=>a.id_reserva==reservationId).map(a=>a);
+    
+    if(allTakeAway!=null){
+      this.setState({
+        existTakeAway: true
+      });
+    }else{
+      this.setState({
+        existTakeAway: false
+      });
+    }
     if(allReservation!=null){
       this.setState({
         existReservation: true
       });
+    }else{
+      this.setState({
+        existReservation: false
+      });
+    }
+  }
+
+  showReservation = () => {
+    const { allReservation } = this.state;
+    if(allReservation!=null){
       return(
         allReservation.map((item)=>{
           return (
@@ -131,34 +145,18 @@ class ShowReservation extends React.Component{
           );
         })
       );
-    }
-    else{
-      this.setState({
-        existReservation: false
-      });
+    }else{
       return (
         <View>
-          <Text style={style.textReservation}>Dados da Reserva</Text>
-          <Text style={style.dataReservation}>Data da reserva: {item.data_marcada}</Text>
-          <Text style={style.dataReservation}>Hora da reserva: {item.hora_marcada}</Text>
-          <Text style={style.dataReservation}>Quantidade de Pessoas: {item.quantidade_pessoas}</Text>
-          <Text style={style.dataReservation}>Estado da Reserva: {item.estado}</Text>
+          <Text style={style.textReservation}>Não existe reserva!</Text>
         </View>
       );
     }
   }
 
   showTakeAway = () => {
-    const { user, reservation, client, takeAway } = this.state;
-    const getId=user.map(a=>a.id_utilizador);
-    const clientId=client.filter(a=>a.id_utilizador==getId).map(a=>a.id_cliente);
-    const allReservation=reservation.filter(a=>a.id_cliente==clientId).map(a=>a);
-    const reservationId=allReservation.map(a=>a.id_reserva);
-    const allTakeAway=takeAway.filter(a=>a.id_reserva==reservationId).map(a=>a);
+    const { allTakeAway } = this.state;
     if(allTakeAway!=null){
-      this.setState({
-        existTakeAway: true
-      });
       return(
         allTakeAway.map((item)=>{
           return (
@@ -171,12 +169,9 @@ class ShowReservation extends React.Component{
         })
       );
     }else{
-      this.setState({
-        existTakeAway: false
-      });
       return (
         <View>
-          <Text style={style.textTakeAway}>Não existe Take Away nesta reserva!</Text>
+          <Text style={style.textTakeAway}>Não existe Take Away!</Text>
         </View>
       );
     }
@@ -204,19 +199,10 @@ class ShowReservation extends React.Component{
   }
 
   render(){
-    {
-      this.getData()
-    }
-    {
-      this.getClient()
-    }
-    {
-      this.getReservation()
-    }
-    {
-      this.getTakeAway()
-    }
     const { user, existReservation } = this.state;
+    {
+      this.verify();
+    }
     return (
       <View style={style.container}>
         <OwnStatusBar />
@@ -279,6 +265,7 @@ class ShowReservation extends React.Component{
       </View>
     );
   }
+  
   _onPress = async () => {
     if (existReservation==true) {
       try

@@ -45,7 +45,7 @@ class Reservation extends React.Component{
   componentDidMount(){ 
     console.log("Mounting the screen Reservation...");
   }
-
+  
   getData = async () => {
     try {
       const value = await AsyncStorage.getItem("User");

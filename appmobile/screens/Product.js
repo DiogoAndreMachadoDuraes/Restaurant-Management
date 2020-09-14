@@ -70,7 +70,7 @@ const product = [
     subtitle: "À moda da Avó",
     foto: require('../assets/cafe.jpg')
   }
-]
+];
 
 class Product extends React.Component{
   constructor(){
@@ -87,9 +87,7 @@ class Product extends React.Component{
 
   _onPress(item) {
     this.props.navigation.navigate("ProductCategory", {
-      type: item.type,
-      photo: item.foto,
-      subtitle: item.subtitle
+      type: item.type
     });
   }
 
@@ -105,7 +103,7 @@ class Product extends React.Component{
                 product.map((item)=>{
                   return (
                     <TouchableOpacity style={style.productExp} activeOpacity={0.5} onPress={()=>this._onPress(item)}>
-                      <Image style={style.fotoProduct} source={item.foto} ></Image>
+                      <Image style={style.photoProduct} source={item.foto} ></Image>
                       <Text style={style.titleProduct}>{item.type}</Text>
                       <Text style={style.textProduct}>{item.subtitle}</Text>
                     </TouchableOpacity>
@@ -117,7 +115,7 @@ class Product extends React.Component{
           </ScrollView>
         </ImageBackground>
       </View>
-    )
+    );
   }
 }
     
@@ -142,7 +140,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  fotoProduct: {
+  photoProduct: {
     width: 180,
     height: 180,
     marginTop: 0
