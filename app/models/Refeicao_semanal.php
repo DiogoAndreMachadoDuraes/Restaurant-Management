@@ -8,7 +8,7 @@ namespace App\Models;
         private string $dia_semana;
         private string $data;
         private string $hora;
-        private int $id_restaurante;
+        private $id_restaurante;
         private int $id_ementa;
 
         public function get_id_refeicao_semanal(): int{
@@ -47,11 +47,11 @@ namespace App\Models;
             return $this;
         } 
 
-        public function get_id_restaurante(): int{
+        public function get_id_restaurante(){
             return $this->id_restaurante;
         }
 
-        public function set_id_restaurante(int $id_restaurante): self{
+        public function set_id_restaurante($id_restaurante): self{
             $this->id_restaurante = $id_restaurante;
             return $this;
         }
