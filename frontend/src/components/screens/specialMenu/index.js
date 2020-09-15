@@ -4,9 +4,7 @@ import {OwnTable} from "../../OwnTable";
 import {SecoundTable} from "../../SecoundTable";
 import {StructurePage} from "../../StructurePage";
 import moment from "moment";
-
 const { createProxyMiddleware } = require('http-proxy-middleware');
-
 class SpecialMenu extends React.Component {
     constructor(props){
         super(props);
@@ -18,7 +16,6 @@ class SpecialMenu extends React.Component {
             now: moment().format("YYYY-MM-DD")
         }
     }
-
     async componentDidMount (){ 
         console.log("Mounting the screen Special Menu...");
         let token=localStorage.getItem("token");
@@ -34,11 +31,9 @@ class SpecialMenu extends React.Component {
             this.setState({ 
                 menuSpecialMenu: json
             });
-            console.log(json);
         } catch(e){
             console.log("Error to get Menu Special Menu: " + e);
         }
-    
     try {
         let response = await fetch('/Refeicao_semanal', 
         { 
@@ -49,7 +44,6 @@ class SpecialMenu extends React.Component {
             }
         });
         let res = await response.json();
-        console.log(res);
         this.setState({ 
             meal: res
         });
@@ -57,7 +51,6 @@ class SpecialMenu extends React.Component {
         console.log("Error to get Refeiçao Semanal: " + e);
     }
 }
-
     add = async () => {
         const { newData } = this.state;
         let token=localStorage.getItem("token");
@@ -83,11 +76,8 @@ class SpecialMenu extends React.Component {
             console.log("Error to Post Buy Special Menu: " + e);
         }
     }
-
     update = async (specialMenuID) => {
         const { newData } = this.state;
-        console.log(newData);
-        console.log(specialMenuID);
         let token=localStorage.getItem("token");
         try{
             let response = await fetch('/Ementa', { 
@@ -112,7 +102,6 @@ class SpecialMenu extends React.Component {
             console.log("Error to Put Special Menu: " + e);
         }
     }
-
     delete = async (specialMenuID) => {
         let token=localStorage.getItem("token");
         try{
@@ -133,7 +122,6 @@ class SpecialMenu extends React.Component {
             console.log("Error to Delete Special Menu: " + e);
         }
     }
-    
     addMeal = async (menuSpecialMenuID) => {
         const { newDataMeal } = this.state;
         let token=localStorage.getItem("token");
@@ -149,19 +137,17 @@ class SpecialMenu extends React.Component {
                     'dia_semana': newDataMeal.weekDay,
                     'data': newDataMeal.date,
                     'hora': newDataMeal.hour,
-                    //'id_restaurante': newDataMeal.restaurantId,
+                    'id_restaurante': null,
                     'id_ementa': menuSpecialMenuID
                 })
             });
             alert("Coluna inserida com sucesso!");
             window.location.reload();
-            console.log(response);
         } catch(e){
             console.log("Error to Post Refeição Semanal: " + e);
         }
     }
-
-    updateMeal = async (mealID) => {
+    updateMeal = async () => {
         const { newDataMeal } = this.state;
         let token=localStorage.getItem("token");
         try{
@@ -173,7 +159,7 @@ class SpecialMenu extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'id_refeicao_semanal': mealID,
+                    'id_refeicao_semanal': newDataMeal.mealId,
                     'dia_semana': newDataMeal.weekDay,
                     'data': newDataMeal.date,
                     'hora': newDataMeal.hour,
@@ -187,7 +173,6 @@ class SpecialMenu extends React.Component {
             console.log("Error to Put Refeição Semanal: " + e);
         }
     }
-
     deleteMeal = async (mealID) => {
         let token=localStorage.getItem("token");
         try{
@@ -208,21 +193,19 @@ class SpecialMenu extends React.Component {
             console.log("Error to Delete Refeição semanal: " + e);
         }
     }
-
     testMeal(newData, resolve, reject){
         if(newData.weekDay==null || newData.date==null || newData.hour==null){
             alert('Nenhum dos valores inseridos pode ser nulo!');
             reject();
         }else{
-            if(moment.duration(moment(newData.date,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asDays()>0){
-                alert('Não pode fazer uma reserva em menos de 2 dias de antecedência!');
+            if(moment(newData.date,"YYYY-MM-DD")<(moment(this.state.now, "YYYY-MM-DD"))){
+                alert('A data não pode ser menor do que o dia de hoje!');
                 reject();
             }else{
-            return true;
+                return true;
             }
         }
     }
-
     test(newData, resolve, reject){
         if(newData.type==null || newData.price==null || newData.photo==null || newData.name==null || newData.description==null){
             alert('Nenhum dos valores inseridos pode ser nulo!');
@@ -252,7 +235,7 @@ class SpecialMenu extends React.Component {
                                     alert('O preço tem de ser positivo!');
                                     reject();
                                 }else{
-                                return true;
+                                    return true;
                                 }
                             }
                         }
@@ -261,7 +244,6 @@ class SpecialMenu extends React.Component {
             }
         }
     }
-
     showDetails(menuSpecialMenuID) {
         const { meal } = this.state;
         const columnsMeal= [
@@ -273,7 +255,6 @@ class SpecialMenu extends React.Component {
         const dataMeal = mealSpecialMenu.map((item) => {
             return { mealId: item.id_refeicao_semanal, weekDay: item.dia_semana, date: item.data, hour: item.hora, restaurantId: item.id_restaurante, specialMenuId: item.id_ementa};
         });;
-    
     return (
         <div style={{ marginTop: 20, marginLeft: 20, marginBottom: 20, marginInlineEnd: 20}}>
             <SecoundTable
@@ -291,7 +272,7 @@ class SpecialMenu extends React.Component {
                                             newDataMeal: newData
                                         });
                                         resolve();
-                                        this.addMeal();
+                                        this.addMeal(menuSpecialMenuID);
                                     }, 100)
                                 }
                         }),
@@ -307,9 +288,8 @@ class SpecialMenu extends React.Component {
                                         this.setState({
                                             newDataMeal: newData
                                         });
-                                        const mealID=newData.mealId;
                                         resolve();
-                                        this.updateMeal(mealID);
+                                        this.updateMeal();
                                     }, 1000)
                                 }
                         }),
@@ -326,7 +306,6 @@ class SpecialMenu extends React.Component {
             </div>
         )
     }
-    
     render(){
         const { menuSpecialMenu } = this.state;
         const columns= [
@@ -393,5 +372,4 @@ class SpecialMenu extends React.Component {
         )
     }
 }
-
 export default withRouter(SpecialMenu);
