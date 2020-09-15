@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, ImageBackground, Image, TouchableOpacity} from "react-native";
 import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
-import { OwnHeader } from './shared/OwnHeader';
+import { HeaderWihoutShop } from './shared/HeaderWihoutShop';
 
 const dataFromApi = [
   {
@@ -55,13 +55,13 @@ const dataFromApi = [
   }
 ]
 
-class Menu extends React.Component{
-  constructor(){
-      super();
-      this.state={
-        name:"Menu"
-      };
-}
+  class Menu extends React.Component{
+    constructor(){
+        super();
+        this.state={
+          name:"Menu"
+        };
+  }
 
   componentDidMount(){ 
     console.log("Mounting the screen Menu...");
@@ -75,7 +75,7 @@ class Menu extends React.Component{
     return (
       <View style={style.container}>
         <OwnStatusBar />
-        <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
+        <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} opacity={1}>
           <ScrollView>
           <View style={style.menu}>
@@ -121,19 +121,13 @@ const style = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   menuExpFoto: {
     width: 100,
     height: 100,
-    marginTop: -10
-  },
-
-  menuExpText: {
-    width: 180,
-    height: 180,
-    marginTop: -150,
+    marginTop: -10,
   },
 
   titleMenu: {
@@ -141,7 +135,7 @@ const style = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontStyle: "normal",
-    top: 12
+    top: 12,
   },
 
   textMenu: {
@@ -149,7 +143,7 @@ const style = StyleSheet.create({
     fontSize: 12,
     fontStyle: "italic",
     textAlign: 'center',
-    top: 20
+    top: 20,
   }
 });
 

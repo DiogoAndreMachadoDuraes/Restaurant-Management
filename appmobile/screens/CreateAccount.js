@@ -53,6 +53,7 @@ class CreateAccount extends React.Component {
      };
 
     }
+
   componentDidMount(){ 
     console.log("Mounting the screen CreateAccount...");
     this.getPermissionAsync();
@@ -238,7 +239,7 @@ class CreateAccount extends React.Component {
       }
   }
 
-  checkedbox(){
+  checkedBox(){
     this.setState({
       check:!this.state.check
     })
@@ -418,17 +419,19 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Nome Completo"
             leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }} value = {this.nome} />
-            { this.state.isValidName ? true : 
-              <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres.</Text>
-              </Animatable.View>
-            }
+              
+              { this.state.isValidName ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres.</Text>
+                </Animatable.View>
+              }
 
             <Text style={style.text}>Email:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Email"
             leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} value = {this.email} />
-               { this.state.isNullEmail ? 
+               
+              { this.state.isNullEmail ? 
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={style.errorMsg}>O email não pode ser nulo.</Text>
                 </Animatable.View>
@@ -445,6 +448,7 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Telefone"
             leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} value = {this.telefone} />
+              
               { this.state.isContact ? true :
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números.</Text>
@@ -461,6 +465,7 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Rua"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.rua} />
+              
               { this.state.isValidStreet ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres.</Text>
@@ -471,6 +476,7 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Código Postal"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.codigo_postal} />
+              
               { this.state.isPostalCode ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres.</Text>
@@ -487,6 +493,7 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Localização"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} value = {this.localizacao} />
+              
               { this.state.isLocation ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres.</Text>
@@ -503,6 +510,7 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Nif"
             leftIcon={{ type: 'font-awesome', name: 'user', color:'white' }} value = {this.nif} />
+              
               { this.state.isValidTin ? true :
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números.</Text>
@@ -532,6 +540,7 @@ class CreateAccount extends React.Component {
             <Input inputStyle={style.inputcolor}
             placeholder="Password"
             leftIcon={{ type: 'font-awesome', name: 'key', color:'white' }} value = {this.password} />
+              
               { this.state.isValidPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
@@ -569,7 +578,7 @@ class CreateAccount extends React.Component {
             <View style={style.checkBoxContainer}>
               <CheckBox
                 value={this.state.check}
-                onChange={()=>this.checkedox()}
+                onChange={()=>this.checkedBox()}
                 style={style.checkBox}
               />
             </View>  
@@ -643,7 +652,6 @@ const style = StyleSheet.create({
     shadowOffset: {width: -1, height: -3},
     shadowRadius: 2,
     shadowOpacity: 0.4,
-    // elevation: 5,
     paddingTop: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -706,7 +714,7 @@ const style = StyleSheet.create({
   checkBox: {
     alignSelf: "center",
     top: 265,
-    left: 20
+    left: 20,
   },
 
   checkBoxContainer: {
@@ -721,11 +729,6 @@ const style = StyleSheet.create({
    
   inputcolor:{
       color: "white",
-  },
-
-  form: {                           
-    width: "100%",
-    height:"100%"
   },
 
   formText:{
@@ -794,7 +797,7 @@ const style = StyleSheet.create({
     marginTop: 50,
     width:130,
     left: 130,
-    marginVertical:20
+    marginVertical:20,
   },
 
   btnText:{
@@ -819,7 +822,7 @@ const style = StyleSheet.create({
   imageBackground: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   text:{

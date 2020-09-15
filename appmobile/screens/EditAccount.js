@@ -1,7 +1,6 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, ImageBackground, ScrollView, AsyncStorage, Picker, TouchableOpacity, BottomSheet } from 'react-native';
+import {StyleSheet, View, Text, ImageBackground, ScrollView, AsyncStorage, Picker, TouchableOpacity, Alert} from 'react-native';
 import { Input, Header } from 'react-native-elements';
-import OwnStatusBar from "./shared/OwnStatusBar.js";
 import Animated from 'react-native-reanimated';
 import * as Animatable from 'react-native-animatable';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -9,6 +8,7 @@ import moment from 'moment';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import BottomSheet from 'reanimated-bottom-sheet';
 import Constants from 'expo-constants';
 
 class EditAccount extends React.Component {
@@ -24,7 +24,8 @@ class EditAccount extends React.Component {
         street:[],
         postalCode:[],
         location:[],
-        photo: 'https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_1280.png',
+        photo:[],
+        image: 'https://i.pinimg.com/564x/f2/d2/35/f2d23548bcb9a62469d78b5411b67c55.jpg',
         email: [],
         password:[],
         confirmPassword:[],
@@ -54,6 +55,7 @@ class EditAccount extends React.Component {
 
   async componentDidMount(){ 
     console.log("Mounting the screen EditAccount...");
+    this.getPermissionAsync();
     try {
       const value = await AsyncStorage.getItem("User");
       if (value !== null) {
@@ -260,6 +262,9 @@ class EditAccount extends React.Component {
     this.setState({ isVisible: false });
   }
 
+  bs = React.createRef();
+  fall = new Animated.Value (1);
+
   getPermissionAsync = async () => {
     if (Platform.OS !== 'web') {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -405,13 +410,13 @@ class EditAccount extends React.Component {
                     <Icon
                       name="camera"
                       size={35}
-                      color="#fff"
+                      color="#000"
                       style={{
-                        opacity: 0.7,
+                        opacity: 1,
                         alignItems: 'center',
                         justifyContent: 'center',
                         borderWidth: 1,
-                        borderColor: '#fff',
+                        borderColor: '#000',
                         borderRadius: 10,
                       }}
                     />
@@ -430,11 +435,11 @@ class EditAccount extends React.Component {
           autoCapitalize={"sentences"}
           leftIcon={{ type: 'font-awesome', name: 'user', color: 'black' }} onChangeText={(val)=>this.validName(val)} values = {this.state.name} onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
           
-          { this.state.isValidName ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres.</Text>
-            </Animatable.View>
-          }
+            { this.state.isValidName ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres.</Text>
+              </Animatable.View>
+            }
 
           <Text style={style.text}>Email:</Text>
           <Input inputStyle={style.inputcolor}
@@ -442,18 +447,18 @@ class EditAccount extends React.Component {
           keyboardType= "email-address"
           leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'black' }} onChangeText={(val)=>this.validEmail(val)} values = {this.state.email} onEndEditing={(e)=>this.validEmail(e.nativeEvent.text)} />
           
-          { this.state.isNullEmail ? 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O email não pode ser nulo.</Text>
-            </Animatable.View>
-            : false
-          }
+            { this.state.isNullEmail ? 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O email não pode ser nulo.</Text>
+              </Animatable.View>
+              : false
+            }
 
-          { this.state.isValidEmail ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O email não está correto.</Text>
-            </Animatable.View>
-          }
+            { this.state.isValidEmail ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O email não está correto.</Text>
+              </Animatable.View>
+            }
 
           <Text style={style.text}>Telefone:</Text>
           <Input inputStyle={style.inputcolor}
@@ -461,17 +466,17 @@ class EditAccount extends React.Component {
           keyboardType="phone-pad"
           leftIcon={{ type: 'font-awesome', name: 'phone', color:'black' }} onChangeText={(val)=>this.validContact(val)} values = {this.state.contact} onEndEditing={(e)=>this.validContact(e.nativeEvent.text)} />
           
-          { this.state.isContact ? true :
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números.</Text>
-            </Animatable.View>
-          }
+            { this.state.isContact ? true :
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números.</Text>
+              </Animatable.View>
+            }
 
-          { this.state.isValidContact ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais.</Text>
-            </Animatable.View>
-          }
+            { this.state.isValidContact ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais.</Text>
+              </Animatable.View>
+            }
 
           <Text style={style.text}>Morada:</Text>
           <Input inputStyle={style.inputcolor}
@@ -479,11 +484,11 @@ class EditAccount extends React.Component {
           autoCapitalize={"sentences"}
           leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validStreet(val)} values = {this.state.street} onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)} />
           
-          { this.state.isValidStreet ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres.</Text>
-            </Animatable.View>
-          }
+            { this.state.isValidStreet ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres.</Text>
+              </Animatable.View>
+            }
           
           <Text style={style.text}>Código Postal:</Text>
           <Input inputStyle={style.inputcolor}
@@ -491,17 +496,17 @@ class EditAccount extends React.Component {
           keyboardType='number-pad'
           leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validPostalCode(val)} values = {this.state.postalCode} onEndEditing={(e)=>this.validPostalCode(e.nativeEvent.text)} />
 
-          { this.state.isPostalCode ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres.</Text>
-            </Animatable.View>
-          }
+            { this.state.isPostalCode ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres.</Text>
+              </Animatable.View>
+            }
 
-          { this.state.isValidPostalCode ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais.</Text>
-            </Animatable.View>
-          }
+            { this.state.isValidPostalCode ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais.</Text>
+              </Animatable.View>
+            }
 
           <Text style={style.text}>Localização:</Text>
           <Input inputStyle={style.inputcolor}
@@ -509,17 +514,17 @@ class EditAccount extends React.Component {
           autoCapitalize={"sentences"}
           leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validLocation(val)} values = {this.state.location} onEndEditing={(e)=>this.validLocation(e.nativeEvent.text)} />
 
-          { this.state.isLocation ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres.</Text>
-            </Animatable.View>
-          }
+            { this.state.isLocation ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres.</Text>
+              </Animatable.View>
+            }
 
-          { this.state.isValidLocation ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais.</Text>
-            </Animatable.View>
-          }
+            { this.state.isValidLocation ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais.</Text>
+              </Animatable.View>
+            }
 
           <Text style={style.text}>Nif:</Text>
           <Input inputStyle={style.inputcolor}
@@ -527,24 +532,17 @@ class EditAccount extends React.Component {
           keyboardType="numeric"
           leftIcon={{ type: 'font-awesome', name: 'user', color:'black' }} onChangeText={(val)=>this.validTin(val)} values = {this.state.tin} onEndEditing={(e)=>this.validTin(e.nativeEvent.text)} />
 
-          { this.state.isValidTin ? true :
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números.</Text>
-            </Animatable.View>
-          }
+            { this.state.isValidTin ? true :
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números.</Text>
+              </Animatable.View>
+            }
 
-          { this.state.isTin ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais.</Text>
-            </Animatable.View>
-          }
-
-          {/*<Text style={style.text}>Foto:</Text>
-          {
-            this.state.avatarSource && <Image style= {style.picker} />
-          }
-
-          <Button  title="selecionar imagem" onPress={this.selectImage}/> */}
+            { this.state.isTin ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais.</Text>
+              </Animatable.View>
+            }
 
           <Text style={style.text}>Género:</Text>
           <Picker
@@ -562,29 +560,33 @@ class EditAccount extends React.Component {
           <Text style={style.text}>Password:</Text>
           <Input inputStyle={style.inputcolor}
           defaultValue={passwordUser[0]}
+          secureTextEntry={true}
           leftIcon={{ type: 'font-awesome', name: 'key', color:'black' }} onChangeText={(val)=>this.validPassword(val)} values = {this.state.password} onEndEditing={(e)=>this.validPassword(e.nativeEvent.text)} />
           
-          { this.state.isValidPassword ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
-            </Animatable.View>
-          }  
+            { this.state.isValidPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
+              </Animatable.View>
+            }  
           
           <Text style={style.text}>Confirmar Password:</Text>
           <Input inputStyle={style.inputcolor}
+          secureTextEntry={true}
           placeholder='Confirmar password'
           leftIcon={{ type: 'font-awesome', name: 'key', color:'black' }} onChangeText={(val)=>this.validConfirmPassword(val)} values = {this.state.confirmPassword} onEndEditing={(e)=>this.validConfirmPassword(e.nativeEvent.text)} /> 
          
-          { this.state.isConfirmPassword ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
-            </Animatable.View>
-          }  
-          { this.state.isValidConfirmPassword ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>As passwords não correspondem.</Text>
-            </Animatable.View>
-          }  
+            { this.state.isConfirmPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
+              </Animatable.View>
+            }  
+            
+            { this.state.isValidConfirmPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>As passwords não correspondem.</Text>
+              </Animatable.View>
+            }  
+
           <Text style={style.text}>Data Nascimento: {this.state.choosenDate}</Text>
           <DateTimePicker
                   isVisible={this.state.isVisible}
@@ -594,7 +596,7 @@ class EditAccount extends React.Component {
                   defaultValue={birthdayUser[0]}
           />
           <TouchableOpacity style={style.getHour} onPress={this.showPicked}>
-            <Icon name="calendar" size={35} color={'white'} style={{left:20}}> </Icon>
+            <Icon name="calendar" size={35} color={'black'} style={{left:20}}> </Icon>
           </TouchableOpacity>
           <TouchableOpacity style={style.button} onPress={this._onPress}>
             <Text style={style.btnText}>Guardar as alterações</Text>
@@ -604,7 +606,6 @@ class EditAccount extends React.Component {
       </View>
     );
   }
-}
 
 _onPress = async() => {
   console.log(this.state.tin);
@@ -656,7 +657,8 @@ _onPress = async() => {
     } catch(e){
       console.log(e);
     }      
-  }
+}
+}
 
 const style = StyleSheet.create({
   header: {
@@ -665,7 +667,6 @@ const style = StyleSheet.create({
     shadowOffset: {width: -1, height: -3},
     shadowRadius: 2,
     shadowOpacity: 0.4,
-    // elevation: 5,
     paddingTop: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -691,7 +692,7 @@ const style = StyleSheet.create({
     width: 70,
     height: 8,
     borderRadius: 7,
-    backgroundColor: '#ff8c00',
+    backgroundColor: '#000',
     marginBottom: 6,
     left: -75,
     top: 60,
@@ -700,7 +701,7 @@ const style = StyleSheet.create({
   panelTitle: {
     fontSize: 30,
     height: 35,
-    color: '#556b2f',
+    color: 'tomato',
     fontWeight: 'bold',
   },
 
@@ -714,7 +715,7 @@ const style = StyleSheet.create({
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: 'tomato',
+    backgroundColor: 'black',
     alignItems: 'center',
     marginVertical: 7,
   },
@@ -727,7 +728,7 @@ const style = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
 
   errorMsg: {
@@ -741,7 +742,7 @@ const style = StyleSheet.create({
 
   form:{
     width: "100%",
-    height:"100%"
+    height:"100%",
   },
 
   title:{
@@ -804,7 +805,7 @@ const style = StyleSheet.create({
     marginTop: 50,
     width:230,
     left: 100,
-    marginVertical:20
+    marginVertical:20,
   },
 
   btnText:{
@@ -829,7 +830,7 @@ const style = StyleSheet.create({
   imageBackground: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   text:{
@@ -838,6 +839,6 @@ const style = StyleSheet.create({
     fontSize: 20,
     left: 20,
   },
-
 });
+
 export default EditAccount;

@@ -4,19 +4,19 @@ import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 
   class Invoice extends React.Component {
-      constructor(){
-          super();
-          this.state={ 
-              name:'A minha fatura',
-              isLoading: true,
-              user: [],
-              invoice:[],
-              reservation:[],
-              productShop:[],
-              menuShop:[],
-              menu:[],
-              product:[]   
-          }; 
+    constructor(){
+        super();
+        this.state={ 
+            name:'A minha fatura',
+            isLoading: true,
+            user: [],
+            invoice:[],
+            reservation:[],
+            productShop:[],
+            menuShop:[],
+            menu:[],
+            product:[]   
+        }; 
   }
 
   async componentDidMount(){ 
@@ -120,85 +120,80 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
           }
   }
 
-        
-    
-
-    getUser = async () => {
-      try {
-        const value = await AsyncStorage.getItem("User");
-        if (value !== null) {
-          this.setState({ user: JSON.parse(value) });
-        }
-      } catch (e) {
-          console.log("Error rending user: " + e);
+  getUser = async () => {
+    try {
+      const value = await AsyncStorage.getItem("User");
+      if (value !== null) {
+        this.setState({ user: JSON.parse(value) });
       }
+    } catch (e) {
+        console.log("Error rending user: " + e);
     }
+  }
 
-    render()
-    { 
-        const { user, invoice , reservation, menuShop, productShop, menu, product } = this.state;
-      {
-        this.getUser();
-      }
-      const userName=user.map(a=>a.nome);
-      const userStreet=user.map(a=>a.rua);
-      const userPostalCode=user.map(a=>a.codigo_postal);
-      const userLocalization=user.map(a=>a.localizacao);
-      const userTin=user.map(a=>a.nif);
-      const invoiceReservation=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a.id_reserva);
-      const invoiceData=reservation.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.data_marcada);
-      const allInvoice=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a);
-      const shopMenuQuantity = menuShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.quantidade);
-      const shopMenuPrice = menuShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.preco);
-      const shopProductQuantity = productShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.quantidade);
-      const shopProductPrice = productShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.preco);
-      const productId = productShop. filter(a=>a.id_reserva==invoiceReservation).map(a=>a.id_produto);
-      const productDescription = product.filter(a=>a.id_produto==productId).map(a=>a.descricao);
-      const menuId = menuShop. filter(a=>a.id_reserva==invoiceReservation).map(a=>a.id_menu);
-      const menuDescription = menu.filter(a=>a.id_menu==menuId).map(a=>a.descricao);
+  render()
+  { 
+      const { user, invoice , reservation, menuShop, productShop, menu, product } = this.state;
+    {
+      this.getUser();
+    }
+    const userName=user.map(a=>a.nome);
+    const userStreet=user.map(a=>a.rua);
+    const userPostalCode=user.map(a=>a.codigo_postal);
+    const userLocalization=user.map(a=>a.localizacao);
+    const userTin=user.map(a=>a.nif);
+    const invoiceReservation=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a.id_reserva);
+    const invoiceData=reservation.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.data_marcada);
+    const allInvoice=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a);
+    const shopMenuQuantity = menuShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.quantidade);
+    const shopMenuPrice = menuShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.preco);
+    const shopProductQuantity = productShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.quantidade);
+    const shopProductPrice = productShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.preco);
+    const productId = productShop. filter(a=>a.id_reserva==invoiceReservation).map(a=>a.id_produto);
+    const productDescription = product.filter(a=>a.id_produto==productId).map(a=>a.descricao);
+    const menuId = menuShop. filter(a=>a.id_reserva==invoiceReservation).map(a=>a.id_menu);
+    const menuDescription = menu.filter(a=>a.id_menu==menuId).map(a=>a.descricao);
 
-      console.log(invoiceData);
-
-        return (
-        <View style={style.container}>
-            <OwnStatusBar />
-            <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
+    return (
+    <View style={style.container}>
+        <OwnStatusBar />
+          <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
             <ImageBackground source={require("../assets/logo.png")}  style={style.imageBackgound} opacity={0.1}>
-            <ScrollView style={style.form}>
-            <View style={style.form}>
-            {
-                allInvoice.map((item)=>{
-                  return (
-                  <View>
-                    <Text style={style.header}>Sabor da Avó</Text>
-                    <Text style={style.header0}>{userName}          Fatura nº{item.id_fatura}</Text>
-                    <Text style={style.header1}> {userStreet} , {userPostalCode} {userLocalization}</Text>
-                    <Text style={style.header2}>Nif: {item.nif_cliente}                            Data:{invoiceData}</Text>
-                    <View style={style.line} />
-                    <Text style={style.text}>Descrição {}</Text>
-                    <Text style={style.text1}>Quantidade {shopMenuQuantity}</Text>
-                    <Text style={style.text2}>Preço {shopMenuPrice}</Text>
-                    <View style={style.line1} />
-                    <Text style={style.textTax}>Taxa: </Text>
-                    <Text style={style.tax}>{item.taxa}</Text>
-                    <Text style={style.textIva}>Iva: </Text> 
-                    <Text style={style.iva}>{item.iva}</Text> 
-                    <Text style={style.text3}>Total: € {item.valor_total}</Text>
-                    <Text style={style.textEmployee}>Funcionário : José Leite Machado</Text> 
-                    <View style={style.lineFinal} />
-                  </View>
-                  );
-                })
-            }
-                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
-                  <Text style={style.btnText}>Voltar</Text>
-                </TouchableOpacity>
-            </View>
-            </ScrollView>
+              <ScrollView style={style.form}>
+                <View style={style.form}>
+                {
+                    allInvoice.map((item)=>{
+                      return (
+                      <View>
+                        <Text style={style.header}>Sabor da Avó</Text>
+                        <Text style={style.header0}>{userName}          Fatura nº{item.id_fatura}</Text>
+                        <Text style={style.header1}> {userStreet} , {userPostalCode} {userLocalization}</Text>
+                        <Text style={style.header2}>Nif: {item.nif_cliente}                            Data:{invoiceData}</Text>
+                        <View style={style.line} />
+                        <Text style={style.text}>Descrição {}</Text>
+                        <Text style={style.text1}>Quantidade {shopMenuQuantity}</Text>
+                        <Text style={style.text2}>Preço {shopMenuPrice}</Text>
+                        <View style={style.line1} />
+                        <Text style={style.textTax}>Taxa: </Text>
+                        <Text style={style.tax}>{item.taxa}</Text>
+                        <Text style={style.textIva}>Iva: </Text> 
+                        <Text style={style.iva}>{item.iva}</Text> 
+                        <Text style={style.text3}>Total: € {item.valor_total}</Text>
+                        <Text style={style.textEmployee}>Funcionário : José Leite Machado</Text> 
+                        <View style={style.lineFinal} />
+                      </View>
+                      );
+                    })
+                }
+                    <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
+                      <Text style={style.btnText}>Voltar</Text>
+                    </TouchableOpacity>
+                </View>
+              </ScrollView>
             </ImageBackground>
-            </View>
-          );
-    }
+          </View>
+        );
+      }
 }
 
 const style = StyleSheet.create({
@@ -218,7 +213,7 @@ const style = StyleSheet.create({
     marginLeft: 120,
     top: 60,
     paddingBottom:60,
-    marginBottom:60
+    marginBottom:60,
   },
 
   header0:{
@@ -228,7 +223,7 @@ const style = StyleSheet.create({
     top: -10,
     paddingBottom:60,
     marginBottom:60,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 
   header1:{
@@ -237,7 +232,7 @@ const style = StyleSheet.create({
     marginLeft: 30,
     top: -120,
     paddingBottom:60,
-    marginBottom:60
+    marginBottom:60,
   },
 
   header2:{
@@ -281,7 +276,7 @@ const style = StyleSheet.create({
     margin: 10,
     top: -330,
     width: 340,
-    left: 20
+    left: 20,
   },
 
   line1:{
@@ -290,7 +285,7 @@ const style = StyleSheet.create({
     margin: 10,
     top: -250,
     width: 340,
-    left: 20
+    left: 20,
   },
 
   lineFinal:{
@@ -372,7 +367,8 @@ const style = StyleSheet.create({
     color: 'black',
     marginLeft: 30,
     top: -270,
-    marginBottom:-200
+    marginBottom:-200,
   },
 });
+
 export default Invoice;

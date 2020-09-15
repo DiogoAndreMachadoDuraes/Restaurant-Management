@@ -106,6 +106,6 @@ const style = StyleSheet.create({
         top: 880,
         padding:10,
     }
-  });
+});
 
 export default Space;

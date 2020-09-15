@@ -51,7 +51,7 @@ async componentDidMount(){
           {
             typeMenu.map((item)=>{
               return ( <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this._onPress(item)}>
-                      <Image style={style.menuExpFoto} source={item.foto} ></Image>
+                      <Image style={style.menuExpFoto} source={{uri:item.foto}} ></Image>
                       <Text style={style.titleMenu}>{item.nome}</Text>
                       <Text style={style.textMenu}>{item.descricao}</Text>
                     </TouchableOpacity>);
@@ -88,58 +88,38 @@ const style = StyleSheet.create({
     flex:1,
   },
 
-  text: {                       
-    color: "white",
-    fontSize: 20,
-    fontStyle: "italic",
-    textAlign: 'center',
-    fontWeight: 'bold',
-    top: 30,
-    opacity: 1,
-  },
-
   menu: {                           //scrollview
     width: "100%",
     height: 1780,
   },
 
   menuExp: {
-    marginTop: 25,
-    top: 40,
-    marginLeft: 55,
-    padding: 20,
-    width: 290,
-    height: 200,
-    backgroundColor: '#fff',
+    marginTop: 30,
+    marginLeft: 40,
+    padding: 30,
+    width: 320,
+    backgroundColor: 'white',
     borderRadius: 5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   menuExpFoto: {
-    width: 100,
-    height: 100,
-    marginTop: -10
-  },
-
-  menuExpText: {
     width: 180,
-    height: 180,
-    marginTop: -150,
+    height: 180
   },
 
   titleMenu: {
     color: "#000",
     fontSize: 20,
     fontWeight: 'bold',
-    fontStyle: "normal",
-    top: 12
+    top: 12,
+    textAlign: 'center'
   },
 
   textMenu: {
     color: "#000",
-    fontSize: 12,
-    fontStyle: "italic",
+    fontSize: 15,
     textAlign: 'center',
     top: 20
   }

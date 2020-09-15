@@ -1,11 +1,10 @@
 import * as React from "react";
-import { StyleSheet, FlatList, Text, View, ScrollView, ImageBackground, AsyncStorage } from "react-native";
-import {Header, Icon} from "react-native-elements";
+import { StyleSheet, Text, View, ScrollView, ImageBackground, AsyncStorage } from "react-native";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
-import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
 import Accordion from 'react-native-collapsible/Accordion';
 import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
+
 class TakeAway extends React.Component{
   constructor(){
       super();
@@ -19,6 +18,7 @@ class TakeAway extends React.Component{
         client:[]
       };
     }
+
   async componentDidMount(){ 
       console.log("Mounting the screen Takeaway...");
       let token = await AsyncStorage.getItem("token");
@@ -71,6 +71,7 @@ class TakeAway extends React.Component{
       console.log("Error to get product: " + e);
     }
   }
+
   getUser = async () => {
     try {
       const value = await AsyncStorage.getItem("User");
@@ -81,6 +82,7 @@ class TakeAway extends React.Component{
         console.log("Error rending user: " + e);
     }
   }
+
   _renderHeader = section => {
     return (
       <View style={style.header}>
@@ -88,10 +90,10 @@ class TakeAway extends React.Component{
       </View>
     );
   };
+
   _renderContent = section => {
     return (
       <View style={style.content}>
-        {/* <Icon2 name={section.icon} style={style.icon} color={'green'} size={25}></Icon2> */}
         <Text style={style.headerText2}>
         <Text style={{fontWeight: 'bold'}}>Tipo de entrega: </Text>
         <Text>{section.tipo_entrega}</Text>
@@ -107,6 +109,7 @@ class TakeAway extends React.Component{
       </View>
     );
   };
+
   _updateSections = activeSections => {
     this.setState({ activeSections });
   };
@@ -157,6 +160,7 @@ class TakeAway extends React.Component{
     ];
     return SECTIONS;
   } */
+
   render(){
     /* const section=this.sections(); */
     const { user, data , reservation, client } = this.state;
@@ -174,7 +178,7 @@ class TakeAway extends React.Component{
         <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackground} opacity={0.6}> 
           <ImageBackground source={require('../assets/take.jpg')} style={style.imageBackgound} opacity={1}/>             
           <ScrollView>
-            <View style={style.form}>
+            <View style={style.menu}>
               <Accordion
                 sections={data}
                 activeSections={this.state.activeSections}
@@ -191,13 +195,16 @@ class TakeAway extends React.Component{
     );
   };
 }
+
 const style = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   imageBackground: {
     flex: 1,
   },
+
   imageBackgound: {                         //foto por tras do titulo
     width: 395,
     height: 200,
@@ -205,44 +212,49 @@ const style = StyleSheet.create({
     top: 0,
     opacity: 1,
   },
+
   menu: {                           //scrollview
     width: "100%",
-    height: 1000,
+    height: "100%",
   },
+
   containerCollapsible: {
-    flex: 1
+    flex: 1,
   },
+
   accordion: {
     top: 0,
   },
+
   title: {
     textAlign: 'center',
     fontSize: 30,
   },
+
   header: {
     backgroundColor: '#f0e68c',         //boxtext with title
     padding: 10,
-    opacity: 0.8
+    opacity: 0.8,
   },
+
   headerText: {                              //titles
     textAlign: 'center',
     color: '#dc143c',
     fontWeight: 'bold',
     fontSize: 20,
   },
+
   headerText2: {                              //titles
     fontSize: 20,
     left: 30,
     top:0,
   },
+
   content: {                            //o que esta a verde
     padding: 10,
     backgroundColor: '#f5fffa',
     opacity: 0.8,
-  },
-  icon:{
-    top:0,
-    left: 0,
-  },
+  }
 });
+
 export default TakeAway;

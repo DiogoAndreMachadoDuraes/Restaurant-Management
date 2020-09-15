@@ -184,7 +184,7 @@ class Login extends React.Component {
         if(validEmail==true && validPass==true){
             try
             {
-                let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Login', { 
+                let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Login', { 
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
@@ -205,7 +205,7 @@ class Login extends React.Component {
                 }
                 
                 try {
-                    let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Utilizador', { 
+                    let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Utilizador', { 
                       headers: {
                         Authorization: 'Bearer ' + token,
                         Accept: 'application/json',

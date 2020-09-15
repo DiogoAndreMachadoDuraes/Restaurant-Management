@@ -2,38 +2,32 @@ import * as React from 'react';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
 import Icon2 from "react-native-vector-icons/MaterialCommunityIcons";
-import {Icon} from "react-native-elements";
-import { Alert, AsyncStorage, StyleSheet, View, Text, Image, ImageBackground, ScrollView, Button, TouchableOpacity, FlatList } from 'react-native';
-
-const Coco = require('../assets/coco.jpg');
-
-const dataFromApi = [
-  {
-    id: 1,
-    imagem: Coco,
-    quantidade:1
-  }
-]
+import { Alert, AsyncStorage, StyleSheet, View, Text, Image, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
 
 class Shop extends React.Component {
   constructor(){
       super();
       this.state={
-        name:"Carrinho",
+        title:"Carrinho",
         buyMenu: [],
         buyProduct: [],
         menu: [],
         product:[],
         client:[],
         reservation:[],
-        user:[]
+        user:[],
+        name:[],
+        photo: [],
+        price: [],
+        quantity: 1,
+        total: [],
+        description: []
       };
     }
-
   async componentDidMount(){ 
     console.log("Mounting the screen Shop...");
     let token = await AsyncStorage.getItem("token");
-    await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
+/*     await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
     .then((response) => response.json())
     .then((json) => {
       this.setState({ menu: json, isLoading:false });
@@ -42,7 +36,6 @@ class Shop extends React.Component {
     .finally(() => {
       this.setState({ isLoading: false });
     });
-
     await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Produto', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
     .then((response) => response.json())
     .then((json) => {
@@ -52,7 +45,6 @@ class Shop extends React.Component {
     .finally(() => {
       this.setState({ isLoading: false });
     });
-
     await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Cliente', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
     .then((response) => response.json())
     .then((json) => {
@@ -62,7 +54,6 @@ class Shop extends React.Component {
     .finally(() => {
       this.setState({ isLoading: false });
     });
-
     await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Reserva', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
     .then((response) => response.json())
     .then((json) => {
@@ -72,7 +63,6 @@ class Shop extends React.Component {
     .finally(() => {
       this.setState({ isLoading: false });
     });
-
     await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
       .then((response) => response.json())
       .then((json) => {
@@ -82,7 +72,6 @@ class Shop extends React.Component {
       .finally(() => {
         this.setState({ isLoading: false });
       });
-    
       await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', {  headers: {Authorization: 'Bearer ' + token, Accept: 'application/json', 'Content-Type': 'application/json'}})
       .then((response) => response.json())
       .then((json) => {
@@ -91,9 +80,21 @@ class Shop extends React.Component {
       .catch((error) => console.error(error))
       .finally(() => {
         this.setState({ isLoading: false });
-      });
+      }); */
+      try {
+        const value = await AsyncStorage.getItem("User");
+        if (value !== null) {
+          this.setState({ user: JSON.parse(value) });
+        }
+      } catch (e) {
+        console.log("Error rending user: " + e);
+      }
+      const name=await AsyncStorage.getItem("productName", name);
+      const description=await AsyncStorage.getItem("description", description);
+      const photo=await AsyncStorage.getItem("photo", photo);
+      const price=await AsyncStorage.getItem("price", price);
+      this.setState({ name, price, photo, total: price, description });
   }
-
   threeOptionAlertHandler = () => {
     Alert.alert(
       //title
@@ -107,288 +108,219 @@ class Shop extends React.Component {
         { cancelable: true }
     );
   }
-
-  quantidade = (type) => {
-    let i = dataFromApi.map[a=>a.quantidade];
-    console.log(i);
-    if (type==true) {
-      i = i + 1
-      return i;
-      }
-      else if (type==false){
-      i = i - 1
-      return i;
-      }else if (type==1){
-      return i;
-    }
-  }
-
-  getUser = async () => {
-    try {
-      const value = await AsyncStorage.getItem("User");
-      if (value !== null) {
-        this.setState({ user: JSON.parse(value) });
-      }
-    } catch (e) {
-      console.log("Error rending user: " + e);
-    }
-  }
-     
-    render()
+  quantity(type){
+    let { quantity, name, photo, price, total } = this.state;
+    let i= quantity;
+    if(type){
+      i++;
+      let totalValue=i*price;
+      this.setState({ quantity: i, total: totalValue });
+    }else if(type==false && i>=2){
+      let totalValue=total-price;
+      i--;
+      this.setState({ quantity: i, total: totalValue });
+    }else if(type==false && i==1)
     {
-      const {menu, product, buyMenu , buyProduct, client, reservation, user } = this.state;
-      {
-        this.getUser();
-      }
-
-      const userId=user.map(a=>a.id_utilizador);
-      const clientId=client.filter(a=>a.id_utilizador==userId).map(a=>a.id_cliente);
-      const reservationId=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.id_reserva);
-      const menuBuyId=buyMenu.filter(a=>a.id_reserva==reservationId).map(a=>a.id_menu);
-      const menuBuy=menu.filter(a=>a.id_menu==menuBuyId).map (a=>a);
-      const productBuyId=buyProduct.filter(a=>a.id_reserva==reservationId).map(a=>a.id_produto);
-      const productBuy=product.filter(a=>a.id_produto==productBuyId).map (a=>a);
-      const allBuyMenu=buyMenu.filter(a=>a.id_reserva==reservationId).map (a=>a);
-      const allBuyProduct=buyProduct.filter(a=>a.id_reserva==reservationId).map (a=>a);
-
-      console.log(userId);
-
-      return (
-          <View style={style.container}>
-            <OwnStatusBar />
-            <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
-
-              <ScrollView>
-              <View>
-              <ImageBackground source={require("../assets/imageBackground.jpg")}  style={style.imageBackgound} opacity={1}>
-                  
-                  <View style={style.shop}>
-                    <Icon name="local-grocery-store" color={'red'} size={28}/>
-                    <Text style={style.shopText}>As minhas compras</Text>
-                  </View>
-
-                  <View style={style.button2}>
-                    <Button title="Esvaziar Carrinho" color="red" onPress={this.threeOptionAlertHandler}/>
-                  </View>
-                  {
-                      allBuyMenu.map((item)=>{
-                        return (
-                        <View style={style.menuExp}>
-                        <FlatList data={menuBuy}
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={({ item }) => (
-                          <>
-                            <Text style={style.title}>{item.nome} </Text>
-                            <Image style={style.menuExpFoto} source={item.foto} ></Image>
-                          </>
-                        )}
-                      />
-                    <Text style={style.title1}>{item.preco}</Text>
-                      <TouchableOpacity style={style.trash}>
-                        <Icon2 name="delete" color={'red'} size={20}/>
-                        <Text style={style.trashText}>Remover</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={style.plus} onPress={()=>this.quantidade(true)}>
-                        <Icon2 name="plus-box-outline" color={'red'} size={20}/>
-                      </TouchableOpacity>
-                      <Text style={style.i}> {item.quantidade}</Text>
-                      <TouchableOpacity style={style.minus} onPress={()=>this.quantidade(false)}>
-                        <Icon2 name="minus-box-outline" color={'red'} size={20}/>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })
-              }
-                  {
-                    allBuyProduct.map((item)=>{
-                      return (
-                      <View style={style.menuExp}>
-                      <FlatList data={productBuy}
-                      keyExtractor={({ id }, index) => id}
-                      renderItem={({ item }) => (
-                          <View>
-                            <Text style={style.title}>{item.nome} </Text>
-                            <Image style={style.menuExpFoto} source={item.foto} ></Image>
-                          </View>
-                        )}
-                    />
-                      <Text style={style.title1}>{item.preco}</Text>
-                        <TouchableOpacity style={style.trash}>
-                          <Icon2 name="delete" color={'red'} size={20}/>
-                          <Text style={style.trashText}>Remover</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={style.plus} onPress={()=>this.quantidade(true)}>
-                          <Icon2 name="plus-box-outline" color={'red'} size={20}/>
-                        </TouchableOpacity>
-                        <Text style={style.i}> {item.quantidade}</Text>
-                        <TouchableOpacity style={style.minus} onPress={()=>this.quantidade(false)}>
-                          <Icon2 name="minus-box-outline" color={'red'} size={20}/>
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  })
-                }
-                  <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
-                      <Text style={style.btnText}>Voltar</Text>
+      this.setState({ quantity: 0 });
+    }
+  }
+  render()
+  {
+    const { name, photo, price, quantity, total, description } = this.state;
+    return (
+      <View style={style.container}>
+        <OwnStatusBar />
+        <HeaderWihoutShop nome={this.state.title} navigation={this.props.navigation}/>
+          <ScrollView>
+          <View>
+          <ImageBackground source={require("../assets/imageBackground.jpg")}  style={style.imageBackgound} opacity={1}>
+            { 
+              quantity>=1 ?
+                <View style={style.menuExp}>
+                  <Image style={style.menuExpFoto} source={{uri: ''+photo+''}} ></Image>
+                  <Text style={style.title}>{name}</Text>
+                  <Text style={style.title1}>{description}</Text>
+                  <Text style={style.price}>Preço: {total}€</Text>
+                  <TouchableOpacity style={style.plus} onPress={()=>this.quantity(true)}>
+                    <Icon2 name="plus-box-outline" color={'red'} size={20}/>
                   </TouchableOpacity>
-
-                  <TouchableOpacity style={style.button1} _onPress={() => this._onPress(item) }>
-                      <Text style={style.btnText}>Comprar</Text>
+                  <Text style={style.i}>{quantity}</Text>
+                  <TouchableOpacity style={style.minus} onPress={()=>this.quantity(false)}>
+                    <Icon2 name="minus-box-outline" color={'red'} size={20}/>
                   </TouchableOpacity>
-                </ImageBackground>    
-              </View>
-            </ScrollView>
+                </View>
+              : 
+                <View style={style.nothing}>
+                  <Text style={style.textNothing}>Não contém nada no carrinho!</Text>
+                </View>
+            }
+            <TouchableOpacity style={style.button} onPress={() => this.props.navigation.goBack()}>
+                <Text style={style.btnText}>Voltar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={style.button1} onPress={() => this._onPress()}>
+                <Text style={style.btnText}>Comprar</Text>
+            </TouchableOpacity>
+          </ImageBackground>    
           </View>
-        );
-      }
-}
-
-_onPress = async() => {
-  /*        try
-          {
-              await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', { 
-                  method: 'POST',
-                  headers: {
-                      Accept: 'application/json',
-                      'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                      "email":this.state.email,
-                      "password":this.state.password
-                  })
-              });
-              this.props.navigation.navigate ("Reserva" , {
-                itemId= item.id,
-                name=item.nome,
-                description=item.descricao,
-                foto=item.foto
-              });
-              
-              this.props.navigation.navigate("Reserva");
-          } catch(e){
-              console.log(e);
-          }
-
-          try
-            {
-              await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', { 
-                  method: 'POST',
-                  headers: {
-                      Accept: 'application/json',
-                      'Content-Type': 'application/json'
-                    },     
-                  body: JSON.stringify({
-                      "email":this.state.email,
-                      "password":this.state.password
-                  })
-                });
-              this.props.navigation.navigate ("Reserva" , {
-               item
-              });
-          } catch(e){
-              console.log(e);
-            } */    
+        </ScrollView>
+      </View>
+    );
+  }
+  _onPress = () => {
+    Alert.alert(
+      "Continuar a comprar?",
+      'Deseja continuar a fazer as suas compras?',
+      [
+        {
+          text: "Sim",
+          onPress: () => this.props.navigation.navigate("Home")
+        },
+        {
+          text: "Finalizar compra",
+          onPress: () => this.props.navigation.navigate("Reservation")
+        }
+      ]
+    );
+    /* try
+    {
+      await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_produto', { 
+          method: 'POST',
+          headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              "email":this.state.email,
+              "password":this.state.password
+          })
+      });
+      this.props.navigation.navigate ("Reserva" , {
+        itemId= item.id,
+        name=item.nome,
+        description=item.descricao,
+        foto=item.foto
+      });
+      this.props.navigation.navigate("Reserva");
+    } catch(e){
+        console.log(e);
+    }
+    try
+    {
+      await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Compra_menu', { 
+          method: 'POST',
+          headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },     
+          body: JSON.stringify({
+              "email":this.state.email,
+              "password":this.state.password
+          })
+        });
+      this.props.navigation.navigate ("Reserva" , {
+        item
+      });
+    } catch(e){
+      console.log(e);
+    }  */  
+  }
 }
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+  },
+  
+  menuExp: {
+    marginTop: 120,
+    width: 400,
+    height: 220,
+    backgroundColor: '#fff',
+  },
+  
+  menuExpFoto: {
+    width: 150,
+    height: 150,
+    left: 10,
+    marginTop: 20,
+  },
+  
+  title:{
+    top: -150,
+    marginLeft: 200,
+    color: "green",
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  
+  title1:{
+    top: -20,
+    left: 10,
+    color: "black",
+    fontSize: 13,
+  },
+  
+  price:{
+    top: -120,
+    left: 200,
+    color: "black",
+    fontSize: 15,
+  },
+ 
+  minus:{
+    marginTop: -40,
+    width: 20,
+    height: 20,
+    left: 290,
+  },
+  plus:{
+    marginTop: -139,
+    width: 20,
+    height: 20,
+    left: 340,
   },
 
   i:{
-    top:-40,
-    left:140
+    top:-21,
+    width: 20,
+    height: 20,
+    left:320,
   },
-
-  title:{
-    top: 83,
-    left: 0,
+  
+  nothing:{
+    marginTop: 120,
+    width: 400,
+    height: 200,
+    backgroundColor: '#fff',
+  },
+  
+  textNothing:{
+    marginTop: 80,
+    marginLeft: 20,
     color: "green",
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 26,
   },
-
-  title1:{
-    top: 120,
-    left: -20,
-    color: "black",
-    fontSize: 15
-  },
-
-  trash: {
-    top: 50,
-    left: 120
-  },
-
-  trashText: {
-    top:-20,
-    left: 20,
-    color: "red",
-    fontWeight: 'bold',
-    fontSize: 15
-  },
-
-  minus:{
-    top: -60,
-    left: 120
-  },
-    
-  plus:{
-    top:-20,
-    left:160
-  },
-
-  menuExp: {
-    marginTop: 25,
-    top: 95,
-    marginLeft: 0,
-    padding: 20,
-    width: 400,
-    height: 100,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  menuExpFoto: {
-    width: 80,
-    height: 80,    
-  },
-
+  
   image:{
     width: 130,
     height: 130,
     marginTop: 150,
-    left: 30
+    left: 30,
   },
-
+  
   imageBackgound: {                         //foto por tras do titulo
     width: 420,
     height: 800,
     opacity: 0.9,
     },
-
+  
   menu: {                           //scrollview
     width: "100%",
     height: 1000,
   },
-
-  shop: {
-    marginLeft: 300,
-    marginTop: -40,
-    top: 140,
-    left: -330,
-    },
-
-  header:{
-    fontSize: 25,
-    color: '#fff',
-    marginLeft: 90,
-    top: 132,
-    left: -45,
-  },
-
+  
   button:{
     alignSelf:'stretch',
     alignItems:'center',
@@ -398,7 +330,7 @@ const style = StyleSheet.create({
     width:100,
     left: 60,
   },
-
+  
   button1:{
     alignSelf:'stretch',
     alignItems:'center',
@@ -409,44 +341,16 @@ const style = StyleSheet.create({
     left: 230,
   },
 
-  button2:{
-    alignSelf:'stretch',
-    alignItems:'center',
-    padding:0,
-    width:200,
-    left: 200,
-    top: 40,
-  },
-
   btnText:{
     color:'red',
     fontWeight:'bold',
     fontSize: 20,
   },
 
-  btnText1:{
-    color:'white',
-    fontWeight:'bold',
-    fontSize: 20,
-  },
-
-  textInput:{
-    alignSelf:'stretch',
-    height:40,
-    color: 'white',
-    marginBottom: 10,
-    borderBottomColor:'white',
-    borderBottomWidth:1,
-  },
-
-  email:{
-    color: 'white',
-  },
-
   imageBackground: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   text:{
@@ -456,4 +360,5 @@ const style = StyleSheet.create({
     left: 20,
   }
 });
+
 export default Shop;

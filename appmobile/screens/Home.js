@@ -45,7 +45,6 @@ class Home extends React.Component{
     }
 
     render() {
-        const { avatarName, photo} = this.state; 
         return (
             <View style={style.container}>
             <OwnStatusBar/>
@@ -118,10 +117,9 @@ class Home extends React.Component{
                         <Text style={style.categoryBtnTxt}> Produtos </Text>
                     </TouchableOpacity>
                     </View>
-                    {/* <View style={style.searchBox}>
-                            <TextInput placeholder="Procurar..." placeholderTextColor="#556b2f" autoCapitalize="none" fontWeight={'bold'} style={{flex:1,padding:5}} />
-                            <Ionicons name="ios-search" size={30} />
-                    </View> */}
+                    <View>
+                        <Text style={style.textClose}>Encerrado aos Domingos e feriados.                   Segunda a Sábado das 10h:00 - 00h:00.</Text>
+                    </View>
             
                     <Text style={style.textFound}>Encontre o seu restaurante aqui! E veja todas as sugestões que temos para si! </Text>
                     
@@ -130,10 +128,10 @@ class Home extends React.Component{
                             provider={PROVIDER_GOOGLE}
                             style={style.map}
                             region={{
-                                latitude: 41.69323,
-                                longitude: -8.83287,
-                                latitudeDelta: 0.1,
-                                longitudeDelta: 2,
+                                latitude: 38.7077507,
+                                longitude: -9.1365919,
+                                latitudeDelta: 0.2,
+                                longitudeDelta: 6,
                             }}
                         >
                             <Marker
@@ -204,28 +202,13 @@ class Home extends React.Component{
 
 const style = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
 
     container1:{
         paddingTop: 30,
         paddingLeft:16,
         alignItems: 'center',
-    },
-
-    searchBox: {
-        position:'absolute', 
-        marginTop: Platform.OS === 'ios' ? 40 : 20, 
-        flexDirection:"row",
-        backgroundColor: '#fff',
-        opacity: 0.5,
-        width: '97%',
-        alignSelf:'center',
-        borderRadius: 5,
-        padding: 10,
-        shadowRadius: 5,
-        top: 250,
-        elevation: 3,
     },
 
     name: {
@@ -252,9 +235,9 @@ const style = StyleSheet.create({
 
     map: {
         width: "100%",
-        height: 300,
+        height: 600,
         paddingVertical:20,
-        marginTop: 80,
+        marginTop: 30,
     },
 
     slide: {
@@ -322,11 +305,21 @@ const style = StyleSheet.create({
         top:-10,
     },
 
+    textClose:{
+        justifyContent:'center',
+        alignItems: 'center',
+        fontSize: 16,
+        fontWeight: 'normal',
+        color: '#de4f35',
+        left: 60,
+        top:-290,
+    },
+
     textFound:{
         fontSize: 20,
         fontWeight: 'normal',
         color: '#de4f35',
-        top: 30,
+        top: 0,
         left: 20,
     }
 });

@@ -38,6 +38,9 @@ class CallTypeSpecialMenu extends React.Component{
     const { navigation, route } = this.props;
     const { type } = route.params;
     const typeSpecialMenu = data.filter(a=>a.tipo==type).map(a=>a);
+    const photo = data.filter(a=>a.tipo==type).map(a=>a.foto);
+
+    console.log(photo);
 
     return (
       <View style={style.container}>
@@ -50,7 +53,7 @@ class CallTypeSpecialMenu extends React.Component{
                 typeSpecialMenu.map((item)=>{
                   return ( 
                     <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this._onPress(item)}>
-                      <Image style={style.menuExpFoto} source={item.foto} ></Image>
+                      <Image style={style.menuExpFoto} source={{uri:item.foto}} ></Image>
                       <Text style={style.titleMenu}>{item.nome}</Text>
                       <Text style={style.textMenu}>
                         <Text style={{fontWeight:"bold"}}>Preço: </Text> 
