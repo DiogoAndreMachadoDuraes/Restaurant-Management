@@ -15,41 +15,37 @@ class Home extends React.Component{
         super();
         this.state={ name:'Sabor da Avó', avatarName:[], photo:[] };
     }
-    componentDidMount(){ 
-        console.log("Mounting the screen Home...");
-    }
 
-async getName(){
-    try {
-        let json=await AsyncStorage.getItem("Name");
-        if (json!=null){
-            this.setState({
-                avatarName: json
-            });
+    async componentDidMount(){ 
+        console.log("Mounting the screen Home...");
+
+        try {
+            let json=await AsyncStorage.getItem("Name");
+            if (json!=null){
+                this.setState({
+                    avatarName: json
+                });
+            }
         }
-    }
-    catch(e){
-        console.log("error to get asyncstorage name: " + e);
-    }
-}
-    
-async getPhoto(){
-    try {
-        let json=await AsyncStorage.getItem("Foto");
-        if (json!=null){
-            this.setState({
-                photo: json
-            });
+        catch(e){
+            console.log("error to get asyncstorage name: " + e);
         }
+        
+        try {
+            let json=await AsyncStorage.getItem("Foto");
+            if (json!=null){
+                this.setState({
+                    photo: json
+                });
+            }
+        }
+        catch(e){
+            console.log("error to get asyncstorage photo: " + e);
+        }    
     }
-    catch(e){
-        console.log("error to get asyncstorage photo: " + e);
-    }
-}
 
     render() {
-        {this.getName()}
-        {this.getPhoto()}
+        const { avatarName, photo} = this.state; 
         return (
             <View style={style.container}>
             <OwnStatusBar/>

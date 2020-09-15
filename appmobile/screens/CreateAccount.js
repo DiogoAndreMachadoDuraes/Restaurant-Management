@@ -346,7 +346,7 @@ class CreateAccount extends React.Component {
       return (
         <View style={style.container}>
           <Header
-                centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color:"white", marginTop: -20}}>Registar</Text>}
+                centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color:"white", marginTop: -20}}> {this.state.name}r</Text>}
                 containerStyle={{
                     backgroundColor:"#556b2f",
                     justifyContent: 'space-around',

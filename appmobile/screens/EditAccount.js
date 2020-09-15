@@ -355,9 +355,8 @@ class EditAccount extends React.Component {
  
     return (
       <View style={style.container}>
-      <OwnStatusBar />
        <Header
-                centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color:"white", marginTop: -20}}> {this.state.name} </Text>}
+                centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color:"white", marginTop: -20}}>{this.state.name}</Text>}
                 containerStyle={{
                     backgroundColor:"#556b2f",
                     justifyContent: 'space-around',
@@ -840,10 +839,5 @@ const style = StyleSheet.create({
     left: 20,
   },
 
-  /*picker:{
-    with: '80%',
-    height: 200,
-    resizeMode: 'contain'
-  }*/
 });
 export default EditAccount;
