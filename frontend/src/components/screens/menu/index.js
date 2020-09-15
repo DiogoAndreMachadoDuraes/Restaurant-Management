@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import {OwnTable} from "../../OwnTable";
-import {SecoundTable} from "../../SecoundTable";
 import {StructurePage} from "../../StructurePage";
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -12,8 +11,6 @@ class Menu extends React.Component {
         this.state={
             menu:[],
             newData:[],
-            menuProduct:[],
-            newDataMenuProduct:[],
             specialMenu: []
         }
     }
@@ -36,24 +33,6 @@ class Menu extends React.Component {
             console.log(json);
         } catch(e){
             console.log("Error to get Menu: " + e);
-        }
-    
-        try {
-            let response = await fetch('/Produto_menu', 
-            { 
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            });
-            let res = await response.json();
-            console.log(res);
-            this.setState({ 
-                menuProduct: res
-            });
-        } catch(e){
-            console.log("Error to get Menu Product: " + e);
         }
 
         try {
@@ -92,7 +71,8 @@ class Menu extends React.Component {
                     'descricao': newData.description,
                     'tipo': newData.type,
                     'foto': newData.photo,
-                    'preco': newData.price
+                    'preco': newData.price,
+                    'id_ementa': newData.specialMenuId
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -119,7 +99,8 @@ class Menu extends React.Component {
                     'descricao': newData.description,
                     'tipo': newData.type,
                     'foto': newData.photo,
-                    'preco': newData.price
+                    'preco': newData.price,
+                    'id_ementa': newData.specialMenuId
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -150,91 +131,6 @@ class Menu extends React.Component {
         }
     }
     
-    addMenuProduct = async () => {
-        const { newDataMenuProduct } = this.state;
-        let token=localStorage.getItem("token");
-        try{
-            let response = await fetch('/Produto_menu', { 
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'quantidade': newDataMenuProduct.quantity,
-                    /* 'id_produto': newDataMenuProduct.productId,
-                    'id_menu': newDataMenuProduct.menuId */
-                })
-            });
-            alert("Coluna inserida com sucesso!");
-            window.location.reload();
-            console.log(response);
-        } catch(e){
-            console.log("Error to Post Produto menu: " + e);
-        }
-    }
-
-    updateMenuProduct = async (menuProductID) => {
-        const { newDataMenuProduct } = this.state;
-        let token=localStorage.getItem("token");
-        try{
-            let response = await fetch('/Produto_menu', { 
-                method: 'PUT',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'id_produto_menu': menuProductID,
-                    'quantidade': newDataMenuProduct.quantity,
-                    /* 'id_produto': newDataMenuProduct.productId,
-                    'id_menu': newDataMenuProduct.menuId */
-                })
-            });
-            alert("Coluna modificada com sucesso!");
-            window.location.reload();
-        } catch(e){
-            console.log("Error to Put Produto menu: " + e);
-        }
-    }
-
-    deleteMenuProduct = async (menuProductID) => {
-        let token=localStorage.getItem("token");
-        try{
-            let response = await fetch('/Produto_menu', { 
-                method: 'DELETE',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'id_produto_menu': menuProductID
-                })
-            });
-            alert("Coluna eliminada com sucesso!");
-            window.location.reload();
-        } catch(e){
-            console.log("Error to Delete Produto menu: " + e);
-        }
-    }
-
-    testMenuProduct(newData, resolve, reject){
-        if(newData.quantity==null ) {
-            alert('A quantidade não pode ser negativa nem nula!');
-            reject();
-            }else{
-                if(newData.quantity<=0){
-                    alert('A quantidade de pessoas tem de ser maior que 0!');
-                    reject();
-                }else{ 
-                return true;
-            }
-        }
-    }
-
     test(newData, resolve, reject){
         if(newData.type==null || newData.price==null || newData.photo==null || newData.name==null || newData.description==null){
             alert('Nenhum dos valores inseridos pode ser nulo!');
@@ -273,69 +169,6 @@ class Menu extends React.Component {
             }
         }
     }
-
-    showDetails(menuID) {
-        const { menuProduct } = this.state;
-        const columnsMenuProduct= [
-            { title: 'Quantidade', field: 'quantity', validate: rowData => rowData.quantity < 0 ? { isValid: false, helperText: 'A quantidade não pode ser nula' } : true, type: "numeric", align:"center"}
-        ];
-        const productMenu=menuProduct.filter(a=>a.id_menu==menuID).map(a=>a);
-        const dataMenuProduct = productMenu.map((item) => {
-            return { menuProductId: item.id_produto_menu, quantity: item.quantidade};
-        });;
-    
-    return (
-        <div style={{ marginTop: 20, marginLeft: 20, marginBottom: 20, marginInlineEnd: 20}}>
-            <SecoundTable
-                title="Quantidade dos Produtos no menu"
-                columns={columnsMenuProduct}
-                data={dataMenuProduct}
-                editable={{
-                    onRowAdd: newData =>
-                        new Promise((resolve, reject) => {
-                            if(this.testMenuProduct(newData, resolve, reject)!=true){
-                                    reject();
-                                }else{
-                                    setTimeout(() => {
-                                        this.setState({
-                                            newDataMenuProduct: newData
-                                        });
-                                        resolve();
-                                        this.addMenuProduct();
-                                    }, 100)
-                                }  
-                        }),
-                    onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve, reject) => {
-                            if(this.testMenuProduct(newData, resolve, reject)!=true){
-                                    reject();
-                                }else{
-                                    setTimeout(() => {
-                                        const dataUpdate = [...menuProduct];
-                                        const index = oldData.tableData.id;
-                                        dataUpdate[index] = newData;
-                                        this.setState({
-                                            newDataMenuProduct: newData
-                                        });
-                                        const menuProductID=newData.menuProductId;
-                                        resolve();
-                                        this.updateMenuProduct(menuProductID);
-                                    }, 1000)
-                                }
-                        }),
-                    onRowDelete: oldData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                const menuProductID = oldData.menuProductId;
-                                resolve();
-                                this.deleteMenuProduct(menuProductID);
-                            }, 1000)
-                        }),
-                    }}
-                />
-        </div>
-    )
-}
     
     render(){
         const { menu, specialMenu } = this.state;
@@ -358,7 +191,6 @@ class Menu extends React.Component {
                     title="Tabela dos Menus" 
                     columns={columns}
                     data={data}
-                    detailPanel={rowData => this.showDetails(rowData.menuId)}
                     editable={{
                         onRowAdd: newData =>
                         new Promise((resolve, reject) => {

@@ -134,7 +134,7 @@ class SpecialMenu extends React.Component {
         }
     }
     
-    addMeal = async () => {
+    addMeal = async (menuSpecialMenuID) => {
         const { newDataMeal } = this.state;
         let token=localStorage.getItem("token");
         try{
@@ -149,8 +149,8 @@ class SpecialMenu extends React.Component {
                     'dia_semana': newDataMeal.weekDay,
                     'data': newDataMeal.date,
                     'hora': newDataMeal.hour,
-                    /* 'id_restaurante': newDataMeal.restaurantId,
-                    'id_ementa': newDataMeal.specialMenuId */
+                    //'id_restaurante': newDataMeal.restaurantId,
+                    'id_ementa': menuSpecialMenuID
                 })
             });
             alert("Coluna inserida com sucesso!");
@@ -177,8 +177,8 @@ class SpecialMenu extends React.Component {
                     'dia_semana': newDataMeal.weekDay,
                     'data': newDataMeal.date,
                     'hora': newDataMeal.hour,
-                    /* 'id_restaurante': newDataMeal.restaurantId,
-                    'id_ementa': newDataMeal.specialMenuId */
+                    'id_restaurante': newDataMeal.restaurantId,
+                    'id_ementa': newDataMeal.specialMenuId
                 })
             });
             alert("Coluna modificada com sucesso!");
@@ -271,7 +271,7 @@ class SpecialMenu extends React.Component {
         ];
         const mealSpecialMenu=meal.filter(a=>a.id_ementa==menuSpecialMenuID).map(a=>a);
         const dataMeal = mealSpecialMenu.map((item) => {
-            return { mealId: item.id_refeicao_semanal, weekDay: item.dia_semana, date: item.data, hour: item.hora};
+            return { mealId: item.id_refeicao_semanal, weekDay: item.dia_semana, date: item.data, hour: item.hora, restaurantId: item.id_restaurante, specialMenuId: item.id_ementa};
         });;
     
     return (

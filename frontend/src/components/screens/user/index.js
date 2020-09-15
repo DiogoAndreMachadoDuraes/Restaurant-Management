@@ -239,8 +239,8 @@ class User extends React.Component {
                         alert('Tem de ter pelo meno 18 anos!');
                         reject();
                     }else{
-                        if(newData.tin.length==8){
-                            alert('O nif tem de 8 carateres!');
+                        if(newData.tin.length>9||newData.tin.length<9){
+                            alert('O nif tem de ser 9 carateres!');
                             reject();
                         }else{
                             if(!/^[0-9+]*$/.test(newData.telephone)){
