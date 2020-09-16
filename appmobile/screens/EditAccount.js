@@ -269,7 +269,7 @@ class EditAccount extends React.Component {
     if (Platform.OS !== 'web') {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
+        alert('Desculpe, precisamos das permissões da camera para continuar!');
       }
     }
   }
@@ -409,14 +409,14 @@ class EditAccount extends React.Component {
                     }}>
                     <Icon
                       name="camera"
-                      size={35}
-                      color="#000"
+                      size={55}
+                      color="white"
                       style={{
                         opacity: 1,
                         alignItems: 'center',
                         justifyContent: 'center',
-                        borderWidth: 1,
-                        borderColor: '#000',
+                        borderWidth: 2,
+                        borderColor: 'red',
                         borderRadius: 10,
                       }}
                     />

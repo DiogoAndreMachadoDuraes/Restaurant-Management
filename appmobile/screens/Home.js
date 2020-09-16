@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
-import { HeaderWihoutShop } from './shared/HeaderWihoutShop';
 import OwnStatusBar from './shared/OwnStatusBar';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'; 
 import Swiper from 'react-native-swiper';
@@ -8,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useTheme, Avatar} from 'react-native-paper';
+import { HeaderWithAccount } from './shared/HeaderWithAccount';
 
 class Home extends React.Component{
     constructor(){
@@ -48,13 +47,7 @@ class Home extends React.Component{
         return (
             <View style={style.container}>
             <OwnStatusBar/>
-            <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
-                <TouchableOpacity
-                    style={{left: 330, marginTop: -55}} onPress={() => this.props.navigation.navigate("Account")}>
-                        <Avatar.Image
-                        source={require('../assets/utilizador1.jpg')} size={40}
-                />
-                </TouchableOpacity>
+            <HeaderWithAccount nome={this.state.name} navigation={this.props.navigation} photo={this.state.photo}/>
                 <ScrollView style={style.container}>
                 <View style ={style.container1}>
                     <Text style={style.textUser}> Olá {this.state.avatarName}, </Text>
