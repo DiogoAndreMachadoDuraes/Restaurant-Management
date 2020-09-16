@@ -15,16 +15,18 @@ class EditAccount extends React.Component {
   constructor(){
       super();
       this.state={
-        name:"Editar Conta",
-        user: [],
-        tin:[],
-        birthday:[],
-        sex:[],
-        contact:[],
-        street:[],
-        postalCode:[],
-        location:[],
-        photo:[],
+        pageName:"Editar conta",
+        name: '',
+        email: '',
+        contact:'',
+        street:'',
+        postalCode:'',
+        location:'',
+        tin:'',
+        sex:'',
+        chosenDate:'',
+        confirmPassword: '',
+        password:'',
         image: 'https://i.pinimg.com/564x/f2/d2/35/f2d23548bcb9a62469d78b5411b67c55.jpg',
         email: [],
         password:[],
@@ -41,7 +43,7 @@ class EditAccount extends React.Component {
         isValidLocation: true,
         isValidBirthday: true,
         isValidEmail: true,
-        isNullEmail: true,
+        isEmail: false,
         isContact: true,
         isPostalCode: true,
         isLocation: true,
@@ -67,19 +69,28 @@ class EditAccount extends React.Component {
   }
    
   validName = (val) => {
-    if( val.trim().length >= 5 ) {
-      this.setState({
-            isValidName: true,
-            name:val
-        });
+    if(val.trim().length<3){
+        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(val)) {
+          this.setState({
+                isValidName: true,
+                isName: true,
+                name:val
+            });
+        } else {
+          this.setState({
+                isValidName: false,
+                isName: true,
+                name:val
+            });
+        }
     } else {
       this.setState({
             isValidName: false,
+            isName:false,
             name:val
         });
     }
   }
-
   validPassword = (val) => {
     if( val.trim().length >= 8 ) {
       this.setState({
@@ -93,7 +104,6 @@ class EditAccount extends React.Component {
         });
       }
   }
-
   validConfirmPassword = (val) => {
     if( val.trim().length >= 8 ) {
       if( val==this.state.password ) {
@@ -116,22 +126,31 @@ class EditAccount extends React.Component {
         });
       }
   }
-
   validStreet = (val) => {
-    if( val.trim().length >= 14 ) {
-      this.setState({
-            isValidStreet: true,
-            street: val
-        });
+    if(val.trim().length < 8){
+        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(val)){
+          this.setState({
+                isValidStreet: true,
+                isStreet: true,
+                street: val
+            });
+        } else {
+          this.setState({
+                isValidStreet: false,
+                isStreet: true,
+                street: val
+            });
+          }
     } else {
       this.setState({
             isValidStreet: false,
+            isStreet: false,
             street: val
         });
       }
   }
-
-  validTin = (val) => {
+  validTin
+   = (val) => {
       if(/^[0-9]*$/.test(val)) {
         if( val.trim().length >= 9 ) {
         this.setState({
@@ -153,7 +172,6 @@ class EditAccount extends React.Component {
         });
       }
   }
-
   validPostalCode = (val) => {
     if( val.trim().length >= 8 ) {
       if(/^[0-9-]*$/.test(val)) {
@@ -171,6 +189,7 @@ class EditAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidPostalCode: false,
             isPostalCode: false,
             postalCode: val
         });
@@ -178,30 +197,31 @@ class EditAccount extends React.Component {
   }
 
   validEmail = (val) => {
-    if( val.trim().length != 0 ){
+    if( val.trim().length > 6 ){
       if(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(val)) {
         this.setState({
               isValidEmail: true,
-              isNullEmail: false,
+              isEmail: true,
               email: val
           });
       }else {
         this.setState({
               isValidEmail: false,
-              isNullEmail: false,
+              isEmail: true,
               email: val
           });
       }
     }else {
       this.setState({
-              isNullEmail: true,
+              isValidEmail: false,
+              isEmail: false,
               email: val
         });
       }
   }
 
   validContact = (val) => {
-    if( val.trim().length > 8 ) {
+    if( val.trim().length > 8 || val.trim().length < 14 ) {
       if(/^[0-9+]*$/.test(val)) {
         this.setState({
               isValidContact: true,
@@ -217,6 +237,7 @@ class EditAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidContact: false,
             isContact: false,
             contact: val
         });
@@ -240,6 +261,7 @@ class EditAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidLocation: false,
             isLocation: false,
             location: val
         });
@@ -345,23 +367,12 @@ class EditAccount extends React.Component {
 
   render()
     { 
-      const { user, image } = this.state;
-
-      const nameUser=user.map(a=>a.nome);
-      const emailUser=user.map(a=>a.email);
-      const contactUser=user.map(a=>a.telefone);
-      const streetUser=user.map(a=>a.rua);
-      const postalCodeUser=user.map(a=>a.codigo_postal);
-      const tinUser=user.map(a=>a.nif);
-      const locationUser=user.map(a=>a.localizacao);
-      const sexUser=user.map(a=>a.sexo);
-      const passwordUser=user.map(a=>a.password);
-      const birthdayUser=user.map(a=>a.data_nascimento);
+      const { image, name, email, isValidName, isEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;  
  
     return (
       <View style={style.container}>
        <Header
-                centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color:"white", marginTop: -20}}>{this.state.name}</Text>}
+                centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', color:"white", marginTop: -20}}>{this.state.pageName}</Text>}
                 containerStyle={{
                     backgroundColor:"#556b2f",
                     justifyContent: 'space-around',
@@ -427,173 +438,174 @@ class EditAccount extends React.Component {
             </View>
             </Animated.View>     
 
-      <ScrollView style={style.form}>
-      <View style={style.form}>
-          <Text style={style.text}>Nome Completo:</Text>
-          <Input inputStyle={style.inputcolor}
-          defaultValue={nameUser[0]}
-          autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'user', color: 'black' }} onChangeText={(val)=>this.validName(val)} values = {this.state.name} onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
-          
-            { this.state.isValidName ? true : 
+      <ScrollView style={style.formText}>
+          <View style={style.formText}>
+            <Text style={style.text}>Nome Completo:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Nome Completo"
+            leftIcon={{ type: 'font-awesome', name: 'user', color: 'black' }} 
+            onChangeText={(val)=>this.validName(val)} 
+            values = {name} 
+            onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
+              { isValidName ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 3 caráteres!</Text>
+                </Animatable.View>
+              }
+            <Text style={style.text}>Email:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Email"
+            leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'black' }} 
+            onChangeText={(val)=>this.validEmail(val)} 
+            values = {email} 
+            onEndEditing={(e)=>this.validEmail(e.nativeEvent.text)} />
+              { isEmail ? 
+              true:   
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres.</Text>
+                  <Text style={style.errorMsg}>O email tem de ter mais de 6 carateres!</Text>
               </Animatable.View>
-            }
-
-          <Text style={style.text}>Email:</Text>
-          <Input inputStyle={style.inputcolor}
-          defaultValue={emailUser[0]}
-          keyboardType= "email-address"
-          leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'black' }} onChangeText={(val)=>this.validEmail(val)} values = {this.state.email} onEndEditing={(e)=>this.validEmail(e.nativeEvent.text)} />
-          
-            { this.state.isNullEmail ? 
+              }
+              { isValidEmail ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O email não está correto!</Text>
+                </Animatable.View>
+              }
+            <Text style={style.text}>Telefone:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Telefone"
+            leftIcon={{ type: 'font-awesome', name: 'phone', color:'black' }} 
+            onChangeText={(val)=>this.validContact(val)} 
+            values = {contact} 
+            onEndEditing={(e)=>this.validContact(e.nativeEvent.text)}
+            />
+              { isContact ? true :
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O email não pode ser nulo.</Text>
+                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números!</Text>
               </Animatable.View>
-              : false
-            }
-
-            { this.state.isValidEmail ? true : 
+              }
+              { isValidContact ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais!</Text>
+                </Animatable.View>
+              }
+            <Text style={style.text}>Rua:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Rua"
+            leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }}
+            onChangeText={(val)=>this.validStreet(val)} 
+            values = {street} 
+            onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)}
+            />
+              { isValidStreet ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O email não está correto.</Text>
+                <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres!</Text>
               </Animatable.View>
-            }
-
-          <Text style={style.text}>Telefone:</Text>
-          <Input inputStyle={style.inputcolor}
-          defaultValue={contactUser[0]}
-          keyboardType="phone-pad"
-          leftIcon={{ type: 'font-awesome', name: 'phone', color:'black' }} onChangeText={(val)=>this.validContact(val)} values = {this.state.contact} onEndEditing={(e)=>this.validContact(e.nativeEvent.text)} />
-          
-            { this.state.isContact ? true :
+              }
+            <Text style={style.text}>Código Postal:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Código Postal"
+            leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }}
+            onChangeText={(val)=>this.validPostalCode(val)} 
+            values = {postalCode} 
+            onEndEditing={(e)=>this.validPostalCode(e.nativeEvent.text)}
+            />
+              { isPostalCode ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números.</Text>
+                <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres!</Text>
               </Animatable.View>
-            }
-
-            { this.state.isValidContact ? true : 
+              }
+              { isValidPostalCode ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais.</Text>
+                <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais!</Text>
               </Animatable.View>
-            }
-
-          <Text style={style.text}>Morada:</Text>
-          <Input inputStyle={style.inputcolor}
-          defaultValue={streetUser[0]}
-          autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validStreet(val)} values = {this.state.street} onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)} />
-          
-            { this.state.isValidStreet ? true : 
+              }
+            <Text style={style.text}>Localização:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Localização"
+            leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }}
+            onChangeText={(val)=>this.validLocation(val)} 
+            values = {location} 
+            onEndEditing={(e)=>this.validLocation(e.nativeEvent.text)}
+            />
+              { isLocation ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres.</Text>
+                <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres!</Text>
               </Animatable.View>
-            }
-          
-          <Text style={style.text}>Código Postal:</Text>
-          <Input inputStyle={style.inputcolor}
-          defaultValue={postalCodeUser[0]}
-          keyboardType='number-pad'
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validPostalCode(val)} values = {this.state.postalCode} onEndEditing={(e)=>this.validPostalCode(e.nativeEvent.text)} />
-
-            { this.state.isPostalCode ? true : 
+              }
+              { isValidLocation ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres.</Text>
+                <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais!</Text>
               </Animatable.View>
-            }
-
-            { this.state.isValidPostalCode ? true : 
+              }
+            <Text style={style.text}>Nif:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Nif"
+            leftIcon={{ type: 'font-awesome', name: 'user', color:'black' }} 
+            onChangeText={(val)=>this.validTin(val)} 
+            values = {tin} 
+            onEndEditing={(e)=>this.validTin(e.nativeEvent.text)} 
+            />
+              { isValidTin ? true :
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais.</Text>
+                <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números!</Text>
               </Animatable.View>
-            }
-
-          <Text style={style.text}>Localização:</Text>
-          <Input inputStyle={style.inputcolor}
-          defaultValue={locationUser[0]}
-          autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }} onChangeText={(val)=>this.validLocation(val)} values = {this.state.location} onEndEditing={(e)=>this.validLocation(e.nativeEvent.text)} />
-
-            { this.state.isLocation ? true : 
+              }
+              { isTin ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres.</Text>
+                <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais!</Text>
               </Animatable.View>
-            }
-
-            { this.state.isValidLocation ? true : 
+              }
+              <Text style={style.text}>Género:</Text>
+              <Picker
+                style={{ height: 60, width: 140, top: -42, left: 95}}
+                selectedValue={sex}
+                placeholder="Género"
+                onValueChange={(value, index) => this.getSex(value)}
+                mode='dropdown'
+              >
+                <Picker.Item label="Feminino" value="Feminino" />
+                <Picker.Item label="Masculino" value="Masculino" />
+                <Picker.Item label="Indefinido" value="Indefinido" />
+              </Picker>
+            <Text style={style.text}>Password:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Password"
+            leftIcon={{ type: 'font-awesome', name: 'key', color:'black' }}
+            onChangeText={(val)=>this.validPassword(val)} 
+            secureTextEntry={true}
+            values = {password} 
+            onEndEditing={(e)=>this.validPassword(e.nativeEvent.text)}
+            />
+              { isValidPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais.</Text>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres!</Text>
               </Animatable.View>
-            }
-
-          <Text style={style.text}>Nif:</Text>
-          <Input inputStyle={style.inputcolor}
-          defaultValue={tinUser[0]}
-          keyboardType="numeric"
-          leftIcon={{ type: 'font-awesome', name: 'user', color:'black' }} onChangeText={(val)=>this.validTin(val)} values = {this.state.tin} onEndEditing={(e)=>this.validTin(e.nativeEvent.text)} />
-
-            { this.state.isValidTin ? true :
+              }  
+            <Text style={style.text}>Confirmar Password:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Confirmar Password"
+            leftIcon={{ type: 'font-awesome', name: 'key', color:'black' }}
+            onChangeText={(val)=>this.validConfirmPassword(val)} 
+            secureTextEntry={true}
+            values = {confirmPassword} 
+            onEndEditing={(e)=>this.validConfirmPassword(e.nativeEvent.text)}
+            />
+              { isConfirmPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números.</Text>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres!</Text>
               </Animatable.View>
-            }
-
-            { this.state.isTin ? true : 
+              }  
+              { isValidConfirmPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais.</Text>
+                <Text style={style.errorMsg}>As passwords não correspondem!</Text>
               </Animatable.View>
-            }
-
-          <Text style={style.text}>Género:</Text>
-          <Picker
-            style={{ height: 60, width: 140, top: -42, left: 95}}
-            selectedValue={this.state.sex}
-            defaultValue={sexUser[0]}
-            onValueChange={(value, index) => this.setState({ sex: value })}
-            mode='dropdown'
-          >
-            <Picker.Item label="Feminino" value="Feminino" />
-            <Picker.Item label="Masculino" value="Masculino" />
-            <Picker.Item label="Indefinido" value="Indefinido" />
-          </Picker>
-
-          <Text style={style.text}>Password:</Text>
-          <Input inputStyle={style.inputcolor}
-          defaultValue={passwordUser[0]}
-          secureTextEntry={true}
-          leftIcon={{ type: 'font-awesome', name: 'key', color:'black' }} onChangeText={(val)=>this.validPassword(val)} values = {this.state.password} onEndEditing={(e)=>this.validPassword(e.nativeEvent.text)} />
-          
-            { this.state.isValidPassword ? true : 
-              <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
-              </Animatable.View>
-            }  
-          
-          <Text style={style.text}>Confirmar Password:</Text>
-          <Input inputStyle={style.inputcolor}
-          secureTextEntry={true}
-          placeholder='Confirmar password'
-          leftIcon={{ type: 'font-awesome', name: 'key', color:'black' }} onChangeText={(val)=>this.validConfirmPassword(val)} values = {this.state.confirmPassword} onEndEditing={(e)=>this.validConfirmPassword(e.nativeEvent.text)} /> 
-         
-            { this.state.isConfirmPassword ? true : 
-              <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
-              </Animatable.View>
-            }  
-            
-            { this.state.isValidConfirmPassword ? true : 
-              <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>As passwords não correspondem.</Text>
-              </Animatable.View>
-            }  
-
-          <Text style={style.text}>Data Nascimento: {this.state.choosenDate}</Text>
+              }  
+              <Text style={style.text}>Data Nascimento: {chosenDate}</Text>
           <DateTimePicker
-                  isVisible={this.state.isVisible}
+                  isVisible={isVisible}
                   mode={'date'}
                   onConfirm={this.handlePicked}
                   onCancel={this.hidePicker}
-                  defaultValue={birthdayUser[0]}
           />
           <TouchableOpacity style={style.getHour} onPress={this.showPicked}>
             <Icon name="calendar" size={35} color={'black'} style={{left:20}}> </Icon>

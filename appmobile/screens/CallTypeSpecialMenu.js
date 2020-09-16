@@ -73,8 +73,8 @@ class CallTypeSpecialMenu extends React.Component{
  
   _onPress (item) {
     
-    this.props.navigation.navigate("ProductDetail",{
-        idProduct:item.menu,
+    this.props.navigation.navigate("MenuDetail",{
+        idMenu:item.id_ementa,
         name:item.nome,
         photo:item.foto,
         description:item.descricao,

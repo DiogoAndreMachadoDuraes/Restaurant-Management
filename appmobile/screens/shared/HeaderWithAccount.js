@@ -16,7 +16,7 @@ export const HeaderWithAccount = (props) => {
             </TouchableOpacity>
         }
         containerStyle={{
-            backgroundColor: "#556b2f",
+            backgroundColor: theme.dark ? "#444444" : "#556b2f",
             justifyContent: 'space-around',
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,

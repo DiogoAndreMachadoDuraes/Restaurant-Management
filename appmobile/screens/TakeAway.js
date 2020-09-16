@@ -70,9 +70,6 @@ class TakeAway extends React.Component{
     } catch(e){
       console.log("Error to get product: " + e);
     }
-  }
-
-  getUser = async () => {
     try {
       const value = await AsyncStorage.getItem("User");
       if (value !== null) {
@@ -89,7 +86,7 @@ class TakeAway extends React.Component{
         <Text style={style.headerText}>Take Away nº{section.id_take_away}</Text>
       </View>
     );
-  };
+  }
 
   _renderContent = section => {
     return (
@@ -112,65 +109,34 @@ class TakeAway extends React.Component{
 
   _updateSections = activeSections => {
     this.setState({ activeSections });
-  };
-  /* sections(){
-    const { user, data , reservation, client } = this.state;
-    {
-      this.getUser();
-    }
-    const userId=user.map(a=>a.id_utilizador);
-    const userName=user.map(a=>a.nome);
-    const clientId=client.filter(a=>a.id_utilizador==userId).map(a=>a.id_cliente);
-    const reservationId=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.id_reserva);
-    const allTakeAway=data.filter(a=>a.id_reserva==reservationId).map(a=>a);
-    /*     
-    const allTakeAway=data.map(a=>a.id_reserva);
-    const reservationId=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.id_reserva);
-    const takeAwayByUser=data.filter(a=>a.id_reserva==reservationId).map(a=>a);
-    const checkHour=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.data_marcada);
-    const checkDate=reservation.filter(a=>a.id_cliente==clientId).map(a=>a.hora_marcada);
-    const price=allTakeAway.map(a=>a.preco);
-    const status=allTakeAway.map(a=>a.estado);
-    const SECTIONS = [
-      {
-        title: 'Data Marcada',
-        content: checkDate[0],
-        icon: 'calendar'
-      },
-      {
-        title: 'Hora Maracada',
-        content: checkHour[0],
-        icon:'clock'
-      },
-      {
-        title: 'Nome da Reserva',
-        content: userName[0],
-        icon:'library'
-      },
-      {
-        title: 'Preço do Take Away',
-        content: price[0],
-        icon:'cash'
-      },
-      {
-        title: 'Estado da encomenda',
-        content: status[0],
-        icon:'truck'
-      },
-    ];
-    return SECTIONS;
-  } */
+  }
 
   render(){
-    /* const section=this.sections(); */
     const { user, data , reservation, client } = this.state;
-    /* {
-      this.getUser();
-    }
     const userId=user.map(a=>a.id_utilizador);
-    const userName=user.map(a=>a.nome);
-    const clientId=client.filter(a=>a.id_utilizador==userId).map(a=>a.id_cliente); */
-    /* const allReservation=reservation.filter(a=>a.id_cliente==clientId).map(a=>a); */
+    const clientId=client.filter(a=>a.id_utilizador==userId).map(a=>a.id_cliente);
+
+    const allreservation=reservation.filter(a=>a.id_cliente==clientId[0]).map(a=>a.id_reserva);
+    const alltakeAway=data.map(a=>a.id_reserva);
+
+    var intersection = allreservation.filter(function(e) {
+      return alltakeAway.indexOf(e) > -1;
+    });
+
+   /*  function a (i){
+      for(var i; i<=intersection.length; i++){
+        let takeAwayByUser=data.filter(a=>a.id_reserva==intersection[i]).map(a=>a);
+        let join2 = concat(takeAwayByUser);
+        console.log(join2);
+        return join2;
+      }
+    } */
+
+    const takeAwayByUser=data.filter(a=>a.id_reserva==intersection[0]).map(a=>a);
+    const takeAwayByUser1=data.filter(a=>a.id_reserva==intersection[1]).map(a=>a);
+
+    const join = takeAwayByUser.concat(takeAwayByUser1);
+
     return (
       <View style={style.container}>
         <OwnStatusBar />
@@ -180,7 +146,7 @@ class TakeAway extends React.Component{
           <ScrollView>
             <View style={style.menu}>
               <Accordion
-                sections={data}
+                sections={join}
                 activeSections={this.state.activeSections}
                 renderHeader={this._renderHeader}
                 renderContent={this._renderContent}

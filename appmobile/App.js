@@ -27,12 +27,12 @@ import ProductCategory from "./screens/ProductCategory.js";
 import Invoice from "./screens/Invoice.js";
 import TakeAway from "./screens/TakeAway.js";
 import CreateTakeAway from "./screens/CreateTakeAway.js";
-//import WishList from "./screens/WishList.js";
-
 import { DrawerContent } from './screens/shared/DrawerContent';
+import MenuDetail from "./screens/MenuDetail.js";
+import EditReservation from "./screens/EditReservation.js";
 
 import { ToggleTheme } from './components/context';
-import WishList from "./screens/WishList.js";
+
 
 const Drawer = createDrawerNavigator();
 
@@ -91,6 +91,8 @@ const App = () => {
           <Drawer.Screen name="Invoice" component={Invoice} options={{drawerLabel:'Invoice'}}/>
           <Drawer.Screen name="TakeAway" component={TakeAway} options={{drawerLabel:'TakeAway'}}/>
           <Drawer.Screen name="CreateTakeAway" component={CreateTakeAway} options={{ gestureEnabled:false, drawerLabel:'CreateTakeAway'}}/>
+          <Drawer.Screen name="EditReservation" component={EditReservation} options={{ gestureEnabled:false, drawerLabel:'EditReservation'}}/>
+          <Drawer.Screen name="MenuDetail" component={MenuDetail} options={{ gestureEnabled:false, drawerLabel:'MenuDetail'}}/>
         </Drawer.Navigator>
       </NavigationContainer>
     </ToggleTheme.Provider>

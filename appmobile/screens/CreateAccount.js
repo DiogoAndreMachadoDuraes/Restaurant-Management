@@ -10,6 +10,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import * as Animatable from 'react-native-animatable';
+
 class CreateAccount extends React.Component {
   constructor(){
       super();
@@ -42,7 +43,7 @@ class CreateAccount extends React.Component {
         isValidLocation: true,
         isValidBirthday: true,
         isValidEmail: true,
-        isNullEmail: true,
+        isEmail: false,
         isContact: true,
         isPostalCode: true,
         isLocation: true,
@@ -57,14 +58,24 @@ class CreateAccount extends React.Component {
     this.getPermissionAsync();
   }
   validName = (val) => {
-    if( val.trim().length >= 5 ) {
-      this.setState({
-            isValidName: true,
-            name:val
-        });
+    if(val.trim().length<3){
+        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(val)) {
+          this.setState({
+                isValidName: true,
+                isName: true,
+                name:val
+            });
+        } else {
+          this.setState({
+                isValidName: false,
+                isName: true,
+                name:val
+            });
+        }
     } else {
       this.setState({
             isValidName: false,
+            isName:false,
             name:val
         });
     }
@@ -105,14 +116,24 @@ class CreateAccount extends React.Component {
       }
   }
   validStreet = (val) => {
-    if( val.trim().length >= 14 ) {
-      this.setState({
-            isValidStreet: true,
-            street: val
-        });
+    if(val.trim().length < 8){
+        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(val)){
+          this.setState({
+                isValidStreet: true,
+                isStreet: true,
+                street: val
+            });
+        } else {
+          this.setState({
+                isValidStreet: false,
+                isStreet: true,
+                street: val
+            });
+          }
     } else {
       this.setState({
             isValidStreet: false,
+            isStreet: false,
             street: val
         });
       }
@@ -157,35 +178,39 @@ class CreateAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidPostalCode: false,
             isPostalCode: false,
             postalCode: val
         });
       }
   }
+
   validEmail = (val) => {
-    if( val.trim().length != 0 ){
+    if( val.trim().length > 6 ){
       if(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(val)) {
         this.setState({
               isValidEmail: true,
-              isNullEmail: false,
+              isEmail: true,
               email: val
           });
       }else {
         this.setState({
               isValidEmail: false,
-              isNullEmail: false,
+              isEmail: true,
               email: val
           });
       }
     }else {
       this.setState({
-              isNullEmail: true,
+              isValidEmail: false,
+              isEmail: false,
               email: val
         });
       }
   }
+
   validContact = (val) => {
-    if( val.trim().length > 8 ) {
+    if( val.trim().length > 8 || val.trim().length < 14 ) {
       if(/^[0-9+]*$/.test(val)) {
         this.setState({
               isValidContact: true,
@@ -201,11 +226,13 @@ class CreateAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidContact: false,
             isContact: false,
             contact: val
         });
       }
   }
+
   validLocation = (val) => {                         
     if( val.trim().length >= 4 ) {
       if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]*$/.test(val)) {
@@ -223,6 +250,7 @@ class CreateAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidLocation: false,
             isLocation: false,
             location: val
         });
@@ -323,7 +351,7 @@ class CreateAccount extends React.Component {
   }
   render()
   { 
-    const { photo, name, email, isValidName, isNullEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;  
+    const { photo, name, email, isValidName, isEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;  
       return (
         <View style={style.container}>
           <Header
@@ -401,7 +429,7 @@ class CreateAccount extends React.Component {
             onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
               { isValidName ? true : 
                 <Animatable.View animation="fadeInLeft" duration={500}>
-                  <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres.</Text>
+                  <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres!</Text>
                 </Animatable.View>
               }
             <Text style={style.text}>Email:</Text>
@@ -411,15 +439,15 @@ class CreateAccount extends React.Component {
             onChangeText={(val)=>this.validEmail(val)} 
             values = {email} 
             onEndEditing={(e)=>this.validEmail(e.nativeEvent.text)} />
-              { isNullEmail ? 
-                <Animatable.View animation="fadeInLeft" duration={500}>
-                  <Text style={style.errorMsg}>O email não pode ser nulo.</Text>
-                </Animatable.View>
-                : false
+              { isEmail ? 
+              true:   
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O email tem de ter mais de 6 carateres!</Text>
+              </Animatable.View>
               }
               { isValidEmail ? true : 
                 <Animatable.View animation="fadeInLeft" duration={500}>
-                  <Text style={style.errorMsg}>O email não está correto.</Text>
+                  <Text style={style.errorMsg}>O email não está correto!</Text>
                 </Animatable.View>
               }
             <Text style={style.text}>Telefone:</Text>
@@ -432,14 +460,15 @@ class CreateAccount extends React.Component {
             />
               { isContact ? true :
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números.</Text>
+                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números!</Text>
               </Animatable.View>
               }
               { isValidContact ? true : 
                 <Animatable.View animation="fadeInLeft" duration={500}>
-                  <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais.</Text>
+                  <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais!</Text>
                 </Animatable.View>
               }
+
             <Text style={style.text}>Rua:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Rua"
@@ -450,7 +479,7 @@ class CreateAccount extends React.Component {
             />
               { isValidStreet ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres.</Text>
+                <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres!</Text>
               </Animatable.View>
               }
             <Text style={style.text}>Código Postal:</Text>
@@ -463,12 +492,12 @@ class CreateAccount extends React.Component {
             />
               { isPostalCode ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres.</Text>
+                <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres!</Text>
               </Animatable.View>
               }
               { isValidPostalCode ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais.</Text>
+                <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais!</Text>
               </Animatable.View>
               }
             <Text style={style.text}>Localização:</Text>
@@ -481,12 +510,12 @@ class CreateAccount extends React.Component {
             />
               { isLocation ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres.</Text>
+                <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres!</Text>
               </Animatable.View>
               }
               { isValidLocation ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais.</Text>
+                <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais!</Text>
               </Animatable.View>
               }
             <Text style={style.text}>Nif:</Text>
@@ -499,12 +528,12 @@ class CreateAccount extends React.Component {
             />
               { isValidTin ? true :
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números.</Text>
+                <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números!</Text>
               </Animatable.View>
               }
               { isTin ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais.</Text>
+                <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais!</Text>
               </Animatable.View>
               }
               <Text style={style.text}>Género:</Text>
@@ -529,7 +558,7 @@ class CreateAccount extends React.Component {
             />
               { isValidPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres!</Text>
               </Animatable.View>
               }  
             <Text style={style.text}>Confirmar Password:</Text>
@@ -542,12 +571,12 @@ class CreateAccount extends React.Component {
             />
               { isConfirmPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres!</Text>
               </Animatable.View>
               }  
               { isValidConfirmPassword ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>As passwords não correspondem.</Text>
+                <Text style={style.errorMsg}>As passwords não correspondem!</Text>
               </Animatable.View>
               }  
               <Text style={style.text}>Data Nascimento: {chosenDate}</Text>

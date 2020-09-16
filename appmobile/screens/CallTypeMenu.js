@@ -54,6 +54,10 @@ async componentDidMount(){
                       <Image style={style.menuExpFoto} source={{uri:item.foto}} ></Image>
                       <Text style={style.titleMenu}>{item.nome}</Text>
                       <Text style={style.textMenu}>{item.descricao}</Text>
+                      <Text style={style.textMenu}>
+                        <Text style={{fontWeight:"bold"}}>Preço: </Text> 
+                        <Text>{item.preco}€</Text>
+                      </Text>
                     </TouchableOpacity>);
             })
                     
@@ -69,8 +73,8 @@ async componentDidMount(){
 
   _onPress (item) {
     
-    this.props.navigation.navigate("ProductDetail",{
-        idProduct:item.menu,
+    this.props.navigation.navigate("MenuDetail",{
+        idMenu:item.menu,
         name:item.nome,
         photo:item.foto,
         description:item.descricao,
@@ -90,7 +94,7 @@ const style = StyleSheet.create({
 
   menu: {                           //scrollview
     width: "100%",
-    height: 1780,
+    height: "100%",
   },
 
   menuExp: {

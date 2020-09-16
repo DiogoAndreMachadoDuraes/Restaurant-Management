@@ -1,7 +1,9 @@
 import * as React from "react";
 import {Text, StyleSheet, View} from "react-native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+/* import { useTheme } from "@react-navigation/native";
 
+const theme = useTheme(); */
 
 export default function FinalHeader (){
   return(
@@ -20,21 +22,21 @@ companyText: {
     color: "#fff",
     fontSize: 15,
     textAlign: 'center',
-    marginTop: 50
+    marginTop: 50,
   },
 
   rightsText: {
     color: "#fff",
     fontSize: 15,
     textAlign: 'center',
-    marginTop: 20
+    marginTop: 20,
   },
 
   socialText: {
     color: "#fff",
     fontSize: 15,
     textAlign: 'center',
-    marginTop: 20
+    marginTop: 20,
   },
 
   facebook: {
@@ -51,8 +53,8 @@ companyText: {
   },
 
   final: {
-    backgroundColor: "#556b2f",
+    backgroundColor: /* theme.dark ? "#444444" : */ "#556b2f",
     justifyContent: 'center',
-    marginTop: 100
+    marginTop: 100,
   }
 });
