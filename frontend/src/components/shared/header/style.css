@@ -1,0 +1,41 @@
+
+header{
+    position: relative;
+    display: block;
+    background-color: black;
+    color: white;
+    height: 90px;
+}
+
+.logo{
+    font-size: 30px;
+    position: absolute;
+    top: 25%;
+    left: 25px;
+}
+
+nav,
+nav ul,
+nav ul li{
+    list-style-type: none;
+    margin: -10px;
+    padding: 0;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+nav{
+    position: absolute;
+    top: 60%;
+    right: 15px;
+}
+
+a{
+    font-size: 20px;
+    color: white;
+    margin-right: 8px;
+}
+
+.last{
+    margin-right: 15px;
+}
