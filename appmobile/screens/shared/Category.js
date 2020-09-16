@@ -7,33 +7,35 @@ const Category = (props)=>(
                 <Image source={props.image} style={style.image}/>
             </View>
             <View style={style.textScroll}>
-                <Text>{props.name}</Text>
+                <Text>{props.name} - {props.description}</Text>
             </View>
         </View>
 );
 
 const style = StyleSheet.create({
     container: {
-        height: 140,
-        width: 140,
+        height: 200,
+        width: 200,
         marginLeft:20,
         borderWidth: 0.5,
         borderColor: "#dddddd",
-        marginTop: 80
+        marginTop: 80,
+        backgroundColor: "white"
     },
     textScroll: {
-        flex: 1,
+        flex: 3,
+        left:20,
         paddingTop: 10,
-        paddingLeft: 45,
-        textAlign: 'center'
+        paddingLeft: 15,
+        textAlign: 'center',
     },
     imageScroll: {
-      flex: 2
+      flex: 7
     },
     image: {
       flex: 1,
-      width: null,
-      height: null,
+      width: 200,
+      height: 200,
       resizeMode: 'cover'
     }
 });

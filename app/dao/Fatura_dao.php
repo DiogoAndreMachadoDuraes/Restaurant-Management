@@ -18,7 +18,7 @@ class Fatura_dao extends ConnectionDB
                 id_fatura,
                 iva,
                 taxa,
-                valor_total
+                valor_total,
                 nif_cliente,
                 id_reserva
             From Fatura;')

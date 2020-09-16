@@ -1,35 +1,36 @@
 import * as React from 'react';
-import { Alert, StyleSheet, View, Picker, Text, CheckBox, Image, TouchableOpacity, ScrollView, AsyncStorage, Button } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, ImageBackground, CheckBox, Picker } from 'react-native';
 import { Input, Header } from 'react-native-elements';
-import OwnStatusBar from "./shared/OwnStatusBar.js";
-import {useTheme, Avatar} from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
-import Icon from 'react-native-vector-icons/EvilIcons';
-//import ImagePicker from 'react-native-image-crop-picker';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+import * as Animatable from 'react-native-animatable';
 
 class CreateAccount extends React.Component {
   constructor(){
       super();
       this.state={
-        name:"Registar",
-        tin:'',
-        userName: '',
-        birthday:'',
-        sex:'',
+        pageName:"Registar",
+        name: '',
+        email: '',
         contact:'',
         street:'',
         postalCode:'',
         location:'',
-        photo:'',
-        email: '',
+        tin:'',
+        sex:'',
+        chosenDate:'',
+        confirmPassword: '',
         password:'',
-        confirmPassword:'',
-        check: false,              //box check
+        type:'Cliente',
+        check: false,
         checked: false,
-        avatarSource: null,
+        photo: 'https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_1280.png',
         isValidName: true,
         isValidPassword: true,
         isValidStreet: true,
@@ -42,31 +43,41 @@ class CreateAccount extends React.Component {
         isValidLocation: true,
         isValidBirthday: true,
         isValidEmail: true,
-        isNullEmail: true,
+        isEmail: false,
         isContact: true,
         isPostalCode: true,
         isLocation: true,
         isTin: true,
-        choosenDate: '',
         isVisible: false,
         isValidConfirmPassword: true,
-        isConfirmPassword: true
-      };
+        isConfirmPassword: true,
+        now: moment().format("YYYY-MM-DD")
+     };
     }
   componentDidMount(){ 
     console.log("Mounting the screen CreateAccount...");
+    this.getPermissionAsync();
   }
-  
   validName = (val) => {
-    if( val.trim().length >= 5 ) {
-      this.setState({
-            isValidName: true,
-            userName:val
-        });
+    if(val.trim().length<3){
+        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(val)) {
+          this.setState({
+                isValidName: true,
+                isName: true,
+                name:val
+            });
+        } else {
+          this.setState({
+                isValidName: false,
+                isName: true,
+                name:val
+            });
+        }
     } else {
       this.setState({
             isValidName: false,
-            userName:val
+            isName:false,
+            name:val
         });
     }
   }
@@ -106,14 +117,24 @@ class CreateAccount extends React.Component {
       }
   }
   validStreet = (val) => {
-    if( val.trim().length >= 14 ) {
-      this.setState({
-            isValidStreet: true,
-            street: val
-        });
+    if(val.trim().length > 8){
+        if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(val)){
+          this.setState({
+                isValidStreet: true,
+                isStreet: true,
+                street: val
+            });
+        } else {
+          this.setState({
+                isValidStreet: false,
+                isStreet: true,
+                street: val
+            });
+          }
     } else {
       this.setState({
             isValidStreet: false,
+            isStreet: false,
             street: val
         });
       }
@@ -157,35 +178,39 @@ class CreateAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidPostalCode: false,
             isPostalCode: false,
             postalCode: val
         });
       }
   }
+
   validEmail = (val) => {
-    if( val.trim().length != 0 ){
+    if( val.trim().length > 6 ){
       if(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(val)) {
         this.setState({
               isValidEmail: true,
-              isNullEmail: false,
+              isEmail: true,
               email: val
           });
       }else {
         this.setState({
               isValidEmail: false,
-              isNullEmail: false,
+              isEmail: true,
               email: val
           });
       }
     }else {
       this.setState({
-              isNullEmail: true,
+              isValidEmail: false,
+              isEmail: false,
               email: val
         });
       }
   }
+
   validContact = (val) => {
-    if( val.trim().length > 8 ) {
+    if( val.trim().length > 8 || val.trim().length < 14 ) {
       if(/^[0-9+]*$/.test(val)) {
         this.setState({
               isValidContact: true,
@@ -201,11 +226,13 @@ class CreateAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidContact: false,
             isContact: false,
             contact: val
         });
       }
   }
+
   validLocation = (val) => {                         
     if( val.trim().length >= 4 ) {
       if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]*$/.test(val)) {
@@ -223,489 +250,606 @@ class CreateAccount extends React.Component {
       }
     } else {
       this.setState({
+            isValidLocation: false,
             isLocation: false,
             location: val
         });
       }
   }
+  checkedBox(){
+    this.setState({
+      check:!this.state.check
+    })
+  }
   handlePicked = (date) => {
     this.setState({ 
       isVisible: false,
-      choosenDate: moment(date).format('DD/MM/YYYY')
+      chosenDate: moment(date).format('YYYY/MM/DD')
     })
     this.hidePicker();
   }
-
   showPicked = () => {
     this.setState({ isVisible: true });
   }
-
   hidePicker = () => {
     this.setState({ isVisible: false });
   }
-
-  checkedBox(){
-    this.setState({
-      check: true
-    })
+  bs = React.createRef();
+  fall = new Animated.Value (1);
+  getPermissionAsync = async () => {
+    if (Platform.OS !== 'web') {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
   }
-  /*selectImage=async () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true
-    }).then(image => {
-      console.log(image);
-    });
-  }*/
-  render()
-  { 
+  _pickImage = async () => {
+    this.bs.current.snapTo(1);
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ photo: result.uri });
+      }
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  }
+  _openCamera = async () => {
+    this.bs.current.snapTo(1);
+    try {
+      let result = await ImagePicker.launchCameraAsync()({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ photo: result.uri });
+      }
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  }
+  renderInner = () => {
     return (
-      <View style={style.container}>
-      <OwnStatusBar />
-      <Header 
-        centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color: '#fff', marginTop: -20}}>{this.state.name}</Text>} 
-        containerStyle={{
-        backgroundColor: '#556b2f',
-        justifyContent: 'space-around',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        borderColor: "white",
-        height: 80,
-        }}
-      />
-
-      <ScrollView style={style.form}>
-      <View style={style.form}>
-      <View style={style.panel}>
+    <View style={style.panel}>
       <View style={{alignItems: 'center'}}>
-        <Text style={style.panelTitle}>Upload Photo</Text>
-        <Text style={style.panelSubtitle}>Choose Your Profile Picture</Text>
+        <Text style={style.panelTitle}>Selecionar Foto</Text>
+        <Text style={style.panelSubtitle}>Escolha a sua foto de perfil</Text>
       </View>
-      <TouchableOpacity style={style.panelButton}>
-        <Text style={style.panelButtonTitle}>Take Photo</Text>
+      <TouchableOpacity style={style.panelButton} onPress={this._pickImage}>
+        <Text style={style.panelButtonTitle}>Selecionar uma foto da galeria</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={style.panelButton}>
-        <Text style={style.panelButtonTitle}>Choose From Library</Text>
+      <TouchableOpacity style={style.panelButton} onPress={this._openCamera}>
+        <Text style={style.panelButtonTitle}>Tirar foto</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={style.panelButton}
         onPress={() => this.bs.current.snapTo(1)}>
-        <Text style={style.panelButtonTitle}>Cancel</Text>
+        <Text style={style.panelButtonTitle}>Cancelar</Text>
       </TouchableOpacity>
-      <View style={style.header}>
+    </View>
+  );}
+  renderHeader = () => {
+    return(
+    <View style={style.header}>
       <View style={style.panelHeader}>
         <View style={style.panelHandle} />
-        
       </View>
     </View>
-    </View>
-      <TouchableOpacity
-          style={{left: 90, marginTop: 20}}
-          onPress={() => { navigation.navigate('Account'); }}>
-          <Avatar.Image
-          source={{ uri:'https://www.hiper.fm/wp-content/uploads/2019/12/isabela-valadeiro.jpg',}}
-          size={200}
-        />
-      </TouchableOpacity>
-          {/*<Text style={style.text}>Foto:</Text>
-          {
-            this.state.avatarSource && <Image style= {style.picker} />
-          }
-          <Button  title="selecionar imagem" onPress={this.selectImage}/>*/}
-          
-          <Text style={style.text}>Nome Completo:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Nome Completo"
-          autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }} onChangeText={(val)=>this.validName(val)} values = {this.state.userName} onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
-          
-          { this.state.isValidName ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres.</Text>
-            </Animatable.View>
-          }
+  );}
+  getSex = (value) => {
+    this.setState({ sex: value });
+  }
+  render()
+  { 
+    const { photo, name, email, isValidName, isEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;  
+      return (
+        <View style={style.container}>
+          <Header
+                centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color:"white", marginTop: -20}}> {this.state.pageName}</Text>}
+                containerStyle={{
+                    backgroundColor:"#556b2f",
+                    justifyContent: 'space-around',
+                    borderTopLeftRadius: 30,
+                    borderTopRightRadius: 30,
+                    borderColor: "white",
+                    height: 80,
+                }}
+            />
+          <BottomSheet
+            ref={this.bs}
+            snapPoints={[430, 0]}
+            renderContent={this.renderInner}
+            renderHeader={this.renderHeader}
+            initialSnap={1}
+            callbackNode={this.fall}
+            enabledGestureInteraction={true}
+          />
+          <Animated.View style={{margin: 20,
+          opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),
+          }}>
+          <View style={{alignItems: 'center'}}>
+        <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
+        <View
+                style={{
+                  height: 200,
+                  width: 200,
+                  borderRadius: 100,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <ImageBackground
+                  source={{
+                    uri: photo,
+                  }}
+                  style={{height: 200, width: 200}}
+                  imageStyle={{borderRadius: 100}}>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Icon
+                      name="camera"
+                      size={35}
+                      color="#fff"
+                      style={{
+                        opacity: 0.7,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderWidth: 1,
+                        borderColor: '#fff',
+                        borderRadius: 10,
+                      }}
+                    />
+                  </View>
+                </ImageBackground>
+              </View>
+            </TouchableOpacity>
+            </View>
+            </Animated.View>     
+            <ScrollView style={style.formText}>
+          <View style={style.formText}>
+            <Text style={style.text}>Nome Completo:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Nome Completo"
+            leftIcon={{ type: 'font-awesome', name: 'user', color: 'white' }} 
+            onChangeText={(val)=>this.validName(val)} 
+            values = {name} 
+            onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
+              { isName ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O nome não é válido!</Text>
+                </Animatable.View>
+              }
+              { isValidName ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres!</Text>
+                </Animatable.View>
+              }
+            <Text style={style.text}>Email:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Email"
+            leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} 
+            onChangeText={(val)=>this.validEmail(val)} 
+            values = {email} 
+            onEndEditing={(e)=>this.validEmail(e.nativeEvent.text)} />
+              { isEmail ? 
+              true:   
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O email tem de ter mais de 6 carateres!</Text>
+              </Animatable.View>
+              }
+              { isValidEmail ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O email não está correto!</Text>
+                </Animatable.View>
+              }
+            <Text style={style.text}>Telefone:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Telefone"
+            leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} 
+            onChangeText={(val)=>this.validContact(val)} 
+            values = {contact} 
+            onEndEditing={(e)=>this.validContact(e.nativeEvent.text)}
+            />
+              { isContact ? true :
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números!</Text>
+              </Animatable.View>
+              }
+              { isValidContact ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais!</Text>
+                </Animatable.View>
+              }
 
-          <Text style={style.text}>Email:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Email"
-          keyboardType= "email-address"
-          leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'white' }} onChangeText={(val)=>this.validEmail(val)} values = {this.state.email} onEndEditing={(e)=>this.validEmail(e.nativeEvent.text)} />
-          
-          { this.state.isNullEmail ? 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O email não pode ser nulo.</Text>
-            </Animatable.View>
-            : false
-          }
-
-          { this.state.isValidEmail ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O email não está correto.</Text>
-            </Animatable.View>
-          }
-
-          <Text style={style.text}>Telefone:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Telefone"
-          keyboardType="phone-pad"
-          leftIcon={{ type: 'font-awesome', name: 'phone', color:'white' }} onChangeText={(val)=>this.validContact(val)} values = {this.state.contact} onEndEditing={(e)=>this.validContact(e.nativeEvent.text)} />
-          
-          { this.state.isContact ? true :
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números.</Text>
-            </Animatable.View>
-          }
-
-          { this.state.isValidContact ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais.</Text>
-            </Animatable.View>
-          }
-
-          <Text style={style.text}>Morada:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Rua e Porta"
-          autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validStreet(val)} values = {this.state.street} onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)} />
-          
-          { this.state.isValidStreet ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres.</Text>
-            </Animatable.View>
-          }
-          
-          <Text style={style.text}>Código Postal:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Código Postal"
-          keyboardType='number-pad'
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validPostalCode(val)} values = {this.state.postalCode} onEndEditing={(e)=>this.validPostalCode(e.nativeEvent.text)} />
-
-          { this.state.isPostalCode ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres.</Text>
-            </Animatable.View>
-          }
-
-          { this.state.isValidPostalCode ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais.</Text>
-            </Animatable.View>
-          }
-
-          <Text style={style.text}>Localização:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Localização"
-          autoCapitalize={"sentences"}
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validLocation(val)} values = {this.state.location} onEndEditing={(e)=>this.validLocation(e.nativeEvent.text)} />
-
-          { this.state.isLocation ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres.</Text>
-            </Animatable.View>
-          }
-
-          { this.state.isValidLocation ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais.</Text>
-            </Animatable.View>
-          }
-
-          <Text style={style.text}>Nif:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Nif"
-          keyboardType="numeric"
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validTin(val)} values = {this.state.tin} onEndEditing={(e)=>this.validTin(e.nativeEvent.text)} />
-
-          { this.state.isValidTin ? true :
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números.</Text>
-            </Animatable.View>
-          }
-
-          { this.state.isTin ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais.</Text>
-            </Animatable.View>
-          }
-
-          <Text style={style.text}>Sexo:</Text>
-          <Picker
-            style={{ height: 60, width: 140, top: -42, left: 80}}
-            selectedValue={this.state.sex}
-            onValueChange={(value, index) => this.setState({ sex: value })}
-            mode='dropdown'
-          >
-            <Picker.Item label="Feminino" value="Feminino" />
-            <Picker.Item label="Masculino" value="Masculino" />
-            <Picker.Item label="Indefinido" value="Indefinido" />
-          </Picker>
-
-          <Text style={style.text}>Password:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Password"
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validPassword(val)} values = {this.state.password} onEndEditing={(e)=>this.validPassword(e.nativeEvent.text)} />
-          
-          { this.state.isValidPassword ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
-            </Animatable.View>
-          }  
-          
-          <Text style={style.text}>Confirmar Password:</Text>
-          <Input inputStyle={style.inputcolor}
-          placeholder="Confirmar Password"
-          leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }} onChangeText={(val)=>this.validConfirmPassword(val)} values = {this.state.confirmPassword} onEndEditing={(e)=>this.validConfirmPassword(e.nativeEvent.text)} />
-         
-          { this.state.isConfirmPassword ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres.</Text>
-            </Animatable.View>
-          }  
-          { this.state.isValidConfirmPassword ? true : 
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={style.errorMsg}>As passwords não correspondem.</Text>
-            </Animatable.View>
-          }  
-          <Text style={style.text}>Data Nascimento: {this.state.choosenDate}</Text>
+            <Text style={style.text}>Morada:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Rua"
+            leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }}
+            onChangeText={(val)=>this.validStreet(val)} 
+            values = {street} 
+            onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)}
+            />
+               { isStreet ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A morada tem de ter no mínimo 8 caráteres!</Text>
+              </Animatable.View>
+              }
+              { isValidStreet ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A morada não é válida!</Text>
+              </Animatable.View>
+              }
+            <Text style={style.text}>Código Postal:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Código Postal"
+            leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }}
+            onChangeText={(val)=>this.validPostalCode(val)} 
+            values = {postalCode} 
+            onEndEditing={(e)=>this.validPostalCode(e.nativeEvent.text)}
+            />
+              { isPostalCode ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O código postal tem de ter no mínimo 8 caráteres!</Text>
+              </Animatable.View>
+              }
+              { isValidPostalCode ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O código postal não pode conter letras e caráteres especiais!</Text>
+              </Animatable.View>
+              }
+            <Text style={style.text}>Localização:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Localização"
+            leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }}
+            onChangeText={(val)=>this.validLocation(val)} 
+            values = {location} 
+            onEndEditing={(e)=>this.validLocation(e.nativeEvent.text)}
+            />
+              { isLocation ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A localização tem de ter no mínimo 4 caráteres!</Text>
+              </Animatable.View>
+              }
+              { isValidLocation ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A localização não pode conter números e caráteres especiais!</Text>
+              </Animatable.View>
+              }
+            <Text style={style.text}>Nif:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Nif"
+            leftIcon={{ type: 'font-awesome', name: 'user', color:'white' }} 
+            onChangeText={(val)=>this.validTin(val)} 
+            values = {tin} 
+            onEndEditing={(e)=>this.validTin(e.nativeEvent.text)} 
+            />
+              { isValidTin ? true :
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O número de contribuinte tem de ter no mínimo 9 números!</Text>
+              </Animatable.View>
+              }
+              { isTin ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>O número de contribuinte não pode conter letras e caráteres especiais!</Text>
+              </Animatable.View>
+              }
+              <Text style={style.text}>Género:</Text>
+              <Picker
+                style={{ height: 60, width: 140, top: -42, left: 95}}
+                selectedValue={sex}
+                placeholder="Género"
+                onValueChange={(value, index) => this.getSex(value)}
+                mode='dropdown'
+              >
+                <Picker.Item label="Feminino" value="Feminino" />
+                <Picker.Item label="Masculino" value="Masculino" />
+                <Picker.Item label="Indefinido" value="Indefinido" />
+              </Picker>
+            <Text style={style.text}>Password:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Password"
+            leftIcon={{ type: 'font-awesome', name: 'key', color:'white' }}
+            onChangeText={(val)=>this.validPassword(val)} 
+            values = {password} 
+            onEndEditing={(e)=>this.validPassword(e.nativeEvent.text)}
+            />
+              { isValidPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres!</Text>
+              </Animatable.View>
+              }  
+            <Text style={style.text}>Confirmar Password:</Text>
+            <Input inputStyle={style.inputcolor}
+            placeholder="Confirmar Password"
+            leftIcon={{ type: 'font-awesome', name: 'key', color:'white' }}
+            onChangeText={(val)=>this.validConfirmPassword(val)} 
+            values = {confirmPassword} 
+            onEndEditing={(e)=>this.validConfirmPassword(e.nativeEvent.text)}
+            />
+              { isConfirmPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A password tem de conter no mínimo 8 caráteres!</Text>
+              </Animatable.View>
+              }  
+              { isValidConfirmPassword ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>As passwords não correspondem!</Text>
+              </Animatable.View>
+              }  
+              <Text style={style.text}>Data Nascimento: {chosenDate}</Text>
           <DateTimePicker
-                  isVisible={this.state.isVisible}
+                  isVisible={isVisible}
                   mode={'date'}
                   onConfirm={this.handlePicked}
                   onCancel={this.hidePicker}
           />
           <TouchableOpacity style={style.getHour} onPress={this.showPicked}>
-            <Icon name="calendar" size={45}> </Icon>
+            <Icon name="calendar" size={35} color={'white'} style={{left:20}}> </Icon>
           </TouchableOpacity>
-
-          <View style={style.checkBoxContainer}>
-            <CheckBox
-              value={this.state.check}
-              onChange={this.checkedBox}
-              style={style.checkBox}
-            />
-          </View>  
-
-          <View style={style.caixatexto}>
-              <Text style={style.title}>Termos e Condições Gerais </Text>
-              <Text style={style.title1}>O Sabor da Avó compromete-se a tratar os dados pessoais de forma confidencial e responsável, assegurando o seu tratamento em estrito cumprimento. Ao assinalar a opção abaixo, declaro que tomei conhecimento e que concordo com os Termos e Condições Gerais da loja online e com a Política de Privacidade e Proteção de Dados adotada pelo Sabor da Avó.</Text>
-              <Text style={style.title2}>Declaro que fui informado/a sobre os Termos e Condições Gerais da App Sabor da Avó e que aceito a criação da conta de cliente nos termos acima expostos. * </Text>
-          </View>
-
-          <TouchableOpacity style={style.button} onPress={this._onPress}>
-              <Text style={style.btnText}>Criar Conta</Text>
-          </TouchableOpacity>
-
-          <View style={style.caixatexto}>
-              <Text style={style.title3}>* Campos Obrigatórios</Text>   
-          </View>
-          
-          <View style={style.caixatexto}>
-              <Text style={style.title1}>         Se tiver alguma dúvida, não hesite em contactar-nos. Estamos sempre à sua disposição.</Text>   
-          </View>
-
-      </View>
-      </ScrollView>
+            <View style={style.checkBoxContainer}>
+              <CheckBox
+                value={check}
+                onChange={()=>this.checkedBox()}
+                style={style.checkBox}
+              />
+            </View>  
+            <View style={style.caixatexto}>
+                <Text style={style.title}>Termos e Condições Gerais </Text>
+                <Text style={style.title1}>O Sabor da Avó compromete-se a tratar os dados pessoais de forma confidencial e responsável, assegurando o seu tratamento em estrito cumprimento. Ao assinalar a opção abaixo, declaro que tomei conhecimento e que concordo com os Termos e Condições Gerais da loja online e com a Política de Privacidade e Proteção de Dados adotada pelo Sabor da Avó.</Text>
+                <Text style={style.title2}>Declaro que fui informado/a sobre os Termos e Condições Gerais da App Sabor da Avó e que aceito a criação da conta de cliente nos termos acima expostos. * </Text>
+            </View>
+            <TouchableOpacity style={style.button} onPress={this._onPress}>
+                <Text style={style.btnText}>Criar Conta</Text>
+            </TouchableOpacity>
+            <View style={style.caixatexto}>
+                <Text style={style.title3}>* Campos Obrigatórios</Text>   
+            </View>
+            <View style={style.caixatexto}>
+                <Text style={style.title1}>         Se tiver alguma dúvida, não hesite em contactar-nos. Estamos sempre à sua disposição.</Text>   
+            </View>
+          </View> 
+        </ScrollView>
       </View>
     );
   }
-
-_onPress = async() => {
-  console.log(this.state.tin);
-  console.log(this.state.userName);
-  console.log(this.state.choosenDate);
-  console.log(this.state.sex);
-  console.log(this.state.contact);
-  console.log(this.state.street);
-  console.log(this.state.postalCode);
-  console.log(this.state.location);
-  //console.log(this.state.photo);
-  console.log(this.state.email);
-  console.log(this.state.password);
-    if(this.state.tin.trim().length==0||this.state.userName.trim().length==0||this.state.choosenDate.trim().length==0||this.state.sex.trim().length==0||this.state.contact.trim().length==0||this.state.street.trim().length==0||this.state.postalCode.trim().length==0||this.state.location.trim().length==0||this.state.email.trim().length==0||this.state.password.trim().length==0||this.state.confirmPassword.trim().length==0)
+  _onPress = async() => {
+    const { type, photo ,name, email, isValidName, isNullEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;
+    console.log(name);
+    console.log(email);
+    console.log(contact);
+    console.log(street);
+    console.log(postalCode);
+    console.log(location);
+    console.log(tin);
+    console.log(sex);
+    console.log(chosenDate);
+    console.log(confirmPassword);
+    console.log(password);
+    if(this.state.tin.trim().length==0||this.state.name.trim().length==0||this.state.chosenDate.trim().length==0||this.state.sex.trim().length==0||this.state.contact.trim().length==0||this.state.street.trim().length==0||this.state.postalCode.trim().length==0||this.state.location.trim().length==0||this.state.email.trim().length==0||this.state.password.trim().length==0||this.state.confirmPassword.trim().length==0)
     {
       Alert.alert('Atenção!', ' Preenchimento de todos os dados obrigatório.', [
         {text: 'Voltar a tentar'}
-    ]);
-    return;
+      ]);
+      return;
     }
-    if(this.state.isValidName!=true && this.state.isValidPassword!=true && this.state.isValidStreet!=true && this.state.isValidTin!=true && this.state.isValidPhoto!=true && this.state.isValidContact!=true && this.state.isValidType!=true && this.state.isValidPostalCode!=true && this.state.isValidSex!=true && this.state.isValidLocation!=true && this.state.isValidBirthday!=true && this.state.isValidEmail!=true && this.state.isNullEmail!=true && this.state.isContact!=true && this.state.isPostalCode!=true && this.state.isLocation!=true && this.state.isTin!=true && this.state.isVisible!=false && this.state.isValidConfirmPassword!=true && this.state.isConfirmPassword!=true)
+    if(this.state.isValidName!=true && isValidPassword!=true && isValidStreet!=true && isValidTin!=true && isValidPhoto!=true && isValidContact!=true && isValidType!=true && isValidPostalCode!=true && isValidSex!=true && isValidLocation!=true && isValidBirthday!=true && isValidEmail!=true && isNullEmail!=true && isContact!=true && isPostalCode!=true && isLocation!=true && isTin!=true && isVisible!=false && isValidConfirmPassword!=true && isConfirmPassword!=true)
     {
       Alert.alert('Atenção!', 'Algum(s) do(s) dado(s) fornecido(s) está incorreto(s).', [
         {text: 'Voltar a tentar'}
-    ]);
-    return;
+      ]);
+      return;
     }
-    if(this.state.check== false)  
-    {
-      Alert.alert('Atenção!', 'Obrigatório o preenchimento dos Termos e Condições Gerais.', [
-        {text: 'Voltar a tentar'}
-    ]);
-    return;
+    else{
+      if(moment.duration(moment(this.state.choosenDate,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asYears()>18){
+        try
+          {
+            let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Registar', {  
+            method: 'POST', 
+            headers: {
+              Accept: 'application/json', 
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              'nif': tin,
+              'nome': name,
+              'data_nascimento': chosenDate,
+              'sexo': sex,
+              'telefone': contact,
+              'rua': street,
+              'codigo_postal': postalCode,
+              'localizacao': location,
+              'foto': photo,
+              'email': email,
+              'password': password,
+              'tipo': type
+            })
+          });
+            console.log(""+response);
+            this.props.navigation.navigate("Login");
+        } catch(e){
+            console.log(e);
+        }
+      } else{
+        Alert.alert("Tem de ter no mínimo 18 anos para se registar na aplicação!");
+      } 
     }
-  try
-    {
-      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Utilizador', {  
-      method: 'POST', 
-      headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        nif: this.state.tin,
-        nome: this.state.userName,
-        data_nascimento: this.state.choosenDate,
-        sexo: this.state.sex,
-        telefone: this.state.contact,
-        rua: this.state.street,
-        codigo_postal: this.state.postalCode,
-        localizacao: this.state.location,
-        foto: this.state.photo,
-        email: this.state.email,
-        password: this.password,
-        tipo:'Cliente'
-      })
-    });
-      this.props.navigation.navigate("Login");
-  } catch(e){
-      console.log(e);
-    }      
-}
+  }
 }
 const style = StyleSheet.create({
-    checkBox: {
-      alignSelf: "center",
-      top: 265,
-      left: 20
-    },
-
-    errorMsg: {
-      color: '#FF0000',
-      fontSize: 12,
-      top:-25,
-      left: 15,
-    },
-
-    checkBoxContainer: {
-      flexDirection: "row",
-      marginBottom: 20,
-    },
-
-    container: {
-      flex: 1,
-      backgroundColor: "#556b2f",
-    },
-
-    inputcolor:{
+  header: {
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#333333',
+    shadowOffset: {width: -1, height: -3},
+    shadowRadius: 2,
+    shadowOpacity: 0.4,
+    paddingTop: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  panel: {
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    paddingTop: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 5,
+    shadowOpacity: 0.4,
+  },
+  panelHeader: {
+    alignItems: 'center',
+  },
+  panelHandle: {
+    width: 70,
+    height: 8,
+    borderRadius: 7,
+    backgroundColor: '#ff8c00',
+    marginBottom: 6,
+    left: -75,
+    top: 60,
+  },
+  panelTitle: {
+    fontSize: 30,
+    height: 35,
+    color: '#556b2f',
+    fontWeight: 'bold',
+  },
+  panelSubtitle: {
+    fontSize: 14,
+    color: 'black',
+    height: 30,
+    marginBottom: 10,
+  },
+  panelButton: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: 'tomato',
+    alignItems: 'center',
+    marginVertical: 7,
+  },
+  panelButtonTitle: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  checkBox: {
+    alignSelf: "center",
+    top: 265,
+    left: 20,
+  },
+  checkBoxContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#556b2f",
+  },
+  inputcolor:{
       color: "white",
-    },
-
-    menu: {                           
-      width: "100%",
-      height:"100%"
-    },
-
-    form:{
-      width: "100%",
-      height:"100%"
-    },
-
-    title:{
-      color: "#fff",
-      fontSize: 15,
-      fontWeight: 'bold',
-      fontStyle: "normal",
-      marginLeft: 30,
-      left: -10,
-      marginTop: 20,
-      padding:10,
-    },
-
-    title2:{
-      color: "#fff",
-      fontSize: 15,
-      fontStyle: "normal",
-      marginLeft: 30,
-      left: 10,
-      marginTop: -10,
-      padding:10,
-    },
-    
-    title1:{
-      color: "#fff",
-      fontSize: 15,
-      fontStyle: "normal",
-      marginLeft: 30,
-      left: -10,
-      marginTop: -10,
-      padding:10,
-    },
-
-    title3:{
-      color: "#fff",
-      fontSize: 10,
-      fontWeight: 'bold',
-      fontStyle: "normal",
-      marginLeft: 30,
-      left: 100,
-      top: -30,
-      padding:10,
-    },
-
-    header:{
-      fontSize: 25,
-      color: '#fff',
-      marginLeft: 150,
-      top: 60,
-      paddingBottom:60,
-      marginBottom:60,
-      borderBottomColor: 'black',
-    },
-
-    button:{
-      alignSelf:'stretch',
-      alignItems:'center',
-      padding:10,
-      backgroundColor:'white',
-      marginTop: 50,
-      width:130,
-      left: 130,
-      marginVertical:20
-    },
-
-    btnText:{
-      color:'red',
-      fontWeight:'bold',
-      fontSize: 20,
-    },
-    
-    textInput:{
-      alignSelf:'stretch',
-      height: 40,
-      color: 'white',
-      marginBottom: 10,
-      borderBottomColor:'white',
-      borderBottomWidth:1,
-    },
-
-    email:{
-      color: 'white',
-    },
-
-    imageBackground: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-
-    text:{
-      color: 'white',
-      fontWeight: 'bold',
-      fontSize: 20,
-      left: 20,
-    },
-
-    /*picker:{
-      width: '80%',
-      height: 200,
-      resizeMode: 'contain'
-    }*/
+  },
+  formText:{
+    width: "100%",
+    height:"100%",
+    marginTop: 20,
+  },
+  title:{
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: 'bold',
+    fontStyle: "normal",
+    marginLeft: 30,
+    left: -10,
+    marginTop: 30,
+    padding:10,
+  },
+  title2:{
+    color: "#fff",
+    fontSize: 15,
+    fontStyle: "normal",
+    marginLeft: 30,
+    left: 10,
+    marginTop: -10,
+    padding:10,
+  },
+  title1:{
+    color: "#fff",
+    fontSize: 15,
+    fontStyle: "normal",
+    marginLeft: 30,
+    left: -10,
+    marginTop: -10,
+    padding:10,
+  },
+  title3:{
+    color: "#fff",
+    fontSize: 10,
+    fontWeight: 'bold',
+    fontStyle: "normal",
+    marginLeft: 30,
+    left: 100,
+    top: -30,
+    padding:10,
+  },
+  header:{
+    fontSize: 25,
+    color: '#fff',
+    marginLeft: 150,
+    top: 60,
+    paddingBottom:60,
+    marginBottom:60,
+    borderBottomColor: 'black',
+  },
+  button:{
+    alignSelf:'stretch',
+    alignItems:'center',
+    padding:10,
+    backgroundColor:'white',
+    marginTop: 50,
+    width:130,
+    left: 130,
+    marginVertical:20,
+  },
+  btnText:{
+    color:'red',
+    fontWeight:'bold',
+    fontSize: 20,
+  },
+  textInput:{
+    alignSelf:'stretch',
+    height: 40,
+    color: 'white',
+    marginBottom: 10,
+    borderBottomColor:'white',
+    borderBottomWidth:1,
+  },
+  email:{
+    color: 'white',
+  },
+  imageBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text:{
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+    left: 20,
+  }
 });
 export default CreateAccount;

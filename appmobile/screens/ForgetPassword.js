@@ -16,7 +16,7 @@ import { Input } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 /* import {translate, setI18nConfig} from "../src/locales/index"; */
 
-class Login extends React.Component {
+class ForgetPassword extends React.Component {
     constructor(props){
         super(props);
         this.state={
@@ -40,7 +40,7 @@ class Login extends React.Component {
     }
     
     componentDidMount(){ 
-        console.log("Mounting the screen Login...");
+        console.log("Mounting the screen ForgetPassword...");
         /* RNLocalize.addEventListener("change", this.handleLocalizationChange); */
     }
 
@@ -54,7 +54,7 @@ class Login extends React.Component {
     };
 
     handleValidEmail = (val) => {
-        if(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(val)){
+        if(val.trim().length >= 5){
             this.setState({
                 validEmail: true,
                 email: val
@@ -111,12 +111,11 @@ class Login extends React.Component {
                             onSubmitEditing={() => this.secondInput.focus()}
                             onEndEditing={(e)=>this.handleValidEmail(e.nativeEvent.text)}
                         />
-
                         { 
                             validEmail ? true : 
 
                             <Animatable.View animation="fadeInLeft" duration={500}>
-                                <Text style={style.invalidEmail}>O email está incorreto.</Text>
+                                <Text style={style.invalidEmail}>O email deve conter pelo menos 5 caráteres.</Text>
                             </Animatable.View>
                         }
 
@@ -157,42 +156,34 @@ class Login extends React.Component {
                             </Animatable.View>
                         }
                     </KeyboardAvoidingView>
-
-                    <TouchableOpacity /*onPress={() => this.props.navigation.navigate("Home")}*/>
-                        <Text style={style.forgotPass}>Esqueceu-se da palavra-passe?</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={style.login} onPress={this._login}>
-                        <Text style={style.loginText}>Login</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate("CreateAccount")}>
-                        <Text style={style.registerText}>Registar</Text>
+                        <Text style={style.registerText}>Enviar Email</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         );
     }
 
-    _login = async() => {
-        const { email, password, validEmail, validPass } = this.state;
-        if (email.trim().length == 0 || password.trim().length == 0 ) {
+    _ForgetPassword = async() => {
+        if (this.state.email.trim().length == 0 || this.state.password.trim().length == 0 ) {
             Alert.alert('Introdução de valores nulos', '   O Email ou a palavra-passe não podem ser nulos.', [
                 {text: 'Voltar a tentar'}
             ]);
             return;
         }
 
-        if(validEmail==true && validPass==true){
+        if(this.state.validEmail==true && this.state.validPass==true){
             try
             {
-                let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Login', { 
+                let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/ForgetPassword', { 
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        "email":email,
-                        "password":password
+                        "email":this.state.email,
+                        "password":this.state.password
                     })
                 });
 
@@ -218,24 +209,24 @@ class Login extends React.Component {
                       data: json
                     });
                 } catch(e){
-                    console.log("Error to get User: " + e);
-                    Alert.alert('Erro', 'Não está a ser possível o acesso à sua conta... Por favor, contacte Sabor da Avó para perceber o acontecido!', [
-                        {text: 'Voltar a tentar'}
-                    ]);
+                    console.log("Error to get data: " + e);
                 }
                 const { data } = this.state;
                
-                const nome=data.filter(a=>a.email==email).map(a=>a.nome);
+                const nome=data.filter(a=>a.email==this.state.email).map(a=>a.nome);
                 AsyncStorage.setItem("Name", nome[0]);
-                const foto=data.filter(a=>a.email==email).map(a=>a.foto);
+                const foto=data.filter(a=>a.email==this.state.email).map(a=>a.foto);
                 AsyncStorage.setItem("Foto", foto[0]);
-                const user=data.filter(a=>a.email==email).map(a=>a);
+                const user=data.filter(a=>a.email==this.state.email).map(a=>a);
                 AsyncStorage.setItem("User", JSON.stringify(user));
 
                 this.props.navigation.navigate("Home");
 
             } catch(e){
                 console.log("Error to get User: " + e);
+                /* Alert.alert('Erro', '   Não está a ser possível o acesso à sua conta...', [
+                    {text: 'Por favor, tente mais tarde'}
+                ]); */
                 Alert.alert('Valores incorretos', '    O Email e/ou a palavra-passe estão incorreto(s).', [
                     {text: 'Voltar a tentar'}
                 ]);
@@ -291,7 +282,7 @@ const style = StyleSheet.create({
         top: -20,
         left: 10
     },
-    login: {
+    ForgetPassword: {
         width: 100,
         height: 42,
         backgroundColor: 'white',
@@ -301,7 +292,7 @@ const style = StyleSheet.create({
         left: 100,
         top: 25
     },
-    loginText:{
+    ForgetPasswordText:{
         fontSize: 16,
         fontWeight: 'bold',
         color: 'black'
@@ -330,4 +321,4 @@ const style = StyleSheet.create({
     }
 });
 
-export default Login;
+export default ForgetPassword;

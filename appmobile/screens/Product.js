@@ -1,10 +1,30 @@
 import * as React from "react";
 import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, StatusBar, TouchableOpacity, Image, ActivityIndicator, FlatList, AsyncStorage} from "react-native";
-import NossoFinal from "./shared/NossoFinal";
+import FinalHeader from "./shared/FinalHeader";
 import { OwnHeader } from "./shared/OwnHeader.js";
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 
 const product = [
+  {
+    type: "Hambúrgueres",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/hamburguer.jpg')
+  },
+  {
+    type: "Francesinhas",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/francesinha.jpg')
+  },
+  {
+    type: "Pizzas",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/pizza.jpg')
+  },
+  {
+    type: "Pratos de carne",
+    subtitle: "À moda da Avó",
+    foto: require('../assets/pratoFrango.jpg')
+  },
   {
     type: "Pratos de peixe",
     subtitle: "À moda da Avó",
@@ -50,7 +70,7 @@ const product = [
     subtitle: "À moda da Avó",
     foto: require('../assets/cafe.jpg')
   }
-]
+];
 
 class Product extends React.Component{
   constructor(){
@@ -67,9 +87,7 @@ class Product extends React.Component{
 
   _onPress(item) {
     this.props.navigation.navigate("ProductCategory", {
-      type: item.type,
-      foto: item.foto,
-      subtitle: item.subtitle
+      type: item.type
     });
   }
 
@@ -85,19 +103,19 @@ class Product extends React.Component{
                 product.map((item)=>{
                   return (
                     <TouchableOpacity style={style.productExp} activeOpacity={0.5} onPress={()=>this._onPress(item)}>
-                      <Image style={style.fotoProduct} source={item.foto} ></Image>
+                      <Image style={style.photoProduct} source={item.foto} ></Image>
                       <Text style={style.titleProduct}>{item.type}</Text>
                       <Text style={style.textProduct}>{item.subtitle}</Text>
                     </TouchableOpacity>
                   );
                 })
               }
-              <NossoFinal />
+              <FinalHeader />
             </View>
           </ScrollView>
         </ImageBackground>
       </View>
-    )
+    );
   }
 }
     
@@ -122,7 +140,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  fotoProduct: {
+  photoProduct: {
     width: 180,
     height: 180,
     marginTop: 0

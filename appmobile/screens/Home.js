@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, TextInput} from 'react-native';
-import { HeaderWihoutShop } from './shared/HeaderWihoutShop';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
 import OwnStatusBar from './shared/OwnStatusBar';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'; 
 import Swiper from 'react-native-swiper';
@@ -8,32 +7,50 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useTheme, Avatar} from 'react-native-paper';
+import { HeaderWithAccount } from './shared/HeaderWithAccount';
+
 class Home extends React.Component{
     constructor(){
         super();
-        this.state={ name:'Sabor da Avó' };
+        this.state={ name:'Sabor da Avó', avatarName:[], photo:[] };
     }
-    componentDidMount(){ 
+
+    async componentDidMount(){ 
         console.log("Mounting the screen Home...");
+
+        try {
+            let json=await AsyncStorage.getItem("Name");
+            if (json!=null){
+                this.setState({
+                    avatarName: json
+                });
+            }
+        }
+        catch(e){
+            console.log("error to get asyncstorage name: " + e);
+        }
+        
+        try {
+            let json=await AsyncStorage.getItem("Foto");
+            if (json!=null){
+                this.setState({
+                    photo: json
+                });
+            }
+        }
+        catch(e){
+            console.log("error to get asyncstorage photo: " + e);
+        }    
     }
+
     render() {
         return (
             <View style={style.container}>
             <OwnStatusBar/>
-            <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
-                <TouchableOpacity
-                    style={{left: 330, marginTop: -55}}
-                    onPress={() => { navigation.navigate('Account'); }}>
-                        <Avatar.Image
-                        source={{
-                            uri:'https://www.hiper.fm/wp-content/uploads/2019/12/isabela-valadeiro.jpg',}}
-                            size={40}
-                />
-                </TouchableOpacity>
+            <HeaderWithAccount nome={this.state.name} navigation={this.props.navigation} photo={this.state.photo}/>
                 <ScrollView style={style.container}>
                 <View style ={style.container1}>
-                    <Text style={style.textUser}> Olá José Leite, </Text>
+                    <Text style={style.textUser}> Olá {this.state.avatarName}, </Text>
                     <Text style={style.textWelcome}> Encontre as nossas novidades e visite-nos! </Text>
                 </View>
                 <Swiper autoplay vertical={false} height={200} activeDotColor="#FF6347">
@@ -41,10 +58,16 @@ class Home extends React.Component{
                         <Image source={require('../assets/space1.jpg')} resizeMode="cover" style={style.sliderImage} />
                     </View>
                     <View style={style.slide}>
-                        <Image source={require('../assets/cartao.jpg')} resizeMode="cover" style={style.sliderImage} />
+                        <Image source={require('../assets/casamento.jpg')} resizeMode="cover" style={style.sliderImage} />
                     </View>
                     <View style={style.slide}>
                         <Image source={require('../assets/portuguesa.jpg')} resizeMode="cover" style={style.sliderImage} />
+                    </View>
+                    <View style={style.slide}>
+                        <Image source={require('../assets/caldoVerde.jpg')} resizeMode="cover" style={style.sliderImage} />
+                    </View>
+                    <View style={style.slide}>
+                        <Image source={require('../assets/baby.jpg')} resizeMode="cover" style={style.sliderImage} />
                     </View>
                 </Swiper> 
                 <View style={style.categoryContainer}>
@@ -60,11 +83,11 @@ class Home extends React.Component{
                     </View>
                         <Text style={style.categoryBtnTxt}>Restaurantes</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("")}>
+                    <TouchableOpacity style={style.categoryBtn} onPress={() => this.props.navigation.navigate("TakeAway")}>
                         <View style={style.categoryIcon}>
-                        <Ionicons name="ios-card" size={35} color="#556b2f" />
+                        <Fontisto name="shopping-bag-1" size={35} color="#556b2f" />
                     </View>
-                        <Text style={style.categoryBtnTxt}>Cartão Fidelidade</Text>
+                        <Text style={style.categoryBtnTxt}>Take Away</Text>
                     </TouchableOpacity>
                     </View>
                     <View style={[style.categoryContainer, {marginTop: 10}]}>
@@ -87,9 +110,8 @@ class Home extends React.Component{
                         <Text style={style.categoryBtnTxt}> Produtos </Text>
                     </TouchableOpacity>
                     </View>
-                    <View style={style.searchBox}>
-                            <TextInput placeholder="Procurar..." placeholderTextColor="#556b2f" autoCapitalize="none" fontWeight={'bold'} style={{flex:1,padding:5}} />
-                            <Ionicons name="ios-search" size={30} />
+                    <View>
+                        <Text style={style.textClose}>Encerrado aos Domingos e feriados.                   Segunda a Sábado das 10h:00 - 00h:00.</Text>
                     </View>
             
                     <Text style={style.textFound}>Encontre o seu restaurante aqui! E veja todas as sugestões que temos para si! </Text>
@@ -99,10 +121,10 @@ class Home extends React.Component{
                             provider={PROVIDER_GOOGLE}
                             style={style.map}
                             region={{
-                                latitude: 41.69323,
-                                longitude: -8.83287,
-                                latitudeDelta: 0.1,
-                                longitudeDelta: 2,
+                                latitude: 38.7077507,
+                                longitude: -9.1365919,
+                                latitudeDelta: 0.2,
+                                longitudeDelta: 6,
                             }}
                         >
                             <Marker
@@ -110,19 +132,53 @@ class Home extends React.Component{
                                 latitude: 41.69323,
                                 longitude: -8.83287,
                             }}
-                            title="Sabor da Avó"
-                            description="Restaurante em Viana do Castelo">
+                            >
                         <View>  
                             <Image style={style.marker} source={require ("../assets/marker.png")}/>
                         </View>
                         <Callout tooltip>
                             <View>
                                 <View style={style.bubble}>
-                                    <Text style= {style.name}>Restaurante Favorito</Text>
-                                    <Image
-                                        style={style.imageRestaurant}
-                                        source={require('../assets/marker.png')}
-                                    />
+                                    <Text style= {style.name}>Restaurante em Viana do Castelo</Text>
+                                </View>
+                                    <View style={style.arrowBorder} />
+                                    <View style={style.arrow} />
+                            </View>
+                        </Callout>
+                        </Marker>
+                            <Marker
+                            coordinate={{
+                                latitude: 41.5084468,
+                                longitude: -6.77330236,
+                            }}
+                            >
+                        <View>  
+                            <Image style={style.marker} source={require ("../assets/marker.png")}/>
+                        </View>
+                        <Callout tooltip>
+                            <View>
+                                <View style={style.bubble}>
+                                    <Text style= {style.name}>Restaurante em Bragança</Text> 
+                                                                          
+                                </View>
+                                    <View style={style.arrowBorder} />
+                                    <View style={style.arrow} />
+                            </View>
+                        </Callout>
+                        </Marker>
+                            <Marker
+                            coordinate={{
+                                latitude: 41.3527285,
+                                longitude: -8.20451531,
+                            }}
+                            >
+                        <View>  
+                            <Image style={style.marker} source={require ("../assets/marker.png")}/>
+                        </View>
+                        <Callout tooltip>
+                            <View>
+                                <View style={style.bubble}>
+                                    <Text style= {style.name}>Restaurante em Felgueiras</Text>
                                 </View>
                                     <View style={style.arrowBorder} />
                                     <View style={style.arrow} />
@@ -136,35 +192,16 @@ class Home extends React.Component{
         );
     }   
 }
+
 const style = StyleSheet.create({
     container: {
-      flex: 1
+        flex: 1,
     },
 
     container1:{
         paddingTop: 30,
         paddingLeft:16,
         alignItems: 'center',
-    },
-
-    searchBox: {
-        position:'absolute', 
-        marginTop: Platform.OS === 'ios' ? 40 : 20, 
-        flexDirection:"row",
-        backgroundColor: '#fff',
-        opacity: 0.5,
-        width: '97%',
-        alignSelf:'center',
-        borderRadius: 5,
-        padding: 10,
-        shadowRadius: 5,
-        top: 250,
-        elevation: 3,
-    },
-
-    imageRestaurant:{
-        width: 50,
-        height: 50,
     },
 
     name: {
@@ -180,7 +217,8 @@ const style = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 0.5,
         padding: 15,
-        width: 200,
+        width: 280,
+        height: 50,
     },
 
     marker:{
@@ -190,9 +228,9 @@ const style = StyleSheet.create({
 
     map: {
         width: "100%",
-        height: 300,
+        height: 600,
         paddingVertical:20,
-        marginTop: 80,
+        marginTop: 30,
     },
 
     slide: {
@@ -260,13 +298,23 @@ const style = StyleSheet.create({
         top:-10,
     },
 
-    
+    textClose:{
+        justifyContent:'center',
+        alignItems: 'center',
+        fontSize: 16,
+        fontWeight: 'normal',
+        color: '#de4f35',
+        left: 60,
+        top:-290,
+    },
+
     textFound:{
         fontSize: 20,
         fontWeight: 'normal',
         color: '#de4f35',
-        top: 30,
+        top: 0,
         left: 20,
     }
-  });
-  export default Home;
+});
+
+export default Home;

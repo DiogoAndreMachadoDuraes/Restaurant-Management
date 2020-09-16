@@ -9,15 +9,17 @@ import {
     TouchableOpacity, 
     Image, 
     ActivityIndicator, 
-    FlatList 
+    FlatList,
+    AsyncStorage,
+    Button
 } from "react-native";
 import { Icon, colors } from "react-native-elements";
 import OwnStatusBar from "./shared/OwnStatusBar";
-import NossoFinal from "./shared/NossoFinal";
+import FinalHeader from "./shared/FinalHeader";
 import { ProgressChart } from "react-native-chart-kit";
 import Category from "./shared/Category.js";
 
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
+const screenWidth = Dimensions.get("screen").width;
 
 class ProductDetail extends React.Component{
     constructor(){
@@ -25,80 +27,111 @@ class ProductDetail extends React.Component{
         this.state={
             name:"Café",
             ingredient: [],
-            product_extra: [],
+            productExtra: [],
             aller: [],
             info: [],
-            isLoading: true,
+            isLoadingExtra: true,
+            isLoadingProduct: true,
+            isLoadingAller: true,
+            isLoadingInfo: true,
         };
     }
 
     async componentDidMount(){ 
         console.log("Mounting the screen ProductDetail...");
 
-        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Extra', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                this.setState({ ingredient: json, isLoading:false });
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                this.setState({ isLoading: false });
-        });
+        let token = await AsyncStorage.getItem("token");
+        try {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Extra', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoadingExtra: false,
+              ingredient: json
+            });
+        } catch(e){
+            console.log("Error to get Extra: " + e);
+        }
 
-        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto_extra', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                this.setState({ product_extra: json, isLoading:false });
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                this.setState({ isLoading: false });
-        });
+        try {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto_extra', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoadingProduct: false,
+              productExtra: json
+            });
+        } catch(e){
+            console.log("Error to get Product Extra: " + e);
+        }
 
-        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Info_nutricional', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                this.setState({ info: json, isLoading:false });
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                this.setState({ isLoading: false });
-        });
+        try {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Info_nutricional', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoadingInfo: false,
+              info: json
+            });
+        } catch(e){
+            console.log("Error to get Info Nutricional: " + e);
+        }
 
-        await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Alergenio', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                this.setState({ aller: json, isLoading:false });
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                this.setState({ isLoading: false });
-        });
+        try {
+            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Alergenio', { 
+              headers: {
+                Authorization: 'Bearer ' + token,
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              }
+            });
+            let json = await response.json();
+            this.setState({
+              isLoadingAller: false,
+              aller: json
+            });
+        } catch(e){
+            console.log("Error to get Info Nutricional: " + e);
+        }
+    }
+    
+    goShop(name, photo, price, description){
+        AsyncStorage.setItem("productName", name);
+        AsyncStorage.setItem("description", description);
+        AsyncStorage.setItem("photo", photo);
+        AsyncStorage.setItem("price", price);
+        this.props.navigation.navigate("Shop");
     }
 
     render(){
-        const { ingredient, product_extra, aller, info, isLoading } = this.state;
+        const { ingredient, productExtra, aller, info, isLoadingInfo, isLoadingAller, isLoadingExtra, isLoadingProduct } = this.state;
 
         const { navigation, route } = this.props;
-        const { item } = route.params;
+        const { idProduct, name, photo, description, price } = route.params;
 
-        const products_extra = product_extra.filter(a=>a.id_produto==item.id_produto).map(a=>a.id_extra);
-        const ingredients = ingredient.filter(a=>a.id_extra==products_extra).map(a=>a);
-        const type = info.filter(a=>a.id_produto==item.id_produto).map(a=>a.tipo);
-        const quantity = info.filter(a=>a.id_produto==item.id_produto).map(a=>a.quantidade_nutrientes);
-        const allergenio= aller.filter(a=>a.id_produto==item.id_produto).map(a=>a);
-
-        console.log(product_extra);
-        console.log(ingredients);
-        console.log(type);
-        console.log(quantity);
+        const productsExtra = productExtra.filter(a=>a.id_produto==idProduct).map(a=>a.id_extra);
+        const ingredients = ingredient.filter(a=>a.id_extra==productsExtra).map(a=>a);
+        const type = info.filter(a=>a.id_produto==idProduct).map(a=>a.tipo);
+        const quantity = info.filter(a=>a.id_produto==idProduct).map(a=>a.quantidade_nutrientes);
+        const allergenio= aller.filter(a=>a.id_produto==idProduct).map(a=>a);
 
         const data = {
-            labels: (type),
+            labels: [type[0], type[1], "Glicídios", type[3]],
             data: [(quantity[0]/2000), (quantity[1]/70), (quantity[2]/260), (quantity[3]/50)]
         };
 
@@ -106,65 +139,74 @@ class ProductDetail extends React.Component{
             backgroundGradientFrom: "white",
             backgroundGradientTo: "white",
             color: (opacity=1) => `rgba(0, 0, 0, ${opacity})`,
-            strokeWidth: 1, // optional, default 3
+            strokeWidth: 1,
             barPercentage: 0.5,
-            useShadowColorFromDataset: false // optional
+            useShadowColorFromDataset: false
         };
-
-        const screenWidth = Dimensions.get("screen").width;
 
         return (
             <View style={style.container}>
             <OwnStatusBar />
-            <ImageBackground source={imageBackgound} opacity={0.4} style={style.imageBackground}>
+            <ImageBackground source={require("../assets/imageBackground.jpg")} opacity={0.6} style={style.imageBackground}>
             <ScrollView>
                 <View style={style.arrow}>
-                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.goBack()} color={"darkgreen"} size={45}/>
-                </View>
-                <View style={style.shop}>
-                    <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Shop")} color={"darkgreen"} size={40}/>
+                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.goBack()} color={"white"} size={45}/>
                 </View>
                 <View>
-                    <Text style={style.title}>{item.nome}</Text>
-                    <Image source={{uri:''+item.foto+''}} style={style.image}/>
-                    <Text style={style.text}>{item.descricao}</Text>
+                    <Text style={style.title}>{name}</Text>
+                    <Image source={{uri:''+photo+''}} style={style.image}/>
+                    <Text style={style.text}>{description}</Text>
                 </View>
-                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Shop"), {item}}>
+                <TouchableOpacity style={style.button} onPress={() => this.goShop(name, photo, price, description)}>
                     <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
+
+                <Text style={style.infoText}>Extras</Text>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{top: -20}}>
+                    {
+                        ingredients.map((item) => {
+                            return (
+                                <Category image={{ uri: '' + item.foto + '' }} name={item.tipo} description={item.nome} />
+                            );
+                        })
+                    }
+                </ScrollView>
+
                 <Text style={style.infoText}>Informação Nutricional</Text>
                 {
-                    isLoading ? <ActivityIndicator/> : (
+                    isLoadingInfo ? <ActivityIndicator/> : (
                         <View style={style.chart}>
                             <ProgressChart
-                                paddingLeft= {-15}
+                                style={{marginTop: 20,marginLeft:-30}}
                                 data={data}
                                 width={screenWidth}
-                                height={250}
+                                height={240}
                                 strokeWidth={16}
                                 radius={32}
                                 chartConfig={chartConfig}
                                 hideLegend={false}
                             />
-                            <Text style={{color:"black", fontStyle: "italic", textAlign:"center"}}>*A % é da dose diária de referência para um adulto médio</Text>
+                            <Text style={{top:20 ,color:"black", fontStyle: "italic", textAlign:"center"}}>Quantidades:</Text>
+                            <Text style={{top:20 ,color:"black", textAlign:"center"}}>{type[0]}: {quantity[0]}kcal;   {type[2]}: {quantity[2]}g;</Text>
+                            <Text style={{top:20 ,color:"black", textAlign:"center"}}>{type[1]}: {quantity[1]}g;   {type[3]}: {quantity[3]}g</Text>
+                            <Text style={{top:40 ,color:"black", fontStyle: "italic", textAlign:"center", fontSize:12}}>A % apresentada é da dose diária de referência para um adulto médio</Text>
+                            <Text style={{top:40 ,color:"black", fontStyle: "italic", textAlign:"center", fontSize:12}}>*Glícidos são conhecidos como {type[2]} ou Hidratos de Carbono</Text>
                         </View>
                     )
                 }
-                <Text style={style.allergensText}>Alergénios</Text>
-                {
-                    isLoading ? <ActivityIndicator/> : (
-                    <FlatList
-                        data={allergenio}
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={({ item }) => (
-                            <View>
-                                <Text style={style.textAller}>{item.tipo} - {item.descricao}</Text>
-                            </View>
-                        )}
-                    />
-                    )
-                }
-                <NossoFinal />
+                <Text style={style.infoText}>Alergénios</Text>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{top: -20}}>
+                        {
+                            allergenio.map((item) => {
+                                return (
+                                    <View>
+                                        <Category image={{ uri: '' + item.foto + '' }} name={item.tipo}  description={item.descricao}/>
+                                    </View>
+                                );
+                            })
+                        }
+                    </ScrollView>
+                <FinalHeader />
                 </ScrollView>
                 </ImageBackground>
             </View>
@@ -179,7 +221,8 @@ const style = StyleSheet.create({
     imageBackground: {
         flex:1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'black',
     },
     image: {
         width: 300,
@@ -194,7 +237,7 @@ const style = StyleSheet.create({
         marginLeft: 50
     },
     title: {
-        color: "#fff",
+        color: "tomato",
         fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -205,21 +248,20 @@ const style = StyleSheet.create({
         height: 300
     },
     arrow: {
-        backgroundColor: "white",
+
         left: 20,
         marginRight:350,
         marginTop: 45,
         borderRadius: 10
     },
     shop: {
-        backgroundColor: "white",
         right:20,
         marginLeft: 350,
         marginTop: -45,
         borderRadius: 10
     },
     text: {
-        color: "#000",
+        color: "white",
         fontSize: 18,
         fontStyle: "italic",
         textAlign: 'center',
@@ -236,6 +278,7 @@ const style = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
+        marginVertical: 50
     },
     buttonText: {
         color: 'black',
@@ -252,30 +295,29 @@ const style = StyleSheet.create({
         top: 50
     },
     infoText: {
-        color: "#fff",
-        fontSize: 25,
+        color: "white",
+        fontSize: 28,
         fontWeight: 'bold',
         textAlign: 'center',
         fontStyle: "italic",
         marginTop: 50
     },
     chart: {
-        top: 20,
-        backgroundColor:"white"
-    },
-    allergensText: {
-        color: "#fff",
-        fontSize: 25,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        fontStyle: "italic",
-        marginTop: 50
+        marginTop: 50,
+        backgroundColor:"white",
+        width: screenWidth,
+        height: 400
     },
     textAller: {
-        color: "#000",
+        marginTop: 20,
+        color: "white",
         fontSize: 18,
         fontStyle: "italic",
         textAlign: 'center',
+    },
+    fotoAller: {
+        width: 20,
+        height: 20,
     }
 });
 

@@ -1,188 +1,150 @@
 import * as React from "react";
-import { StyleSheet, Text, View, ScrollView, Button, ImageBackground, Image, TouchableOpacity, ActivityIndicator } from "react-native";
-import NossoFinal from './shared/NossoFinal.js';
+import { StyleSheet, Text, View, ScrollView, ImageBackground, Image, TouchableOpacity} from "react-native";
+import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
-import { OwnHeader } from './shared/OwnHeader';
-
-const imageBackgound = { uri: "https://i.pinimg.com/originals/c8/cf/cb/c8cfcba6a515d39053198fd85fc79931.jpg" };
-
-const Hamburguer = require('../assets/gourmet.jpg');
-const Francesinha = require('../assets/french.jpg');
-const Carne = require('../assets/variedade.jpg');
-const Peixe = require('../assets/peixe.jpg');
-const Pizza = require('../assets/pizzamenu.jpg');
-const Doce = require('../assets/doces.jpg');
+import { HeaderWihoutShop } from './shared/HeaderWihoutShop';
 
 const dataFromApi = [
   {
     id: 1,
-    name: "Menus de Hambúrgueres",
+    name: "Menu Hambúrguer",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Hamburguer
+    imagem: require('../assets/gourmet.jpg')
   },
+  
   {
     id: 2,
-    name: "Menus de Francesinhas",
+    name: "Menu Francesinha",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Francesinha
+    imagem: require('../assets/french.jpg')
   },
+
   {
     id: 3,
     name: "Pratos de Carne",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Carne
+    imagem: require('../assets/variedade.jpg')
   },
+
   {
     id: 4,
     name: "Pratos de Peixe",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Peixe
+    imagem: require('../assets/peixe.jpg')
   },
+
   {
     id: 5,
-    name: "Menus de Pizzas",
+    name: "Menu Pizza",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Pizza
+    imagem: require('../assets/pizzamenu.jpg')
   },
+
   {
     id: 6,
-    name: "Menus de Cafés",
+    name: "Pratos Vegan",
     subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
-    imagem: Doce
+    imagem: require('../assets/vegan.jpg')
+  },
+
+  {
+    id: 7,
+    name: "Menu Café",
+    subtitle: "Acompanhem aqui todos os nossos Menus deliciosos!",
+    imagem: require('../assets/doces.jpg')
   }
 ]
 
-class Menu extends React.Component{
+  class Menu extends React.Component{
     constructor(){
         super();
         this.state={
-          name:"Menu",
-          data:[],
-          isLoading: true
+          name:"Menu"
         };
-      }
-      async componentDidMount(){ 
-        console.log("Mounting the screen SpecialMenu...");
+  }
 
-        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Ementa', { headers: {Accept: 'application/json', 'Content-Type': 'application/json'}})
-        .then((response) => response.json())
-        .then((json) => {
-          console.log(json);
-          this.setState({ data: json, isLoading:false });
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    }
+  componentDidMount(){ 
+    console.log("Mounting the screen Menu...");
+  }
 
-      render(){
-        const { isLoading } = this.state;
-        return (
-          <View style={style.container}>
-            <OwnStatusBar />
-            <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
-            <ImageBackground source={imageBackgound} style={style.imageBackgound} opacity={1}>
-              <ScrollView>
-              <View style={style.menu}>
-              {
-                isLoading ? <ActivityIndicator/> : (
-                  <FlatList
-                    data={this.state.data}
-                    keyExtractor={({ id }, index) => id}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this.props.navigation.navigate("Produto", {item})}>
-                          <Image style={style.menuExpFoto} source={item.imagem} ></Image>
-                          <Text style={style.titleMenu}>{item.name}</Text>
-                          <Text style={style.textMenu}>{item.subtitle}</Text>
-                        </TouchableOpacity>
-                      )}
-                  />
-                )
-              }
-                  <NossoFinal />
-                </View>
-              </ScrollView>
-            </ImageBackground>
-          </View>
-        );
-      }
-    }
-    const style = StyleSheet.create({
-      container: {
-        flex: 1,
-      },
+  _onPress (item){
+    this.props.navigation.navigate("CallTypeMenu", {type:item.name});
+  }
 
-      imageBackgound: {                         //foto por tras do titulo
-        flex:1,
-      },
+  render(){
+    return (
+      <View style={style.container}>
+        <OwnStatusBar />
+        <HeaderWihoutShop nome={this.state.name} navigation={this.props.navigation}/>
+        <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} opacity={1}>
+          <ScrollView>
+          <View style={style.menu}>
+          {
+            dataFromApi.map((item)=>{
+              return ( <TouchableOpacity style={style.menuExp} activeOpacity={0.5} onPress={()=>this._onPress(item)}>
+                      <Image style={style.menuExpFoto} source={item.imagem} ></Image>
+                      <Text style={style.titleMenu}>{item.name}</Text>
+                      <Text style={style.textMenu}>{item.subtitle}</Text>
+                    </TouchableOpacity>);
+            })
+          }
+              <FinalHeader />
+            </View>
+          </ScrollView>
+        </ImageBackground>
+      </View>
+    );
+  }
+}
 
-      image: {                         //foto por tras do titulo
-        width: 420,
-        height: 250,
-      },
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
 
-      text: {                       
-        color: "white",
-        fontSize: 20,
-        fontStyle: "italic",
-        textAlign: 'center',
-        fontWeight: 'bold',
-        top: 30,
-        opacity: 1,
-      },
+  imageBackgound: {                         //foto por tras do titulo
+    flex:1,
+  },
 
-      menuText: {
-        width: 400,
-        height: 320
-      },
+  menu: {                           //scrollview
+    width: "100%",
+    height: "100%",
+  },
 
-      menu: {                           //scrollview
-        width: "100%",
-        height: 1690,
-      },
+  menuExp: {
+    marginTop: 25,
+    top: 40,
+    marginLeft: 55,
+    padding: 20,
+    width: 290,
+    height: 200,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-      menuExp: {
-        marginTop: 25,
-        top: 40,
-        marginLeft: 55,
-        padding: 20,
-        width: 290,
-        height: 200,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center'
-      },
+  menuExpFoto: {
+    width: 100,
+    height: 100,
+    marginTop: -10,
+  },
 
-      menuExpFoto: {
-        width: 100,
-        height: 100,
-        marginTop: -10
-      },
+  titleMenu: {
+    color: "#000",
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontStyle: "normal",
+    top: 12,
+  },
 
-      
+  textMenu: {
+    color: "#000",
+    fontSize: 12,
+    fontStyle: "italic",
+    textAlign: 'center',
+    top: 20,
+  }
+});
 
-      menuExpText: {
-        width: 180,
-        height: 180,
-        marginTop: -150,
-      },
-
-      titleMenu: {
-        color: "#000",
-        fontSize: 20,
-        fontWeight: 'bold',
-        fontStyle: "normal",
-        top: 12
-      },
-
-      textMenu: {
-        color: "#000",
-        fontSize: 12,
-        fontStyle: "italic",
-        textAlign: 'center',
-        top: 20
-      }
-    });
 export default Menu;
