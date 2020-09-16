@@ -143,16 +143,8 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
     const userLocalization=user.map(a=>a.localizacao);
     const userTin=user.map(a=>a.nif);
     const invoiceReservation=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a.id_reserva);
-    const invoiceData=reservation.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.data_marcada);
     const allInvoice=invoice.filter(a=>a.nif_cliente==userTin).map(a=>a);
-    const shopMenuQuantity = menuShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.quantidade);
-    const shopMenuPrice = menuShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.preco);
-    const shopProductQuantity = productShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.quantidade);
-    const shopProductPrice = productShop.filter(a=>a.id_reserva==invoiceReservation).map(a=>a.preco);
-    const productId = productShop. filter(a=>a.id_reserva==invoiceReservation).map(a=>a.id_produto);
-    const productDescription = product.filter(a=>a.id_produto==productId).map(a=>a.descricao);
-    const menuId = menuShop. filter(a=>a.id_reserva==invoiceReservation).map(a=>a.id_menu);
-    const menuDescription = menu.filter(a=>a.id_menu==menuId).map(a=>a.descricao);
+  
 
     return (
     <View style={style.container}>
@@ -168,18 +160,15 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
                         <Text style={style.header}>Sabor da Avó</Text>
                         <Text style={style.header0}>{userName}          Fatura nº{item.id_fatura}</Text>
                         <Text style={style.header1}> {userStreet} , {userPostalCode} {userLocalization}</Text>
-                        <Text style={style.header2}>Nif: {item.nif_cliente}                            Data:{invoiceData}</Text>
+                        <Text style={style.header2}>Nif: {item.nif_cliente}</Text>
                         <View style={style.line} />
-                        <Text style={style.text}>Descrição {}</Text>
-                        <Text style={style.text1}>Quantidade {shopMenuQuantity}</Text>
-                        <Text style={style.text2}>Preço {shopMenuPrice}</Text>
-                        <View style={style.line1} />
                         <Text style={style.textTax}>Taxa: </Text>
                         <Text style={style.tax}>{item.taxa}</Text>
                         <Text style={style.textIva}>Iva: </Text> 
                         <Text style={style.iva}>{item.iva}</Text> 
                         <Text style={style.text3}>Total: € {item.valor_total}</Text>
-                        <Text style={style.textEmployee}>Funcionário : José Leite Machado</Text> 
+                        <View style={style.line1} />
+                        <Text style={style.textEmployee}>Funcionário : Isabela Martins</Text> 
                         <View style={style.lineFinal} />
                       </View>
                       );
@@ -227,7 +216,7 @@ const style = StyleSheet.create({
   },
 
   header1:{
-    fontSize: 12,
+    fontSize: 15,
     color: 'black',
     marginLeft: 30,
     top: -120,
@@ -265,7 +254,6 @@ const style = StyleSheet.create({
     fontSize: 20,
   },
 
-
   imageBackgound: {
     flex:1,
   },
@@ -283,7 +271,7 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: "tomato",
     margin: 10,
-    top: -250,
+    top: -360,
     width: 340,
     left: 20,
   },
@@ -292,73 +280,49 @@ const style = StyleSheet.create({
     borderWidth: 5,
     borderColor: "#191970",
     margin: 10,
-    top: -20,
+    top: 10,
     width: 380,
     left: -5,
-  },
-
-  text:{
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 15,
-    left: 50,
-    top: -335,
-  },
-
-  text1:{
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 15,
-    left: 170,
-    top: -356,
-  },
-
-  textTax:{
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 20,
-    left: 217,
-    top: -260,
-  },
-
-  textIva:{
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 20,
-    left: 230,
-    top: -280,
-  },
-
-  tax:{
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 15,
-    left: 270,
-    top: -283,
-  },
-
-  iva:{
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 15,
-    left: 270,
-    top: -303,
-  },
-
-  text2:{
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 15,
-    left: 310,
-    top: -375,
   },
 
   text3:{
     color: 'black',
     fontWeight: 'bold',
     fontSize: 25,
-    left: 200,
-    top: -300,
+    left: 50,
+    top: -370,
+},
+
+  textTax:{
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 20,
+    left: 65,
+    top: -330,
+  },
+
+  textIva:{
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 20,
+    left: 80,
+    top: -350,
+  },
+
+  tax:{
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 15,
+    left: 130,
+    top: -353,
+  },
+
+  iva:{
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 15,
+    left: 130,
+    top: -373,
   },
 
   textEmployee:{
@@ -366,8 +330,8 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     marginLeft: 30,
-    top: -270,
-    marginBottom:-200,
+    top: -350,
+    marginBottom:-330,
   },
 });
 
