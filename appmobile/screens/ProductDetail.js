@@ -18,7 +18,6 @@ import OwnStatusBar from "./shared/OwnStatusBar";
 import FinalHeader from "./shared/FinalHeader";
 import { ProgressChart } from "react-native-chart-kit";
 import Category from "./shared/Category.js";
-import CategoryExtra from "./shared/CategoryExtra.js";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -162,12 +161,12 @@ class ProductDetail extends React.Component{
                     <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
 
-                <Text style={style.infoText}>Ingredientes</Text>
+                <Text style={style.infoText}>Extras</Text>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{top: -20}}>
                     {
                         ingredients.map((item) => {
                             return (
-                                <CategoryExtra image={{ uri: '' + item.foto + '' }} name={item.tipo} description={item.nome} />
+                                <Category image={{ uri: '' + item.foto + '' }} name={item.tipo} description={item.nome} />
                             );
                         })
                     }
