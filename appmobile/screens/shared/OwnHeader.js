@@ -8,7 +8,7 @@ export const OwnHeader = (props) => {
     return(
     <Header
         leftComponent={<Icon name="menu" color= '#fff' size={30} onPress={() => props.navigation.toggleDrawer()} />}
-        centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color: theme.dark ? "yellowgreen" : "white", marginTop: -20}}>{props.nome}</Text>}
+        centerComponent={<Text style={{fontSize: 24, fontWeight: 'bold', fontStyle: 'italic', color: "white", marginTop: -20}}>{props.nome}</Text>}
         rightComponent={<Icon name="local-grocery-store" color= '#fff' size={30} onPress={() => props.navigation.navigate("Shop")} />}
         containerStyle={{
             backgroundColor: theme.dark ? "#444444" : "#556b2f",
