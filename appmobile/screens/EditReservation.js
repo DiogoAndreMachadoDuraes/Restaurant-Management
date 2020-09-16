@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text,View,ScrollView, Button, ImageBackground,KeyboardAvoidingView,AsyncStorage, Alert} from "react-native";
+import { StyleSheet, Text,View,ScrollView, Button, TextInput, ImageBackground, KeyboardAvoidingView, AsyncStorage, Alert} from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
 import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import moment from 'moment';
 import { TouchableWithoutFeedback, TouchableOpacity } from "react-native-gesture-handler";
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 class EditReservation extends React.Component{
     constructor(){
@@ -60,11 +62,12 @@ class EditReservation extends React.Component{
     }
     render(){
         const { navigation, route } = this.props;
-        const { reservationId, date, hour, quantity, state, clientId } = route.params;
+        const { reservationId, date, hour, quantity, state, clientId } = route.params; 
+        const {chosenDate, chosenHour, newQuantity, isVisible} = this.state;
         return (
             <View style={style.container}>
                 <OwnStatusBar />
-                <OwnHeader nome={name} navigation={this.props.navigation} />
+                <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
                 <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound}>
                 <ScrollView>
                     <KeyboardAvoidingView behavior="padding" style={style.calendar}>

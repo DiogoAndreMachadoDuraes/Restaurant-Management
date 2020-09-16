@@ -50,7 +50,8 @@ class CreateAccount extends React.Component {
         isTin: true,
         isVisible: false,
         isValidConfirmPassword: true,
-        isConfirmPassword: true
+        isConfirmPassword: true,
+        now: moment().format("YYYY-MM-DD")
      };
     }
   componentDidMount(){ 
@@ -116,7 +117,7 @@ class CreateAccount extends React.Component {
       }
   }
   validStreet = (val) => {
-    if(val.trim().length < 8){
+    if(val.trim().length > 8){
         if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(val)){
           this.setState({
                 isValidStreet: true,
@@ -138,8 +139,7 @@ class CreateAccount extends React.Component {
         });
       }
   }
-  validTin
-   = (val) => {
+  validTin = (val) => {
       if(/^[0-9]*$/.test(val)) {
         if( val.trim().length >= 9 ) {
         this.setState({
@@ -427,6 +427,11 @@ class CreateAccount extends React.Component {
             onChangeText={(val)=>this.validName(val)} 
             values = {name} 
             onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
+              { isName ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O nome não é válido!</Text>
+                </Animatable.View>
+              }
               { isValidName ? true : 
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 5 caráteres!</Text>
@@ -469,7 +474,7 @@ class CreateAccount extends React.Component {
                 </Animatable.View>
               }
 
-            <Text style={style.text}>Rua:</Text>
+            <Text style={style.text}>Morada:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Rua"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'white' }}
@@ -477,9 +482,14 @@ class CreateAccount extends React.Component {
             values = {street} 
             onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)}
             />
+               { isStreet ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A morada tem de ter no mínimo 8 caráteres!</Text>
+              </Animatable.View>
+              }
               { isValidStreet ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres!</Text>
+                <Text style={style.errorMsg}>A morada não é válida!</Text>
               </Animatable.View>
               }
             <Text style={style.text}>Código Postal:</Text>
@@ -643,34 +653,38 @@ class CreateAccount extends React.Component {
       return;
     }
     else{
-      try
-        {
-          let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Registar', {  
-          method: 'POST', 
-          headers: {
-            Accept: 'application/json', 
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            'nif': tin,
-            'nome': name,
-            'data_nascimento': chosenDate,
-            'sexo': sex,
-            'telefone': contact,
-            'rua': street,
-            'codigo_postal': postalCode,
-            'localizacao': location,
-            'foto': photo,
-            'email': email,
-            'password': password,
-            'tipo': type
-          })
-        });
-          console.log(""+response);
-          this.props.navigation.navigate("Login");
-      } catch(e){
-          console.log(e);
-      }      
+      if(moment.duration(moment(this.state.choosenDate,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asYears()>18){
+        try
+          {
+            let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Registar', {  
+            method: 'POST', 
+            headers: {
+              Accept: 'application/json', 
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              'nif': tin,
+              'nome': name,
+              'data_nascimento': chosenDate,
+              'sexo': sex,
+              'telefone': contact,
+              'rua': street,
+              'codigo_postal': postalCode,
+              'localizacao': location,
+              'foto': photo,
+              'email': email,
+              'password': password,
+              'tipo': type
+            })
+          });
+            console.log(""+response);
+            this.props.navigation.navigate("Login");
+        } catch(e){
+            console.log(e);
+        }
+      } else{
+        Alert.alert("Tem de ter no mínimo 18 anos para se registar na aplicação!");
+      } 
     }
   }
 }

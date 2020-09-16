@@ -51,7 +51,8 @@ class EditAccount extends React.Component {
         choosenDate: '',
         isVisible: false,
         isValidConfirmPassword: true,
-        isConfirmPassword: true
+        isConfirmPassword: true,
+        now: moment().format("YYYY-MM-DD")
       };
   }
 
@@ -127,7 +128,7 @@ class EditAccount extends React.Component {
       }
   }
   validStreet = (val) => {
-    if(val.trim().length < 8){
+    if(val.trim().length > 8){
         if(/^[a-zA-Z áéíóúÁÉÍÓÚãÃõÕâÂêÊîÎôÔûÛçÇ]$/.test(val)){
           this.setState({
                 isValidStreet: true,
@@ -149,8 +150,7 @@ class EditAccount extends React.Component {
         });
       }
   }
-  validTin
-   = (val) => {
+  validTin = (val) => {
       if(/^[0-9]*$/.test(val)) {
         if( val.trim().length >= 9 ) {
         this.setState({
@@ -447,6 +447,11 @@ class EditAccount extends React.Component {
             onChangeText={(val)=>this.validName(val)} 
             values = {name} 
             onEndEditing={(e)=>this.validName(e.nativeEvent.text)} />
+              { isName ? true : 
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={style.errorMsg}>O nome não é válido!</Text>
+                </Animatable.View>
+              }
               { isValidName ? true : 
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={style.errorMsg}>O nome completo tem de ter no mínimo 3 caráteres!</Text>
@@ -480,7 +485,7 @@ class EditAccount extends React.Component {
             />
               { isContact ? true :
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 números!</Text>
+                <Text style={style.errorMsg}>O contacto tem de ter no mínimo 9 e no máximo 13 números!</Text>
               </Animatable.View>
               }
               { isValidContact ? true : 
@@ -488,7 +493,7 @@ class EditAccount extends React.Component {
                   <Text style={style.errorMsg}>O contacto não pode conter letras e caráteres especiais!</Text>
                 </Animatable.View>
               }
-            <Text style={style.text}>Rua:</Text>
+            <Text style={style.text}>Morada:</Text>
             <Input inputStyle={style.inputcolor}
             placeholder="Rua"
             leftIcon={{ type: 'font-awesome', name: 'home', color:'black' }}
@@ -496,9 +501,14 @@ class EditAccount extends React.Component {
             values = {street} 
             onEndEditing={(e)=>this.validStreet(e.nativeEvent.text)}
             />
+              { isStreet ? true : 
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={style.errorMsg}>A morada tem de ter no mínimo 8 caráteres!</Text>
+              </Animatable.View>
+              }
               { isValidStreet ? true : 
               <Animatable.View animation="fadeInLeft" duration={500}>
-                <Text style={style.errorMsg}>A morada tem de ter no mínimo 14 caráteres!</Text>
+                <Text style={style.errorMsg}>A morada não é válida!</Text>
               </Animatable.View>
               }
             <Text style={style.text}>Código Postal:</Text>
@@ -645,30 +655,38 @@ _onPress = async() => {
   ]);
   return;
   }
-
-  try{
-      await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Utilizador', {  
-      method: 'POST', 
-      headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        nif: this.state.tin,
-        nome: this.state.userName,
-        data_nascimento: this.state.choosenDate,
-        sexo: this.state.sex,
-        telefone: this.state.contact,
-        rua: this.state.street,
-        codigo_postal: this.state.postalCode,
-        localizacao: this.state.location,
-        foto: this.state.photo,
-        email: this.state.email,
-        password: this.password,
-        tipo:'Cliente'
-      })
-    });
-      this.props.navigation.navigate("Account");
-    } catch(e){
-      console.log(e);
-    }      
+  if(moment.duration(moment(this.state.choosenDate,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asYears()>18){
+    let token = await AsyncStorage.getItem("token");
+    try{
+        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Utilizador', {  
+        method: 'PUT', 
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nif: this.state.tin,
+          nome: this.state.userName,
+          data_nascimento: this.state.choosenDate,
+          sexo: this.state.sex,
+          telefone: this.state.contact,
+          rua: this.state.street,
+          codigo_postal: this.state.postalCode,
+          localizacao: this.state.location,
+          foto: this.state.photo,
+          email: this.state.email,
+          password: this.password,
+          tipo:'Cliente'
+        })
+      });
+        this.props.navigation.navigate("Account");
+      } catch(e){
+        console.log(e);
+      }
+  } else{
+    Alert.alert("Tem de ter no mínimo 18 anos para se registar na aplicação!");
+  }     
 }
 }
 
