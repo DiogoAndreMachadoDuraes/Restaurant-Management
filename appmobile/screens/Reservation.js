@@ -9,9 +9,9 @@ import {
   TextInput, 
   KeyboardAvoidingView, 
   TouchableOpacity, 
-  FlatList ,
   AsyncStorage,
   Picker,
+  Alert
 } from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
 import FinalHeader from './shared/FinalHeader.js';
@@ -20,7 +20,6 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import * as Animatable from 'react-native-animatable';
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 class Reservation extends React.Component{
   constructor(){
@@ -35,18 +34,13 @@ class Reservation extends React.Component{
       quantity: "",
       code: "",
       restaurant: "",
-      take: "nao",
-      type: "Restaurante",
-      price: 5,
-      pontos: 10
+      pontos: 10,
+      chosenDate: ''
     };
   }
 
-  componentDidMount(){ 
+  async componentDidMount(){ 
     console.log("Mounting the screen Reservation...");
-  }
-  
-  getData = async () => {
     try {
       const value = await AsyncStorage.getItem("User");
       if (value !== null) {
@@ -60,8 +54,9 @@ class Reservation extends React.Component{
   handlePicked = (datetime) => {
     this.setState({ 
       isVisible: false,
-      chosenDate: moment(datetime).format('DD/MM/YYYY HH:mm')
-    })
+      chosenDate: moment(datetime).format('YYYY/MM/DD'),
+      chosenHour: moment(datetime).format('hh:mm')
+    });
     this.hidePicker();
   }
 
@@ -109,85 +104,39 @@ class Reservation extends React.Component{
     }
   }
 
-  setTake = () => {
-    if(this.state.take=="sim"){
-      return(
-        <View>
-          <FlatList
-            data={this.state.user}
-            keyExtractor={({ id }, index) => id}
-            renderItem={({ item }) => (
-              <TouchableWithoutFeedback>
-                <Text style={style.data}>Telemóvel associado:  {item.telefone}</Text>
-                <Text style={style.data}>Morada: {item.rua}, {item.codigo_postal}, {item.localizacao}</Text>
-                <Text style={style.data}>Email: {item.email}</Text>
-              </TouchableWithoutFeedback>
-            )}
-          />
-          <Text style={style.data}>Tipo de entrega: </Text>
-          <Picker
-            style={{ height: 50, width: 190, top: -45, left: 140}}
-            selectedValue={this.state.type}
-            onValueChange={(value, index) => this.setState({ type: value })}
-            mode='dropdown'
-          >
-            <Picker.Item label="Restaurante" value="Restaurante" />
-            <Picker.Item label="Domicílio" value="Domicílio" />
-          </Picker>
-          <Text style={style.data}>Preço: </Text>
-          {
-            this.price()
-          }
-        </View>
-      );
-    }else{
-      return;
-    }
-  }
-
-  price = () => {
-    if(this.state.type=="Restaurante"){
-      this.setState({ price: 5 });
-      return(
-        <Text style={{marginTop: -30, left: 80}}>5€</Text>
-      );
-    }else{
-      this.setState({ price: 10 });
-      return(
-        <Text style={{marginTop: -30, left: 80}}>15€</Text>
-      );
-    }
-  }
-
   render(){
-    {
-      this.getData();
-    }
-
-    const { validCode, validQuantity, number} = this.state;
+    const { validCode, validQuantity, number, chosenDate, name, isVisible, quantity, restaurant, user, chosenHour, code} = this.state;
+    const telephone=user.map(a=>a.telefone);
+    const email=user.map(a=>a.email);
     return (
       <View style={style.container}>
         <OwnStatusBar />
-        <OwnHeader nome={this.state.name} navigation={this.props.navigation} />
-        <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound} opacity={0.7}>
+        <OwnHeader nome={name} navigation={this.props.navigation} />
+        <ImageBackground source={require("../assets/imageBackground.jpg")} style={style.imageBackgound}>
           <ScrollView>
             <KeyboardAvoidingView behavior="padding" style={style.calendar}>
               <View style={style.reservation}>
-                <Text style={style.data}>Escolher data e hora:    {this.state.chosenDate}</Text>
-                <TouchableOpacity style={style.getHour} onPress={this.showPicked}>
-                  <Icon name="calendar" size={45}></Icon>
-                </TouchableOpacity>
+                <Text style={style.data}>
+                  <Text style={{fontWeight: 'bold'}}>Escolher data e hora: </Text>
+                  <Text>{chosenDate} {chosenHour}</Text>
+                </Text>
                 <DateTimePicker
-                  isVisible={this.state.isVisible}
+                  isVisible={isVisible}
                   mode={'datetime'}
                   onConfirm={this.handlePicked}
                   onCancel={this.hidePicker}
+                  locale="pt"
                   is24Hour={true}
                 />
-                <Text style={style.data}>Quantidade de Pessoas: </Text>
+                <TouchableOpacity style={style.getHour} onPress={this.showPicked}>
+                  <Icon name="calendar" size={45}></Icon>
+                </TouchableOpacity>
+                <Text style={style.data}>
+                  <Text style={{fontWeight: 'bold'}}>Quantidade de Pessoas: </Text>
+                </Text>
                 <TextInput style={{ height: 40, width: 120, borderColor: 'gray', borderWidth: 1, top: -40, marginLeft: 200 }}
                   onChangeText={(val) => this.validQuantity(val)}
-                  values={this.state.quantity}
+                  values={quantity}
                   onSubmitEditing={(val) => this.validQuantity(val)}
                   onEndEditing={(e)=>this.validQuantity(e.nativeEvent.text)}
                 />
@@ -204,10 +153,12 @@ class Reservation extends React.Component{
                         <Text style={style.invalidQuantity}>A quantidade tem de ser menor do que 1000!</Text>
                     </Animatable.View>
                 }
-                <Text style={style.data}>Restaurante: </Text>
+                <Text style={style.data}>
+                  <Text style={{fontWeight: 'bold'}}>Restaurante: </Text>
+                </Text>
                 <Picker
                   style={{ height: 50, width: 190, top: -45, left: 120}}
-                  selectedValue={this.state.restaurant}
+                  selectedValue={restaurant}
                   onValueChange={(value, index) => this.setState({ restaurant: value})}
                   mode='dropdown'
                 >
@@ -215,28 +166,37 @@ class Reservation extends React.Component{
                   <Picker.Item label="Bragança" value="Sabor da Avó - Bragança" />
                   <Picker.Item label="Felgueiras" value="Sabor da Avó - Felgueiras" />
                 </Picker>
-                <Text style={style.data}>Take Away: </Text>
-                <Picker
-                  style={{ height: 50, width: 100, top: -45, left: 120}}
-                  selectedValue={this.state.take}
-                  onValueChange={(value, itemIndex) => this.setState({take: value})}
-                  mode='dropdown'
-                >
-                  <Picker.Item label="Não" value="nao" />
-                  <Picker.Item label="Sim" value="sim" />
-                </Picker>
+                <Text style={style.telephone}>
+                  <Text style={{fontWeight: 'bold'}}>Telemóvel associado:  </Text>
+                  <Text>{telephone}</Text>
+                </Text>
+                <Text style={style.email}>
+                  <Text style={{fontWeight: 'bold'}}>Email: </Text>
+                  <Text>{email}</Text>
+                </Text>
+                <Text style={style.data}>
+                  <Text style={{fontWeight: 'bold'}}>Código de desconto: </Text>
+                </Text>
+                <TextInput style={{ height: 40, width: 120, borderColor: 'gray', borderWidth: 1, top: -40, marginLeft: 200 }}
+                  onChangeText={(val) => this.validCode(val)}
+                  values={code}
+                  onSubmitEditing={(val) => this.validCode(val)}
+                  onEndEditing={(e)=>this.validCode(e.nativeEvent.text)}
+                />
                 { 
-                  this.setTake()
+                  validCode ? true : 
+                    <Animatable.View animation="fadeInLeft" duration={500}>
+                      <Text style={style.invalidCode}>O código não é válido!</Text>
+                    </Animatable.View>
                 }
-                
               </View>
             </KeyboardAvoidingView>
             <View style={style.button}>
               <Button
                 style={style.button}
                 title="Reservar"
-                color="black"
-                onPress={this._onPress}
+                color="tomato"
+                onPress={() => this._onPress(chosenDate, chosenHour)}
               />
             </View>
             <FinalHeader />
@@ -246,89 +206,91 @@ class Reservation extends React.Component{
     );
   }
 
-  _onPress = async() => {
-    /*
-    try {
-      let response = await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Cliente', { 
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      let json = await response.json();
-      this.setState({
-        isLoading: false,
-        data: json
-      });
-    } catch(e){
+  _onPress = async(chosenDate, chosenHour) => {
+    if(this.state.validQuantity!=true){
+      Alert.alert('Valores incorretos', '    A quantidade não está correta', [
+        {text: 'Voltar a tentar'}
+      ]);
+    }else{
+      let token = await AsyncStorage.getItem("token");
+      try {
+        let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Cliente', { 
+          headers: {
+            Authorization: 'Bearer ' + token,
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        let json = await response.json();
+        this.setState({
+          data: json
+        });
+      } catch(e){
         console.log("Error to get data: " + e);
-    }
+      }
 
-    const { data } = this.state;
+      const { data, quantity, user } = this.state;
+      const userID=user.map(a=>a.id_utilizador);
+      const cliente=data.filter(a=>a.id_utilizador==userID).map(a=>a.id_cliente);
 
-    console.log(data);
-    
-    const cliente=data.filter(a=>a.id_utilizador==user.id_utilizador).map(a=>a.id_cliente);
-
-    try
-    {
-      await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Reserva', { 
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "data": moment(datetime).format('YYYY/MM/DD'),
-          "hora": moment(datetime).format('HH:mm:ss'),
-          "quantidade_pessoas": this.state.quantity,
-          "data_marcada": this.state.chosenDate.format('YYYY/MM/DD'),
-          "hora_marcada": this.state.chosenDate.format('HH:mm:ss'),
-          "estado": "Em análise",
-          "id_cliente": cliente[0]
-        })
-      });
-    } catch(e){
-      console.log(e);
-    }
-
-    if (this.state.take == "sim") {
-      try
-      {
-        await fetch('http://192.168.1.69/Ementas-de-Restauracao/index.php/Take_away', { 
+      moment.locale('pt');
+      try{
+        let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
           method: 'POST',
           headers: {
+            Authorization: 'Bearer ' + token,
             Accept: 'application/json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            "tipo": this.state.type,
-            "preco": this.state.price,
+            "data": moment().format('YYYY/MM/DD'),
+            "hora": moment().format('HH:mm:ss'),
+            "quantidade_pessoas": quantity,
+            "data_marcada": chosenDate,
+            "hora_marcada": chosenHour,
             "estado": "Em análise",
-            "id_funcionario": null,
-            "id_reserva": null,
+            "id_cliente": cliente[0]
           })
         });
+        let reserveId = await response.json();
+        Alert.alert(
+          "Take Away",
+          'Deseja requer um take away?',
+          [
+            {
+              text: "Sim",
+              onPress: () => this.checkoutTakeAway(chosenDate, chosenHour, reserveId)
+            },
+            {
+              text: "Não",
+              onPress: () => this.checkout(chosenDate, chosenHour)
+            }
+          ]
+        );
       } catch(e){
-        console.log(e);
+        console.log("Error to Post Reserva: " + e);
+        Alert.alert('Erro', 'Aconteceu um erro ao tentar fazer a sua reserva, contacte o Restaurante!', [
+          {text: 'Ok'}
+        ]);
       }
-      this.props.navigation.navigate("AfterShop", {
-        id_reserva: ,
-        data_marcada: this.state.chosenDate.format('YYYY/MM/DD'),
-        hora_marcada: this.state.chosenDate.format('HH:mm:ss'),
-        foto: ,
-      });
     }
-    else{
-      this.props.navigation.navigate("AfterShop", {
-        id_reserva: ,
-        data_marcada: this.state.chosenDate.format('YYYY/MM/DD'),
-        hora_marcada: this.state.chosenDate.format('HH:mm:ss'),
-        foto: ,
-      });
-    }
-    */
-    //this.props.navigation.navigate("AfterShop");
+  }
+
+  checkoutTakeAway(chosenDate, chosenHour, reserveId){
+    console.log(chosenDate);
+    this.props.navigation.navigate("CreateTakeAway", { 
+      date: chosenDate,
+      hour: chosenHour,
+      reserveID: reserveId
+    });
+  }
+
+  checkout(chosenDate, chosenHour){
+    console.log(chosenDate);
+    this.props.navigation.navigate("AfterShop", { 
+      date: chosenDate,
+      hour: chosenHour 
+    });
   }
 }
 
@@ -345,9 +307,9 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   reservation: {
-    height: 800,
+    height: 480,
     width: 360,
-    marginTop: 10,
+    marginTop: 50,
     backgroundColor: "lightgray"
   },
   data: {
@@ -368,11 +330,26 @@ const style = StyleSheet.create({
     marginLeft: 300,
     marginVertical: 10
   },
+  telephone: {
+    marginTop: -10,
+    marginLeft: 20,
+    marginVertical: 10,
+    fontSize: 15,
+  },
+  email: {
+    marginTop: 40,
+    marginLeft: 20,
+    marginVertical: 10,
+    fontSize: 15,
+    marginBottom: 40
+  },
   button: {
     width: 100,
     height: 100,
-    left: 240,
-    top: 50
+    left: 270,
+    top: 50,
+    marginBottom: -50,
+    color:"tomato"
   },
   invalidQuantity: {
     color: '#FF0000',

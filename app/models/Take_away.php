@@ -8,7 +8,7 @@ namespace App\Models;
         private string $tipo_entrega;
         private float $preco;
         private string $estado;
-        private int $id_funcionario;
+        private $id_funcionario;
         private int $id_reserva;
 
         //get e set id
@@ -67,11 +67,11 @@ namespace App\Models;
         }
 
          //get e set id_funcionario
-         public function getid_funcionario(): int
+         public function getid_funcionario()
          {
              return $this->id_funcionario;
          }
-         public function setid_funcionario(int $id_funcionario): self
+         public function setid_funcionario($id_funcionario): self
          {
              $this->id_funcionario = $id_funcionario;
              return $this;

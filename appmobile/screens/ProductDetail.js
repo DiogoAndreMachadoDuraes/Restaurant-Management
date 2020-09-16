@@ -10,13 +10,15 @@ import {
     Image, 
     ActivityIndicator, 
     FlatList,
-    AsyncStorage
+    AsyncStorage,
+    Button
 } from "react-native";
 import { Icon, colors } from "react-native-elements";
 import OwnStatusBar from "./shared/OwnStatusBar";
 import FinalHeader from "./shared/FinalHeader";
 import { ProgressChart } from "react-native-chart-kit";
 import Category from "./shared/Category.js";
+import CategoryExtra from "./shared/CategoryExtra.js";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -108,6 +110,14 @@ class ProductDetail extends React.Component{
             console.log("Error to get Info Nutricional: " + e);
         }
     }
+    
+    goShop(name, photo, price, description){
+        AsyncStorage.setItem("productName", name);
+        AsyncStorage.setItem("description", description);
+        AsyncStorage.setItem("photo", photo);
+        AsyncStorage.setItem("price", price);
+        this.props.navigation.navigate("Shop");
+    }
 
     render(){
         const { ingredient, productExtra, aller, info, isLoadingInfo, isLoadingAller, isLoadingExtra, isLoadingProduct } = this.state;
@@ -122,7 +132,7 @@ class ProductDetail extends React.Component{
         const allergenio= aller.filter(a=>a.id_produto==idProduct).map(a=>a);
 
         const data = {
-            labels: [type[0], type[1], type[2], type[3]],
+            labels: [type[0], type[1], "Glicídios", type[3]],
             data: [(quantity[0]/2000), (quantity[1]/70), (quantity[2]/260), (quantity[3]/50)]
         };
 
@@ -138,20 +148,17 @@ class ProductDetail extends React.Component{
         return (
             <View style={style.container}>
             <OwnStatusBar />
-            <ImageBackground source={require("../assets/imageBackground.jpg")} opacity={0.4} style={style.imageBackground}>
+            <ImageBackground source={require("../assets/imageBackground.jpg")} opacity={0.6} style={style.imageBackground}>
             <ScrollView>
                 <View style={style.arrow}>
-                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.navigate("ProductDetail")} color={"black"} size={45}/>
-                </View>
-                <View style={style.shop}>
-                    <Icon name="local-grocery-store" onPress={()=>this.props.navigation.navigate("Shop")} color={"black"} size={40}/>
+                    <Icon name="keyboard-backspace" onPress={()=>this.props.navigation.goBack()} color={"white"} size={45}/>
                 </View>
                 <View>
                     <Text style={style.title}>{name}</Text>
                     <Image source={{uri:''+photo+''}} style={style.image}/>
                     <Text style={style.text}>{description}</Text>
                 </View>
-                <TouchableOpacity style={style.button} onPress={() => this.props.navigation.navigate("Shop")}>
+                <TouchableOpacity style={style.button} onPress={() => this.goShop(name, photo, price, description)}>
                     <Text style={style.buttonText}>Adicionar ao carrinho</Text>
                 </TouchableOpacity>
 
@@ -160,7 +167,7 @@ class ProductDetail extends React.Component{
                     {
                         ingredients.map((item) => {
                             return (
-                                <Category image={{ uri: '' + item.foto + '' }} name={item.nome}  />
+                                <CategoryExtra image={{ uri: '' + item.foto + '' }} name={item.tipo} description={item.nome} />
                             );
                         })
                     }
@@ -189,19 +196,17 @@ class ProductDetail extends React.Component{
                     )
                 }
                 <Text style={style.infoText}>Alergénios</Text>
-                {
-                    isLoadingAller ? <ActivityIndicator/> : (
-                    <FlatList
-                        data={allergenio}
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={({ item }) => (
-                            <View>
-                                <Text style={style.textAller}>{item.tipo} - {item.descricao}</Text>
-                            </View>
-                        )}
-                    />
-                    )
-                }
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{top: -20}}>
+                        {
+                            allergenio.map((item) => {
+                                return (
+                                    <View>
+                                        <Category image={{ uri: '' + item.foto + '' }} name={item.tipo}  description={item.descricao}/>
+                                    </View>
+                                );
+                            })
+                        }
+                    </ScrollView>
                 <FinalHeader />
                 </ScrollView>
                 </ImageBackground>
@@ -217,7 +222,8 @@ const style = StyleSheet.create({
     imageBackground: {
         flex:1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'black',
     },
     image: {
         width: 300,
@@ -232,7 +238,7 @@ const style = StyleSheet.create({
         marginLeft: 50
     },
     title: {
-        color: "#fff",
+        color: "tomato",
         fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -243,21 +249,20 @@ const style = StyleSheet.create({
         height: 300
     },
     arrow: {
-        backgroundColor: "white",
+
         left: 20,
         marginRight:350,
         marginTop: 45,
         borderRadius: 10
     },
     shop: {
-        backgroundColor: "white",
         right:20,
         marginLeft: 350,
         marginTop: -45,
         borderRadius: 10
     },
     text: {
-        color: "#000",
+        color: "white",
         fontSize: 18,
         fontStyle: "italic",
         textAlign: 'center',
@@ -291,7 +296,7 @@ const style = StyleSheet.create({
         top: 50
     },
     infoText: {
-        color: "#fff",
+        color: "white",
         fontSize: 28,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -306,7 +311,7 @@ const style = StyleSheet.create({
     },
     textAller: {
         marginTop: 20,
-        color: "#000",
+        color: "white",
         fontSize: 18,
         fontStyle: "italic",
         textAlign: 'center',

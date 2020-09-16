@@ -10,7 +10,7 @@ namespace App\DAO;
             parent::__construct();
         }
 
-        public function Insert(Reserva $reserva) : void
+        public function Insert(Reserva $reserva) : int
         {
             $statement=$this->pdo
                 ->prepare('INSERT INTO Reserva VALUES (
@@ -32,6 +32,8 @@ namespace App\DAO;
                 'estado' => $reserva->get_estado(),
                 'id_cliente' => $reserva->get_id_cliente()
             ]);
+            $id=$this->pdo->lastInsertId();
+            return $id;
         }
 
         public function Select() : array

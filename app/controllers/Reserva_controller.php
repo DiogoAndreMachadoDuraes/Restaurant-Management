@@ -22,9 +22,10 @@ namespace App\Controllers;
                 ->set_hora_marcada($data['hora_marcada'])
                 ->set_estado($data['estado'])
                 ->set_id_cliente($data['id_cliente']);
-            $reserva_dao->Insert($reserva);
+            $id=$reserva_dao->Insert($reserva);
+            $json=json_encode($id, JSON_UNESCAPED_UNICODE);
 
-            $response->getBody()->write("Reserva created!");
+            $response->getBody()->write($json);
             return $response;
         }
 
@@ -52,7 +53,6 @@ namespace App\Controllers;
                 ->set_hora_marcada($data['hora_marcada'])
                 ->set_estado($data['estado'])
                 ->set_id_cliente($data['id_cliente']);
-            $reserva_dao->Insert($reserva);
             $reserva_dao->Update($reserva);
 
             $response->getBody()->write("Reserva updated!");

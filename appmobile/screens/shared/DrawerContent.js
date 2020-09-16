@@ -148,41 +148,6 @@ export function DrawerContent(props){
                             onPress={() => {props.navigation.navigate('Product')}}
                             labelStyle={style.dark}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="ballot-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Reservar"
-                            onPress={() => {props.navigation.navigate('Reservation')}}
-                            labelStyle={style.dark}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="book-open-page-variant" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Faturas"
-                            onPress={() => {props.navigation.navigate('Invoice')}}
-                            labelStyle={style.dark}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="book-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Lista de desejos"
-                            labelStyle={style.dark}
-                        />
                     </Drawer.Section>
                     <Drawer.Section title="Preferências">
                         <TouchableRipple onPress={() => { toggle() }}>
@@ -217,36 +182,24 @@ export function DrawerContent(props){
                                         size={size}
                                         />
                                     )}
-                                    label="Ver Reservas"
+                                    label="Reservas"
                                     onPress={() => {props.navigation.navigate('ShowReservation')}}
-                                    labelStyle={style.dark}
-                                />
-                            </View>
-                        </TouchableRipple>
-                    </Drawer.Section>
-                    <Drawer.Section title="Definições">
-                            <DrawerItem 
-                                    icon={({color, size}) => (
-                                        <Icon 
-                                        name="account-check-outline" 
-                                        color={color}
-                                        size={size}
-                                        />
-                                    )}
-                                    label="Suporte"
                                     labelStyle={style.dark}
                                 />
                                 <DrawerItem 
                                     icon={({color, size}) => (
                                         <Icon 
-                                        name="settings-outline" 
+                                        name="book-open-page-variant" 
                                         color={color}
                                         size={size}
                                         />
                                     )}
-                                    label="Definições"
-                                    labelStyle={theme.dark ? style.dark: style.normal}
+                                    label="Faturas"
+                                    onPress={() => {props.navigation.navigate('Invoice')}}
+                                    labelStyle={style.dark}
                                 />
+                            </View>
+                        </TouchableRipple>
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
