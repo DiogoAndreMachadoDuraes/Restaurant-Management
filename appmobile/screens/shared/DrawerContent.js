@@ -1,5 +1,10 @@
-import React from "react";
-import {StyleSheet, View, ImageBackground } from "react-native";
+import React, { useEffect, useState }  from "react";
+import {
+    StyleSheet, 
+    View, 
+    ImageBackground, 
+    AsyncStorage
+} from "react-native";
 import {
     Avatar,
     Drawer,
@@ -13,21 +18,67 @@ import {
 } from '@react-navigation/drawer';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
-
-const avatar = { uri: "https://cdn4.iconfinder.com/data/icons/avatars-circle-2/72/146-512.png" };
+import { useTheme } from "@react-navigation/native";
+import { ToggleTheme } from '../../components/context';
 
 export function DrawerContent(props){
 
-    const [ isDark, setTheme]= React.useState(false);
-    const toggleTheme = () => {
-        setTheme(!isDark);
-    }
+    const theme= useTheme();
+
+    const { toggle } = React.useContext(ToggleTheme);
+    
+    const [name, setName] = useState();
+    const [foto, setFoto] = useState();
+    const [clearAll, setClear] = useState();
+
+    const dataName = async () => {
+        try {
+            let name = await AsyncStorage.getItem("Name");
+            if (name !== null) {
+                setName(name);
+            }
+        } catch (e) {
+            console.log("Error rending name: " + e);
+        }
+    };
+
+    const dataFoto = async () => {
+        try {
+            let foto = await AsyncStorage.getItem("Foto");
+            if (foto !== null) {
+                setFoto(foto);
+            }
+        } catch (e) {
+            console.log("Error rending foto: " + e);
+        }
+    };
+
+    const clear = async () => {
+        try {
+            await AsyncStorage.clear();
+            props.navigation.navigate('Login');
+        } catch (e) {
+            console.log("Error to clear all data: " + e);
+        }
+    };
+
+    useEffect(() =>{
+        dataName();
+    }, [])
+
+    useEffect(() =>{
+        dataFoto();
+    }, [])
+
+    useEffect(() =>{
+        clear();
+    }, [])
 
     return (
         <View style={style.container}>
             <DrawerContentScrollView {...props}>
-                <View style={style.menuIniciar}>
-                    <View style={style.infoEmpresa}>
+                <View style={style.menuHome}>
+                    <View style={theme.dark ? style.infoLogoDark : style.infoLogo}>
                         <View style={style.logoBack}>
                             <ImageBackground source={require('../../assets/logo.png')} style={style.logo} />
                         </View>
@@ -43,9 +94,9 @@ export function DrawerContent(props){
                             )}
                             label="Sabor da Avó"
                             onPress={() => {props.navigation.navigate('Home')}}
-                            labelStyle={style.title}
+                            labelStyle={style.dark}
                             activeBackgroundColor= "#556b2f"
-                            activeTintColor= "#fff"
+                            activeTintColor= "#556b2f"
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -56,8 +107,22 @@ export function DrawerContent(props){
                                 />
                             )}
                             label="Restaurantes"
-                            onPress={() => {props.navigation.navigate('Restaurantes')}}
-                            labelStyle={style.title}
+                            onPress={() => {props.navigation.navigate('Restaurant')}}
+                            labelStyle={style.dark}
+                            activeBackgroundColor= "#556b2f"
+                            activeTintColor= "#556b2f"
+                        />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="food-fork-drink" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Ementas"
+                            onPress={() => {props.navigation.navigate('SpecialMenu')}}
+                            labelStyle={style.dark}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -69,50 +134,27 @@ export function DrawerContent(props){
                             )}
                             label="Menus"
                             onPress={() => {props.navigation.navigate('Menu')}}
-                            labelStyle={style.title}
+                            labelStyle={style.dark}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="food-fork-drink" 
+                                name="food-variant" 
                                 color={color}
                                 size={size}
                                 />
                             )}
                             label="Produtos"
-                            onPress={() => {props.navigation.navigate('Extras')}}
-                            labelStyle={style.title}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="ballot-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Reserva"
-                            onPress={() => {props.navigation.navigate('Reserva')}}
-                            labelStyle={style.title}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="book-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Lista de desejos"
-                            labelStyle={style.title}
+                            onPress={() => {props.navigation.navigate('Product')}}
+                            labelStyle={style.dark}
                         />
                     </Drawer.Section>
-                    <Drawer.Section title="Preferencias">
-                        <TouchableRipple onPress={() => {toggleTheme()}}>
-                            <View style={style.preferencias}>
-                                <Text style={style.title}>Dark Theme</Text>
+                    <Drawer.Section title="Preferências">
+                        <TouchableRipple onPress={() => { toggle() }}>
+                            <View style={style.preferences}>
+                                <Text style={style.dark}>Tema escuro</Text>
                                     <View pointerEvents="none">
-                                        <Switch value={isDark}/>
+                                        <Switch value={theme.dark} color="#556b2f"/> 
                                     </View>
                             </View>
                         </TouchableRipple>
@@ -123,44 +165,45 @@ export function DrawerContent(props){
                                 <DrawerItem 
                                     icon={({size}) => (
                                         <Avatar.Image 
-                                        source={avatar}
+                                        source={{uri:''+foto+''}}
                                         size={size}
                                         />
+                                        
                                     )}
-                                    label="Perfil"
-                                    onPress={() => {props.navigation.navigate('Login')}}
-                                    labelStyle={style.title}
-                                />
-                            </View>
-                        </TouchableRipple>
-                    </Drawer.Section>
-                    <Drawer.Section title="Definições">
-                            <DrawerItem 
-                                    icon={({color, size}) => (
-                                        <Icon 
-                                        name="account-check-outline" 
-                                        color={color}
-                                        size={size}
-                                        />
-                                    )}
-                                    label="Suporte"
-                                    labelStyle={style.title}
+                                    label={''+name+''}
+                                    onPress={() => {props.navigation.navigate('Account')}}
+                                    labelStyle={style.dark}
                                 />
                                 <DrawerItem 
                                     icon={({color, size}) => (
                                         <Icon 
-                                        name="settings-outline" 
+                                        name="ballot-outline" 
                                         color={color}
                                         size={size}
                                         />
                                     )}
-                                    label="Definições"
-                                    labelStyle={style.title}
+                                    label="Reservas"
+                                    onPress={() => {props.navigation.navigate('ShowReservation')}}
+                                    labelStyle={style.dark}
                                 />
+                                <DrawerItem 
+                                    icon={({color, size}) => (
+                                        <Icon 
+                                        name="book-open-page-variant" 
+                                        color={color}
+                                        size={size}
+                                        />
+                                    )}
+                                    label="Faturas"
+                                    onPress={() => {props.navigation.navigate('Invoice')}}
+                                    labelStyle={style.dark}
+                                />
+                            </View>
+                        </TouchableRipple>
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
-            <Drawer.Section style={{borderTopWidth: 0.5, borderTopColor: "black", top: 10}}>
+            <Drawer.Section style={style.exit}>
                 <DrawerItem 
                     icon={({color, size}) => (
                         <Icon 
@@ -171,7 +214,8 @@ export function DrawerContent(props){
                     )}
                     label="Sair da conta"
                     labelStyle={{color: 'white'}}
-                    style={{ backgroundColor: '#556b2f' }}
+                    onPress={()=>clear}
+                    style={theme.dark ? style.exitButtonDark : style.exitButton}
                 />
             </Drawer.Section>
         </View>
@@ -182,13 +226,18 @@ const style = StyleSheet.create({
     container:{
         flex:1
     },
-    menuIniciar: {
+    menuHome: {
         flex: 1
     },
-    infoEmpresa: {
+    infoLogo: {
         top: -30, 
         paddingVertical: 40, 
         backgroundColor: "#556b2f"
+    },
+    infoLogoDark: {
+        top: -30, 
+        paddingVertical: 40, 
+        backgroundColor: "#444444"
     },
     logoBack:{
         justifyContent: "center",
@@ -205,16 +254,39 @@ const style = StyleSheet.create({
         height: 230
     },
     menus: {
-        marginTop: -15,
+        marginTop: -29,
     },
-    preferencias: {
+    preferences: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingVertical: 12,
       paddingHorizontal: 16
     },
-    title:{
-        color: '#556b2f',
+    dark:{
+        color: 'gray',
         fontStyle: "italic",
+    },
+    normal:{
+        color: '#444444',
+        fontStyle: "italic",
+    },
+    exit:{
+        marginBottom: 10,
+        borderTopWidth: 4,
+        borderTopColor: "dimgray", 
+        top: 10, 
+        justifyContent:"center"
+    },
+    exitButton:{ 
+        top: 2,
+        backgroundColor: '#556b2f', 
+        justifyContent:"center", 
+        alignItems:"center" 
+    },
+    exitButtonDark:{ 
+        top: 2,
+        backgroundColor: '#444444', 
+        justifyContent:"center", 
+        alignItems:"center" 
     }
-  });
+});

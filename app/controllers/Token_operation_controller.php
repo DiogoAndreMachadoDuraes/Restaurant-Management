@@ -49,7 +49,9 @@ namespace App\Controllers;
             $token_dao= new Token_dao();
             $token_dao->Insert($token_model);
 
+
             $response->getBody()->write($token);
+
             return $response;
         }
     }

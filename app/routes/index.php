@@ -131,7 +131,6 @@
             $app->delete('/Take_away',Take_away_controller::class . ':Delete');
 
             $app->get('/Utilizador',Utilizador_controller::class . ':Select');
-            $app->post('/Utilizador',Utilizador_controller::class . ':Insert');
             $app->put('/Utilizador', Utilizador_controller::class . ':Update');
             $app->delete('/Utilizador', Utilizador_controller::class . ':Delete');
 
