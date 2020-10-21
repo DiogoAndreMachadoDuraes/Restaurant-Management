@@ -23,7 +23,7 @@ import { HeaderWihoutShop } from './shared/HeaderWihoutShop.js';
     console.log("Mounting the screen Invoice...");
     let token = await AsyncStorage.getItem("token");
     try {
-      let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Fatura', { 
+      let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Fatura', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',

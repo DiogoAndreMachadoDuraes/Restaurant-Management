@@ -37,7 +37,7 @@ class ShowReservation extends React.Component{
 
     let token = await AsyncStorage.getItem("token");
     try {
-      let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Take_away', { 
+      let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Take_away', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',
@@ -54,7 +54,7 @@ class ShowReservation extends React.Component{
     }
 
     try {
-      let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Cliente', { 
+      let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Cliente', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',
@@ -71,7 +71,7 @@ class ShowReservation extends React.Component{
     }
 
     try {
-      let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
+      let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Reserva', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',

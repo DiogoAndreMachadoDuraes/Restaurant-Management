@@ -214,7 +214,7 @@ class Reservation extends React.Component{
     }else{
       let token = await AsyncStorage.getItem("token");
       try {
-        let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Cliente', { 
+        let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Cliente', { 
           headers: {
             Authorization: 'Bearer ' + token,
             Accept: 'application/json',
@@ -235,7 +235,7 @@ class Reservation extends React.Component{
 
       moment.locale('pt');
       try{
-        let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Reserva', { 
+        let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Reserva', { 
           method: 'POST',
           headers: {
             Authorization: 'Bearer ' + token,

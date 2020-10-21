@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Text,View,ScrollView, Button, TextInput, ImageBackground, KeyboardAvoidingView, AsyncStorage, Alert} from "react-native";
+import { StyleSheet, Text,View,ScrollView, Button, TextInput, Picker, TouchableOpacity, ImageBackground, KeyboardAvoidingView, AsyncStorage, Alert} from "react-native";
 import { OwnHeader } from './shared/OwnHeader.js';
 import FinalHeader from './shared/FinalHeader.js';
 import OwnStatusBar from "./shared/OwnStatusBar.js";
 import moment from 'moment';
-import { TouchableWithoutFeedback, TouchableOpacity } from "react-native-gesture-handler";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
@@ -18,7 +17,8 @@ class EditReservation extends React.Component{
             validQuantity: true,
             number: true,
             newQuantity: "",
-            chosenDate: ''
+            chosenDate: '',
+            restaurant:''
         };
     }
     async componentDidMount(){ 
@@ -63,7 +63,7 @@ class EditReservation extends React.Component{
     render(){
         const { navigation, route } = this.props;
         const { reservationId, date, hour, quantity, state, clientId } = route.params; 
-        const {chosenDate, chosenHour, newQuantity, isVisible} = this.state;
+        const {chosenDate, chosenHour, newQuantity, isVisible, number, validQuantity, restaurant} = this.state;
         return (
             <View style={style.container}>
                 <OwnStatusBar />
@@ -146,7 +146,7 @@ class EditReservation extends React.Component{
             let token = await AsyncStorage.getItem("token");
             try
             {
-                await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Reserva', { 
+                await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Reserva', { 
                     method: 'PUT',
                     headers: {
                         Authorization: 'Bearer ' + token,

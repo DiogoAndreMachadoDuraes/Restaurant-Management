@@ -42,7 +42,7 @@ class ProductDetail extends React.Component{
 
         let token = await AsyncStorage.getItem("token");
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Extra', { 
+            let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Extra', { 
               headers: {
                 Authorization: 'Bearer ' + token,
                 Accept: 'application/json',
@@ -59,7 +59,7 @@ class ProductDetail extends React.Component{
         }
 
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Produto_extra', { 
+            let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Produto_extra', { 
               headers: {
                 Authorization: 'Bearer ' + token,
                 Accept: 'application/json',
@@ -76,7 +76,7 @@ class ProductDetail extends React.Component{
         }
 
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Info_nutricional', { 
+            let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Info_nutricional', { 
               headers: {
                 Authorization: 'Bearer ' + token,
                 Accept: 'application/json',
@@ -93,7 +93,7 @@ class ProductDetail extends React.Component{
         }
 
         try {
-            let response = await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Alergenio', { 
+            let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Alergenio', { 
               headers: {
                 Authorization: 'Bearer ' + token,
                 Accept: 'application/json',

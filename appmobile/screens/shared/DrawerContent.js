@@ -214,7 +214,7 @@ export function DrawerContent(props){
                     )}
                     label="Sair da conta"
                     labelStyle={{color: 'white'}}
-                    onPress={()=>clear}
+                    onPress={()=>{props.navigation.navigate('Login')}}
                     style={theme.dark ? style.exitButtonDark : style.exitButton}
                 />
             </Drawer.Section>

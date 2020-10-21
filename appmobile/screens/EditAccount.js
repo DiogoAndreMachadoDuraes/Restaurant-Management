@@ -367,7 +367,7 @@ class EditAccount extends React.Component {
 
   render()
     { 
-      const { image, name, email, isValidName, isEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;  
+      const { image, name, email, isName, isStreet, isValidName, isEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;  
  
     return (
       <View style={style.container}>
@@ -658,7 +658,7 @@ _onPress = async() => {
   if(moment.duration(moment(this.state.choosenDate,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asYears()>18){
     let token = await AsyncStorage.getItem("token");
     try{
-        await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Utilizador', {  
+        await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Utilizador', {  
         method: 'PUT', 
         headers: {
           Authorization: 'Bearer ' + token,

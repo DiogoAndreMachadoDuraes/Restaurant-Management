@@ -351,7 +351,7 @@ class CreateAccount extends React.Component {
   }
   render()
   { 
-    const { photo, name, email, isValidName, isEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;  
+    const { photo, name, isStreet, isName, email, isValidName, isEmail, isValidEmail, isContact, contact, isValidContact, street, isValidStreet, postalCode, isPostalCode, isValidPostalCode, location, isLocation, isValidLocation, tin, isValidTin, isTin, sex, password, isValidPassword, isConfirmPassword, isValidConfirmPassword, confirmPassword, chosenDate, isVisible, check } = this.state;  
       return (
         <View style={style.container}>
           <Header
@@ -656,7 +656,7 @@ class CreateAccount extends React.Component {
       if(moment.duration(moment(this.state.choosenDate,"YYYY-MM-DD").diff(moment(this.state.now, "YYYY-MM-DD"))).asYears()>18){
         try
           {
-            let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Registar', {  
+            let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Registar', {  
             method: 'POST', 
             headers: {
               Accept: 'application/json', 

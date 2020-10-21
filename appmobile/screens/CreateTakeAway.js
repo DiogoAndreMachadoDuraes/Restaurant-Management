@@ -123,7 +123,7 @@ class CreateTakeAway extends React.Component{
         let token = await AsyncStorage.getItem("token");
         if(type=="Restaurante"){
             try{
-                let response=await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Take_away', { 
+                let response=await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Take_away', { 
                 method: 'POST',
                 headers: {
                     Authorization: 'Bearer ' + token,
@@ -145,7 +145,7 @@ class CreateTakeAway extends React.Component{
             }
         } else{
             try{
-                await fetch('http://192.168.1.117/Ementas-de-Restauracao/index.php/Take_away', { 
+                await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Take_away', { 
                 method: 'POST',
                 headers: {
                     Authorization: 'Bearer ' + token,

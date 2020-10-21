@@ -21,7 +21,7 @@ class Account extends React.Component {
         console.log("Mounting the screen Account...");
         let token = await AsyncStorage.getItem("token");
     try {
-      let response = await fetch('http://192.168.1.78/Ementas-de-Restauracao/index.php/Cliente', { 
+      let response = await fetch('http://194.210.89.189/Ementas-de-Restauracao/index.php/Cliente', { 
         headers: {
           Authorization: 'Bearer ' + token,
           Accept: 'application/json',
